@@ -14,3 +14,13 @@
 Route::get('/', function () {
     return view('welcome');
 });
+/*
+|--------------------------------------------------------------------------
+| Dashboard Routes
+|--------------------------------------------------------------------------
+*/
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/{vue_capture?}', function () {
+        return view('admin.index');
+    })->where('vue_capture', '[\/\w\.-]*');
+});
