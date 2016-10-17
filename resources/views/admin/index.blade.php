@@ -21,11 +21,13 @@
         <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body class="skin-blue sidebar-mini">
+<body class="skin-blue sidebar-mini fixed">
     <div id="body">
-        <example></example>
     </div>
+    <script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
     <script src="{{ asset('/js/app.js') }}"></script>
+    {{-- <!-- admin-lte JS--> --}}
+    <script src="//cdn.bootcss.com/admin-lte/2.3.6/js/app.min.js"></script>
     {{-- <!-- 页面滚动插件 SlimScroll--> --}}
     <script src="//cdn.bootcss.com/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
     {{-- <!-- 快速点击插件 fastClick--> --}}
