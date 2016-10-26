@@ -42,14 +42,14 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="active">
-                        <router-link to="/foo"><i class="fa fa-wrench"></i>系统设置</router-link>
+                    <li>
+                        <router-link to="/system"><i class="fa fa-wrench"></i>系统设置</router-link>
                     </li>
                     <li>
-                        <router-link to="/bar"><i class="fa fa-cogs"></i>配置管理</router-link>
+                        <router-link to="/config"><i class="fa fa-cogs"></i>配置管理</router-link>
                     </li>
                     <li>
-                        <router-link to="/foo"><i class="fa fa-upload"></i>上传管理</router-link>
+                        <router-link to="/upload"><i class="fa fa-upload"></i>上传管理</router-link>
                     </li>
                 </ul>
             </li>
@@ -77,3 +77,8 @@
     <!-- /.sidebar -->
 </aside>
 </template>
+<style>
+.router-link-active {
+    color: #fff !important;
+}
+</style>
