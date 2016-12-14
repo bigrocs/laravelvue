@@ -5,9 +5,16 @@
     </div>
     <div class="col-md-6 col-sm-12">
         <el-switch
-          v-model="datas.value"
-          on-color="#13ce66"
-          off-color="#ff4949">
+            :disabled="datas.disabled"
+            :width="datas.width"
+            :on-icon-class="datas.onIconClass"
+            :off-icon-class="datas.offIconClass"
+            :on-text="datas.onText"
+            :off-text="datas.offText"
+            :on-color="datas.onColor"
+            :off-color="datas.offColor"
+            :name="datas.name"
+            v-model="datas.value">
         </el-switch>
     </div>
     <div class="col-md-6 col-sm-12">

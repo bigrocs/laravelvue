@@ -1,13 +1,13 @@
 <template>
 <div class="">
     <div class="form-group" v-for="formData in formDatas">
-        <div v-if="formData.name == 'input'" class="row">
+        <div v-if="formData.buliderType == 'input'" class="row">
             <builder-input :datas="formData"></builder-input>
         </div>
-        <div v-if="formData.name == 'switch'" class="row">
+        <div v-if="formData.buliderType == 'switch'" class="row">
             <builder-switch :datas="formData"></builder-switch>
         </div>
-        <div v-if="formData.name == 'upload'" class="row">
+        <div v-if="formData.buliderType == 'upload'" class="row">
             <builder-upload :datas="formData"></builder-upload>
         </div>
     </div>
@@ -36,6 +36,7 @@ export default {
     },
     // 加载
     mounted() {
+        
         this.formDatas = this.builderDatas.formDatas
     }
 };

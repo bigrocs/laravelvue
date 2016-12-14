@@ -77,7 +77,6 @@
 
                 <div class="title m-b-md" id="app">
                     Laravel5.3
-                    <example></example>
                 </div>
 
                 <div class="links">
@@ -89,6 +88,5 @@
                 </div>
             </div>
         </div>
-        <script src="{{ asset('js/app.js') }}"></script>
     </body>
 </html>

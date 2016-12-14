@@ -72,11 +72,59 @@
                     </li>
                 </ul>
             </li>
+            <!-- <template v-for="(route, key, index) in routes">
+                <li v-if="route.header" class="header">
+                    {{ route.name }}
+                </li>
+                <li v-else-if="">
+                    <router-link to="{{ route.path }}"><i class="{{ route.icon }}"></i>{{ route.name }}</router-link>
+                </li>
+            </template> -->
         </ul>
     </section>
     <!-- /.sidebar -->
 </aside>
 </template>
+<script>
+export default {
+    data() {
+        return {
+            routes : this.$store.state.data.routes,
+            menu :''
+        };
+    },
+    methods:{
+        subRoutes(routeName){
+            var subRoutes = {};
+            for (var key in this.routes) {
+                if( this.routes[key].parent ==   routeName){
+                    subRoutes[key] = this.routes[key];
+                }
+            }
+            return subRoutes;
+        },
+        isEmptyObject(value) {
+            return Object.keys(value).length === 0;
+        },
+        isEmptyString(value){
+            if (value === null || value === undefined || value === '') return true;
+        }
+    },
+    mounted() {
+        for (var routeName in this.routes) {
+            this.routes[routeName].subRoutes = this.subRoutes(routeName)
+            if (this.isEmptyString(this.routes[routeName].parent)) {
+                this.menu = this.routes[routeName]
+            }
+            // if (!this.isEmptyObject(this.routes[routeName].subRoutes)) {
+            //                 console.log(this.routes[routeName].subRoutes);
+            // }
+        }
+console.log(this.menu);
+
+    }
+};
+</script>
 <style>
 .router-link-active {
     color: #fff !important;
