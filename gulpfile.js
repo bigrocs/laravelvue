@@ -38,6 +38,6 @@ elixir(function(mix) {
     mix.browserSync({
         proxy: 'vue.dev'
     });
-    mix.sass('app.scss')
-       .webpack('main.js');
+    mix.webpack('main.js');
+
 });

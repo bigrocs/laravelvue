@@ -22,10 +22,10 @@ Vue.http.get(store.state.Config.Api.mainUrl).then((Response) => {
     store.state.data = Response.data                        //初始化全局变量(服务端API数据)
 
     const routes=[]                                         //begin解析路由JSON
-    for(var routeName in Response.data.routes){
-        if(Response.data.routes[routeName].path!=null){
-            routes[routeName] = {
-                path: Response.data.routes[routeName].path,
+    for(var key in Response.data.routes){
+        if(Response.data.routes[key].path!=null){
+            routes[key] = {
+                path: Response.data.routes[key].path,
                 component: BuilderHtml
             }
         }

@@ -90,7 +90,7 @@ export default {
     data() {
         return {
             routes : this.$store.state.data.routes,
-            menu :''
+            menu :[]
         };
     },
     methods:{
@@ -111,17 +111,13 @@ export default {
         }
     },
     mounted() {
-        for (var routeName in this.routes) {
-            this.routes[routeName].subRoutes = this.subRoutes(routeName)
-            if (this.isEmptyString(this.routes[routeName].parent)) {
-                this.menu = this.routes[routeName]
+        for (var key in this.routes) {
+            if (this.isEmptyString(this.routes[key].parent)) {
+                this.routes[key].subRoutes = this.subRoutes(this.routes[key].name)
+                this.menu[key] = this.routes[key]
             }
-            // if (!this.isEmptyObject(this.routes[routeName].subRoutes)) {
-            //                 console.log(this.routes[routeName].subRoutes);
-            // }
         }
-console.log(this.menu);
-
+        console.log(this.menu);
     }
 };
 </script>
