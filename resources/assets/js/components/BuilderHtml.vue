@@ -4,7 +4,8 @@
         <div class="box box-primary">
             <div class="box-body">
                 <!-- 引入builder快速组件页面 同时传入构建数据 builderData -->
-                <builder :builder-datas="builderDatas"></builder>
+                <!-- <builder :builder-datas="builderDatas"></builder> -->
+                123
             </div>
         </div>
     </div>

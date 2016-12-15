@@ -5,15 +5,6 @@ import VueResource from 'vue-resource'
 Vue.use(VueRouter)
 Vue.use(VueResource)
 
-import 'admin-lte/bootstrap/css/bootstrap.css'
-import 'admin-lte/bootstrap/js/bootstrap.js'
-import 'admin-lte/dist/css/AdminLTE.css'
-import 'admin-lte/dist/js/app.js'
-import 'admin-lte/dist/css/skins/_all-skins.css'
-import 'font-awesome/css/font-awesome.css'
-import 'jquery-slimscroll/jquery.slimscroll.js'             //页面滚动插件
-import 'fastclick/lib/fastclick.js'                         //快速点击插件
-
 import BuilderHtml from './components/BuilderHtml.vue'      //引入页面内容构建器
 import App from './components/App.vue'                      //引入页面主程序
 import store from './store.js'                              //引入状态配置文件

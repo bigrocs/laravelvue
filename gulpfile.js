@@ -20,15 +20,6 @@ Elixir.webpack.mergeConfig({
         loaders: [{ test: /\.js$/, loader: 'buble' }],
         loaders: [{ test: /\.css$/, loader: 'style-loader!css-loader!less-loader' }]
     },
-
-    plugins: [
-         new webpack.ProvidePlugin({
-             "$": "jquery",
-             "jQuery": "jquery",
-             "window.jQuery": "jquery",
-             "Vue": "vue"
-         })
-    ],
     stats: {
         assets: false,
         version: false
@@ -39,5 +30,4 @@ elixir(function(mix) {
         proxy: 'vue.dev'
     });
     mix.webpack('main.js');
-
 });
