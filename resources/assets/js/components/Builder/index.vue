@@ -1,7 +1,7 @@
 <template>
 <div class="">
     123
-    <div class="form-group" v-for="data in datas">
+    <!-- <div class="form-group" v-for="data in datas">
         <div v-if="formData.buliderType == 'input'" class="row">
             <builder-input :datas="data"></builder-input>
         </div>
@@ -11,7 +11,8 @@
         <div v-if="formData.buliderType == 'upload'" class="row">
             <builder-upload :datas="data"></builder-upload>
         </div>
-    </div>
+    </div> -->
+    {{ datas.apiUrl }}
 </div>
 </template>
 <script>
@@ -29,7 +30,7 @@ export default {
     },
     data() {
         return {
-            datas: ''
+            datas:{}
         };
     },
     watch: {
@@ -40,9 +41,9 @@ export default {
          * 获取页面数据
          */
         getData(){
-            this.$store.commit('getCurrentApiUrl',this.$route.name)//当去当前路由API地址 赋值this.$store.state.CurrentUrl
+            this.$store.commit('getCurrentApiUrl',this.$route.name)                 //当去当前路由API地址 赋值this.$store.state.CurrentUrl
             this.$http.get(this.$store.state.CurrentApiUrl).then((Response) => {
-                this.$set('datas', response.data)
+                this.$set(this,'datas', Response.data)                              //获取页面数据赋值
             })
         }
     }
