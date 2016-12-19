@@ -36,7 +36,7 @@ class MainController extends Controller
                     'path'  =>  '/system',
                     'icon'  =>  'fa fa-wrench',
                     'parent'=>  'system_top',
-                    'apiUrl'=> ''
+                    'apiUrl'=> '/api/v1/system'
                 ],
                 [
                     'name'  => 'system_config',
@@ -44,7 +44,7 @@ class MainController extends Controller
                     'path'  =>  '/config',
                     'icon'  =>  'fa fa-cogs',
                     'parent'=>  'system_top',
-                    'apiUrl'=> ''
+                    'apiUrl'=> '/api/v1/config'
                 ],
                 [
                     'name'  => 'system_upload',
@@ -52,7 +52,7 @@ class MainController extends Controller
                     'path'  =>  '/upload',
                     'icon'  =>  'fa fa-upload',
                     'parent'=>  'system_top',
-                    'apiUrl'=> ''
+                    'apiUrl'=> '/api/v1/upload'
                 ],
                 [
                     'name'  => 'system_application',
@@ -65,7 +65,7 @@ class MainController extends Controller
                     'path'  =>  '/model',
                     'icon'  =>  'fa fa-wrench',
                     'parent'=>  'system_application',
-                    'apiUrl'=> ''
+                    'apiUrl'=> '/api/v1/model'
                 ],
                 [
                     'name'  => 'system_addon',
@@ -73,7 +73,7 @@ class MainController extends Controller
                     'path'  =>  '/addon',
                     'icon'  =>  'fa fa-cogs',
                     'parent'=>  'system_application',
-                    'apiUrl'=> ''
+                    'apiUrl'=> '/api/v1/addon'
                 ],
                 [
                     'name'  => 'system_theme',
@@ -81,7 +81,7 @@ class MainController extends Controller
                     'path'  =>  '/theme',
                     'icon'  =>  'fa fa-adjust',
                     'parent'=>  'system_application',
-                    'apiUrl'=> ''
+                    'apiUrl'=> '/api/v1/theme'
                 ],
             ],
             'apiUrl'  =>[

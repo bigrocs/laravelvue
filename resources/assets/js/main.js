@@ -17,6 +17,7 @@ Vue.http.get(store.state.Config.Api.mainUrl).then((Response) => {
         if(Response.data.routes[key].path!=null){
             routes[key] = {
                 path: Response.data.routes[key].path,
+                name: Response.data.routes[key].name,
                 component: BuilderHtml
             }
         }

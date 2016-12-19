@@ -1,14 +1,15 @@
 <template>
 <div class="">
-    <div class="form-group" v-for="formData in formDatas">
+    123
+    <div class="form-group" v-for="data in datas">
         <div v-if="formData.buliderType == 'input'" class="row">
-            <builder-input :datas="formData"></builder-input>
+            <builder-input :datas="data"></builder-input>
         </div>
         <div v-if="formData.buliderType == 'switch'" class="row">
-            <builder-switch :datas="formData"></builder-switch>
+            <builder-switch :datas="data"></builder-switch>
         </div>
         <div v-if="formData.buliderType == 'upload'" class="row">
-            <builder-upload :datas="formData"></builder-upload>
+            <builder-upload :datas="data"></builder-upload>
         </div>
     </div>
 </div>
@@ -23,22 +24,25 @@ export default {
         builderSwitch,
         builderUpload
     },
-    props: {
-        builderDatas: {
-            type: Object,
-            default: ''
-        },
+    created() {
+        this.getData()
     },
     data() {
         return {
-            formDatas: this.formDatas
+            datas: ''
         };
     },
-    // 加载
-    mounted() {
-        
-        this.formDatas = this.builderDatas.formDatas
+    watch: {
+       $route: 'getData'
+    },
+    methods:{
+        getData(){
+            this.$store.commit('getCurrentApiUrl',this.$route.name)//当去当前路由API地址 赋值this.$store.state.CurrentUrl
+
+            console.log(this.$store.state.CurrentApiUrl);
+        }
     }
+
 };
 </script>
 <style>

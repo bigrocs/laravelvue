@@ -13,7 +13,7 @@
             </div>
         </div>
         <!-- search form -->
-        <form action="#" method="get" class="sidebar-form">
+        <!-- <form action="#" method="get" class="sidebar-form">
             <div class="input-group">
                 <input type="text" name="q" class="form-control" placeholder="Search...">
                 <span class="input-group-btn">
@@ -21,15 +21,15 @@
                     </button>
                 </span>
             </div>
-        </form>
+        </form> -->
         <ul class="sidebar-menu">
             <template v-for="(menu, key, index) in menus">
                 <li v-if="menu.header" class="header">
                     {{ menu.title }}
                 </li>
-                <li v-else>
-                    <router-link :to="menu.path" active-class="a">
-                        <i :class="menu.icon"></i>{{ menu.title }}
+                <li v-else class="treeview">
+                    <router-link :to="menu.path" active-class="null">
+                        <i :class="menu.icon"></i><span>{{ menu.title }}</span>
                         <span class="pull-right-container">
                           <i class="fa fa-angle-left pull-right"></i>
                         </span>
@@ -71,6 +71,9 @@ export default {
         // 获取属性结构menus this.menus
         getMenus(){
             for (var key in this.routes) {
+                if (this.isEmptyString(this.routes[key].icon)) {
+                    this.routes[key].icon = 'fa fa-circle-o';
+                }
                 if (this.isEmptyString(this.routes[key].path)) {
                     this.routes[key].path = '';
                 }
