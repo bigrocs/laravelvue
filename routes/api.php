@@ -18,6 +18,6 @@ use Illuminate\Http\Request;
 // })->middleware('auth:api');
 
 
-Route::group(['prefix' => 'v1', 'middleware' => 'api', 'namespace' => 'Api'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'api', 'namespace' => 'Api\Admin'], function () {
     Route::get('main', [ 'as' => 'api.main.index', 'uses' => 'MainController@index']);
 });

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Admin;
 
 use Illuminate\Http\Request;
 
@@ -36,7 +36,7 @@ class MainController extends Controller
                     'path'  =>  '/system',
                     'icon'  =>  'fa fa-wrench',
                     'parent'=>  'system_top',
-                    'apiUrl'=> '/api/v1/system'
+                    'apiUrl'=> '/api/admin/system'
                 ],
                 [
                     'name'  => 'system_config',
@@ -44,7 +44,7 @@ class MainController extends Controller
                     'path'  =>  '/config',
                     'icon'  =>  'fa fa-cogs',
                     'parent'=>  'system_top',
-                    'apiUrl'=> '/api/v1/config'
+                    'apiUrl'=> '/api/admin/config'
                 ],
                 [
                     'name'  => 'system_upload',
@@ -52,7 +52,7 @@ class MainController extends Controller
                     'path'  =>  '/upload',
                     'icon'  =>  'fa fa-upload',
                     'parent'=>  'system_top',
-                    'apiUrl'=> '/api/v1/upload'
+                    'apiUrl'=> '/api/admin/upload'
                 ],
                 [
                     'name'  => 'system_application',
@@ -65,7 +65,7 @@ class MainController extends Controller
                     'path'  =>  '/model',
                     'icon'  =>  'fa fa-wrench',
                     'parent'=>  'system_application',
-                    'apiUrl'=> '/api/v1/model'
+                    'apiUrl'=> '/api/admin/model'
                 ],
                 [
                     'name'  => 'system_addon',
@@ -73,7 +73,7 @@ class MainController extends Controller
                     'path'  =>  '/addon',
                     'icon'  =>  'fa fa-cogs',
                     'parent'=>  'system_application',
-                    'apiUrl'=> '/api/v1/addon'
+                    'apiUrl'=> '/api/admin/addon'
                 ],
                 [
                     'name'  => 'system_theme',
@@ -81,7 +81,7 @@ class MainController extends Controller
                     'path'  =>  '/theme',
                     'icon'  =>  'fa fa-adjust',
                     'parent'=>  'system_application',
-                    'apiUrl'=> '/api/v1/theme'
+                    'apiUrl'=> '/api/admin/theme'
                 ],
             ],
             'apiUrl'  =>[

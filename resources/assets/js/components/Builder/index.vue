@@ -36,10 +36,14 @@ export default {
        $route: 'getData'
     },
     methods:{
+        /**
+         * 获取页面数据
+         */
         getData(){
             this.$store.commit('getCurrentApiUrl',this.$route.name)//当去当前路由API地址 赋值this.$store.state.CurrentUrl
-
-            console.log(this.$store.state.CurrentApiUrl);
+            this.$http.get(this.$store.state.CurrentApiUrl).then((Response) => {
+                this.$set('datas', response.data)
+            })
         }
     }
 
