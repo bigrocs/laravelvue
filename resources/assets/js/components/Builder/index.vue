@@ -1,6 +1,5 @@
 <template>
 <div class="">
-    123
     <!-- <div class="form-group" v-for="data in datas">
         <div v-if="formData.buliderType == 'input'" class="row">
             <builder-input :datas="data"></builder-input>
@@ -12,18 +11,15 @@
             <builder-upload :datas="data"></builder-upload>
         </div>
     </div> -->
-    {{ datas.apiUrl }}
+    <builder-form :datas="datas"></builder-form>
+    
 </div>
 </template>
 <script>
-import builderInput from './layouts/input.vue'
-import builderSwitch from './layouts/switch.vue'
-import builderUpload from './layouts/upload.vue'
+import builderForm from './layouts/form.vue'
 export default {
     components: {
-        builderInput,
-        builderSwitch,
-        builderUpload
+        builderForm,
     },
     created() {
         this.getData()

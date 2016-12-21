@@ -5,8 +5,8 @@ import VueResource from 'vue-resource'
 Vue.use(VueRouter)
 Vue.use(VueResource)
 
-import BuilderHtml from './components/BuilderHtml.vue'      //引入页面内容构建器
-import App from './components/App.vue'                      //引入页面主程序
+import BuilderHtml from './components/builderHtml.vue'      //引入页面内容构建器
+import App from './components/app.vue'                      //引入页面主程序
 import store from './store.js'                              //引入状态配置文件
 
 Vue.http.get(store.state.Config.Api.mainUrl).then((Response) => {
