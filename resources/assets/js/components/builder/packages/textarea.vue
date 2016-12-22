@@ -5,7 +5,7 @@
     </div>
     <div class="col-md-6 col-sm-12">
         <el-input
-            :type="datas.type"
+            type="textarea"
             :placeholder="datas.placeholder"
             :maxlength="datas.maxlength"
             :minlength="datas.minlength"
@@ -15,12 +15,17 @@
             :number="datas.number"
             :rows="datas.rows"
             :autosize="datas.autosize"
+            :name="datas.name"
+            :max="datas.max"
+            :min="datas.min"
+            :autofocus="datas.autofocus"
+            :form="datas.form"
             :number="true"
             v-model="datas.value">
         </el-input>
     </div>
     <div class="col-md-6 col-sm-12">
-        <span class="check-tips small">{{ datas.tips }}</span>
+        <span class="check-tip small">{{ datas.tip }}</span>
     </div>
 </div>
 </template>

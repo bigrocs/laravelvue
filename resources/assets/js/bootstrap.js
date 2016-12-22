@@ -20,7 +20,7 @@ window.Vue = require('vue');
 require('vue-resource');                    //加载vue http请求插件
 window.VueRouter = require('vue-router');   //加载路由插件
 
-require('element-ui');                      //饿了吗UI
+require('element-ui');                      //饿了么UI
 
 /**
  * We'll register a HTTP interceptor to attach the "CSRF" header to each of

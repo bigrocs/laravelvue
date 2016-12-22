@@ -18,7 +18,7 @@
         </el-switch>
     </div>
     <div class="col-md-6 col-sm-12">
-        <span class="check-tips small">{{ datas.tips }}</span>
+        <span class="check-tip small">{{ datas.tip }}</span>
     </div>
 </div>
 </template>
@@ -30,5 +30,16 @@ export default{
             default: ''
         },
     },
+    data() {
+      return {
+          width:this.datas.width
+      };
+    },
+    mounted(){
+        if (this.datas.width==null) {
+            this.width = 158;
+            console.log(this.width);
+        }
+    }
 }
 </script>

@@ -39,7 +39,7 @@ export default {
 };
 </script>
 <style>
-.check-tips {
+.check-tip {
     color: #95A5A6;
 }
 </style>
