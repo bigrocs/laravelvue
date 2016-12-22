@@ -9,10 +9,10 @@
             :width="datas.width"
             :on-icon-class="datas.onIconClass"
             :off-icon-class="datas.offIconClass"
-            :on-text="datas.onText"
-            :off-text="datas.offText"
-            :on-color="datas.onColor"
-            :off-color="datas.offColor"
+            :on-text="onText"
+            :off-text="offText"
+            :on-color="onColor"
+            :off-color="offColor"
             :name="datas.name"
             v-model="datas.value">
         </el-switch>
@@ -32,13 +32,24 @@ export default{
     },
     data() {
       return {
-          width:this.datas.width
+          onText:   this.datas.onText,
+          offText:  this.datas.offText,
+          onColor:  this.datas.onColor,
+          offColor: this.datas.offColor,
       };
     },
-    mounted(){
-        if (this.datas.width==null) {
-            this.width = 158;
-            console.log(this.width);
+    created() {
+        if (this.datas.onText==null) {
+            this.onText = '开启';
+        }
+        if (this.datas.offText==null) {
+            this.offText = '关闭';
+        }
+        if (this.datas.onColor==null) {
+            this.onColor = '#1abc9c';
+        }
+        if (this.datas.offColor==null) {
+            this.offColor = '#95a5a6';
         }
     }
 }

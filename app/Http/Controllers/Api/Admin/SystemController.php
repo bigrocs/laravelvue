@@ -41,12 +41,6 @@ class SystemController extends Controller
             if ($adminConfig['type'] == 'textarea') {
                 $data['form']['datas'][$key]['rows'] = 5;
             }
-            if ($adminConfig['type'] == 'switch') {
-                $data['form']['datas'][$key]['onText'] = '开启';
-                $data['form']['datas'][$key]['offText'] = '关闭';
-                $data['form']['datas'][$key]['onColor'] = '#1abc9c';
-                $data['form']['datas'][$key]['offColor'] = '#95a5a6';
-            }
         }
         return response()->json($data, 200);
     }
