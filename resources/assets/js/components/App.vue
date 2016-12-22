@@ -1,20 +1,22 @@
 <template>
 <div class="wrapper">
-    <navbar></navbar>
-    <sidebar></sidebar>
-    <MainContent></MainContent>
+    <main-header></main-header>
+    <main-sidebar></main-sidebar>
+    <main-content></main-content>
+    <main-footer></main-footer>
 </div>
 </template>
 <script>
-import Navbar from './layouts/Navbar.vue'
-import Sidebar from './layouts/Sidebar.vue'
-import MainContent from './layouts/MainContent.vue'
-
+import mainHeader from './layouts/mainHeader.vue'
+import mainSidebar from './layouts/mainSidebar.vue'
+import mainContent from './layouts/mainContent.vue'
+import mainFooter from './layouts/mainFooter.vue'
 export default {
     components: {
-        Navbar,
-        Sidebar,
-        MainContent
+        mainHeader,
+        mainSidebar,
+        mainContent,
+        mainFooter
     },
     replace: false
 }

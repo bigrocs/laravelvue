@@ -15,6 +15,7 @@ class SystemController extends Controller
         $data = [
             'apiUrl' => 'dazles',
             'form' => [
+                'type'    => 'form',
                 'url'     => 'api/admin/system',
                 'method'  => 'post',
                 'datas'   => [

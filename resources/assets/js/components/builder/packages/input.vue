@@ -4,7 +4,7 @@
         <label>{{ datas.label }}</label>
     </div>
     <div class="col-md-6 col-sm-12">
-        <input
+        <el-input
             :type="datas.type"
             :placeholder="datas.placeholder"
             :maxlength="datas.maxlength"
@@ -17,7 +17,7 @@
             :autosize="datas.autosize"
             :number="true"
             v-model="datas.value">
-        </input>
+        </el-input>
     </div>
     <div class="col-md-6 col-sm-12">
         <span class="check-tips small">{{ datas.tips }}</span>

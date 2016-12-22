@@ -1,33 +1,23 @@
 const elixir = require('laravel-elixir');
+const path = require('path');
 require('laravel-elixir-vue-2');
-require('laravel-elixir-webpack-official');//加载webpack  laravel扩展
-
-/**
- * [watch 配置webpack参数 来实现laravel-elixir-webpack-official  配置]
- * @type {[type]}
- */
-var webpack = require('webpack');
-Elixir.webpack.config.module.loaders = [];//官方配置有BUG在这里重新定义loaders
-Elixir.webpack.mergeConfig({
-    watch: Elixir.isWatching(),
-    watchOptions: {
-        poll: true,
-        aggregateTimeout: 500,
-        ignored: /node_modules/
-    },
-    devtool: Elixir.config.sourcemaps ? 'eval-cheap-module-source-map' : '',
-    module: {
-        loaders: [{ test: /\.js$/, loader: 'buble' }],
-        loaders: [{ test: /\.css$/, loader: 'style-loader!css-loader!less-loader' }]
-    },
-    stats: {
-        assets: false,
-        version: false
-    }
-});
 elixir(function(mix) {
+    Elixir.webpack.mergeConfig({
+        resolveLoader: {
+            root: path.join(__dirname, 'node_modules'),
+        },
+        module: {
+            loaders: [
+                {
+                    test: /\.css$/,
+                    loader: 'style!css'
+                }
+            ]
+        }
+    });
     mix.browserSync({
         proxy: 'vue.dev'
     });
-    mix.webpack('main.js');
+    mix.sass('app.scss')
+        .webpack('main.js');
 });
