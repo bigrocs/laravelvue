@@ -14,7 +14,7 @@ class AdminConfigTableSeeder extends Seeder
         DB::table('admin_configs')->insert([
             'title' 	=> '站点开关',
             'name' 		=> 'TOGGLE_WEB_SITE',
-            'value' 	=> 'on',
+            'value' 	=> 1,
             'group' 	=> '0',
             'type' 		=> 'switch',
             'icon' 		=> '',
