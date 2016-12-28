@@ -41,14 +41,19 @@ class SystemController extends Controller
             if ($adminConfig['type'] == 'textarea') {
                 $data['form']['datas'][$key]['rows'] = 5;
             }
-            if ($adminConfig['type'] == 'switch') {
-                if ($adminConfig['value'] == 1) {
-                    $data['form']['datas'][$key]['value'] = true;
-                }else{
-                    $data['form']['datas'][$key]['value'] = false;
-                }
-            }
+
         }
+        return response()->json($data, 200);
+    }
+    public function update(Request $request){
+        foreach ($request->all() as $value) {
+            $adminConfig = $this->adminConfigModel->where('name', '=', $value['name'])->update(['value' => $value['value']]);
+        }
+        $data = [
+                    'title'     => '保存成功',
+                    'message'   => '系统设置保存成功!',
+                    'type'      => 'success',
+                ];
         return response()->json($data, 200);
     }
 }

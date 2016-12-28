@@ -39,6 +39,11 @@ export default{
       };
     },
     created() {
+        if (this.datas.value == 1) {
+            this.datas.value = true
+        }else if (this.datas.value == 0) {
+            this.datas.value = false
+        }
         if (this.datas.onText==null) {
             this.onText = '开启';
         }

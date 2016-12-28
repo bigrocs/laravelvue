@@ -12,7 +12,6 @@
             :disabled="datas.disabled"
             :size="datas.size"
             :icon="datas.icon"
-            :number="datas.number"
             :rows="datas.rows"
             :autosize="datas.autosize"
             :name="datas.name"
@@ -20,7 +19,6 @@
             :min="datas.min"
             :autofocus="datas.autofocus"
             :form="datas.form"
-            :number="true"
             v-model="datas.value">
         </el-input>
     </div>

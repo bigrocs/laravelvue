@@ -20,6 +20,7 @@ use Illuminate\Http\Request;
 
 Route::group(['prefix' => 'admin', 'middleware' => 'api', 'namespace' => 'Api\Admin'], function () {
     Route::get('main', [ 'as' => 'api.main.index', 'uses' => 'MainController@index']);
-    Route::get('system', [ 'as' => 'api.main.index', 'uses' => 'SystemController@index']);
-    Route::get('config', [ 'as' => 'api.main.index', 'uses' => 'ConfigController@index']);
+    Route::get('system', [ 'as' => 'api.system.index', 'uses' => 'SystemController@index']);
+    Route::patch('system', ['as' => 'api.system.update', 'uses' => 'SystemController@update']);
+    Route::get('config', [ 'as' => 'api.config.index', 'uses' => 'ConfigController@index']);
 });
