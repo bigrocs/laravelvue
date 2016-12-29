@@ -13,6 +13,9 @@
                         <div v-if="data.type == 'switch'" class="row">
                             <builder-switch :datas="data"></builder-switch>
                         </div>
+                        <div v-if="data.type == 'picture'" class="row">
+                            <builder-picture :datas="data"></builder-picture>
+                        </div>
                         <div v-if="data.type == 'upload'" class="row">
                             <builder-upload :datas="data"></builder-upload>
                         </div>
@@ -37,12 +40,14 @@
 import builderText from './packages/text.vue'
 import builderTextarea from './packages/textarea.vue'
 import builderSwitch from './packages/switch.vue'
+import builderPicture from './packages/picture.vue'
 import builderUpload from './packages/upload.vue'
 export default {
     components: {
         builderText,
         builderTextarea,
         builderSwitch,
+        builderPicture,
         builderUpload
     },
     data() {

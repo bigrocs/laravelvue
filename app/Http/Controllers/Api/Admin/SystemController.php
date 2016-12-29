@@ -41,7 +41,16 @@ class SystemController extends Controller
             if ($adminConfig['type'] == 'textarea') {
                 $data['form']['datas'][$key]['rows'] = 5;
             }
-
+            if ($adminConfig['type'] == 'picture') {
+                $data['form']['datas'][$key]['postUrl'] = 'api/admin/upload/image';
+                $uploadData[] = getUploadWhereOne($adminConfig['value']);
+                $data['form']['datas'][$key]['fileList'] = $uploadData;
+                $data['form']['datas'][$key]['maxSize'] = 1048567;//上传文件限制
+                $maxSizeLang['title'] = '图片大小超过限制';
+                $maxSizeLang['message'] = '上传图片大小超过系统'.'1M'.'限制';
+                $maxSizeLang['type'] = 'warning';
+                $data['form']['datas'][$key]['maxSizeLang'] = $maxSizeLang;
+            }
         }
         return response()->json($data, 200);
     }
