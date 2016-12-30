@@ -29,6 +29,10 @@ class SystemController extends Controller
                 ]
             ]
         ];
+        $data['form']['group'] = [
+            0 => '基本',
+            1 => '系统',
+        ];
         $adminConfigs = $this->adminConfigModel
                             // ->where('group', '=', $group)
                             ->orderBy('sort', 'ASC')
