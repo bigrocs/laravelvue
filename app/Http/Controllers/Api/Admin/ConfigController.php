@@ -6,86 +6,67 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Models\AdminConfig;
 
 class ConfigController extends Controller
 {
+    /** @var AdminConfigRepository */
+    private $adminConfigModel;
+
+    public function __construct(AdminConfig $adminConfigRepo)
+    {
+        $this->adminConfigModel = $adminConfigRepo;
+    }
     public function index()
     {
         $data = [
-            'routes'  => [
-                [
-                    'name'  => 'dashboard',
-                    'title' =>  '首页 Dashboard',
-                    'path'  =>  '/',
-                    'icon'  =>  'fa fa-dashboard',
+            'table' => [
+                'type'    => 'table',
+                // 'url'     => 'api/admin/system',
+                // 'method'  => 'post',
+                'stripe' => true,
+                'column' => [
+                    [
+                        'type' => 'selection',
+                        'width'=> '55',
+                    ],
+                    [
+                        'prop' => 'id',
+                        'label'=> 'ID',
+                        'width'=> '55',
+                    ],
+                    [
+                        'prop' => 'name',
+                        'label'=> '名称',
+                    ],
+                    [
+                        'prop' => 'title',
+                        'label'=> '标题',
+                    ],
+                    [
+                        'prop' => 'sort',
+                        'label'=> '排序',
+                    ],
+                    [
+                        'prop' => 'status',
+                        'label'=> '状态',
+                        'type' => 'status',
+                    ],
+                    [
+                        'prop' => 'rightButton',
+                        'label'=> '操作',
+                        'type' => 'btn',
+                    ],
                 ],
-                [
-                    'name'  => 'system_header',
-                    'title' =>  '系统 system',
-                    'icon'  =>  '',
-                    'header'=>  true,
-                ],
-                [
-                    'name'  => 'system_top',
-                    'title' =>  '系统功能',
-                    'icon'  =>  'fa fa-cog',
-                ],
-                [
-                    'name'  => 'system_system',
-                    'title' =>  '系统设置',
-                    'path'  =>  '/system',
-                    'icon'  =>  'fa fa-wrench',
-                    'parent'=>  'system_top',
-                    'apiUrl'=> '/api/admin/system'
-                ],
-                [
-                    'name'  => 'system_config',
-                    'title' =>  '配置管理',
-                    'path'  =>  '/config',
-                    'icon'  =>  'fa fa-cogs',
-                    'parent'=>  'system_top',
-                    'apiUrl'=> '/api/admin/config'
-                ],
-                [
-                    'name'  => 'system_upload',
-                    'title' =>  '上传管理',
-                    'path'  =>  '/upload',
-                    'icon'  =>  'fa fa-upload',
-                    'parent'=>  'system_top',
-                    'apiUrl'=> '/api/admin/upload'
-                ],
-                [
-                    'name'  => 'system_application',
-                    'title' =>  '应用中心',
-                    'icon'  =>  'fa fa-folder-open-o',
-                ],
-                [
-                    'name'  => 'system_model',
-                    'title' =>  '模块扩展',
-                    'path'  =>  '/model',
-                    'icon'  =>  'fa fa-wrench',
-                    'parent'=>  'system_application',
-                    'apiUrl'=> '/api/admin/model'
-                ],
-                [
-                    'name'  => 'system_addon',
-                    'title' =>  '插件管理',
-                    'path'  =>  '/addon',
-                    'icon'  =>  'fa fa-cogs',
-                    'parent'=>  'system_application',
-                    'apiUrl'=> '/api/admin/addon'
-                ],
-                [
-                    'name'  => 'system_theme',
-                    'title' =>  '主题管理',
-                    'path'  =>  '/theme',
-                    'icon'  =>  'fa fa-adjust',
-                    'parent'=>  'system_application',
-                    'apiUrl'=> '/api/admin/theme'
-                ],
-            ],
-            'apiUrl'  =>'config'
+                'datas'   => [
+
+                ]
+            ]
         ];
+        $adminConfigs = $this->adminConfigModel
+                            ->where('status', '>=', 0)
+                            ->get();
+        $data['table']['datas'] = $adminConfigs;
         return response()->json($data, 200);
     }
 }
