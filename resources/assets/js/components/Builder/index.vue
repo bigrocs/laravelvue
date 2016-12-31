@@ -4,14 +4,19 @@
         <template v-if="data.type == 'form'">
             <builder-form :datas="data"></builder-form>
         </template>
+        <template v-if="data.type == 'table'">
+            <builder-table :datas="data"></builder-table>
+        </template>
     </template>
 </div>
 </template>
 <script>
 import builderForm from './form.vue'
+import builderTable from './table.vue'
 export default {
     components: {
         builderForm,
+        builderTable
     },
     created() {
         this.getData()

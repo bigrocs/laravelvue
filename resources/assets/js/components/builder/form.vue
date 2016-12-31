@@ -46,21 +46,9 @@
 </template>
 <script>
 import builderFormindex from './packages/index.vue'
-// import builderText from './packages/text.vue'
-// import builderTextarea from './packages/textarea.vue'
-// import builderNumber from './packages/number.vue'
-// import builderSwitch from './packages/switch.vue'
-// import builderPicture from './packages/picture.vue'
-// import builderUpload from './packages/upload.vue'
 export default {
     components: {
         builderFormindex,
-        // builderText,
-        // builderTextarea,
-        // builderNumber,
-        // builderSwitch,
-        // builderPicture,
-        // builderUpload
     },
     data() {
         return {
