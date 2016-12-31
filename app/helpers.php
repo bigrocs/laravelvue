@@ -43,3 +43,10 @@ if (!function_exists('bytesFormat')) {
         return round($size, 2).$delimiter.$units[$i];
     }
 }
+if (!function_exists('getAdminConfig')) {
+    function getAdminConfig($name){
+        $AdminConfigObject = new App\Models\AdminConfig();
+        $AdminConfigData = $AdminConfigObject->where('status', '=', 1)->where('name','=', $name)->first();
+        return $AdminConfigData->value;
+    }
+}
