@@ -25,11 +25,12 @@ class ConfigController extends Controller
                 // 'url'     => 'api/admin/system',
                 // 'method'  => 'post',
                 'stripe' => true,
+                'rightButton'=>[
+                    ['type'=>'edit'],
+                    ['type'=>'forbid'],
+                    ['type'=>'delete'],
+                ],
                 'column' => [
-                    [
-                        'type' => 'selection',
-                        'width'=> '55',
-                    ],
                     [
                         'prop' => 'id',
                         'label'=> 'ID',
