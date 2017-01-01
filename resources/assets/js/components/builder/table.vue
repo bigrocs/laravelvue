@@ -32,6 +32,20 @@
                       :filter-method="column.filterMethod"
                       :filtered-value="column.filteredValue"
                     >
+                        <template scope="scope">
+                            <template v-if="column.prop=='status'">
+                                <span class="label label-sm"
+                                    v-bind:class="scope.row[column.prop].type"
+                                    :title="scope.row[column.prop].title"
+                                >
+                                    <i :class="scope.row[column.prop].icon"></i>
+                                    {{ scope.row[column.prop].title }}
+                                </span>
+                            </template>
+                            <template v-else>
+                                {{ scope.row[column.prop] }}
+                            </template>
+                        </template>
                     </el-table-column>
                 </template>
             </el-table>
@@ -59,10 +73,52 @@ export default {
          * @return   [type]                                  [编译后的数组]
          */
         compileTableColumnType(){
-            console.log(this.tableDatas.datas);
+            for (var w = 0; w < this.tableDatas.datas.length; w++) {
+                for (var i = 0; i < this.tableDatas.column.length; i++) {
+                    switch(this.tableDatas.column[i].type)
+                    {
+                        case 'status':
+                            switch(this.tableDatas.datas[w][this.tableDatas.column[i].prop]){
+                                case -1:
+                                    this.tableDatas.datas[w][this.tableDatas.column[i].prop] = {
+                                        'type':'label-danger',
+                                        'icon':'fa fa-trash',
+                                        'title':'删除',
+                                    };
+                                    break;
+                                case 0:
+                                    this.tableDatas.datas[w][this.tableDatas.column[i].prop] = {
+                                        'type':'label-warning',
+                                        'icon':'fa fa-ban',
+                                        'title':'禁用',
+                                    };
+                                    break;
+                                case 1:
+                                    this.tableDatas.datas[w][this.tableDatas.column[i].prop] = {
+                                        'type':'label-success',
+                                        'icon':'fa fa-check',
+                                        'title':'正常',
+                                    };
+                                    break;
+                                case 2:
+                                    this.tableDatas.datas[w][this.tableDatas.column[i].prop] = {
+                                        'type':'label-warning',
+                                        'icon':'fa fa-eye-slash',
+                                        'title':'隐藏',
+                                    };
+                                    break;
+                            }
+                            break;
+                        case 2:
+                          break;
+                        default:
+                    }
+                }
+            }
+
+
         },
         handleSelectionChange(val) {
-            console.log(val);
             this.multipleSelection = val;
         }
     },

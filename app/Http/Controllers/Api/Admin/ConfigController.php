@@ -38,19 +38,23 @@ class ConfigController extends Controller
                     [
                         'prop' => 'name',
                         'label'=> '名称',
+                        'width'=> '200',
                     ],
                     [
                         'prop' => 'title',
                         'label'=> '标题',
+                        'width'=> '180',
                     ],
                     [
                         'prop' => 'sort',
                         'label'=> '排序',
+                        'width'=> '70',
                     ],
                     [
                         'prop' => 'status',
                         'label'=> '状态',
                         'type' => 'status',
+                        'width'=> '90',
                     ],
                     [
                         'prop' => 'rightButton',
