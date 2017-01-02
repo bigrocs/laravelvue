@@ -44,10 +44,12 @@
                                 </el-tag>
                             </template>
                             <template v-else-if="column.prop=='rightButton'">
-                                <el-button type="info" size="mini"><i class="fa fa-check"></i> 编辑</el-button>
-                                <el-button type="warning" size="mini"><i class="fa fa-check"></i> 禁用</el-button>
-                                <el-button type="danger" size="mini"><i class="fa fa-check"></i> 删除</el-button>
-                                    {{ scope.row[column.prop] }}
+                                <template v-for="rightButton in scope.row[column.prop]">
+                                    <el-button :type="rightButton.class" size="mini"  @click="handleClick(rightButton.method,scope.$index, scope.row)">
+                                        <i :class="rightButton.icon"></i>
+                                        {{rightButton.title}}
+                                    </el-button>
+                                </template>
                             </template>
                             <template v-else>
                                 {{ scope.row[column.prop] }}
@@ -66,6 +68,7 @@ export default {
       return {
           tableDatas: this.datas,
           rightButtonList:[],
+          statusProp:null,
           multipleSelection: []
       }
     },
@@ -86,22 +89,42 @@ export default {
                     case 'edit':  // 编辑按钮
                         var button ={
                             'title':'编辑',
-                            'icon':'<i class="fa fa-edit"></i>',
-                            'class':'btn btn-xs btn-info'
+                            'icon':'fa fa-edit',
+                            'class':'info',
+                            'method':'edit'
                         };
                         this.rightButtonList.push(button);
-                    break;
-                    // case 'edit':  // 编辑按钮
-                    //     var button ={
-                    //         'title':'编辑',
-                    //         'icon':'<i class="fa fa-edit"></i>',
-                    //         'class':'btn btn-xs btn-info'
-                    //     };
-                    //     this.rightButtonList.push(button);
-                    // break;
-
+                        break;
+                    case 'forbid':  //改变记录状态按钮，会更具数据当前的状态自动选择应该显示启用/禁用
+                        var button ={
+                            0:{
+                                'title':'启用',
+                                'icon':'fa fa-check',
+                                'class':'success',
+                                'method':'enable'
+                            },
+                            1:{
+                                'title':'禁用',
+                                'icon':'fa fa-ban',
+                                'class':'warning',
+                                'method':'disable'
+                            },
+                            'type':'forbid',
+                        };
+                        this.rightButtonList.push(button);
+                        break;
+                    case 'delete':  // 删除按钮
+                        var button ={
+                            'title':'删除',
+                            'icon':'fa fa-trash',
+                            'class':'danger',
+                            'method':'delete'
+                        };
+                        this.rightButtonList.push(button);
+                        break;
+                    default:
+                        break;
                 }
-
             }
         },
         /**
@@ -117,9 +140,11 @@ export default {
                     switch(this.tableDatas.column[i].type)
                     {
                         case 'status':
+                            this.statusProp = this.tableDatas.column[i].prop;
                             switch(this.tableDatas.datas[w][this.tableDatas.column[i].prop]){
                                 case -1:
                                     this.tableDatas.datas[w][this.tableDatas.column[i].prop] = {
+                                        'value':-1,
                                         'type':'danger',
                                         'icon':'fa fa-trash',
                                         'title':'删除',
@@ -127,6 +152,7 @@ export default {
                                     break;
                                 case 0:
                                     this.tableDatas.datas[w][this.tableDatas.column[i].prop] = {
+                                        'value':0,
                                         'type':'warning',
                                         'icon':'fa fa-ban',
                                         'title':'禁用',
@@ -134,6 +160,7 @@ export default {
                                     break;
                                 case 1:
                                     this.tableDatas.datas[w][this.tableDatas.column[i].prop] = {
+                                        'value':1,
                                         'type':'success',
                                         'icon':'fa fa-check',
                                         'title':'正常',
@@ -141,6 +168,7 @@ export default {
                                     break;
                                 case 2:
                                     this.tableDatas.datas[w][this.tableDatas.column[i].prop] = {
+                                        'value':2,
                                         'type':'warning',
                                         'icon':'fa fa-eye-slash',
                                         'title':'隐藏',
@@ -149,10 +177,18 @@ export default {
                             }
                             break;
                         case 'btn':
-                            this.tableDatas.datas[w][this.tableDatas.column[i].prop] = this.rightButtonList;
-
-
-                            // console.log(this.tableDatas.datas[w][this.tableDatas.column[i].prop]);
+                            var rightButtonData = [];
+                            for (var key in this.rightButtonList) {
+                                switch (this.rightButtonList[key].type) {
+                                    case 'forbid':
+                                        var statusValue = this.tableDatas.datas[w][this.statusProp].value;
+                                        rightButtonData.push(this.rightButtonList[key][statusValue]);
+                                        break;
+                                    default:
+                                        rightButtonData.push(this.rightButtonList[key]);
+                                }
+                            }
+                            this.tableDatas.datas[w][this.tableDatas.column[i].prop] = rightButtonData;
                             break;
                         default:
                     }
@@ -160,6 +196,44 @@ export default {
             }
 
 
+        },
+        handleClick(method,index, row) {
+            switch (method) {
+                case 'edit':
+                    this.handleEdit(index, row)
+                    break;
+                case 'enable':
+                    this.handleEnable(index, row)
+                    break;
+                case 'disable':
+                    this.handleDisable(index, row)
+                    break;
+                case 'delete':
+                    this.handleDelete(index, row)
+                    break;
+                default:
+            }
+        },
+        handleEdit(index, row) {
+            console.log('Edit,index, row',index, row);
+        },
+        handleEnable(index, row){
+            var data = {
+                'id':row['id'],
+                'status':1,
+            };
+            this.handleHttp(data);
+        },
+        handleDisable(index, row){
+            console.log('Disable,index, row',index, row);
+        },
+        handleDelete(index, row){
+            console.log('delete,index, row',index, row);
+        },
+        handleHttp(data){
+            this.$http.patch(this.tableDatas.url, data).then(function (Response) {
+                console.log(Response);
+            });
         },
         handleSelectionChange(val) {
             console.log(val);

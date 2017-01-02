@@ -22,7 +22,7 @@ class ConfigController extends Controller
         $data = [
             'table' => [
                 'type'    => 'table',
-                // 'url'     => 'api/admin/system',
+                'url'     => 'api/admin/config',
                 // 'method'  => 'post',
                 'stripe' => true,
                 'rightButton'=>[
@@ -72,6 +72,18 @@ class ConfigController extends Controller
                             ->where('status', '>=', 0)
                             ->get();
         $data['table']['datas'] = $adminConfigs;
+        return response()->json($data, 200);
+    }
+    public function update(Request $request){
+        dd($request->all());
+        foreach ($request->all() as $value) {
+            $adminConfig = $this->adminConfigModel->where('name', '=', $value['name'])->update(['value' => $value['value']]);
+        }
+        $data = [
+                    'title'     => '保存成功',
+                    'message'   => '系统设置保存成功!',
+                    'type'      => 'success',
+                ];
         return response()->json($data, 200);
     }
 }

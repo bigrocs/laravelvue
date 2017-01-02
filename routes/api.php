@@ -25,6 +25,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'api', 'namespace' => 'Api\Ad
     Route::patch('system', ['as' => 'api.system.update', 'uses' => 'SystemController@update']);
 
     Route::get('config', [ 'as' => 'api.config.index', 'uses' => 'ConfigController@index']);
+    Route::patch('config', ['as' => 'api.config.update', 'uses' => 'ConfigController@update']);
 
     Route::post('upload/image', [ 'as' => 'api.upload.image', 'uses' => 'UploadController@postImage']);
 });
