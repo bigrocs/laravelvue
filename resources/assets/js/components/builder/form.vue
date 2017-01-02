@@ -59,7 +59,14 @@ export default {
     methods:{
         handleSubmit(){
             this.disabled = true;
-            this.$http.patch(this.fromDatas.url, this.fromDatas.datas).then(function (Response) {
+            const data = [];
+            for(var key in this.fromDatas.datas){
+                data[key] = {
+                    'id': this.fromDatas.datas[key].id,
+                    'value': this.fromDatas.datas[key].value,
+                }
+            }
+            this.$http.patch(this.fromDatas.url, data).then(function (Response) {
                 if (Response.data.duration==null) {
                     Response.data.duration = 4500;
                 }

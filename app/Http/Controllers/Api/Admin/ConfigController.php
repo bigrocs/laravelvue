@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
+use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -75,13 +76,12 @@ class ConfigController extends Controller
         return response()->json($data, 200);
     }
     public function update(Request $request){
-        dd($request->all());
         foreach ($request->all() as $value) {
-            $adminConfig = $this->adminConfigModel->where('name', '=', $value['name'])->update(['value' => $value['value']]);
+            $response = $this->adminConfigModel->find($value['id'])->fill($value)->save();
         }
         $data = [
-                    'title'     => '保存成功',
-                    'message'   => '系统设置保存成功!',
+                    'title'     => '状态已更改',
+                    'message'   => '后台配置数据状态更改成功!',
                     'type'      => 'success',
                 ];
         return response()->json($data, 200);

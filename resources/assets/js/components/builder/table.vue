@@ -218,21 +218,41 @@ export default {
             console.log('Edit,index, row',index, row);
         },
         handleEnable(index, row){
-            var data = {
+            var data = [{
                 'id':row['id'],
                 'status':1,
-            };
+            }];
+            row[this.statusProp] = 1;
+            this.compileTableColumnType();
             this.handleHttp(data);
         },
         handleDisable(index, row){
-            console.log('Disable,index, row',index, row);
+            var data = [{
+                'id':row['id'],
+                'status':0,
+            }];
+            row[this.statusProp] = 0;  
+            this.compileTableColumnType();
+            this.handleHttp(data);
         },
         handleDelete(index, row){
             console.log('delete,index, row',index, row);
         },
         handleHttp(data){
             this.$http.patch(this.tableDatas.url, data).then(function (Response) {
-                console.log(Response);
+                if (Response.data.duration==null) {
+                    Response.data.duration = 4500;
+                }
+                this.$notify({
+                  title: Response.data.title,
+                  message: Response.data.message,
+                  type: Response.data.type,
+                  iconClass: Response.data.iconClass,
+                  customClass: Response.data.customClass,
+                  duration: Response.data.duration,
+                  onClose: Response.data.onClose,
+                  offset: Response.data.offset,
+                });
             });
         },
         handleSelectionChange(val) {

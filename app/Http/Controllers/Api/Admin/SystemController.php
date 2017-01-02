@@ -57,7 +57,7 @@ class SystemController extends Controller
     }
     public function update(Request $request){
         foreach ($request->all() as $value) {
-            $adminConfig = $this->adminConfigModel->where('name', '=', $value['name'])->update(['value' => $value['value']]);
+            $adminConfig = $this->adminConfigModel->where('id', '=', $value['id'])->update(['value' => $value['value']]);
         }
         $data = [
                     'title'     => '保存成功',
