@@ -23,7 +23,8 @@ class ConfigController extends Controller
         $data = [
             'table' => [
                 'type'    => 'table',
-                'url'     => 'api/admin/config',
+                'urlStatus'     => 'api/admin/config/status',
+                'urlDelete'     => 'api/admin/config/delete',
                 // 'method'  => 'post',
                 'stripe' => true,
                 'rightButton'=>[
@@ -75,13 +76,24 @@ class ConfigController extends Controller
         $data['table']['datas'] = $adminConfigs;
         return response()->json($data, 200);
     }
-    public function update(Request $request){
+    public function status(Request $request){
         foreach ($request->all() as $value) {
-            $response = $this->adminConfigModel->find($value['id'])->fill($value)->save();
+            $adminConfig = $this->adminConfigModel->where('id', '=', $value['id'])->update(['status' => $value['status']]);
         }
         $data = [
                     'title'     => '状态已更改',
                     'message'   => '后台配置数据状态更改成功!',
+                    'type'      => 'success',
+                ];
+        return response()->json($data, 200);
+    }
+    public function delete(Request $request){
+        foreach ($request->all() as $value) {
+            $response = $this->adminConfigModel->find($value['id'])->forceDelete();
+        }
+        $data = [
+                    'title'     => '删除成功',
+                    'message'   => '后台配置数据删除成功!',
                     'type'      => 'success',
                 ];
         return response()->json($data, 200);

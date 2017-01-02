@@ -224,22 +224,25 @@ export default {
             }];
             row[this.statusProp] = 1;
             this.compileTableColumnType();
-            this.handleHttp(data);
+            this.handleHttp(this.tableDatas.urlStatus,data);
         },
         handleDisable(index, row){
             var data = [{
                 'id':row['id'],
                 'status':0,
             }];
-            row[this.statusProp] = 0;  
+            row[this.statusProp] = 0;
             this.compileTableColumnType();
-            this.handleHttp(data);
+            this.handleHttp(this.tableDatas.urlStatus,data);
         },
         handleDelete(index, row){
-            console.log('delete,index, row',index, row);
+            var data = [{
+                'id':row['id']
+            }];
+            this.handleHttp(this.tableDatas.urlDelete,data);
         },
-        handleHttp(data){
-            this.$http.patch(this.tableDatas.url, data).then(function (Response) {
+        handleHttp(url,data){
+            this.$http.patch(url, data).then(function (Response) {
                 if (Response.data.duration==null) {
                     Response.data.duration = 4500;
                 }
@@ -252,6 +255,12 @@ export default {
                   duration: Response.data.duration,
                   onClose: Response.data.onClose,
                   offset: Response.data.offset,
+                });
+            }, (response) => {
+                this.$notify({
+                  title: '操作失败',
+                  message: '操作失败请联系管理员！',
+                  type: 'error',
                 });
             });
         },
