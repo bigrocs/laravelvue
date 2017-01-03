@@ -1,13 +1,19 @@
 <template>
     <div class="col-md-12">
         <el-card class="box-card">
+            <div slot="header" class="clearfix">
+                <el-button type="primary"><i class="fa fa-plus"></i> 操作按钮</el-button>
+                <el-button type="success"><i class="fa fa-plus"></i> 操作按钮</el-button>
+                <el-button type="warning"><i class="fa fa-plus"></i> 操作按钮</el-button>
+                <el-button type="danger"><i class="fa fa-plus"></i> 操作按钮</el-button>
+                <el-button style="float: right;" type="primary">操作按钮</el-button>
+            </div>
             <el-table
                 :data="tableDatas.datas"
                 :stripe="tableDatas.stripe"
                 border
                 style="width: 100%"
-                @selection-change="handleSelectionChange"
-            >
+                @selection-change="handleSelectionChange">
                 <el-table-column
                   type="selection"
                   width="55">
@@ -212,9 +218,15 @@ export default {
                     }
                 }
             }
-
-
         },
+        /**
+         * [handleClick 左右table按钮中控制分发器]
+         * @Author   BigRocs                  BigRocs@qq.com
+         * @DateTime 2017-01-03T10:02:07+0800
+         * @param    [type]                     $method       [动作命令]
+         * @param   [type]                      $index        [动作行序号]
+         * @param   [type]                      $row          [动作数据]
+         */
         handleClick(method,index, row) {
             switch (method) {
                 case 'edit':
@@ -269,8 +281,20 @@ export default {
             var data = [{
                 'id':row['id']
             }];
-            this.tableDatas.datas.splice(index, 1);
-            this.handleHttp(this.tableDatas.urlDelete,data);
+            this.$confirm('此操作将永久删除此数据, 是否继续?', '危险提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'error'
+            }).then(() => {
+                this.tableDatas.datas.splice(index, 1);
+                this.handleHttp(this.tableDatas.urlDelete,data);
+            }).catch(() => {
+                this.$notify({
+                    title: '操作取消',
+                    message: '已取消删除',
+                    type: 'info',
+                });
+            });
         },
         handleHttp(url,data){
             this.$http.patch(url, data).then(function (Response) {
@@ -308,3 +332,9 @@ export default {
     },
 }
 </script>
+<style lang="css">
+    .el-button{
+        margin-top:10px !important;
+        margin-left:10px !important;
+    }
+</style>
