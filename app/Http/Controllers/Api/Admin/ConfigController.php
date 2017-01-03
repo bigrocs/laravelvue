@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\AdminConfig;
+use BuilderData;
 
 class ConfigController extends Controller
 {
@@ -20,62 +21,23 @@ class ConfigController extends Controller
     }
     public function index()
     {
-        $data = [
-            'table' => [
-                'type'    => 'table',
-                'urlStatus'     => 'api/admin/config/status',
-                'urlDelete'     => 'api/admin/config/delete',
-                // 'method'  => 'post',
-                'stripe' => true,
-                'rightButton'=>[
-                    ['type'=>'edit'],
-                    ['type'=>'forbid'],
-                    // ['type'=>'hide'],
-                    ['type'=>'delete'],
-                ],
-                'column' => [
-                    [
-                        'prop' => 'id',
-                        'label'=> 'ID',
-                        'width'=> '55',
-                    ],
-                    [
-                        'prop' => 'name',
-                        'label'=> '名称',
-                        'width'=> '200',
-                    ],
-                    [
-                        'prop' => 'title',
-                        'label'=> '标题',
-                        'width'=> '180',
-                    ],
-                    [
-                        'prop' => 'sort',
-                        'label'=> '排序',
-                        'width'=> '70',
-                    ],
-                    [
-                        'prop' => 'status',
-                        'label'=> '状态',
-                        'type' => 'status',
-                        'width'=> '90',
-                    ],
-                    [
-                        'prop' => 'rightButton',
-                        'label'=> '操作',
-                        'type' => 'btn',
-                    ],
-                ],
-                'datas'   => [
-
-                ]
-            ]
-        ];
         $adminConfigs = $this->adminConfigModel
                             ->where('status', '>=', 0)
                             ->get();
-        $data['table']['datas'] = $adminConfigs;
-        return response()->json($data, 200);
+        $datas = BuilderData::addTableData($adminConfigs)
+                                ->addTableColumn(['prop' => 'id',         'label'=> 'ID',     'width'=> '55'])
+                                ->addTableColumn(['prop' => 'name',       'label'=> '名称',   'width'=> '200'])
+                                ->addTableColumn(['prop' => 'title',      'label'=> '标题',   'width'=> '180'])
+                                ->addTableColumn(['prop' => 'sort',       'label'=> '排序',   'width'=> '70'])
+                                ->addTableColumn(['prop' => 'status',     'label'=> '状态',   'width'=> '90','type' => 'status'])
+                                ->addTableColumn(['prop' => 'rightButton','label'=> '操作',   'type' => 'btn'])
+                                ->addTableApiUrl('urlStatus','api/admin/config/status')   //添加状态通信API
+                                ->addTableApiUrl('urlDelete','api/admin/config/delete')   //添加删除通信API
+                                ->addRightButton(['type'=>'edit'])                        // 添加编辑按钮
+                                ->addRightButton(['type'=>'forbid'])                      // 添加禁用/启用按钮
+                                ->addRightButton(['type'=>'delete'])                      // 添加删除按钮
+                                ->get();
+        return response()->json($datas, 200);
     }
     public function status(Request $request){
         foreach ($request->all() as $value) {

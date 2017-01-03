@@ -257,7 +257,7 @@ export default {
             }];
             row[this.statusProp] = 1;
             this.compileTableColumnType();
-            this.handleHttp(this.tableDatas.urlStatus,data);
+            this.handleHttp(this.tableDatas.apiUrl.urlStatus,data);
         },
         handleDisable(index, row){
             var data = [{
@@ -266,7 +266,7 @@ export default {
             }];
             row[this.statusProp] = 0;
             this.compileTableColumnType();
-            this.handleHttp(this.tableDatas.urlStatus,data);
+            this.handleHttp(this.tableDatas.apiUrl.urlStatus,data);
         },
         handleHide(index, row){
             var data = [{
@@ -275,7 +275,7 @@ export default {
             }];
             row[this.statusProp] = 2;
             this.compileTableColumnType();
-            this.handleHttp(this.tableDatas.urlStatus,data);
+            this.handleHttp(this.tableDatas.apiUrl.urlStatus,data);
         },
         handleDelete(index, row){
             var data = [{
@@ -287,7 +287,7 @@ export default {
                 type: 'error'
             }).then(() => {
                 this.tableDatas.datas.splice(index, 1);
-                this.handleHttp(this.tableDatas.urlDelete,data);
+                this.handleHttp(this.tableDatas.apiUrl.urlDelete,data);
             }).catch(() => {
                 this.$notify({
                     title: '操作取消',
