@@ -30,6 +30,7 @@ class ConfigController extends Controller
                 'rightButton'=>[
                     ['type'=>'edit'],
                     ['type'=>'forbid'],
+                    ['type'=>'hide'],
                     ['type'=>'delete'],
                 ],
                 'column' => [

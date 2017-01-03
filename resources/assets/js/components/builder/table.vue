@@ -113,6 +113,24 @@ export default {
                         };
                         this.rightButtonList.push(button);
                         break;
+                    case 'hide':  //改变记录状态按钮，会更具数据当前的状态自动选择应该显示启用/禁用
+                            var button ={
+                                2:{
+                                    'title':'显示',
+                                    'icon':'fa fa-check',
+                                    'class':'success',
+                                    'method':'enable'
+                                },
+                                1:{
+                                    'title':'隐藏',
+                                    'icon':'fa fa-eye-slash',
+                                    'class':'warning',
+                                    'method':'hide'
+                                },
+                                'type':'hide',
+                            };
+                            this.rightButtonList.push(button);
+                            break;
                     case 'delete':  // 删除按钮
                         var button ={
                             'title':'删除',
@@ -179,13 +197,13 @@ export default {
                         case 'btn':
                             var rightButtonData = [];
                             for (var key in this.rightButtonList) {
-                                switch (this.rightButtonList[key].type) {
-                                    case 'forbid':
-                                        var statusValue = this.tableDatas.datas[w][this.statusProp].value;
+                                if(this.rightButtonList[key].type == 'forbid' || this.rightButtonList[key].type == 'hide'){
+                                    var statusValue = this.tableDatas.datas[w][this.statusProp].value;
+                                    if (this.rightButtonList[key][statusValue]) {
                                         rightButtonData.push(this.rightButtonList[key][statusValue]);
-                                        break;
-                                    default:
-                                        rightButtonData.push(this.rightButtonList[key]);
+                                    }
+                                }else{
+                                    rightButtonData.push(this.rightButtonList[key]);
                                 }
                             }
                             this.tableDatas.datas[w][this.tableDatas.column[i].prop] = rightButtonData;
@@ -207,6 +225,9 @@ export default {
                     break;
                 case 'disable':
                     this.handleDisable(index, row)
+                    break;
+                case 'hide':
+                    this.handleHide(index, row)
                     break;
                 case 'delete':
                     this.handleDelete(index, row)
@@ -235,10 +256,20 @@ export default {
             this.compileTableColumnType();
             this.handleHttp(this.tableDatas.urlStatus,data);
         },
+        handleHide(index, row){
+            var data = [{
+                'id':row['id'],
+                'status':2,
+            }];
+            row[this.statusProp] = 2;
+            this.compileTableColumnType();
+            this.handleHttp(this.tableDatas.urlStatus,data);
+        },
         handleDelete(index, row){
             var data = [{
                 'id':row['id']
             }];
+            this.tableDatas.datas.splice(index, 1);
             this.handleHttp(this.tableDatas.urlDelete,data);
         },
         handleHttp(url,data){
