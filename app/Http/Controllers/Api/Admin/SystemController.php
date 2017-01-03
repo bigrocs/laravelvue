@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Models\AdminConfig;
+use BuilderData;
 
 class SystemController extends Controller
 {
@@ -20,39 +21,34 @@ class SystemController extends Controller
     }
     public function index($group = 0)
     {
-        $data = [
-            'form' => [
-                'type'    => 'form',
-                'url'     => 'api/admin/system',
-                'method'  => 'post',
-                'datas'   => [
-                ]
-            ]
-        ];
-        $data['form']['group'] = explode(',', getAdminConfig('CONFIG_GROUP_LIST'));
         $adminConfigs = $this->adminConfigModel
                             // ->where('group', '=', $group)
                             ->orderBy('sort', 'ASC')
                             ->where('status', '=', 1)
                             ->get();
         foreach ($adminConfigs as $key => $adminConfig) {
-            $data['form']['datas'][$key] = $adminConfig;
-            $data['form']['datas'][$key]['label'] = $adminConfig['title'];
-            $data['form']['datas'][$key]['placeholder'] = $adminConfig['tip'];
+            $adminConfig = $adminConfig;
+            $adminConfig['label'] = $adminConfig['title'];
+            $adminConfig['placeholder'] = $adminConfig['tip'];
             if ($adminConfig['type'] == 'textarea') {
-                $data['form']['datas'][$key]['rows'] = 5;
+                $adminConfig['rows'] = 5;
             }
             if ($adminConfig['type'] == 'picture') {
-                $data['form']['datas'][$key]['postUrl'] = 'api/admin/upload/image';
+                $adminConfig['postUrl'] = 'api/admin/upload/image';
                 $uploadData[] = getUploadWhereOne($adminConfig['value']);
-                $data['form']['datas'][$key]['fileList'] = $uploadData;
-                $data['form']['datas'][$key]['maxSize'] = 1048567;//上传文件限制
+                $adminConfig['fileList'] = $uploadData;
+                $adminConfig['maxSize'] = 1048567;//上传文件限制
                 $maxSizeLang['title'] = '图片大小超过限制';
                 $maxSizeLang['message'] = '上传图片大小超过系统'.'1M'.'限制';
                 $maxSizeLang['type'] = 'warning';
-                $data['form']['datas'][$key]['maxSizeLang'] = $maxSizeLang;
+                $adminConfig['maxSizeLang'] = $maxSizeLang;
             }
         }
+        $tabs = explode(',', getAdminConfig('CONFIG_GROUP_LIST'));
+        $data = BuilderData::addFormData($adminConfigs)
+                                ->addFormApiUrl('urlSubmit','api/admin/system/update')              //添加Submit通信API
+                                ->addFormTabs($tabs)    //设置页面Tabs
+                                ->get();
         return response()->json($data, 200);
     }
     public function update(Request $request){

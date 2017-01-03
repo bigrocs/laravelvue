@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+
 use App\Models\AdminConfig;
 use BuilderData;
 
@@ -24,7 +25,7 @@ class ConfigController extends Controller
         $adminConfigs = $this->adminConfigModel
                             ->where('status', '>=', 0)
                             ->get();
-        $datas = BuilderData::addTableData($adminConfigs)
+        $data = BuilderData::addTableData($adminConfigs)
                                 ->addTableColumn(['prop' => 'id',         'label'=> 'ID',     'width'=> '55'])
                                 ->addTableColumn(['prop' => 'name',       'label'=> '名称',   'width'=> '200'])
                                 ->addTableColumn(['prop' => 'title',      'label'=> '标题',   'width'=> '180'])
@@ -37,7 +38,7 @@ class ConfigController extends Controller
                                 ->addRightButton(['type'=>'forbid'])                      // 添加禁用/启用按钮
                                 ->addRightButton(['type'=>'delete'])                      // 添加删除按钮
                                 ->get();
-        return response()->json($datas, 200);
+        return response()->json($data, 200);
     }
     public function status(Request $request){
         foreach ($request->all() as $value) {

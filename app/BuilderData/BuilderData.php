@@ -9,7 +9,27 @@ class BuilderData
 {
     private $data;            							// 数据
 
-
+    /**
+     * Form 方法
+     */
+     public function addFormData($formData){
+         $this->data['form']['type']    = 'form';      //自动设置数据样式为 table
+         $this->data['form']['datas']   = $formData;   //设置 table数据
+         return $this;
+     }
+     /**
+      * [addFormApiUrl 设置 FormApiUrl API通信网址]
+      * @param [type] $key    [通信类型]
+      * @param [type] $ApiUrl [通信网址]
+      */
+     public function addFormApiUrl($key,$ApiUrl){
+         $this->data['form']['apiUrl'][$key]   = $ApiUrl;
+         return $this;
+     }
+     public function addFormTabs($tabs){
+         $this->data['form']['group']   = $tabs;   //设置 Tabs数据
+         return $this;
+     }
     /**
      * TableData方法
      */

@@ -22,7 +22,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'api', 'namespace' => 'Api\Ad
     Route::get('main', [ 'as' => 'api.main.index', 'uses' => 'MainController@index']);
 
     Route::get('system', [ 'as' => 'api.system.index', 'uses' => 'SystemController@index']);
-    Route::patch('system', ['as' => 'api.system.update', 'uses' => 'SystemController@update']);
+    Route::patch('system/update', ['as' => 'api.system.update', 'uses' => 'SystemController@update']);
 
     Route::get('config', [ 'as' => 'api.config.index', 'uses' => 'ConfigController@index']);
     Route::patch('config/status', ['as' => 'api.config.status', 'uses' => 'ConfigController@status']);
