@@ -35,7 +35,7 @@ export default {
          */
         getData() {
             this.$store.commit('getCurrentApiUrl', this.$route.name) //当去当前路由API地址 赋值this.$store.state.CurrentUrl
-            this.$http.get(this.$store.state.CurrentApiUrl).then((Response) => {
+            this.$http.post(this.$store.state.CurrentApiUrl).then((Response) => {
                 this.$set(this, 'datas', Response.data) //获取页面数据赋值
             })
         }

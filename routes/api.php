@@ -21,10 +21,10 @@ use Illuminate\Http\Request;
 Route::group(['prefix' => 'admin', 'middleware' => 'api', 'namespace' => 'Api\Admin'], function () {
     Route::get('main', [ 'as' => 'api.main.index', 'uses' => 'MainController@index']);
 
-    Route::get('system', [ 'as' => 'api.system.index', 'uses' => 'SystemController@index']);
+    Route::post('system', [ 'as' => 'api.system.index', 'uses' => 'SystemController@index']);
     Route::patch('system/update', ['as' => 'api.system.update', 'uses' => 'SystemController@update']);
 
-    Route::get('config', [ 'as' => 'api.config.index', 'uses' => 'ConfigController@index']);
+    Route::post('config', [ 'as' => 'api.config.index', 'uses' => 'ConfigController@index']);
     Route::patch('config/status', ['as' => 'api.config.status', 'uses' => 'ConfigController@status']);
     Route::patch('config/delete', ['as' => 'api.config.delete', 'uses' => 'ConfigController@delete']);
 
