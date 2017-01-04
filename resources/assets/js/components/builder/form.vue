@@ -1,6 +1,6 @@
 <template>
     <div class="col-md-12">
-        <el-card class="box-card" v-if="fromDatas.group == null">
+        <!-- <el-card class="box-card" v-if="fromDatas.group == null">
             <el-form ref="fromDatas" :model="fromDatas" label-width="80px">
                 <div class="form-group" v-for="data in fromDatas.datas">
                     <builder-formindex :datas="data"></builder-formindex>
@@ -17,15 +17,14 @@
                     </div>
                 </div>
             </el-form>
-        </el-card>
-        <el-tabs type="border-card" @tab-click="handleTabsClick" v-else>
-            <template v-for="(group,key) in fromDatas.group">
-                <el-tab-pane :label="group">
+        </el-card> -->
+        <!-- <el-tabs type="border-card" @tab-click="handleTabsClick" v-else> -->
+        <el-tabs type="border-card" @tab-click="handleTabsClick">
+            <template v-for="(tabs,key) in fromDatas.tabs">
+                <el-tab-pane :label="tabs">
                     <el-form ref="fromDatas" :model="fromDatas" label-width="80px">
                         <div class="form-group" v-for="data in fromDatas.datas">
-                            <template v-if="data.group == key">
-                                <builder-formindex :datas="data"></builder-formindex>
-                            </template>
+                            <builder-formindex :datas="data"></builder-formindex>
                         </div>
                         <div class="row">
                         <div class="col-md-6 col-sm-8">

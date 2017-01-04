@@ -27,7 +27,7 @@ class BuilderData
          return $this;
      }
      public function addFormTabs($tabs){
-         $this->data['form']['group']   = $tabs;   //设置 Tabs数据
+         $this->data['form']['tabs']   = $tabs;   //设置 Tabs数据
          return $this;
      }
     /**
