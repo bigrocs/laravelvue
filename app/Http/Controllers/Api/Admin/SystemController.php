@@ -19,10 +19,12 @@ class SystemController extends Controller
     {
         $this->adminConfigModel = $adminConfigRepo;
     }
-    public function index($group = 0)
+    public function index(Request $request)
     {
+        $group = $request->get('tabsId');
+        if(empty($group)){ $group = 0; }
         $adminConfigs = $this->adminConfigModel
-                            // ->where('group', '=', $group)
+                            ->where('group', '=', $group)
                             ->orderBy('sort', 'ASC')
                             ->where('status', '=', 1)
                             ->get();
@@ -46,9 +48,9 @@ class SystemController extends Controller
         }
         $tabs = explode(',', getAdminConfig('CONFIG_GROUP_LIST'));
         $data = BuilderData::addFormData($adminConfigs)
-                                ->addFormApiUrl('urlSubmit','api/admin/system/update')              //添加Submit通信API
-                                ->addFormTabs($tabs)    //设置页面Tabs
-                                ->get();
+                            ->addFormApiUrl('urlSubmit','api/admin/system/update')              //添加Submit通信API
+                            ->addFormTabs($tabs)    //设置页面Tabs
+                            ->get();
         return response()->json($data, 200);
     }
     public function update(Request $request){

@@ -18,7 +18,7 @@
                 </div>
             </el-form>
         </el-card>
-        <el-tabs type="border-card" v-else>
+        <el-tabs type="border-card" @tab-click="handleTabsClick" v-else>
             <template v-for="(group,key) in fromDatas.group">
                 <el-tab-pane :label="group">
                     <el-form ref="fromDatas" :model="fromDatas" label-width="80px">
@@ -57,6 +57,11 @@ export default {
         };
     },
     methods:{
+        handleTabsClick(tab, event){
+            this.$http.post(this.$store.state.CurrentApiUrl,{'tabsId':tab.index}).then((Response) => {
+                this.$set(this, 'fromDatas', Response.data.form) //获取页面数据赋值
+            })
+        },
         handleSubmit(){
             this.disabled = true;
             const data = [];
