@@ -1,6 +1,5 @@
 <template>
-    <div class="col-md-12">
-        <el-card class="box-card">
+    <div>
             <div slot="header" class="clearfix">
                 <el-button type="primary"><i class="fa fa-plus"></i> 操作按钮</el-button>
                 <el-button type="success"><i class="fa fa-plus"></i> 操作按钮</el-button>
@@ -64,7 +63,6 @@
                     </el-table-column>
                 </template>
             </el-table>
-        </el-card>
     </div>
 </template>
 
@@ -72,7 +70,6 @@
 export default {
     data() {
       return {
-          tableDatas: this.datas,
           rightButtonList:[],
           statusProp:null,
           multipleSelection: []
@@ -325,7 +322,7 @@ export default {
         }
     },
     props: {
-        datas: {
+        tableDatas: {
             type: Object,
             default: ''
         },

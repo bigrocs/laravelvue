@@ -1,13 +1,20 @@
 <template>
 <div class="row">
-    <template v-for="data in datas">
-        <template v-if="data.type == 'form'">
-            <builder-form :datas="data"></builder-form>
-        </template>
-        <template v-if="data.type == 'table'">
-            <builder-table :datas="data"></builder-table>
-        </template>
-    </template>
+    <div class="col-md-12">
+        <el-card class="box-card" v-if="datas.tabs == null">
+            <template v-for="data in datas" >
+                <builder-form   v-if="data.type == 'form'"      :fromDatas="data"></builder-form>
+                <builder-table  v-if="data.type == 'table'"     :tableDatas="data"></builder-table>
+            </template>
+        </el-card>
+        <el-tabs type="border-card" @tab-click="handleTabsClick" v-else>
+            <el-tab-pane v-for="(tabs,key) in datas.tabs" :label="tabs" >
+                <template v-for="data in datas" >
+                    <builder-form   v-if="data.type == 'form'"      :fromDatas="data"></builder-form>
+                    <builder-table  v-if="data.type == 'table'"     :tableDatas="data"></builder-table>
+                </template>
+            </el-tab-pane>
+        </el-tabs>
 </div>
 </template>
 <script>
@@ -30,6 +37,11 @@ export default {
         $route: 'getData'
     },
     methods: {
+        handleTabsClick(tab, event){
+            this.$http.post(this.$store.state.CurrentApiUrl,{'tabsId':tab.index}).then((Response) => {
+                this.$set(this, 'datas', Response.data) //获取页面数据赋值
+            })
+        },
         /**
          * 获取页面数据
          */

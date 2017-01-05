@@ -49,7 +49,7 @@ class SystemController extends Controller
         $tabs = explode(',', getAdminConfig('CONFIG_GROUP_LIST'));
         $data = BuilderData::addFormData($adminConfigs)
                             ->addFormApiUrl('urlSubmit','api/admin/system/update')              //添加Submit通信API
-                            ->addFormTabs($tabs)    //设置页面Tabs
+                            ->addTabs($tabs)    //设置页面Tabs
                             ->get();
         return response()->json($data, 200);
     }

@@ -1,65 +1,49 @@
 <template>
-    <div class="col-md-12">
-        <el-card class="box-card" v-if="fromDatas.tabs == null">
-            <el-form ref="fromDatas" :model="fromDatas" label-width="80px">
-                <div class="form-group" v-for="data in fromDatas.datas">
-                    <builder-formindex :datas="data"></builder-formindex>
-                </div>
-                <div class="row">
-                <div class="col-md-6 col-sm-8">
-                    <div class="btn-group btn-group-justified">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-info" @click="handleSubmit" :disabled="disabled">确定</button>
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-warning"  @click="handleReset">重置</button>
-                        </div>
+    <el-form ref="fromDatas" :model="fromDatas" label-width="80px">
+        <div class="form-group" v-for="data in fromDatas.datas">
+            <builder-text       v-if="data.type == 'text'"      :datas="data"></builder-text>
+            <builder-textarea   v-if="data.type == 'textarea'"  :datas="data"></builder-textarea>
+            <builder-number     v-if="data.type == 'number'"    :datas="data"></builder-number>
+            <builder-switch     v-if="data.type == 'switch'"    :datas="data"></builder-switch>
+            <builder-picture    v-if="data.type == 'picture'"   :datas="data"></builder-picture>
+            <builder-upload     v-if="data.type == 'upload'"    :datas="data"></builder-upload>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-8">
+                <div class="btn-group btn-group-justified">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-info" @click="handleSubmit" :disabled="disabled">确定</button>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-warning"  @click="handleReset">重置</button>
                     </div>
                 </div>
-            </el-form>
-        </el-card>
-        <el-tabs type="border-card" @tab-click="handleTabsClick" v-else>
-            <template v-for="(tabs,key) in fromDatas.tabs">
-                <el-tab-pane :label="tabs">
-                    <el-form ref="fromDatas" :model="fromDatas" label-width="80px">
-                        <div class="form-group" v-for="data in fromDatas.datas">
-                            <builder-formindex :datas="data"></builder-formindex>
-                        </div>
-                        <div class="row">
-                        <div class="col-md-6 col-sm-8">
-                            <div class="btn-group btn-group-justified">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-info" @click="handleSubmit" :disabled="disabled">确定</button>
-                                </div>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-warning"  @click="handleReset">重置</button>
-                                </div>
-                            </div>
-                        </div>
-                    </el-form>
-                </el-tab-pane>
-            </template>
-        </el-tabs>
-    </div>
+            </div>
+        </div>
+    </el-form>
 </template>
 <script>
-import builderFormindex from './packages/index.vue'
+import builderText from './packages/text.vue'
+import builderTextarea from './packages/textarea.vue'
+import builderNumber from './packages/number.vue'
+import builderSwitch from './packages/switch.vue'
+import builderPicture from './packages/picture.vue'
+import builderUpload from './packages/upload.vue'
 export default {
     components: {
-        builderFormindex,
+        builderText,
+        builderTextarea,
+        builderNumber,
+        builderSwitch,
+        builderPicture,
+        builderUpload
     },
     data() {
         return {
-            fromDatas: this.datas,
             disabled: false,
         };
     },
     methods:{
-        handleTabsClick(tab, event){
-            this.$http.post(this.$store.state.CurrentApiUrl,{'tabsId':tab.index}).then((Response) => {
-                this.$set(this, 'fromDatas', Response.data.form) //获取页面数据赋值
-            })
-        },
         handleSubmit(){
             this.disabled = true;
             const data = [];
@@ -93,7 +77,7 @@ export default {
         },
     },
     props: {
-        datas: {
+        fromDatas: {
             type: Object,
             default: ''
         },

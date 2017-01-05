@@ -26,10 +26,6 @@ class BuilderData
          $this->data['form']['apiUrl'][$key]   = $ApiUrl;
          return $this;
      }
-     public function addFormTabs($tabs){
-         $this->data['form']['tabs']   = $tabs;   //设置 Tabs数据
-         return $this;
-     }
     /**
      * TableData方法
      */
@@ -61,6 +57,10 @@ class BuilderData
     /**
      * 公共方法
      */
+     public function addTabs($tabs){
+         $this->data['tabs']   = $tabs;   //设置 Tabs数据
+         return $this;
+     }
     public function get(){
         return $this->data;
     }
