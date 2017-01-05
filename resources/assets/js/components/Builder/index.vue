@@ -38,6 +38,7 @@ export default {
     },
     methods: {
         handleTabsClick(tab, event){
+            console.log(tab);
             this.$http.post(this.$store.state.CurrentApiUrl,{'tabsId':tab.index}).then((Response) => {
                 this.$set(this, 'datas', Response.data) //获取页面数据赋值
             })

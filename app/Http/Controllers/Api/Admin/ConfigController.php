@@ -20,11 +20,15 @@ class ConfigController extends Controller
     {
         $this->adminConfigModel = $adminConfigRepo;
     }
-    public function index()
+    public function index(Request $request)
     {
+        $group = $request->get('tabsId');
+        $group = empty($group) ? 0 : $group;
         $adminConfigs = $this->adminConfigModel
+                            ->where('group', '=', $group)
                             ->where('status', '>=', 0)
                             ->get();
+        $tabs = explode(',', getAdminConfig('CONFIG_GROUP_LIST'));
         $data = BuilderData::addTableData($adminConfigs)
                                 ->addTableColumn(['prop' => 'id',         'label'=> 'ID',     'width'=> '55'])
                                 ->addTableColumn(['prop' => 'name',       'label'=> '名称',   'width'=> '200'])
@@ -37,6 +41,7 @@ class ConfigController extends Controller
                                 ->addRightButton(['type'=>'edit'])                        // 添加编辑按钮
                                 ->addRightButton(['type'=>'forbid'])                      // 添加禁用/启用按钮
                                 ->addRightButton(['type'=>'delete'])                      // 添加删除按钮
+                                ->addTabs($tabs)                                          //设置页面Tabs
                                 ->get();
         return response()->json($data, 200);
     }

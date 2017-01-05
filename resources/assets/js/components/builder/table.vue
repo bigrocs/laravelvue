@@ -1,13 +1,13 @@
 <template>
-    <div>
-            <div slot="header" class="clearfix">
-                <el-button type="primary"><i class="fa fa-plus"></i> 操作按钮</el-button>
-                <el-button type="success"><i class="fa fa-plus"></i> 操作按钮</el-button>
-                <el-button type="warning"><i class="fa fa-plus"></i> 操作按钮</el-button>
-                <el-button type="danger"><i class="fa fa-plus"></i> 操作按钮</el-button>
-                <el-button style="float: right;" type="primary">操作按钮</el-button>
-            </div>
-            <el-table
+    <div class="">
+    <div slot="header" class="clearfix">
+        <el-button type="primary"><i class="fa fa-plus"></i> 操作按钮</el-button>
+        <el-button type="success"><i class="fa fa-plus"></i> 操作按钮</el-button>
+        <el-button type="warning"><i class="fa fa-plus"></i> 操作按钮</el-button>
+        <el-button type="danger"><i class="fa fa-plus"></i> 操作按钮</el-button>
+        <el-button style="float: right;" type="primary">操作按钮</el-button>
+    </div>
+    <el-table
                 :data="tableDatas.datas"
                 :stripe="tableDatas.stripe"
                 border
@@ -62,7 +62,7 @@
                         </template>
                     </el-table-column>
                 </template>
-            </el-table>
+    </el-table>
     </div>
 </template>
 
@@ -78,6 +78,9 @@ export default {
     created() {
         this.compileRightButton()           //编译右侧按钮
         this.compileTableColumnType()       //编译整个页面属性
+    },
+    watch: {
+        tableDatas: 'compileTableColumnType'
     },
     methods: {
         /**

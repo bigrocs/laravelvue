@@ -22,7 +22,7 @@ class SystemController extends Controller
     public function index(Request $request)
     {
         $group = $request->get('tabsId');
-        if(empty($group)){ $group = 0; }
+        $group = empty($group) ? 0 : $group;
         $adminConfigs = $this->adminConfigModel
                             ->where('group', '=', $group)
                             ->orderBy('sort', 'ASC')
