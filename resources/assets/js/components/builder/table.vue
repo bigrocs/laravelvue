@@ -1,6 +1,6 @@
 <template>
-    <div class="">
-    <div slot="header" class="clearfix">
+<div class="">
+    <div slot="header" class="table-header">
         <el-button type="primary"><i class="fa fa-plus"></i> 操作按钮</el-button>
         <el-button type="success"><i class="fa fa-plus"></i> 操作按钮</el-button>
         <el-button type="warning"><i class="fa fa-plus"></i> 操作按钮</el-button>
@@ -8,62 +8,62 @@
         <el-button style="float: right;" type="primary">操作按钮</el-button>
     </div>
     <el-table
-                :data="tableDatas.datas"
-                :stripe="tableDatas.stripe"
-                border
-                style="width: 100%"
-                @selection-change="handleSelectionChange">
-                <el-table-column
-                  type="selection"
-                  width="55">
-                </el-table-column>
-                <template v-for="column in tableDatas.column">
-                    <el-table-column
-                      :type="column.type"
-                      :column-key="column.columnKey"
-                      :label="column.label"
-                      :prop="column.prop"
-                      :width="column.width"
-                      :min-width="column.minWidth"
-                      :fixed="column.fixed"
-                      :render-header="column.renderHeader"
-                      :sortable="column.sortable"
-                      :sort-method="column.sortMethod"
-                      :resizable="column.resizable"
-                      :formatter="column.formatter"
-                      :show-overflow-tooltip="column.showOverflowTooltip"
-                      :align="column.align"
-                      :header-align="column.headerAlign"
-                      :class-name="column.className"
-                      :reserve-selection="column.reserveSelection"
-                      :filters="column.filters"
-                      :filter-multiple="filterMultiple"
-                      :filter-method="column.filterMethod"
-                      :filtered-value="column.filteredValue"
-                    >
-                        <template scope="scope">
-                            <template v-if="column.prop=='status'">
-                                <el-tag :type="scope.row[column.prop].type">
-                                    <i :class="scope.row[column.prop].icon"></i>
-                                    {{ scope.row[column.prop].title }}
-                                </el-tag>
-                            </template>
-                            <template v-else-if="column.prop=='rightButton'">
-                                <template v-for="rightButton in scope.row[column.prop]">
-                                    <el-button :type="rightButton.class" size="mini"  @click="handleClick(rightButton.method,scope.$index, scope.row)">
-                                        <i :class="rightButton.icon"></i>
-                                        {{rightButton.title}}
-                                    </el-button>
-                                </template>
-                            </template>
-                            <template v-else>
-                                {{ scope.row[column.prop] }}
-                            </template>
+        :data="tableDatas.datas"
+        :stripe="tableDatas.stripe"
+        border
+        style="width: 100%"
+        @selection-change="handleSelectionChange">
+        <el-table-column
+          type="selection"
+          width="55">
+        </el-table-column>
+        <template v-for="column in tableDatas.column">
+            <el-table-column
+                :type="column.type"
+                :column-key="column.columnKey"
+                :label="column.label"
+                :prop="column.prop"
+                :width="column.width"
+                :min-width="column.minWidth"
+                :fixed="column.fixed"
+                :render-header="column.renderHeader"
+                :sortable="column.sortable"
+                :sort-method="column.sortMethod"
+                :resizable="column.resizable"
+                :formatter="column.formatter"
+                :show-overflow-tooltip="column.showOverflowTooltip"
+                :align="column.align"
+                :header-align="column.headerAlign"
+                :class-name="column.className"
+                :reserve-selection="column.reserveSelection"
+                :filters="column.filters"
+                :filter-multiple="filterMultiple"
+                :filter-method="column.filterMethod"
+                :filtered-value="column.filteredValue"
+            >
+                <template scope="scope">
+                    <template v-if="column.prop=='status'">
+                        <el-tag :type="scope.row[column.prop].type">
+                            <i :class="scope.row[column.prop].icon"></i>
+                            {{ scope.row[column.prop].title }}
+                        </el-tag>
+                    </template>
+                    <template v-else-if="column.prop=='rightButton'">
+                        <template v-for="rightButton in scope.row[column.prop]">
+                            <el-button :type="rightButton.class" size="mini"  @click="handleClick(rightButton.method,scope.$index, scope.row)">
+                                <i :class="rightButton.icon"></i>
+                                {{rightButton.title}}
+                            </el-button>
                         </template>
-                    </el-table-column>
+                    </template>
+                    <template v-else>
+                        {{ scope.row[column.prop] }}
+                    </template>
                 </template>
+            </el-table-column>
+        </template>
     </el-table>
-    </div>
+</div>
 </template>
 
 <script>
@@ -90,6 +90,7 @@ export default {
          * @return   [type]                   [description]
          */
         compileRightButton(){
+            this.rightButtonList = [];
             for (var key in this.tableDatas.rightButton) {
                 switch (this.tableDatas.rightButton[key].type) {
                     case 'edit':  // 编辑按钮
@@ -336,5 +337,11 @@ export default {
     .el-button{
         margin-top:10px !important;
         margin-left:10px !important;
+    }
+    .table-header{
+        padding-bottom:15px;
+        margin-bottom:15px;
+        border-bottom:1px solid #D3DCE6;
+        box-sizing:border-box;
     }
 </style>
