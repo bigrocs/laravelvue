@@ -7,8 +7,8 @@
                 <builder-table  v-if="data.type == 'table'"     :tableDatas="data"></builder-table>
             </template>
         </el-card>
-        <el-tabs type="border-card" @tab-click="handleTabsClick" v-else>
-            <el-tab-pane v-for="(tabs,key) in datas.tabs" :label="tabs" >
+        <el-tabs type="border-card" v-model="activeName" @tab-click="handleTabsClick" v-else>
+            <el-tab-pane v-for="(tabs,key) in datas.tabs" :label="tabs">
                 <template v-for="data in datas" >
                     <builder-form   v-if="data.type == 'form'"      :fromDatas="data"></builder-form>
                     <builder-table  v-if="data.type == 'table'"     :tableDatas="data"></builder-table>
@@ -30,7 +30,8 @@ export default {
     },
     data() {
         return {
-            datas: {}
+            datas: {},
+            activeName: ''
         };
     },
     watch: {
@@ -38,7 +39,6 @@ export default {
     },
     methods: {
         handleTabsClick(tab, event){
-            console.log(tab);
             this.$http.post(this.$store.state.CurrentApiUrl,{'tabsId':tab.index}).then((Response) => {
                 this.$set(this, 'datas', Response.data) //获取页面数据赋值
             })
@@ -47,6 +47,7 @@ export default {
          * 获取页面数据
          */
         getData() {
+            this.activeName = 0;//初始化tabs选项属性
             this.$store.commit('getCurrentApiUrl', this.$route.name) //当去当前路由API地址 赋值this.$store.state.CurrentUrl
             this.$http.post(this.$store.state.CurrentApiUrl).then((Response) => {
                 this.$set(this, 'datas', Response.data) //获取页面数据赋值
