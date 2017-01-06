@@ -48,7 +48,11 @@ class BuilderData
         $this->data['table']['apiUrl'][$key]   = $ApiUrl;   //设置 TableApiUrl API通信网址
         return $this;
     }
-    public function addRightButton($rightButton){
+    public function addTableTopButton($topButton){
+        $this->data['table']['topButton'][]   = $topButton;   //设置 table rightButton 表格右侧按钮
+        return $this;
+    }
+    public function addTableRightButton($rightButton){
         $this->data['table']['rightButton'][]   = $rightButton;   //设置 table rightButton 表格右侧按钮
         return $this;
     }

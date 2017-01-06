@@ -38,9 +38,13 @@ class ConfigController extends Controller
                                 ->addTableColumn(['prop' => 'rightButton','label'=> '操作',   'type' => 'btn'])
                                 ->addTableApiUrl('urlStatus','api/admin/config/status')   //添加状态通信API
                                 ->addTableApiUrl('urlDelete','api/admin/config/delete')   //添加删除通信API
-                                ->addRightButton(['type'=>'edit'])                        // 添加编辑按钮
-                                ->addRightButton(['type'=>'forbid'])                      // 添加禁用/启用按钮
-                                ->addRightButton(['type'=>'delete'])                      // 添加删除按钮
+                                ->addTableTopButton(['type'=>'addnew'])                        // 添加新增按钮
+                                ->addTableTopButton(['type'=>'resume'])                        // 添加启用按钮
+                                ->addTableTopButton(['type'=>'forbid'])                        // 添加禁用按钮
+                                ->addTableTopButton(['type'=>'delete'])                        // 添加删除按钮
+                                ->addTableRightButton(['type'=>'edit'])                        // 添加编辑按钮
+                                ->addTableRightButton(['type'=>'forbid'])                      // 添加禁用/启用按钮
+                                ->addTableRightButton(['type'=>'delete'])                      // 添加删除按钮
                                 ->addTabs($tabs)                                          //设置页面Tabs
                                 ->get();
         return response()->json($data, 200);
