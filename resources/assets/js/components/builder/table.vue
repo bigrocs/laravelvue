@@ -1,7 +1,7 @@
 <template>
 <div class="">
     <div slot="header" class="table-header">
-        <el-button v-for="topButton in topButtonList" :type="topButton.class"  >
+        <el-button v-for="topButton in topButtonList" :type="topButton.class" @click="handleClick(topButton.method)">
             <i :class="topButton.icon"></i>
             {{topButton.title}}
         </el-button>
@@ -208,9 +208,9 @@ export default {
                     {
                         case 'status':
                             this.statusProp = this.tableDatas.column[i].prop;
-                            switch(this.tableDatas.datas[w][this.tableDatas.column[i].prop]){
+                            switch(this.tableDatas.datas[w][this.statusProp]){
                                 case -1:
-                                    this.tableDatas.datas[w][this.tableDatas.column[i].prop] = {
+                                    this.tableDatas.datas[w][this.statusProp] = {
                                         'value':-1,
                                         'type':'danger',
                                         'icon':'fa fa-trash',
@@ -218,7 +218,7 @@ export default {
                                     };
                                     break;
                                 case 0:
-                                    this.tableDatas.datas[w][this.tableDatas.column[i].prop] = {
+                                    this.tableDatas.datas[w][this.statusProp] = {
                                         'value':0,
                                         'type':'warning',
                                         'icon':'fa fa-ban',
@@ -226,7 +226,7 @@ export default {
                                     };
                                     break;
                                 case 1:
-                                    this.tableDatas.datas[w][this.tableDatas.column[i].prop] = {
+                                    this.tableDatas.datas[w][this.statusProp] = {
                                         'value':1,
                                         'type':'success',
                                         'icon':'fa fa-check',
@@ -234,7 +234,7 @@ export default {
                                     };
                                     break;
                                 case 2:
-                                    this.tableDatas.datas[w][this.tableDatas.column[i].prop] = {
+                                    this.tableDatas.datas[w][this.statusProp] = {
                                         'value':2,
                                         'type':'warning',
                                         'icon':'fa fa-eye-slash',
@@ -297,46 +297,52 @@ export default {
             console.log('Edit,index, row',index, row);
         },
         handleResume(index, row){
-            var data = [{
-                'id':row['id'],
-                'status':1,
-            }];
-            row[this.statusProp] = 1;
-            this.compileTableColumnType();
+            var data = this.changeDatastate(row,1);//批量数据更改状态
             this.handleHttp(this.tableDatas.apiUrl.urlStatus,data);
         },
         handleForbid(index, row){
-            var data = [{
-                'id':row['id'],
-                'status':0,
-            }];
-            row[this.statusProp] = 0;
-            this.compileTableColumnType();
+            var data = this.changeDatastate(row,0);//批量数据更改状态
             this.handleHttp(this.tableDatas.apiUrl.urlStatus,data);
         },
         handleDisplay(index, row){
-            this.handleResume(index, row);
+            var data = this.changeDatastate(row,1);//批量数据更改状态
+            this.handleHttp(this.tableDatas.apiUrl.urlStatus,data);
         },
         handleHide(index, row){
-            var data = [{
-                'id':row['id'],
-                'status':2,
-            }];
-            row[this.statusProp] = 2;
-            this.compileTableColumnType();
+            var data = this.changeDatastate(row,2);//批量数据更改状态
             this.handleHttp(this.tableDatas.apiUrl.urlStatus,data);
         },
         handleDelete(index, row){
-            var data = [{
-                'id':row['id']
-            }];
+            var data = [];
+            if (row==null) {
+                for (var key in this.multipleSelection) {
+                    data[key] = {
+                        'id':this.multipleSelection[key]['id'],
+                    }
+                }
+            }else{
+                data = [{
+                    'id':row['id']
+                }];
+            }
             this.$confirm('此操作将永久删除此数据, 是否继续?', '危险提示', {
                 confirmButtonText: '确定',
                 cancelButtonText: '取消',
                 type: 'error'
             }).then(() => {
-                this.tableDatas.datas.splice(index, 1);
-                this.handleHttp(this.tableDatas.apiUrl.urlDelete,data);
+                if (index == null) {
+                    //批量删除页面显示数据
+                    for (var key in this.multipleSelection) {
+                        for (var dataKey in this.tableDatas.datas) {
+                            if (this.multipleSelection[key]['id'] == this.tableDatas.datas[dataKey]['id']) {
+                                this.tableDatas.datas.splice(dataKey, 1);
+                            }
+                        }
+                    }
+                }else{
+                    this.tableDatas.datas.splice(index, 1);
+                }
+                this.handleHttp(this.tableDatas.apiUrl.urlDelete,data);//通知服务端删除数据
             }).catch(() => {
                 this.$notify({
                     title: '操作取消',
@@ -369,8 +375,38 @@ export default {
             });
         },
         handleSelectionChange(val) {
-            console.log(val);
             this.multipleSelection = val;
+        },
+        /**
+         * 批量更改数据状态
+         */
+        changeDatastate(row,state){
+            // 整理返回数据
+            var data = [];
+            if (row==null) {
+                for (var key in this.multipleSelection) {
+                    data[key] = {
+                        'id':this.multipleSelection[key]['id'],
+                        'status':state,
+                    }
+                }
+            }else{
+                data = [{
+                    'id':row['id'],
+                    'status':state,
+                }];
+                row[this.statusProp] = state;
+            }
+            //改变页面显示数据
+            for (var key in this.multipleSelection) {
+                for (var dataKey in this.tableDatas.datas) {
+                    if (this.multipleSelection[key]['id'] == this.tableDatas.datas[dataKey]['id']) {
+                        this.tableDatas.datas[dataKey][this.statusProp] = state;
+                    }
+                }
+            }
+            this.compileTableColumnType();//改变数据后重新编译显示页面
+            return data;
         }
     },
     props: {
