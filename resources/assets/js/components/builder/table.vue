@@ -421,6 +421,14 @@ export default {
                         'status':state,
                     }
                 }
+                //改变页面显示数据
+                for (var key in this.multipleSelection) {
+                    for (var dataKey in this.tableDatas.datas) {
+                        if (this.multipleSelection[key]['id'] == this.tableDatas.datas[dataKey]['id']) {
+                            this.tableDatas.datas[dataKey][this.statusProp] = state;
+                        }
+                    }
+                }
             }else{
                 data = [{
                     'id':row['id'],
@@ -428,14 +436,7 @@ export default {
                 }];
                 row[this.statusProp] = state;
             }
-            //改变页面显示数据
-            for (var key in this.multipleSelection) {
-                for (var dataKey in this.tableDatas.datas) {
-                    if (this.multipleSelection[key]['id'] == this.tableDatas.datas[dataKey]['id']) {
-                        this.tableDatas.datas[dataKey][this.statusProp] = state;
-                    }
-                }
-            }
+
             this.compileTableColumnType();//改变数据后重新编译显示页面
             return data;
         }
