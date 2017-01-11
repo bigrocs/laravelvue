@@ -61,7 +61,7 @@
         </template>
     </el-table>
 
-    <el-dialog :title="dialogForm.form.title" v-model="dialogForm.visible">
+    <el-dialog size="large" :title="dialogForm.form.title" v-model="$store.state.dialogForm.visible">
         <builder-form :fromDatas="dialogForm.form"></builder-form>
     </el-dialog>
 </div>
@@ -311,7 +311,7 @@ export default {
             }
         },
         handleAdd(index, row) {
-            this.dialogForm.visible = true
+            this.$store.state.dialogForm.visible = true
             this.$http.post(this.tableDatas.apiUrl.urlAdd).then(function (Response) {
                 this.$set(this.dialogForm, 'form', Response.data.form) //获取页面数据赋值
             }, (response) => {
@@ -324,7 +324,7 @@ export default {
         },
         handleEdit(index, row) {
             this.dialogForm.title = '编辑';
-            this.dialogForm.visible = true
+            this.$store.state.dialogForm.visible = true
             console.log('Edit,index, row',index, row);
         },
         handleResume(index, row){

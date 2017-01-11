@@ -9,6 +9,9 @@ const state = {
           mainUrl:'/api/admin/main' //API接口网址
       },
     },
+    dialogForm:{
+        visible:false,
+    },
     CurrentApiUrl:'',
 };
 const mutations = {

@@ -28,6 +28,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'api', 'namespace' => 'Api\Ad
     Route::post('config/status', ['as' => 'api.config.status', 'uses' => 'ConfigController@status']);
     Route::post('config/delete', ['as' => 'api.config.delete', 'uses' => 'ConfigController@delete']);
     Route::post('config/add', ['as' => 'api.config.add', 'uses' => 'ConfigController@add']);
+    Route::post('config/store', ['as' => 'api.config.store', 'uses' => 'ConfigController@store']);
 
     Route::post('upload/image', [ 'as' => 'api.upload.image', 'uses' => 'UploadController@postImage']);
 });

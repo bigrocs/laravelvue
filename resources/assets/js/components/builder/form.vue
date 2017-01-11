@@ -74,6 +74,7 @@ export default {
                 setTimeout(() =>  {
                     this.disabled = false;
                 }, 1000);
+                this.$store.state.dialogForm.visible = false //关闭dialog页面
             });
         },
         handleReset() {

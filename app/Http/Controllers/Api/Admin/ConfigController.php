@@ -75,7 +75,7 @@ class ConfigController extends Controller
     public function add(){
         $configGroupList = explode(',', getAdminConfig('CONFIG_GROUP_LIST'));
         $formItemType = BuilderData::getformItemType();
-        $data = BuilderData::addFormApiUrl('urlSubmit','api/admin/config/update')               //添加Submit通信API
+        $data = BuilderData::addFormApiUrl('urlSubmit','api/admin/config/store')               //添加Submit通信API
                             ->addFormTitle('新增配置')                                           //添form表单页面标题
                             ->addFormItem(['name' => 'group',     'type' => 'select',   'label' => '配置分组',     'placeholder' => '配置所属的分组',                          'options'=>$configGroupList,    'value'=>0])
                             ->addFormItem(['name' => 'type',      'type' => 'select',   'label' => '配置类型',     'placeholder' => '配置类型的分组',                          'options'=>$formItemType,       'value'=>'text'])
@@ -86,6 +86,38 @@ class ConfigController extends Controller
                             ->addFormItem(['name' => 'tip',       'type' => 'textarea', 'label' => '配置说明',     'placeholder' => '配置说明',                                  'rows'=>4])
                             ->addFormItem(['name' => 'sort',      'type' => 'number',   'label' => '排序',         'placeholder' => '用于显示的顺序'                             ,'value'=>0])
                             ->get();
+        return response()->json($data, 200);
+    }
+    /**
+     * [store 新增配置数据].
+     *
+     * @Author   BigRocs                  BigRocs@qq.com
+     * @DateTime 2016-07-16T14:44:59+0800
+     *
+     * @param Request $request [请求数据]
+     *
+     * @return [type] [description]
+     */
+    public function store(Request $request)
+    {
+        $input = $request->all();
+        foreach ($input as $key => $value) {
+            @$create[$value['name']] = $value['value'];
+        }
+        $response = $this->adminConfigModel->create($create);
+        if ($response->wasRecentlyCreated) {
+            $data = [
+                        'title'     => '新增数据成功！',
+                        'message'   => '新增配置数据成功！!',
+                        'type'      => 'success',
+                    ];
+        }else{
+            $data = [
+                        'title'     => '新增数据失败！',
+                        'message'   => '新增配置数据失败！!',
+                        'type'      => 'error',
+                    ];
+        }
         return response()->json($data, 200);
     }
 }

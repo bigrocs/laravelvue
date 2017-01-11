@@ -17,15 +17,15 @@ class CreateadminConfigsTable extends Migration
             $table->increments('id');
             $table->string('title')         ->comment('配置标题');
             $table->string('name')          ->comment('配置名称');
-            $table->text('value')           ->comment('配置值');
+            $table->text('value')           ->comment('配置值')->nullable();
             $table->tinyInteger('group')    ->comment('配置分组')->unsigned();
             $table->string('type')          ->comment('配置类型');
-            $table->string('icon')          ->comment('配置字体图标');
-            $table->string('property')      ->comment('配置属性');
-            $table->string('options')       ->comment('配置额外值');
-            $table->string('tip')           ->comment('配置说明');
+            $table->string('icon')          ->comment('配置字体图标')->nullable();
+            $table->string('property')      ->comment('配置属性')->nullable();
+            $table->string('options')       ->comment('配置额外值')->nullable();
+            $table->string('tip')           ->comment('配置说明')->nullable();
             $table->tinyInteger('status')   ->comment('状态')->default(1);
-            $table->bigInteger('sort')      ->comment('排序')->unsigned();
+            $table->bigInteger('sort')      ->comment('排序')->unsigned()->default(0);
             $table->timestamps();
         });
     }
