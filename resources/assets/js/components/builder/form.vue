@@ -50,6 +50,7 @@ export default {
             for(var key in this.fromDatas.datas){
                 data[key] = {
                     'id': this.fromDatas.datas[key].id,
+                    'name': this.fromDatas.datas[key].name,
                     'value': this.fromDatas.datas[key].value,
                 }
             }
