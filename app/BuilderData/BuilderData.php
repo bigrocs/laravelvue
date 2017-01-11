@@ -8,7 +8,30 @@ namespace App\BuilderData;
 class BuilderData
 {
     private $data;            							// 数据
-
+    private $formItemType = [
+            'hidden'     => '隐藏',
+            'static'     => '不可修改文本',
+            'number'        => '数字',
+            'price'      => '价格',
+            'text'       => '单行文本',
+            'textarea'   => '多行文本',
+            'array'      => '数组',
+            'password'   => '密码',
+            'radio'      => '单选按钮',
+            'checkbox'   => '复选框',
+            'select'     => '下拉框',
+            'icon'       => '字体图标',
+            'date'       => '日期',
+            'datetime'   => '时间',
+            'picture'    => '单张图片',
+            'pictures'   => '多张图片',
+            'file'       => '单个文件',
+            'files'      => '多个文件',
+            'kindeditor' => 'HTML编辑器 kindeditor',
+            'editormd'   => 'Markdown编辑器 editormd',
+            'tags'       => '标签',
+            'board  '    => '拖动排序',
+    ];            							               // form样式
     /**
      * Form 方法
      */
@@ -33,6 +56,9 @@ class BuilderData
      public function addFormTitle($title){
          $this->data['form']['title']   = $title;
          return $this;
+     }
+     public function getformItemType(){
+         return $this->formItemType;
      }
     /**
      * TableData方法
