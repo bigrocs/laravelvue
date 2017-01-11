@@ -60,16 +60,30 @@
             </el-table-column>
         </template>
     </el-table>
+
+    <el-dialog :title="dialogForm.form.title" v-model="dialogForm.visible">
+        <builder-form :fromDatas="dialogForm.form"></builder-form>
+    </el-dialog>
 </div>
 </template>
 
 <script>
+import builderForm from './form.vue'
 export default {
+    components: {
+        builderForm
+    },
     data() {
       return {
           topButtonList:[],
           rightButtonList:[],
           statusProp:null,
+          dialogForm:{
+              visible:false,
+              form:{
+                  title:''
+              }
+          },
           multipleSelection: [],
           button:{
               'add':{
@@ -272,6 +286,9 @@ export default {
          */
         handleClick(method,index, row) {
             switch (method) {
+                case 'add':
+                    this.handleAdd(index, row)
+                    break;
                 case 'edit':
                     this.handleEdit(index, row)
                     break;
@@ -293,7 +310,21 @@ export default {
                 default:
             }
         },
+        handleAdd(index, row) {
+            this.dialogForm.visible = true
+            this.$http.post(this.tableDatas.apiUrl.urlAdd).then(function (Response) {
+                this.$set(this.dialogForm, 'form', Response.data.form) //获取页面数据赋值
+            }, (response) => {
+                this.$notify({
+                  title: '操作失败',
+                  message: '操作失败请联系管理员！',
+                  type: 'error',
+                });
+            });
+        },
         handleEdit(index, row) {
+            this.dialogForm.title = '编辑';
+            this.dialogForm.visible = true
             console.log('Edit,index, row',index, row);
         },
         handleResume(index, row){
@@ -352,7 +383,7 @@ export default {
             });
         },
         handleHttp(url,data){
-            this.$http.patch(url, data).then(function (Response) {
+            this.$http.post(url, data).then(function (Response) {
                 if (Response.data.duration==null) {
                     Response.data.duration = 4500;
                 }

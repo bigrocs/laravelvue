@@ -22,11 +22,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'api', 'namespace' => 'Api\Ad
     Route::get('main', [ 'as' => 'api.main.index', 'uses' => 'MainController@index']);
 
     Route::post('system', [ 'as' => 'api.system.index', 'uses' => 'SystemController@index']);
-    Route::patch('system/update', ['as' => 'api.system.update', 'uses' => 'SystemController@update']);
+    Route::post('system/update', ['as' => 'api.system.update', 'uses' => 'SystemController@update']);
 
     Route::post('config', [ 'as' => 'api.config.index', 'uses' => 'ConfigController@index']);
-    Route::patch('config/status', ['as' => 'api.config.status', 'uses' => 'ConfigController@status']);
-    Route::patch('config/delete', ['as' => 'api.config.delete', 'uses' => 'ConfigController@delete']);
+    Route::post('config/status', ['as' => 'api.config.status', 'uses' => 'ConfigController@status']);
+    Route::post('config/delete', ['as' => 'api.config.delete', 'uses' => 'ConfigController@delete']);
+    Route::post('config/add', ['as' => 'api.config.add', 'uses' => 'ConfigController@add']);
 
     Route::post('upload/image', [ 'as' => 'api.upload.image', 'uses' => 'UploadController@postImage']);
 });

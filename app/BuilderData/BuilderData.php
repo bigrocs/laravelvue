@@ -26,6 +26,14 @@ class BuilderData
          $this->data['form']['apiUrl'][$key]   = $ApiUrl;
          return $this;
      }
+     public function addFormItem($formItem){
+         $this->data['form']['datas'][]   = $formItem;
+         return $this;
+     }
+     public function addFormTitle($title){
+         $this->data['form']['title']   = $title;
+         return $this;
+     }
     /**
      * TableData方法
      */

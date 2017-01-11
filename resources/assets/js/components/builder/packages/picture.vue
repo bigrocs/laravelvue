@@ -27,7 +27,7 @@
         </el-upload>
     </div>
     <div class="col-md-6 col-sm-12">
-        <span class="check-tip small">{{ datas.tip }}</span>
+        <span class="check-tip small">{{ datas.placeholder }}</span>
     </div>
 </div>
 </template>

@@ -53,7 +53,7 @@ export default {
                     'value': this.fromDatas.datas[key].value,
                 }
             }
-            this.$http.patch(this.fromDatas.apiUrl.urlSubmit, data).then(function (Response) {
+            this.$http.post(this.fromDatas.apiUrl.urlSubmit, data).then(function (Response) {
                 if (Response.data.duration==null) {
                     Response.data.duration = 4500;
                 }
