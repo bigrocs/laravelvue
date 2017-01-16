@@ -55,7 +55,7 @@ export default {
          * 实现form提交新数据后 更新table数据
          */
         watchDialogFormVisible(){
-            if (!dialogFormVisible) {this.getData()}
+            if (!this.dialogFormVisible) {this.getData()}
         },
         /**
          * 获取页面数据
