@@ -18,6 +18,7 @@
 </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import builderForm from './form.vue'
 import builderTable from './table.vue'
 export default {
@@ -26,22 +27,35 @@ export default {
         builderTable
     },
     created() {
-        this.getData()
+        this.getData();
     },
     data() {
         return {
             datas: {},
-            activeName: ''
+            activeName: '',
         };
     },
     watch: {
-        $route: 'getData'
+        $route: 'getData',
+        dialogFormVisible:'watchDialogFormVisible',
     },
+    computed: mapState([
+      // 映射 this.count 为 store.state.count
+      'dialogFormVisible'
+    ]),
     methods: {
         handleTabsClick(tab, event){
             this.$http.post(this.$store.state.CurrentApiUrl,{'tabsId':tab.index}).then((Response) => {
                 this.$set(this, 'datas', Response.data) //获取页面数据赋值
             })
+        },
+        /**
+         * 减少请求次数
+         * 只有状态改变为关闭时才执行(form表单提交后)
+         * 实现form提交新数据后 更新table数据
+         */
+        watchDialogFormVisible(){
+            if (!dialogFormVisible) {this.getData()}
         },
         /**
          * 获取页面数据
