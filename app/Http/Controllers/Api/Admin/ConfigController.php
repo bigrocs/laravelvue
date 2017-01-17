@@ -25,6 +25,7 @@ class ConfigController extends Controller
         $group = $request->get('tabsId');
         $group = empty($group) ? 0 : $group;
         $adminConfigs = $this->adminConfigModel
+                            ->orderBy('sort', 'ASC')
                             ->where('group', '=', $group)
                             ->where('status', '>=', 0)
                             ->get();
