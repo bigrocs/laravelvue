@@ -45,6 +45,9 @@ export default{
       };
     },
     created() {
+        if (this.datas.value==null) {
+            this.datas.value = ''
+        }
         if (this.datas.fileName==null) {
             this.datas.fileName = 'file';
         }

@@ -313,7 +313,6 @@ export default {
             this.$store.state.dialogFormVisible = true
             this.$http.post(this.tableDatas.apiUrl.urlAdd).then(function (Response) {
                 this.$set(this.dialogForm, 'form', Response.data.form) //获取页面数据赋值
-                console.log(this.dialogForm);
             }, (response) => {
                 this.$notify({
                   title: '操作失败',

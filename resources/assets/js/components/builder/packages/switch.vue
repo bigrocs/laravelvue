@@ -24,6 +24,9 @@
 </template>
 <script>
 export default{
+    created() {
+        if (this.datas.value==null) {this.datas.value = ''}
+    },
     props: {
         datas: {
             type: Object,
