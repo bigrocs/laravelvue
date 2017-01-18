@@ -310,21 +310,13 @@ export default {
             }
         },
         handleAdd(index, row) {
-            this.$store.state.dialogFormVisible = true
-            this.$http.post(this.tableDatas.apiUrl.urlAdd).then(function (Response) {
-                this.$set(this.dialogForm, 'form', Response.data.form) //获取页面数据赋值
-            }, (response) => {
-                this.$notify({
-                  title: '操作失败',
-                  message: '操作失败请联系管理员！',
-                  type: 'error',
-                });
-            });
+            this.dialogFormHttp(this.tableDatas.apiUrl.urlAdd)
         },
         handleEdit(index, row) {
-            this.dialogForm.title = '编辑';
-            this.$store.state.dialogFormVisible = true
-            console.log('Edit,index, row',index, row);
+            var data = [{
+                'id':row.id
+            }];
+            this.dialogFormHttp(this.tableDatas.apiUrl.urlEdit,data)
         },
         handleResume(index, row){
             var data = this.changeDatastate(row,1);//批量数据更改状态
@@ -347,12 +339,12 @@ export default {
             if (row==null) {
                 for (var key in this.multipleSelection) {
                     data[key] = {
-                        'id':this.multipleSelection[key]['id'],
+                        'id':this.multipleSelection[key].id,
                     }
                 }
             }else{
                 data = [{
-                    'id':row['id']
+                    'id':row.id
                 }];
             }
             this.$confirm('此操作将永久删除此数据, 是否继续?', '危险提示', {
@@ -364,7 +356,7 @@ export default {
                     //批量删除页面显示数据
                     for (var key in this.multipleSelection) {
                         for (var dataKey in this.tableDatas.datas) {
-                            if (this.multipleSelection[key]['id'] == this.tableDatas.datas[dataKey]['id']) {
+                            if (this.multipleSelection[key].id == this.tableDatas.datas[dataKey].id) {
                                 this.tableDatas.datas.splice(dataKey, 1);
                             }
                         }
@@ -378,6 +370,18 @@ export default {
                     title: '操作取消',
                     message: '已取消删除',
                     type: 'info',
+                });
+            });
+        },
+        dialogFormHttp(url,data){
+            this.$store.state.dialogFormVisible = true
+            this.$http.post(url,data).then(function (Response) {
+                this.$set(this.dialogForm, 'form', Response.data.form) //获取页面数据赋值
+            }, (response) => {
+                this.$notify({
+                  title: '操作失败',
+                  message: '操作失败请联系管理员！',
+                  type: 'error',
                 });
             });
         },
@@ -416,21 +420,21 @@ export default {
             if (row==null) {
                 for (var key in this.multipleSelection) {
                     data[key] = {
-                        'id':this.multipleSelection[key]['id'],
+                        'id':this.multipleSelection[key].id,
                         'status':state,
                     }
                 }
                 //改变页面显示数据
                 for (var key in this.multipleSelection) {
                     for (var dataKey in this.tableDatas.datas) {
-                        if (this.multipleSelection[key]['id'] == this.tableDatas.datas[dataKey]['id']) {
+                        if (this.multipleSelection[key].id == this.tableDatas.datas[dataKey].id) {
                             this.tableDatas.datas[dataKey][this.statusProp] = state;
                         }
                     }
                 }
             }else{
                 data = [{
-                    'id':row['id'],
+                    'id':row.id,
                     'status':state,
                 }];
                 row[this.statusProp] = state;
