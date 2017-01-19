@@ -105,10 +105,14 @@ class BuilderData
     /**
      * 公共方法
      */
-     public function addTabs($tabs){
+    public function addTabs($tabs){
          $this->data['tabs']   = $tabs;   //设置 Tabs数据
          return $this;
-     }
+    }
+    public function setTitle($title){
+         $this->data['title']   = $title.' - LaravelCfm';   //设置 页面标题
+         return $this;
+    }
     public function get(){
         return $this->data;
     }

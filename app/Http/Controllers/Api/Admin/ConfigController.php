@@ -49,6 +49,7 @@ class ConfigController extends Controller
                                 ->addTableRightButton(['type'=>'forbid'])                      // 添加禁用/启用按钮
                                 ->addTableRightButton(['type'=>'delete'])                      // 添加删除按钮
                                 ->addTabs($tabs)                                          //设置页面Tabs
+                                ->setTitle('配置管理')
                                 ->get();
         return response()->json($data, 200);
     }
