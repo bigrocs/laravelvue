@@ -10,7 +10,8 @@ const state = {
       },
     },
     dialogFormVisible:false,
-    CurrentApiUrl:'',
+    currentApiUrl:'',
+    currentData:''
 };
 const mutations = {
     /**
@@ -19,9 +20,20 @@ const mutations = {
     getCurrentApiUrl (state,routeName) {
         for(var key in state.data.routes){
             if(state.data.routes[key].name == routeName){
-                state.CurrentApiUrl = state.data.routes[key].apiUrl;
+                state.currentApiUrl = state.data.routes[key].apiUrl;
             }
         }
+    },
+    /**
+     * 根据当前路由获取页面数据
+     */
+    getCurrentData (state,data) {
+        Vue.http.post(state.currentApiUrl,data).then((Response) => {
+            state.currentData = Response.data
+            if(state.currentData.title){
+                document.title = state.currentData.title//设置页面标题
+            }
+        })
     }
 };
 export default new Vuex.Store({

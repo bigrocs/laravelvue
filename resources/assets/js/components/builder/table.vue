@@ -60,7 +60,15 @@
             </el-table-column>
         </template>
     </el-table>
+    <div class="table-bottom">
+        <el-pagination
 
+          :page-sizes="[100, 200, 300, 400]"
+          :page-size="200"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="400">
+        </el-pagination>
+    </div>
     <el-dialog size="large" :title="dialogForm.form.title" v-model="$store.state.dialogFormVisible">
         <builder-form :fromDatas="dialogForm.form"></builder-form>
     </el-dialog>
@@ -452,12 +460,13 @@ export default {
 <style lang="css">
     .el-button{
         margin-top:10px !important;
-        margin-left:10px !important;
+        margin-left:0px !important;
+        margin-right:10px !important;
     }
     .table-header{
         padding-bottom:15px;
-        margin-bottom:15px;
-        border-bottom:1px solid #D3DCE6;
-        box-sizing:border-box;
+    }
+    .table-bottom{
+        padding-top:15px;
     }
 </style>

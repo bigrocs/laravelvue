@@ -18,6 +18,6 @@ export default {
         mainContent,
         mainFooter
     },
-    replace: false
+    
 }
 </script>
