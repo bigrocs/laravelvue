@@ -53,6 +53,16 @@ class BuilderData
          $this->data['form']['datas'][]   = $formItem;
          return $this;
      }
+     /**
+      * [setFormObject 给form Item 列赋值value]
+      * @param [type] $Object [传入数据]
+      */
+     public function setFormObject($Object){
+         foreach ($this->data['form']['datas'] as &$item) {
+                 $item['value'] = $Object[$item['name']];
+         }
+         return $this;
+     }
      public function addFormTitle($title){
          $this->data['form']['title']   = $title;
          return $this;

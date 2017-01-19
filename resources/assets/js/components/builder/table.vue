@@ -313,10 +313,7 @@ export default {
             this.dialogFormHttp(this.tableDatas.apiUrl.urlAdd)
         },
         handleEdit(index, row) {
-            var data = [{
-                'id':row.id
-            }];
-            this.dialogFormHttp(this.tableDatas.apiUrl.urlEdit,data)
+            this.dialogFormHttp(this.tableDatas.apiUrl.urlEdit,{'id':row.id})
         },
         handleResume(index, row){
             var data = this.changeDatastate(row,1);//批量数据更改状态
