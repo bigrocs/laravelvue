@@ -168,7 +168,7 @@ class AdminConfigTableSeeder extends Seeder
             'status'    => '1',
         ]);
         DB::table('admin_configs')->insert([
-            'title'     => '分页数量',
+            'title'     => '分页数量选择',
             'name'      => 'ADMIN_PAGE_SIZES',
             'value'     => '5,10,20,40,80,100,200',
             'group' 	=> '1',
