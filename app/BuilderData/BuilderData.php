@@ -100,6 +100,10 @@ class BuilderData
         $this->data['table']['rightButton'][]   = $rightButton;   //设置 table rightButton 表格右侧按钮
         return $this;
     }
+    public function setTablePagination($pagination){
+        $this->data['table']['pagination']   = $pagination;   
+        return $this;
+    }
 
 
     /**

@@ -7,7 +7,7 @@
                 <builder-table  v-if="data.type == 'table'"     :tableDatas="data"></builder-table>
             </template>
         </el-card>
-        <el-tabs type="border-card" v-model="activeName" @tab-click="handleTabsClick" v-else>
+        <el-tabs type="border-card" v-model="tabIndex" @tab-click="handleTabsClick" v-else>
             <el-tab-pane v-for="(tabs,key) in currentData.tabs" :label="tabs">
                 <template v-for="data in currentData" >
                     <builder-form   v-if="data.type == 'form'"      :fromDatas="data"></builder-form>
@@ -32,7 +32,7 @@ export default {
     data() {
         return {
             datas: {},
-            activeName: '',
+            tabIndex: '',
         };
     },
     watch: {
@@ -52,9 +52,8 @@ export default {
             'getCurrentData'
         ]),
         handleTabsClick(tab, event){
-            this.$http.post(this.currentApiUrl,{'tabsId':tab.index}).then((Response) => {
-                this.$store.state.currentData = Response.data
-            })
+            this.tabIndex = tab.index;
+            this.getCurrentData({'tabsId':this.tabIndex})//获取页面信息
         },
         /**
          * 减少请求次数
@@ -62,13 +61,15 @@ export default {
          * 实现form提交新数据后 更新table数据
          */
         watchDialogFormVisible(){
-            if (!this.dialogFormVisible) {this.getCurrentData()}
+            if (!this.dialogFormVisible) {
+                this.getCurrentData({'tabsId':this.tabIndex})//获取页面信息
+            }
         },
         /**
          * 获取页面数据
          */
         getData() {
-            this.activeName = 0;//初始化tabs选项属性
+            this.tabIndex = 0;//初始化tabs选项属性
             this.getCurrentApiUrl (this.$route.name)//初始化当前路由URL
             this.getCurrentData()//获取页面信息
         }

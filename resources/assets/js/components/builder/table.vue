@@ -62,11 +62,10 @@
     </el-table>
     <div class="table-bottom">
         <el-pagination
-
-          :page-sizes="[100, 200, 300, 400]"
-          :page-size="200"
-          layout="total, sizes, prev, pager, next, jumper"
-          :total="400">
+          :page-sizes="tableDatas.pagination.pageSizes"
+          :page-size="tableDatas.pagination.pageSize"
+          :layout="tableDatas.pagination.layout"
+          :total="tableDatas.pagination.total">
         </el-pagination>
     </div>
     <el-dialog size="large" :title="dialogForm.form.title" v-model="$store.state.dialogFormVisible">

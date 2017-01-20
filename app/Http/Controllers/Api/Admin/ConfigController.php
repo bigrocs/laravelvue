@@ -30,6 +30,7 @@ class ConfigController extends Controller
                             ->where('status', '>=', 0)
                             ->get();
         $tabs = explode(',', getAdminConfig('CONFIG_GROUP_LIST'));
+        $pageSize = intval(getAdminConfig('ADMIN_PAGE_SIZE'));
         $data = BuilderData::addTableData($adminConfigs)
                                 ->addTableColumn(['prop' => 'id',         'label'=> 'ID',     'width'=> '55'])
                                 ->addTableColumn(['prop' => 'name',       'label'=> '名称',   'width'=> '200'])
@@ -40,15 +41,16 @@ class ConfigController extends Controller
                                 ->addTableApiUrl('urlStatus','api/admin/config/status')         //添加状态通信API
                                 ->addTableApiUrl('urlDelete','api/admin/config/delete')         //添加删除通信API
                                 ->addTableApiUrl('urlAdd','api/admin/config/add')               //添加数据接口
-                                ->addTableApiUrl('urlEdit','api/admin/config/edit')               //添加数据接口
-                                ->addTableTopButton(['type'=>'addnew'])                        // 添加新增按钮
-                                ->addTableTopButton(['type'=>'resume'])                        // 添加启用按钮
-                                ->addTableTopButton(['type'=>'forbid'])                        // 添加禁用按钮
-                                ->addTableTopButton(['type'=>'delete'])                        // 添加删除按钮
-                                ->addTableRightButton(['type'=>'edit'])                        // 添加编辑按钮
-                                ->addTableRightButton(['type'=>'forbid'])                      // 添加禁用/启用按钮
-                                ->addTableRightButton(['type'=>'delete'])                      // 添加删除按钮
-                                ->addTabs($tabs)                                          //设置页面Tabs
+                                ->addTableApiUrl('urlEdit','api/admin/config/edit')             //添加数据接口
+                                ->addTableTopButton(['type'=>'addnew'])                         // 添加新增按钮
+                                ->addTableTopButton(['type'=>'resume'])                         // 添加启用按钮
+                                ->addTableTopButton(['type'=>'forbid'])                         // 添加禁用按钮
+                                ->addTableTopButton(['type'=>'delete'])                         // 添加删除按钮
+                                ->addTableRightButton(['type'=>'edit'])                         // 添加编辑按钮
+                                ->addTableRightButton(['type'=>'forbid'])                       // 添加禁用/启用按钮
+                                ->addTableRightButton(['type'=>'delete'])                       // 添加删除按钮
+                                ->addTabs($tabs)                                                //设置页面Tabs
+                                ->setTablePagination(['total'=>600,'pageSize'=>$pageSize,'pageSizes'=>[10, 20, 30, 50, 80, 100],'layout'=>'total, sizes, prev, pager, next, jumper'])//分页设置
                                 ->setTitle('配置管理')
                                 ->get();
         return response()->json($data, 200);

@@ -156,7 +156,7 @@ class AdminConfigTableSeeder extends Seeder
         ]);
         DB::table('admin_configs')->insert([
             'title'     => '分页数量',
-            'name'      => 'ADMIN_PAGE_ROWS',
+            'name'      => 'ADMIN_PAGE_SIZE',
             'value'     => '10',
             'group' 	=> '1',
             'type'      => 'number',

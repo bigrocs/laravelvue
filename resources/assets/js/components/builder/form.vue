@@ -1,13 +1,13 @@
 <template>
     <el-form ref="fromDatas" :model="fromDatas" label-width="80px">
         <div class="form-group" v-for="data in fromDatas.datas">
-            <builder-text       v-if="data.type == 'text'"      :datas="data"></builder-text>
             <builder-hidden     v-if="data.type == 'hidden'"    :datas="data"></builder-hidden>
             <builder-number     v-if="data.type == 'number'"    :datas="data"></builder-number>
-            <builder-textarea   v-if="data.type == 'textarea'"  :datas="data"></builder-textarea>
+            <builder-picture    v-if="data.type == 'picture'"   :datas="data"></builder-picture>
             <builder-select     v-if="data.type == 'select'"    :datas="data"></builder-select>
             <builder-switch     v-if="data.type == 'switch'"    :datas="data"></builder-switch>
-            <builder-picture    v-if="data.type == 'picture'"   :datas="data"></builder-picture>
+            <builder-text       v-if="data.type == 'text'"      :datas="data"></builder-text>
+            <builder-textarea   v-if="data.type == 'textarea'"  :datas="data"></builder-textarea>
             <builder-upload     v-if="data.type == 'upload'"    :datas="data"></builder-upload>
         </div>
         <div class="row">
