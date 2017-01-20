@@ -168,6 +168,19 @@ class AdminConfigTableSeeder extends Seeder
             'status'    => '1',
         ]);
         DB::table('admin_configs')->insert([
+            'title'     => '分页数量',
+            'name'      => 'ADMIN_PAGE_SIZES',
+            'value'     => '5,10,20,40,80,100,200',
+            'group' 	=> '1',
+            'type'      => 'tags',
+            'icon'      => '',
+            'property'  => '',
+            'options'   => '',
+            'tip'       => '分页时每页的记录数分组选择器',
+            'sort'      => '4',
+            'status'    => '1',
+        ]);
+        DB::table('admin_configs')->insert([
             'title'     => '配置分组',
             'name'      => 'CONFIG_GROUP_LIST',
             'value'     => '基本,系统',
@@ -177,7 +190,7 @@ class AdminConfigTableSeeder extends Seeder
             'property'  => '',
             'options'   => '',
             'tip'       => '配置分组',
-            'sort'      => '4',
+            'sort'      => '5',
             'status'    => '1',
         ]);
 

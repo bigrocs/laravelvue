@@ -70,5 +70,6 @@ export default {
     }
     .el-tag+.el-tag{
         margin-left:10px;
+        margin-bottom:10px;
     }
 </style>
