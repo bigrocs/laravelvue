@@ -6,6 +6,7 @@
             <builder-picture    v-if="data.type == 'picture'"   :datas="data"></builder-picture>
             <builder-select     v-if="data.type == 'select'"    :datas="data"></builder-select>
             <builder-switch     v-if="data.type == 'switch'"    :datas="data"></builder-switch>
+            <builder-tags       v-if="data.type == 'tags'"      :datas="data"></builder-tags>
             <builder-text       v-if="data.type == 'text'"      :datas="data"></builder-text>
             <builder-textarea   v-if="data.type == 'textarea'"  :datas="data"></builder-textarea>
             <builder-upload     v-if="data.type == 'upload'"    :datas="data"></builder-upload>
@@ -30,6 +31,7 @@ import builderHidden from './packages/hidden.vue'
 import builderNumber from './packages/number.vue'
 import builderTextarea from './packages/textarea.vue'
 import builderSelect from './packages/select.vue'
+import builderTags from './packages/tags.vue'
 import builderSwitch from './packages/switch.vue'
 import builderPicture from './packages/picture.vue'
 import builderUpload from './packages/upload.vue'
@@ -40,6 +42,7 @@ export default {
         builderNumber,
         builderTextarea,
         builderSelect,
+        builderTags,
         builderSwitch,
         builderPicture,
         builderUpload

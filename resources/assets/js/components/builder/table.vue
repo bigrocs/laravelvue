@@ -80,6 +80,11 @@ export default {
     components: {
         builderForm
     },
+    created() {
+        this.compileTopButton()             //编译顶部按钮
+        this.compileRightButton()           //编译右侧按钮
+        this.compileTableColumnType()       //编译整个页面属性
+    },
     data() {
       return {
           topButtonList:[],
@@ -136,11 +141,6 @@ export default {
               },
           }
       }
-    },
-    created() {
-        this.compileTopButton()             //编译顶部按钮
-        this.compileRightButton()           //编译右侧按钮
-        this.compileTableColumnType()       //编译整个页面属性
     },
     watch: {
         tableDatas: 'compileTableColumnType'

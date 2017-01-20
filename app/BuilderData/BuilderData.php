@@ -101,7 +101,7 @@ class BuilderData
         return $this;
     }
     public function setTablePagination($pagination){
-        $this->data['table']['pagination']   = $pagination;   
+        $this->data['table']['pagination']   = $pagination;
         return $this;
     }
 
