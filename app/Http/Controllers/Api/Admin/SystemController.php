@@ -28,7 +28,11 @@ class SystemController extends Controller
                             ->orderBy('sort', 'ASC')
                             ->where('status', '=', 1)
                             ->get();
-        foreach ($adminConfigs as $key => $adminConfig) {
+        $configPageSizes= explode(',', getAdminConfig('ADMIN_PAGE_SIZES'));
+        foreach ($configPageSizes as &$pageSize) {
+            $pageSize = $pageSize.' 条/页';
+        }
+        foreach ($adminConfigs as $adminConfig) {
             $adminConfig = $adminConfig;
             $adminConfig['label'] = $adminConfig['title'];
             $adminConfig['placeholder'] = $adminConfig['tip'];
@@ -44,6 +48,9 @@ class SystemController extends Controller
                 $maxSizeLang['message'] = '上传图片大小超过系统'.'1M'.'限制';
                 $maxSizeLang['type'] = 'warning';
                 $adminConfig['maxSizeLang'] = $maxSizeLang;
+            }
+            if ($adminConfig['name'] == 'ADMIN_PAGE_SIZE') {
+                $adminConfig['options'] = $configPageSizes;//根据选择器分组
             }
         }
         $tabs = explode(',', getAdminConfig('CONFIG_GROUP_LIST'));

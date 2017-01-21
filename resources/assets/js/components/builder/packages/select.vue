@@ -27,7 +27,7 @@
             <el-option
               v-for="(item,key) in datas.options"
               :label="item"
-              :value="key">
+              :value="key.toString()">
             </el-option>
         </el-select>
     </div>
@@ -39,6 +39,7 @@
 <script>
 export default{
     created() {
+        this.datas.value = this.datas.value.toString()
         if (this.datas.value==null) {this.datas.value = ''}
     },
     props: {

@@ -48,9 +48,10 @@ export default {
 
       handleInputConfirm() {
         let inputValue = this.inputValue;
+        let dynamicTags = this.dynamicTags;
         if (inputValue) {
             this.dynamicTags.push(inputValue);
-            this.datas.value = this.dynamicTags.join(',');
+            this.datas.value = dynamicTags.join(',');
         }
         this.inputValue = '';
       }

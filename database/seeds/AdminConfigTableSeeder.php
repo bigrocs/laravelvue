@@ -159,7 +159,7 @@ class AdminConfigTableSeeder extends Seeder
             'name'      => 'ADMIN_PAGE_SIZE',
             'value'     => '10',
             'group' 	=> '1',
-            'type'      => 'number',
+            'type'      => 'select',
             'icon'      => '',
             'property'  => '',
             'options'   => '',

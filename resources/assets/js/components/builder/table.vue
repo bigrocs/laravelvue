@@ -62,8 +62,8 @@
     </el-table>
     <div class="table-bottom">
         <el-pagination
-          :page-sizes="tableDatas.pagination.pageSizes"
-          :page-size="tableDatas.pagination.pageSize"
+          :page-sizes="this.tableDatas.pagination.pageSizes"
+          :page-size="Number(tableDatas.pagination.pageSize)"
           :layout="tableDatas.pagination.layout"
           :total="tableDatas.pagination.total">
         </el-pagination>
@@ -81,6 +81,12 @@ export default {
         builderForm
     },
     created() {
+        let pageSizes = this.tableDatas.pagination.pageSizes
+        for(var key in pageSizes){
+            pageSizes[key] = Number(pageSizes[key])
+        }
+        this.tableDatas.pagination.pageSizes = pageSizes;
+
         this.compileTopButton()             //编译顶部按钮
         this.compileRightButton()           //编译右侧按钮
         this.compileTableColumnType()       //编译整个页面属性
@@ -264,15 +270,16 @@ export default {
                             }
                             break;
                         case 'btn':
-                            var rightButtonData = [];
-                            for (var key in this.rightButtonList) {
-                                if(this.rightButtonList[key].type == 'forbid' || this.rightButtonList[key].type == 'hide'){
+                            let rightButtonData = [];
+                            let rightButtonList = this.rightButtonList;
+                            for (var key in rightButtonList) {
+                                if(rightButtonList[key].type == 'forbid' || rightButtonList[key].type == 'hide'){
                                     var statusValue = this.tableDatas.datas[w][this.statusProp].value;
-                                    if (this.rightButtonList[key][statusValue]) {
-                                        rightButtonData.push(this.rightButtonList[key][statusValue]);
+                                    if (rightButtonList[key][statusValue]) {
+                                        rightButtonData.push(rightButtonList[key][statusValue]);
                                     }
                                 }else{
-                                    rightButtonData.push(this.rightButtonList[key]);
+                                    rightButtonData.push(rightButtonList[key]);
                                 }
                             }
                             this.tableDatas.datas[w][this.tableDatas.column[i].prop] = rightButtonData;
