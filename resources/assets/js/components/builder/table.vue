@@ -63,7 +63,7 @@
     <div class="table-bottom">
         <el-pagination
           :page-sizes="this.tableDatas.pagination.pageSizes"
-          :page-size="Number(tableDatas.pagination.pageSize)"
+          :page-size="tableDatas.pagination.pageSize"
           :layout="tableDatas.pagination.layout"
           :total="tableDatas.pagination.total">
         </el-pagination>
@@ -81,12 +81,6 @@ export default {
         builderForm
     },
     created() {
-        let pageSizes = this.tableDatas.pagination.pageSizes
-        for(var key in pageSizes){
-            pageSizes[key] = Number(pageSizes[key])
-        }
-        this.tableDatas.pagination.pageSizes = pageSizes;
-
         this.compileTopButton()             //编译顶部按钮
         this.compileRightButton()           //编译右侧按钮
         this.compileTableColumnType()       //编译整个页面属性
@@ -159,27 +153,25 @@ export default {
          * @return   [type]                   [description]
          */
         compileTopButton(){
-            this.topButtonList = [];
-            for (var key in this.tableDatas.topButton) {
+            let topButtonList = [];
+            let button = this.button;
+            for (let key in this.tableDatas.topButton) {
                 switch (this.tableDatas.topButton[key].type) {
                     case 'addnew':  // 新增按钮
-                        var button = this.button.add;
-                        this.topButtonList.push(button);
+                        topButtonList.push(button.add);
                         break;
                     case 'resume':  // 启用按钮
-                        var button = this.button.resume;
-                        this.topButtonList.push(button);
+                        topButtonList.push(button.resume);
                         break;
                     case 'forbid':  // 禁用按钮
-                        var button = this.button.forbid;
-                        this.topButtonList.push(button);
+                        topButtonList.push(button.forbid);
                         break;
                     case 'delete':  // 禁用按钮
-                        var button = this.button.delete;
-                        this.topButtonList.push(button);
+                        topButtonList.push(button.delete);
                         break;
                 }
             }
+            this.topButtonList = topButtonList;
         },
         /**
          * [compileRightButton 编译表格右侧按钮]
@@ -189,7 +181,7 @@ export default {
          */
         compileRightButton(){
             this.rightButtonList = [];
-            for (var key in this.tableDatas.rightButton) {
+            for (let key in this.tableDatas.rightButton) {
                 switch (this.tableDatas.rightButton[key].type) {
                     case 'edit':  // 编辑按钮
                         var button = this.button.edit;
@@ -228,8 +220,20 @@ export default {
          * @return   [type]                                  [编译后的数组]
          */
         compileTableColumnType(){
-            for (var w = 0; w < this.tableDatas.datas.length; w++) {
-                for (var i = 0; i < this.tableDatas.column.length; i++) {
+            /**
+             * [pageSizes 转Number]
+             * [pageSize 转Number]
+             */
+            let pageSizes = this.tableDatas.pagination.pageSizes
+            let pageSize = this.tableDatas.pagination.pageSize
+            for(let key in pageSizes){
+                pageSizes[key] = Number(pageSizes[key])
+            }
+            this.tableDatas.pagination.pageSizes = pageSizes;
+            this.tableDatas.pagination.pageSize = Number(pageSize);
+
+            for (let w = 0; w < this.tableDatas.datas.length; w++) {
+                for (let i = 0; i < this.tableDatas.column.length; i++) {
                     switch(this.tableDatas.column[i].type)
                     {
                         case 'status':
@@ -272,9 +276,12 @@ export default {
                         case 'btn':
                             let rightButtonData = [];
                             let rightButtonList = this.rightButtonList;
-                            for (var key in rightButtonList) {
+                            let datas = this.tableDatas.datas;
+                            let statusProp = this.statusProp;
+                            let column = this.tableDatas.column;
+                            for (let key in rightButtonList) {
                                 if(rightButtonList[key].type == 'forbid' || rightButtonList[key].type == 'hide'){
-                                    var statusValue = this.tableDatas.datas[w][this.statusProp].value;
+                                    let statusValue = datas[w][statusProp].value;
                                     if (rightButtonList[key][statusValue]) {
                                         rightButtonData.push(rightButtonList[key][statusValue]);
                                     }
@@ -282,7 +289,7 @@ export default {
                                     rightButtonData.push(rightButtonList[key]);
                                 }
                             }
-                            this.tableDatas.datas[w][this.tableDatas.column[i].prop] = rightButtonData;
+                            this.tableDatas.datas[w][column[i].prop] = rightButtonData;
                             break;
                         default:
                     }
@@ -330,25 +337,25 @@ export default {
             this.dialogFormHttp(this.tableDatas.apiUrl.urlEdit,{'id':row.id})
         },
         handleResume(index, row){
-            var data = this.changeDatastate(row,1);//批量数据更改状态
+            let data = this.changeDatastate(row,1);//批量数据更改状态
             this.handleHttp(this.tableDatas.apiUrl.urlStatus,data);
         },
         handleForbid(index, row){
-            var data = this.changeDatastate(row,0);//批量数据更改状态
+            let data = this.changeDatastate(row,0);//批量数据更改状态
             this.handleHttp(this.tableDatas.apiUrl.urlStatus,data);
         },
         handleDisplay(index, row){
-            var data = this.changeDatastate(row,1);//批量数据更改状态
+            let data = this.changeDatastate(row,1);//批量数据更改状态
             this.handleHttp(this.tableDatas.apiUrl.urlStatus,data);
         },
         handleHide(index, row){
-            var data = this.changeDatastate(row,2);//批量数据更改状态
+            let data = this.changeDatastate(row,2);//批量数据更改状态
             this.handleHttp(this.tableDatas.apiUrl.urlStatus,data);
         },
         handleDelete(index, row){
-            var data = [];
+            let data = [];
             if (row==null) {
-                for (var key in this.multipleSelection) {
+                for (let key in this.multipleSelection) {
                     data[key] = {
                         'id':this.multipleSelection[key].id,
                     }
@@ -365,8 +372,8 @@ export default {
             }).then(() => {
                 if (index == null) {
                     //批量删除页面显示数据
-                    for (var key in this.multipleSelection) {
-                        for (var dataKey in this.tableDatas.datas) {
+                    for (let key in this.multipleSelection) {
+                        for (let dataKey in this.tableDatas.datas) {
                             if (this.multipleSelection[key].id == this.tableDatas.datas[dataKey].id) {
                                 this.tableDatas.datas.splice(dataKey, 1);
                             }
@@ -427,17 +434,17 @@ export default {
          */
         changeDatastate(row,state){
             // 整理返回数据
-            var data = [];
+            let data = [];
             if (row==null) {
-                for (var key in this.multipleSelection) {
+                for (let key in this.multipleSelection) {
                     data[key] = {
                         'id':this.multipleSelection[key].id,
                         'status':state,
                     }
                 }
                 //改变页面显示数据
-                for (var key in this.multipleSelection) {
-                    for (var dataKey in this.tableDatas.datas) {
+                for (let key in this.multipleSelection) {
+                    for (let dataKey in this.tableDatas.datas) {
                         if (this.multipleSelection[key].id == this.tableDatas.datas[dataKey].id) {
                             this.tableDatas.datas[dataKey][this.statusProp] = state;
                         }
