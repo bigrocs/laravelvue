@@ -31,8 +31,7 @@ export default {
     },
     data() {
         return {
-            datas: {},
-            tabIndex: '',
+            datas: {}
         };
     },
     watch: {
@@ -43,7 +42,8 @@ export default {
         ...mapState([
           'dialogFormVisible',
           'currentApiUrl',
-          'currentData'
+          'currentData',
+          'tabIndex'
         ]),
     },
     methods: {
@@ -52,7 +52,7 @@ export default {
             'getCurrentData'
         ]),
         handleTabsClick(tab, event){
-            this.tabIndex = tab.index;
+            this.$store.state.tabIndex = tab.index;
             this.getCurrentData({'tabsId':this.tabIndex})//获取页面信息
         },
         /**
@@ -69,7 +69,7 @@ export default {
          * 获取页面数据
          */
         getData() {
-            this.tabIndex = 0;//初始化tabs选项属性
+            this.$store.state.tabIndex = 0;//初始化tabs选项属性
             this.getCurrentApiUrl (this.$route.name)//初始化当前路由URL
             this.getCurrentData()//获取页面信息
         }

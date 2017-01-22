@@ -11,7 +11,8 @@ const state = {
     },
     dialogFormVisible:false,
     currentApiUrl:'',
-    currentData:''
+    currentData:'',
+    tabIndex:0
 };
 const mutations = {
     /**
