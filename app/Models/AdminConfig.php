@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class AdminConfig extends Model
 {
-
+    use CommonModel;
     public $table = 'admin_configs';
 
     public $fillable = [

@@ -24,14 +24,27 @@ class ConfigController extends Controller
     {
         $group = $request->tabsId;
         $group = empty($group) ? 0 : $group;
+
+        $pageSizes = explode(',', getAdminConfig('ADMIN_PAGE_SIZES'));
+        $pageSize = $pageSizes[intval(getAdminConfig('ADMIN_PAGE_SIZE'))];
+        $page = !empty($request->page) ? $request->page : 1;
+
+        // [$total 获取数据总数]
+        $total = $this->adminConfigModel
+                            ->where('group', '=', $group)
+                            ->where('status', '>=', 0)
+                            ->count();
+
+
+        // [$adminConfigs 获取数据对象]
         $adminConfigs = $this->adminConfigModel
+                            ->page($page, $pageSize)
                             ->orderBy('sort', 'ASC')
                             ->where('group', '=', $group)
                             ->where('status', '>=', 0)
                             ->get();
         $tabs = explode(',', getAdminConfig('CONFIG_GROUP_LIST'));
-        $pageSizes = explode(',', getAdminConfig('ADMIN_PAGE_SIZES'));
-        $pageSize = $pageSizes[intval(getAdminConfig('ADMIN_PAGE_SIZE'))];
+
         $data = BuilderData::addTableData($adminConfigs)
                                 ->addTableColumn(['prop' => 'id',         'label'=> 'ID',     'width'=> '55'])
                                 ->addTableColumn(['prop' => 'name',       'label'=> '名称',   'width'=> '200'])
@@ -51,7 +64,7 @@ class ConfigController extends Controller
                                 ->addTableRightButton(['type'=>'forbid'])                       // 添加禁用/启用按钮
                                 ->addTableRightButton(['type'=>'delete'])                       // 添加删除按钮
                                 ->addTabs($tabs)                                                //设置页面Tabs
-                                ->setTablePagination(['total'=>600,'pageSize'=>$pageSize,'pageSizes'=>$pageSizes,'layout'=>'total, sizes, prev, pager, next, jumper'])//分页设置
+                                ->setTablePagination(['total'=>$total,'pageSize'=>$pageSize,'pageSizes'=>$pageSizes,'layout'=>'total, sizes, prev, pager, next, jumper'])//分页设置
                                 ->setTitle('配置管理')
                                 ->get();
         return response()->json($data, 200);

@@ -26,7 +26,7 @@ Vue.http.get(store.state.Config.Api.mainUrl).then((Response) => {
         }
     }
     const router = new VueRouter({
-      routes,                                                  // （缩写）相当于 routes: routes
+        routes,                                                  // （缩写）相当于 routes: routes
     })
     new Vue({
         el: '#app',
