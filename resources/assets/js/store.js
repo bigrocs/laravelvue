@@ -12,7 +12,6 @@ const state = {
     dialogFormVisible:false,
     currentApiUrl:'',
     currentData:'',
-    tabIndex:0,
     postData:{
         tabIndex:0,
         pageSize:null,
