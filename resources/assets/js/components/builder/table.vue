@@ -13,8 +13,8 @@
         style="width: 100%"
         @selection-change="handleSelectionChange">
         <el-table-column
-          type="selection"
-          width="55">
+            type="selection"
+            width="55">
         </el-table-column>
         <template v-for="column in tableDatas.column">
             <el-table-column
@@ -36,7 +36,7 @@
                 :class-name="column.className"
                 :reserve-selection="column.reserveSelection"
                 :filters="column.filters"
-                :filter-multiple="filterMultiple"
+                :filter-multiple="column.filterMultiple"
                 :filter-method="column.filterMethod"
                 :filtered-value="column.filteredValue"
             >
@@ -62,10 +62,11 @@
     </el-table>
     <div class="table-bottom">
         <el-pagination
-          :page-sizes="this.tableDatas.pagination.pageSizes"
-          :page-size="tableDatas.pagination.pageSize"
-          :layout="tableDatas.pagination.layout"
-          :total="tableDatas.pagination.total">
+            @current-change="handleCurrentChange"
+            :page-sizes="this.tableDatas.pagination.pageSizes"
+            :page-size="tableDatas.pagination.pageSize"
+            :layout="tableDatas.pagination.layout"
+            :total="tableDatas.pagination.total">
         </el-pagination>
     </div>
     <el-dialog size="large" :title="dialogForm.form.title" v-model="$store.state.dialogFormVisible">
@@ -81,6 +82,7 @@ export default {
         builderForm
     },
     created() {
+        console.log(this.$router);
         this.compileTopButton()             //编译顶部按钮
         this.compileRightButton()           //编译右侧按钮
         this.compileTableColumnType()       //编译整个页面属性
@@ -229,7 +231,7 @@ export default {
             }
             this.tableDatas.pagination.pageSizes = pageSizes;
             this.tableDatas.pagination.pageSize = Number(pageSize)
-            
+
             for (var w = 0; w < this.tableDatas.datas.length; w++) {
                 for (var i = 0; i < this.tableDatas.column.length; i++) {
                     switch(this.tableDatas.column[i].type)
@@ -458,6 +460,10 @@ export default {
 
             this.compileTableColumnType();//改变数据后重新编译显示页面
             return data;
+        },
+        handleCurrentChange(val) {
+
+            console.log(`当前页: ${val}`);
         }
     },
     props: {
