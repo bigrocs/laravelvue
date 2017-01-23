@@ -22,11 +22,11 @@ class ConfigController extends Controller
     }
     public function index(Request $request)
     {
-        $group = $request->tabsId;
+        $group = $request->tabIndex;
         $group = empty($group) ? 0 : $group;
 
         $pageSizes = explode(',', getAdminConfig('ADMIN_PAGE_SIZES'));
-        $pageSize = $pageSizes[intval(getAdminConfig('ADMIN_PAGE_SIZE'))];
+        $pageSize = !empty($request->pageSize) ? $request->pageSize : getPageSize();
         $page = !empty($request->page) ? $request->page : 1;
 
         // [$total 获取数据总数]

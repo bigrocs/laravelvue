@@ -15,6 +15,8 @@ const state = {
     tabIndex:0,
     postData:{
         tabIndex:0,
+        pageSize:null,
+        page:1,
     }
 };
 const mutations = {

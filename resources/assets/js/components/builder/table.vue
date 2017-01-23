@@ -62,6 +62,7 @@
     </el-table>
     <div class="table-bottom">
         <el-pagination
+            @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
             :page-sizes="this.tableDatas.pagination.pageSizes"
             :page-size="tableDatas.pagination.pageSize"
@@ -76,13 +77,13 @@
 </template>
 
 <script>
+import { mapState,mapMutations } from 'vuex'
 import builderForm from './form.vue'
 export default {
     components: {
         builderForm
     },
     created() {
-        console.log(this.$router);
         this.compileTopButton()             //编译顶部按钮
         this.compileRightButton()           //编译右侧按钮
         this.compileTableColumnType()       //编译整个页面属性
@@ -147,7 +148,15 @@ export default {
     watch: {
         tableDatas: 'compileTableColumnType'
     },
+    computed: {
+        ...mapState({
+            postData: 'postData',
+        }),
+    },
     methods: {
+        ...mapMutations([
+            'getCurrentData'
+        ]),
         /**
          * [compileTopButton 编译表格右侧按钮]
          * @Author   BigRocs                  BigRocs@qq.com
@@ -461,9 +470,13 @@ export default {
             this.compileTableColumnType();//改变数据后重新编译显示页面
             return data;
         },
+        handleSizeChange(val){
+            this.$store.state.postData.pageSize = val;
+            this.getCurrentData(this.postData)//根据page获取数据
+        },
         handleCurrentChange(val) {
-
-            console.log(`当前页: ${val}`);
+            this.$store.state.postData.page = val;
+            this.getCurrentData(this.postData)//根据page获取数据
         }
     },
     props: {

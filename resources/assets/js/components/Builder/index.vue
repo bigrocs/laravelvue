@@ -39,12 +39,13 @@ export default {
         dialogFormVisible:'watchDialogFormVisible',
     },
     computed: {
-        ...mapState([
-          'dialogFormVisible',
-          'currentApiUrl',
-          'currentData',
-          'tabIndex'
-        ]),
+        ...mapState({
+            dialogFormVisible: 'dialogFormVisible',
+            currentApiUrl: 'currentApiUrl',
+            currentData: 'currentData',
+            postData: 'postData',
+            tabIndex: state => state.postData.tabIndex,
+        }),
     },
     methods: {
         ...mapMutations([
@@ -52,8 +53,8 @@ export default {
             'getCurrentData'
         ]),
         handleTabsClick(tab, event){
-            this.$store.state.tabIndex = tab.index;
-            this.getCurrentData({'tabsId':this.tabIndex})//获取页面信息
+            this.$store.state.postData.tabIndex = tab.index;
+            this.getCurrentData({'tabIndex':this.tabIndex})//获取页面信息
         },
         /**
          * 减少请求次数
@@ -62,14 +63,14 @@ export default {
          */
         watchDialogFormVisible(){
             if (!this.dialogFormVisible) {
-                this.getCurrentData({'tabsId':this.tabIndex})//获取页面信息
+                this.getCurrentData(this.postData)//获取页面信息
             }
         },
         /**
          * 获取页面数据
          */
         getData() {
-            this.$store.state.tabIndex = 0;//初始化tabs选项属性
+            this.$store.state.postData.tabIndex = 0;//初始化tabs选项属性
             this.getCurrentApiUrl (this.$route.name)//初始化当前路由URL
             this.getCurrentData()//获取页面信息
         }

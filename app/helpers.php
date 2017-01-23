@@ -44,9 +44,25 @@ if (!function_exists('bytesFormat')) {
     }
 }
 if (!function_exists('getAdminConfig')) {
+    /**
+     * [getAdminConfig 获取后台配置数据]
+     * @param  [type] $name [description]
+     * @return [type]       [description]
+     */
     function getAdminConfig($name){
         $AdminConfigObject = new App\Models\AdminConfig();
         $AdminConfigData = $AdminConfigObject->where('status', '=', 1)->where('name','=', $name)->first();
         return $AdminConfigData->value;
+    }
+}
+if (!function_exists('getPageSize')) {
+    /**
+     * [getAdminConfig 获取后台配置数据]
+     * @param  [type] $name [description]
+     * @return [type]       [description]
+     */
+    function getPageSize(){
+        $pageSizes = explode(',', getAdminConfig('ADMIN_PAGE_SIZES'));
+        return $pageSizes[intval(getAdminConfig('ADMIN_PAGE_SIZE'))];
     }
 }
