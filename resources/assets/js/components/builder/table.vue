@@ -1,7 +1,7 @@
 <template>
 <div class="">
     <div slot="header" class="table-header">
-        <el-button v-for="topButton in topButtonList" :type="topButton.class" @click="handleClick(topButton.method)">
+        <el-button v-for="topButton in topButtonList" :type="topButton.type" @click="handleClick(topButton.method)">
             <i :class="topButton.icon"></i>
             {{topButton.title}}
         </el-button>
@@ -48,7 +48,7 @@
                         </el-tag>
                     </template>
                     <template v-else-if="column.prop=='rightButton'">
-                        <el-button v-for="rightButton in scope.row[column.prop]" :type="rightButton.class" size="mini"  @click="handleClick(rightButton.method,scope.$index, scope.row)">
+                        <el-button v-for="rightButton in scope.row[column.prop]" :type="rightButton.type" size="mini"  @click="handleClick(rightButton.method,scope.$index, scope.row)">
                             <i :class="rightButton.icon"></i>
                             {{rightButton.title}}
                         </el-button>
@@ -103,43 +103,43 @@ export default {
               'add':{
                   'title':'新增',
                   'icon':'fa fa-plus',
-                  'class':'primary',
+                  'type':'primary',
                   'method':'add'
               },
               'edit':{
                   'title':'编辑',
                   'icon':'fa fa-edit',
-                  'class':'info',
+                  'type':'info',
                   'method':'edit'
               },
               'resume':{
                   'title':'启用',
                   'icon':'fa fa-check',
-                  'class':'success',
+                  'type':'success',
                   'method':'resume'
               },
               'forbid':{
                   'title':'禁用',
                   'icon':'fa fa-ban',
-                  'class':'warning',
+                  'type':'warning',
                   'method':'forbid'
               },
               'display':{
                   'title':'显示',
                   'icon':'fa fa-check',
-                  'class':'success',
+                  'type':'success',
                   'method':'display'
               },
               'hide':{
                   'title':'隐藏',
                   'icon':'fa fa-eye-slash',
-                  'class':'warning',
+                  'type':'warning',
                   'method':'hide'
               },
               'delete':{
                   'title':'删除',
                   'icon':'fa fa-trash',
-                  'class':'danger',
+                  'type':'danger',
                   'method':'delete'
               },
           }
@@ -164,27 +164,32 @@ export default {
          * @return   [type]                   [description]
          */
         compileTopButton(){
-            this.topButtonList = [];
-            for (var key in this.tableDatas.topButton) {
-                switch (this.tableDatas.topButton[key].type) {
-                    case 'addnew':  // 新增按钮
-                        var button = this.button.add;
-                        this.topButtonList.push(button);
+            let topButtonList = [];
+            let topButton = this.tableDatas.topButton;
+            let buttonProperty = this.button;
+            for (var key in topButton) {
+                let topButtonType = topButton[key].type;
+                let topButtonProperty = topButton[key].property;
+                switch (topButtonType) {
+                    case 'add':  // 新增按钮
+                        var button = Object.assign(buttonProperty.add,topButtonProperty);
+                        topButtonList.push(button);
                         break;
                     case 'resume':  // 启用按钮
-                        var button = this.button.resume;
-                        this.topButtonList.push(button);
+                        var button = Object.assign(buttonProperty.resume,topButtonProperty);
+                        topButtonList.push(button);
                         break;
                     case 'forbid':  // 禁用按钮
-                        var button = this.button.forbid;
-                        this.topButtonList.push(button);
+                        var button = Object.assign(buttonProperty.forbid,topButtonProperty);
+                        topButtonList.push(button);
                         break;
                     case 'delete':  // 禁用按钮
-                        var button = this.button.delete;
-                        this.topButtonList.push(button);
+                        var button = Object.assign(buttonProperty.delete,topButtonProperty);;
+                        topButtonList.push(button);
                         break;
                 }
             }
+            this.topButtonList = topButtonList;
         },
         /**
          * [compileRightButton 编译表格右侧按钮]
@@ -193,12 +198,12 @@ export default {
          * @return   [type]                   [description]
          */
         compileRightButton(){
-            this.rightButtonList = [];
+            let rightButtonList = [];
             for (var key in this.tableDatas.rightButton) {
                 switch (this.tableDatas.rightButton[key].type) {
                     case 'edit':  // 编辑按钮
                         var button = this.button.edit;
-                        this.rightButtonList.push(button);
+                        rightButtonList.push(button);
                         break;
                     case 'forbid':  //改变记录状态按钮，会更具数据当前的状态自动选择应该显示启用/禁用
                         var button ={
@@ -206,7 +211,7 @@ export default {
                             1:this.button.forbid,
                             'type':'forbid',
                         };
-                        this.rightButtonList.push(button);
+                        rightButtonList.push(button);
                         break;
                     case 'hide':  //改变记录状态按钮，会更具数据当前的状态自动选择应该显示启用/禁用
                             var button ={
@@ -214,16 +219,17 @@ export default {
                                 1:this.button.hide,
                                 'type':'hide',
                             };
-                            this.rightButtonList.push(button);
+                            rightButtonList.push(button);
                             break;
                     case 'delete':  // 删除按钮
                         var button = this.button.delete;
-                        this.rightButtonList.push(button);
+                        rightButtonList.push(button);
                         break;
                     default:
                         break;
                 }
             }
+            this.rightButtonList = rightButtonList;
         },
         /**
          * [compileTableColumnType 根据表格标题字段指定类型编译列表数据]

@@ -56,7 +56,7 @@ class ConfigController extends Controller
                                 ->addTableApiUrl('urlDelete','api/admin/config/delete')         //添加删除通信API
                                 ->addTableApiUrl('urlAdd','api/admin/config/add')               //添加数据接口
                                 ->addTableApiUrl('urlEdit','api/admin/config/edit')             //添加数据接口
-                                ->addTableTopButton(['type'=>'addnew'])                         // 添加新增按钮
+                                ->addTableTopButton(['type'=>'add','property'=>['title'=>'添加配置','icon'=>'fa fa-plus','class'=>'success',]])                         // 添加新增按钮
                                 ->addTableTopButton(['type'=>'resume'])                         // 添加启用按钮
                                 ->addTableTopButton(['type'=>'forbid'])                         // 添加禁用按钮
                                 ->addTableTopButton(['type'=>'delete'])                         // 添加删除按钮
