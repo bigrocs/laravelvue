@@ -183,7 +183,7 @@ export default {
                         var button = Object.assign(buttonProperty.forbid,topButtonProperty);
                         topButtonList.push(button);
                         break;
-                    case 'delete':  // 禁用按钮
+                    case 'delete':  // 删除按钮
                         var button = Object.assign(buttonProperty.delete,topButtonProperty);;
                         topButtonList.push(button);
                         break;
