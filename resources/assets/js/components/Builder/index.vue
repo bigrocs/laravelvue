@@ -50,9 +50,11 @@ export default {
     methods: {
         ...mapMutations([
             'getCurrentApiUrl',
-            'getCurrentData'
+            'getCurrentData',
+            'initPostData'
         ]),
         handleTabsClick(tab, event){
+            this.initPostData()//清空页面POST数据
             this.$store.state.postData.tabIndex = tab.index;
             this.getCurrentData({'tabIndex':this.tabIndex})//获取页面信息
         },
@@ -70,6 +72,7 @@ export default {
          * 获取页面数据
          */
         getData() {
+            this.initPostData()//清空页面POST数据
             this.$store.state.postData.tabIndex = 0;//初始化tabs选项属性
             this.getCurrentApiUrl (this.$route.name)//初始化当前路由URL
             this.getCurrentData()//获取页面信息

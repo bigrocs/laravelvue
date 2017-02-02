@@ -41,6 +41,15 @@ const mutations = {
                 document.title = state.currentData.title//设置页面标题
             }
         })
+    },
+    initPostData(){
+        state.postData = {
+            tabIndex:0,
+            pageSize:null,
+            page:1,
+            selectSearch:'',
+            inputSearch:''
+        }
     }
 };
 export default new Vuex.Store({
