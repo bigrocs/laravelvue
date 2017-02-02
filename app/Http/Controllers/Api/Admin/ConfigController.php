@@ -25,14 +25,17 @@ class ConfigController extends Controller
         $group = $request->tabIndex;
         $group = empty($group) ? 0 : $group;
 
-        $pageSizes = explode(',', getAdminConfig('ADMIN_PAGE_SIZES'));
-        $pageSize = !empty($request->pageSize) ? $request->pageSize : getPageSize();
-        $page = !empty($request->page) ? $request->page : 1;
+        $pageSizes      = explode(',', getAdminConfig('ADMIN_PAGE_SIZES'));
+        $pageSize       = !empty($request->pageSize) ? $request->pageSize : getPageSize();
+        $page           = !empty($request->page) ? $request->page : 1;
+        $selectSearch   = !empty($request->selectSearch) ? $request->selectSearch : 'id';
+        $inputSearch    = !empty($request->inputSearch) ? '%'.$request->inputSearch.'%' : '%%';
 
         // [$total 获取数据总数]
         $total = $this->adminConfigModel
                             ->where('group', '=', $group)
                             ->where('status', '>=', 0)
+                            ->where($selectSearch, 'like', $inputSearch)
                             ->count();
 
 
@@ -42,6 +45,7 @@ class ConfigController extends Controller
                             ->orderBy('sort', 'ASC')
                             ->where('group', '=', $group)
                             ->where('status', '>=', 0)
+                            ->where($selectSearch, 'like', $inputSearch)
                             ->get();
         $tabs = explode(',', getAdminConfig('CONFIG_GROUP_LIST'));
 
@@ -63,8 +67,10 @@ class ConfigController extends Controller
                                 ->addTableRightButton(['type'=>'edit'])                         // 添加编辑按钮
                                 ->addTableRightButton(['type'=>'forbid'])                       // 添加禁用/启用按钮
                                 ->addTableRightButton(['type'=>'delete'])                       // 添加删除按钮
-                                ->addTabs($tabs)                                                //设置页面Tabs
+                                ->setTabs($tabs)                                                //设置页面Tabs
                                 ->setTablePagination(['total'=>$total,'pageSize'=>$pageSize,'pageSizes'=>$pageSizes,'layout'=>'total, sizes, prev, pager, next, jumper'])//分页设置
+                                ->setSearchTitle('请输入搜索内容')
+                                ->setSearchSelect(['id'=>'ID','name'=>'名称','title'=>'标题'])
                                 ->setTitle('配置管理')
                                 ->get();
         return response()->json($data, 200);

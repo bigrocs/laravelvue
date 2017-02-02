@@ -104,12 +104,18 @@ class BuilderData
         $this->data['table']['pagination']   = $pagination;
         return $this;
     }
-
-
+    public function setSearchTitle($title){
+        $this->data['table']['search']['title']   = $title;
+        return $this;
+    }
+    public function setSearchSelect($select){
+        $this->data['table']['search']['select']   = $select;
+        return $this;
+    }
     /**
      * 公共方法
      */
-    public function addTabs($tabs){
+    public function setTabs($tabs){
          $this->data['tabs']   = $tabs;   //设置 Tabs数据
          return $this;
     }

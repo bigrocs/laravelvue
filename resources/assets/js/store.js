@@ -16,6 +16,8 @@ const state = {
         tabIndex:0,
         pageSize:null,
         page:1,
+        selectSearch:'',
+        inputSearch:''
     }
 };
 const mutations = {

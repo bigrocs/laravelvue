@@ -1,10 +1,28 @@
 <template>
 <div class="">
     <div slot="header" class="table-header">
-        <el-button v-for="topButton in topButtonList" :type="topButton.type" @click="handleClick(topButton.method)">
-            <i :class="topButton.icon"></i>
-            {{topButton.title}}
-        </el-button>
+        <div class="row">
+            <div class="col-md-8">
+                <el-button v-for="topButton in topButtonList" class="table-button" :type="topButton.type" @click="handleClick(topButton.method)">
+                    <i :class="topButton.icon"></i>
+                    {{topButton.title}}
+                </el-button>
+            </div>
+            <div class="col-md-4">
+                <el-input
+                    v-if="tableDatas.search.title"
+                    v-model="inputSearch"
+                    :placeholder="tableDatas.search.title"
+                    @keyup.enter.native="handleInputConfirm"
+                    @blur="handleInputConfirm"
+                >
+                    <el-select v-if="tableDatas.search.select" v-model="selectSearch" slot="prepend" placeholder="请选择">
+                        <el-option v-for="(label, value) in tableDatas.search.select" :label="label" :value="value"></el-option>
+                    </el-select>
+                    <el-button slot="append" icon="search" @click="handleInputConfirm"></el-button>
+                </el-input>
+            </div>
+        </div>
     </div>
     <el-table
         :data="tableDatas.datas"
@@ -48,7 +66,7 @@
                         </el-tag>
                     </template>
                     <template v-else-if="column.prop=='rightButton'">
-                        <el-button v-for="rightButton in scope.row[column.prop]" :type="rightButton.type" size="mini"  @click="handleClick(rightButton.method,scope.$index, scope.row)">
+                        <el-button v-for="rightButton in scope.row[column.prop]" class="table-button-min" :type="rightButton.type" size="mini"  @click="handleClick(rightButton.method,scope.$index, scope.row)">
                             <i :class="rightButton.icon"></i>
                             {{rightButton.title}}
                         </el-button>
@@ -93,6 +111,8 @@ export default {
           topButtonList:[],
           rightButtonList:[],
           statusProp:null,
+          inputSearch:'',
+          selectSearch:'',
           dialogForm:{
               form:{
                   title:''
@@ -146,7 +166,8 @@ export default {
       }
     },
     watch: {
-        tableDatas: 'compileTableColumnType'
+        tableDatas: 'compileTableColumnType',
+        selectSearch:'setSelectSearch',
     },
     computed: {
         ...mapState({
@@ -183,7 +204,7 @@ export default {
                         var button = Object.assign(buttonProperty.forbid,topButtonProperty);
                         topButtonList.push(button);
                         break;
-                    case 'delete':  // 删除按钮
+                    case 'delete':  // 禁用按钮
                         var button = Object.assign(buttonProperty.delete,topButtonProperty);;
                         topButtonList.push(button);
                         break;
@@ -478,11 +499,18 @@ export default {
         },
         handleSizeChange(val){
             this.$store.state.postData.pageSize = val;
-            this.getCurrentData(this.postData)//根据page获取数据
+            this.getCurrentData(this.postData)//根据pageSize获取数据
         },
         handleCurrentChange(val) {
             this.$store.state.postData.page = val;
             this.getCurrentData(this.postData)//根据page获取数据
+        },
+        setSelectSearch(){
+            this.$store.state.postData.selectSearch = this.selectSearch;
+        },
+        handleInputConfirm(){
+            this.$store.state.postData.inputSearch = this.inputSearch;
+            this.getCurrentData(this.postData)
         }
     },
     props: {
@@ -494,10 +522,18 @@ export default {
 }
 </script>
 <style lang="css">
-    .el-button{
-        margin-top:10px !important;
+    .el-select .el-input {
+        width: 110px;
+     }
+    .table-button{
+        margin-bottom:10px !important;
         margin-left:0px !important;
         margin-right:10px !important;
+    }
+    .table-button-min{
+        margin-bottom:5px !important;
+        margin-left:0px !important;
+        margin-right:5px !important;
     }
     .table-header{
         padding-bottom:15px;
