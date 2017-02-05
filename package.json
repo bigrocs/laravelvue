@@ -8,6 +8,7 @@
     "admin-lte": "^2.3.8",
     "axios": "^0.15.3",
     "bootstrap-less": "^3.3.8",
+    "bootstrap-sass": "^3.3.7",
     "css-loader": "^0.25.0",
     "element-ui": "^1.1.6",
     "fastclick": "^1.0.6",
