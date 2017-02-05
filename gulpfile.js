@@ -18,6 +18,6 @@ elixir(function(mix) {
     mix.browserSync({
         proxy: 'vue.dev'
     });
-    mix.sass('app.scss')
+    mix.less('app.less')
         .webpack('main.js');
 });

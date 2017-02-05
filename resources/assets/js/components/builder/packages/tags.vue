@@ -66,11 +66,11 @@ export default {
 </script>
 <style lang="css">
     .input-new-tag{
-        width:78px;
-        margin-left:10px;
+        width:78px !important;
+        margin-left:10px !important;
     }
     .el-tag+.el-tag{
-        margin-left:10px;
-        margin-bottom:10px;
+        margin-left:10px !important;
+        margin-bottom:10px !important;
     }
 </style>

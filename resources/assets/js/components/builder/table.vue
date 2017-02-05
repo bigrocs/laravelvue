@@ -428,9 +428,10 @@ export default {
             });
         },
         dialogFormHttp(url,data){
+            let _this = this;
             this.$store.state.dialogFormVisible = true
-            this.$http.post(url,data).then(function (Response) {
-                this.$set(this.dialogForm, 'form', Response.data.form) //获取页面数据赋值
+            axios.post(url,data).then(function (Response) {
+                _this.$set(_this.dialogForm, 'form', Response.data.form) //获取页面数据赋值
             }, (response) => {
                 this.$notify({
                   title: '操作失败',
@@ -440,11 +441,12 @@ export default {
             });
         },
         handleHttp(url,data){
-            this.$http.post(url, data).then(function (Response) {
+            let _this = this;
+            axios.post(url, data).then(function (Response) {
                 if (Response.data.duration==null) {
                     Response.data.duration = 4500;
                 }
-                this.$notify({
+                _this.$notify({
                   title: Response.data.title,
                   message: Response.data.message,
                   type: Response.data.type,
@@ -455,7 +457,7 @@ export default {
                   offset: Response.data.offset,
                 });
             }, (response) => {
-                this.$notify({
+                _this.$notify({
                   title: '操作失败',
                   message: '操作失败请联系管理员！',
                   type: 'error',

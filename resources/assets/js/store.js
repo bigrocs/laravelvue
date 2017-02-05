@@ -35,7 +35,7 @@ const mutations = {
      * 根据当前路由获取页面数据
      */
     getCurrentData (state,data) {
-        Vue.http.post(state.currentApiUrl,data).then((Response) => {
+        axios.post(state.currentApiUrl,data).then((Response) => {
             state.currentData = Response.data
             if(state.currentData.title){
                 document.title = state.currentData.title//设置页面标题

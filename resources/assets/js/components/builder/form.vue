@@ -54,6 +54,7 @@ export default {
     },
     methods:{
         handleSubmit(){
+            let _this = this;
             this.disabled = true;
             const data = [];
             for(var key in this.fromDatas.datas){
@@ -63,11 +64,11 @@ export default {
                     'value': this.fromDatas.datas[key].value,
                 }
             }
-            this.$http.post(this.fromDatas.apiUrl.urlSubmit, data).then(function (Response) {
+            axios.post(this.fromDatas.apiUrl.urlSubmit, data).then(function (Response) {
                 if (Response.data.duration==null) {
                     Response.data.duration = 4500;
                 }
-                this.$notify({
+                _this.$notify({
                   title: Response.data.title,
                   message: Response.data.message,
                   type: Response.data.type,
@@ -78,9 +79,9 @@ export default {
                   offset: Response.data.offset,
                 });
                 setTimeout(() =>  {
-                    this.disabled = false;
+                    _this.disabled = false;
                 }, 1000);
-                this.$store.state.dialogFormVisible = false //关闭dialog页面
+                _this.$store.state.dialogFormVisible = false //关闭dialog页面
             });
         },
         handleReset() {

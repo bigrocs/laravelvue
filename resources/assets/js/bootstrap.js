@@ -17,10 +17,17 @@ require('bootstrap-sass');
  */
 
 window.Vue = require('vue');
-require('vue-resource');                    //加载vue http请求插件
+window.axios = require('axios');
+
 window.VueRouter = require('vue-router');   //加载路由插件
 
 require('element-ui');                      //饿了么UI
+// import 'element-ui/lib/theme-default/index.css' //已在less引入外币CSS不在重复
+
+require('admin-lte/dist/js/app.js')// //AdminLTE JS编译
+require('jquery-slimscroll/jquery.slimscroll.js')//页面滚动插件 SlimScroll
+require('fastclick/lib/fastclick.js')//快速点击插件 fastClick
+
 
 /**
  * We'll register a HTTP interceptor to attach the "CSRF" header to each of
@@ -28,10 +35,10 @@ require('element-ui');                      //饿了么UI
  * included with Laravel will automatically verify the header's value.
  */
 
-Vue.http.interceptors.push((request, next) => {
-    // request.headers['X-CSRF-TOKEN'] = Laravel.csrfToken;
-    next();
-});
+ window.axios.defaults.headers.common = {
+     // 'X-CSRF-TOKEN': window.Laravel.csrfToken,
+     'X-Requested-With': 'XMLHttpRequest'
+ };
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
