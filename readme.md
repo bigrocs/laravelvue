@@ -3,7 +3,7 @@
         <img src="https://laravel.com/assets/img/components/logo-laravel.svg">
     </a>
     <a href="https://github.com/vuejs/vue">
-        <img src="https://vuejs.org/images/logo.png">
+        <img width="64" src="https://vuejs.org/images/logo.png">
     </a>
     <a href="https://saucelabs.com/u/vuejs">
         <img src="https://saucelabs.com/browser-matrix/vuejs.svg">
@@ -13,7 +13,9 @@
 
 ## 关于laravelVUE
 Github：https://github.com/bigrocs/laravelvue
+
 LaravelVUE前后端分离前端使用VUE 后端使用PHP框架laravel的CMS系统。
+
 后端通过JSON数据自动定义前端页面显示内容。
 
 
@@ -31,7 +33,9 @@ LaravelVUE前后端分离前端使用VUE 后端使用PHP框架laravel的CMS系�
 
 ## 安装
 下面我们以开发版本为例，讲述 LaravelVUE 的安装。
+
 首先我们需要下载LaravelVUE项目解压到本地文件夹：
+
 1、然后执行composer命令安装laravel依赖
 ```
 composer install
