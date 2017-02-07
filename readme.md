@@ -61,7 +61,7 @@ npm install
 ```
 6、编译前端资源
 ```
-npm run
+npm run dev
 ```
 7、编译前端资源开启BrowserSync（开发模式）
 ```
@@ -70,4 +70,13 @@ npm run watch
 ## 访问
 后台：http://localhost/admin 账号：admin 密码：admin888
 
-开发者模式访问地址：http://localhost:3000/admin
+修改webpack.mix.js文件下面代码
+```
+host: 'laravelvue.dev',
+proxy: 'laravelvue.dev',
+```
+并且在hosts文件中填写对应本地解析
+```
+127.0.0.1       laravelvue.dev
+```
+开发者模式访问地址：http://laravelvue:3000/admin
