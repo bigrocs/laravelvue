@@ -1,40 +1,65 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
-
 <p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
+    <a href="https://github.com/laravel/laravel">
+        <img src="https://laravel.com/assets/img/components/logo-laravel.svg">
+    </a>
+    <a href="https://github.com/vuejs/vue">
+        <img src="https://vuejs.org/images/logo.png">
+    </a>
+    <a href="https://saucelabs.com/u/vuejs">
+        <img src="https://saucelabs.com/browser-matrix/vuejs.svg">
+    </a>
 </p>
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+## 关于laravelVUE
+Github：https://github.com/bigrocs/laravelvue
+LaravelVUE前后端分离前端使用VUE 后端使用PHP框架laravel的CMS系统。
+后端通过JSON数据自动定义前端页面显示内容。
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
+## 系统要求
 
-## Learning Laravel
+- PHP >= 5.6.4
+- OpenSSL PHP 扩展
+- PDO PHP 扩展
+- OpenSSL 扩展
+- Mbstring PHP 扩展
+- Tokenizer PHP 扩展
+- XML PHP 扩展
+- GD 扩展
+- MySQL >= 5.7
 
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
-
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+## 安装
+下面我们以开发版本为例，讲述 LaravelVUE 的安装。
+首先我们需要下载LaravelVUE项目解压到本地文件夹：
+1、然后执行composer命令安装laravel依赖
+```
+composer install
+```
+2、重命名.env.example为.env 执行下面命令
+```
+php artisan key:generate
+```
+3、设置数据库配置修改.env文件下列代码
+```
+DB_DATABASE=homestead（数据库名称）
+DB_USERNAME=homestead（数据库账号）
+DB_PASSWORD=secret   （数据库密码）
+```
+4、接下来我们做数据库迁移和填充数据
+```
+php artisan migrate
+php artisan db:seed
+```
+5、安装前端VUE编译以来
+```
+npm install
+```
+6、编译前端资源
+```
+npm run
+```
+7、编译前端资源开启BrowserSync（开发模式）
+```
+npm run watch
+```
