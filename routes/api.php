@@ -13,10 +13,9 @@ use Illuminate\Http\Request;
 |
 */
 
-// Route::get('/user', function (Request $request) {
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
 //     return $request->user();
-// })->middleware('auth:api');
-
+// });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'api', 'namespace' => 'Api\Admin'], function () {
     Route::post('main', [ 'as' => 'api.main.index', 'uses' => 'MainController@index']);

@@ -12,7 +12,6 @@
             :disabled="datas.disabled"
             :size="datas.size"
             :icon="datas.icon"
-            :number="datas.number"
             :rows="datas.rows"
             :autosize="datas.autosize"
             :name="datas.name"

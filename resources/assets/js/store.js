@@ -4,11 +4,6 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const state = {
-    Config:{
-      Api:{
-          mainUrl:'/api/admin/main' //API接口网址
-      },
-    },
     dialogFormVisible:false,
     currentApiUrl:'',
     currentData:'',

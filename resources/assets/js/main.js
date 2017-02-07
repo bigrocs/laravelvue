@@ -6,12 +6,13 @@
 
 require('./bootstrap');
 
-
 import BuilderHtml from './components/builder/index.vue'      //引入页面内容构建器
 import App from './components/app.vue'                        //引入页面主程序
 import store from './store.js'                                //引入状态配置文件
 
-axios.post(store.state.Config.Api.mainUrl).then((Response) => {
+let apiUrl = $('#app').attr('apiUrl');                    //获取主API网址
+
+axios.post(apiUrl).then((Response) => {
     store.state.data = Response.data                          //初始化全局变量(服务端API数据)
 
     const routes=[]                                           //begin解析路由JSON

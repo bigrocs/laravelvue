@@ -1,5 +1,5 @@
 <?php
-namespace App\BuilderData;
+namespace App\Facades;
 /**
  * laravelVue数据构造器
  * @author BigRocs <bigrocs@qq.com>
