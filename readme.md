@@ -14,7 +14,7 @@
 ## 关于laravelVUE
 Github：https://github.com/bigrocs/laravelvue
 
-LaravelVUE前后端分离前端使用VUE 后端使用PHP框架laravel的CMS系统。
+LaravelVUE使用前后端分离技术,前端使用VUE 后端使用PHP框架laravel的CMS系统。
 
 后端通过JSON数据自动定义前端页面显示内容。
 
