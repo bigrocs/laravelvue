@@ -67,3 +67,7 @@ npm run
 ```
 npm run watch
 ```
+## 访问
+后台：http://localhost/admin 账号：admin 密码：admin888
+
+开发者模式访问地址：http://localhost:3000/admin
