@@ -29,14 +29,22 @@
 </template>
 <script>
 export default{
-    created() {
-        if (this.datas.value==null) {this.datas.value = ''}
-    },
     props: {
         datas: {
             type: Object,
             default: ''
         },
     },
+    created() {
+        this.Initialization();
+    },
+    watch: {
+        datas:'Initialization'
+    },
+    methods:{
+        Initialization(){
+            if (this.datas.value==null) {this.datas.value = ''}
+        }
+    }
 }
 </script>

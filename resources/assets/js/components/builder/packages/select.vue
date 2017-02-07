@@ -38,15 +38,23 @@
 </template>
 <script>
 export default{
-    created() {
-        this.datas.value = this.datas.value.toString()
-        if (this.datas.value==null) {this.datas.value = ''}
-    },
     props: {
         datas: {
             type: Object,
             default: ''
         },
     },
+    created() {
+        this.Initialization();
+    },
+    watch: {
+        datas:'Initialization'
+    },
+    methods:{
+        Initialization(){
+            this.datas.value = this.datas.value.toString()
+            if (this.datas.value==null) {this.datas.value = ''}
+        }
+    }
 }
 </script>

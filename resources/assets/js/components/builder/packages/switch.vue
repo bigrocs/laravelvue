@@ -24,9 +24,6 @@
 </template>
 <script>
 export default{
-    created() {
-        if (this.datas.value==null) {this.datas.value = ''}
-    },
     props: {
         datas: {
             type: Object,
@@ -42,22 +39,30 @@ export default{
       };
     },
     created() {
-        if (this.datas.value == 1) {
-            this.datas.value = true
-        }else if (this.datas.value == 0) {
-            this.datas.value = false
-        }
-        if (this.datas.onText==null) {
-            this.onText = '开启';
-        }
-        if (this.datas.offText==null) {
-            this.offText = '关闭';
-        }
-        if (this.datas.onColor==null) {
-            this.onColor = '#1abc9c';
-        }
-        if (this.datas.offColor==null) {
-            this.offColor = '#95a5a6';
+        this.Initialization();
+    },
+    watch: {
+        datas:'Initialization'
+    },
+    methods:{
+        Initialization(){
+            if (this.datas.value == 1) {
+                this.datas.value = true
+            }else if (this.datas.value == 0) {
+                this.datas.value = false
+            }
+            if (this.datas.onText==null) {
+                this.onText = '开启';
+            }
+            if (this.datas.offText==null) {
+                this.offText = '关闭';
+            }
+            if (this.datas.onColor==null) {
+                this.onColor = '#1abc9c';
+            }
+            if (this.datas.offColor==null) {
+                this.offColor = '#95a5a6';
+            }
         }
     }
 }

@@ -20467,1083 +20467,6 @@ exports.default = function (target) {
 /* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-var utils = __webpack_require__(3);
-var normalizeHeaderName = __webpack_require__(63);
-
-var PROTECTION_PREFIX = /^\)\]\}',?\n/;
-var DEFAULT_CONTENT_TYPE = {
-  'Content-Type': 'application/x-www-form-urlencoded'
-};
-
-function setContentTypeIfUnset(headers, value) {
-  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
-    headers['Content-Type'] = value;
-  }
-}
-
-function getDefaultAdapter() {
-  var adapter;
-  if (typeof XMLHttpRequest !== 'undefined') {
-    // For browsers use XHR adapter
-    adapter = __webpack_require__(24);
-  } else if (typeof process !== 'undefined') {
-    // For node use HTTP adapter
-    adapter = __webpack_require__(24);
-  }
-  return adapter;
-}
-
-var defaults = {
-  adapter: getDefaultAdapter(),
-
-  transformRequest: [function transformRequest(data, headers) {
-    normalizeHeaderName(headers, 'Content-Type');
-    if (utils.isFormData(data) ||
-      utils.isArrayBuffer(data) ||
-      utils.isStream(data) ||
-      utils.isFile(data) ||
-      utils.isBlob(data)
-    ) {
-      return data;
-    }
-    if (utils.isArrayBufferView(data)) {
-      return data.buffer;
-    }
-    if (utils.isURLSearchParams(data)) {
-      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
-      return data.toString();
-    }
-    if (utils.isObject(data)) {
-      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
-      return JSON.stringify(data);
-    }
-    return data;
-  }],
-
-  transformResponse: [function transformResponse(data) {
-    /*eslint no-param-reassign:0*/
-    if (typeof data === 'string') {
-      data = data.replace(PROTECTION_PREFIX, '');
-      try {
-        data = JSON.parse(data);
-      } catch (e) { /* Ignore */ }
-    }
-    return data;
-  }],
-
-  timeout: 0,
-
-  xsrfCookieName: 'XSRF-TOKEN',
-  xsrfHeaderName: 'X-XSRF-TOKEN',
-
-  maxContentLength: -1,
-
-  validateStatus: function validateStatus(status) {
-    return status >= 200 && status < 300;
-  }
-};
-
-defaults.headers = {
-  common: {
-    'Accept': 'application/json, text/plain, */*'
-  }
-};
-
-utils.forEach(['delete', 'get', 'head'], function forEachMehtodNoData(method) {
-  defaults.headers[method] = {};
-});
-
-utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
-  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
-});
-
-module.exports = defaults;
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13)))
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports =
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
-/******/ 			return installedModules[moduleId].exports;
-
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			exports: {},
-/******/ 			id: moduleId,
-/******/ 			loaded: false
-/******/ 		};
-
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
-/******/ 		// Flag the module as loaded
-/******/ 		module.loaded = true;
-
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-
-
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/dist/";
-
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(0);
-/******/ })
-/************************************************************************/
-/******/ ({
-
-/***/ 0:
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(133);
-
-
-/***/ },
-
-/***/ 13:
-/***/ function(module, exports) {
-
-	module.exports = __webpack_require__(12);
-
-/***/ },
-
-/***/ 133:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-
-	var _input = __webpack_require__(134);
-
-	var _input2 = _interopRequireDefault(_input);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	/* istanbul ignore next */
-	_input2.default.install = function (Vue) {
-	  Vue.component(_input2.default.name, _input2.default);
-	};
-
-	exports.default = _input2.default;
-
-/***/ },
-
-/***/ 134:
-/***/ function(module, exports, __webpack_require__) {
-
-	var __vue_exports__, __vue_options__
-	var __vue_styles__ = {}
-
-	/* script */
-	__vue_exports__ = __webpack_require__(135)
-
-	/* template */
-	var __vue_template__ = __webpack_require__(138)
-	__vue_options__ = __vue_exports__ = __vue_exports__ || {}
-	if (
-	  typeof __vue_exports__.default === "object" ||
-	  typeof __vue_exports__.default === "function"
-	) {
-	__vue_options__ = __vue_exports__ = __vue_exports__.default
-	}
-	if (typeof __vue_options__ === "function") {
-	  __vue_options__ = __vue_options__.options
-	}
-
-	__vue_options__.render = __vue_template__.render
-	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-
-	module.exports = __vue_exports__
-
-
-/***/ },
-
-/***/ 135:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-
-	var _emitter = __webpack_require__(13);
-
-	var _emitter2 = _interopRequireDefault(_emitter);
-
-	var _calcTextareaHeight = __webpack_require__(136);
-
-	var _calcTextareaHeight2 = _interopRequireDefault(_calcTextareaHeight);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-
-	exports.default = {
-	  name: 'ElInput',
-
-	  componentName: 'ElInput',
-
-	  mixins: [_emitter2.default],
-
-	  data: function data() {
-	    return {
-	      currentValue: this.value,
-	      textareaStyle: {}
-	    };
-	  },
-
-
-	  props: {
-	    value: [String, Number],
-	    placeholder: String,
-	    size: String,
-	    resize: String,
-	    readonly: Boolean,
-	    autofocus: Boolean,
-	    icon: String,
-	    disabled: Boolean,
-	    type: {
-	      type: String,
-	      default: 'text'
-	    },
-	    name: String,
-	    autosize: {
-	      type: [Boolean, Object],
-	      default: false
-	    },
-	    rows: {
-	      type: Number,
-	      default: 2
-	    },
-	    autoComplete: {
-	      type: String,
-	      default: 'off'
-	    },
-	    form: String,
-	    maxlength: Number,
-	    minlength: Number,
-	    max: {},
-	    min: {},
-	    validateEvent: {
-	      type: Boolean,
-	      default: true
-	    },
-	    onIconClick: Function
-	  },
-
-	  computed: {
-	    validating: function validating() {
-	      return this.$parent.validateState === 'validating';
-	    }
-	  },
-
-	  watch: {
-	    'value': function value(val, oldValue) {
-	      this.setCurrentValue(val);
-	    }
-	  },
-
-	  methods: {
-	    handleBlur: function handleBlur(event) {
-	      this.$emit('blur', event);
-	      if (this.validateEvent) {
-	        this.dispatch('ElFormItem', 'el.form.blur', [this.currentValue]);
-	      }
-	    },
-	    inputSelect: function inputSelect() {
-	      this.$refs.input.select();
-	    },
-	    resizeTextarea: function resizeTextarea() {
-	      if (this.$isServer) return;
-	      var autosize = this.autosize,
-	          type = this.type;
-
-	      if (!autosize || type !== 'textarea') return;
-	      var minRows = autosize.minRows;
-	      var maxRows = autosize.maxRows;
-
-	      var options = {
-	        resize: this.resize
-	      };
-	      this.textareaStyle = (0, _calcTextareaHeight2.default)(this.$refs.textarea, minRows, maxRows, options);
-	    },
-	    handleFocus: function handleFocus(event) {
-	      this.$emit('focus', event);
-	    },
-	    handleInput: function handleInput(event) {
-	      this.setCurrentValue(event.target.value);
-	    },
-	    handleIconClick: function handleIconClick(event) {
-	      if (this.onIconClick) {
-	        this.onIconClick(event);
-	      }
-	      this.$emit('click', event);
-	    },
-	    setCurrentValue: function setCurrentValue(value) {
-	      var _this = this;
-
-	      if (value === this.currentValue) return;
-	      this.$nextTick(function (_) {
-	        _this.resizeTextarea();
-	      });
-	      this.currentValue = value;
-	      this.$emit('input', value);
-	      this.$emit('change', value);
-	      if (this.validateEvent) {
-	        this.dispatch('ElFormItem', 'el.form.change', [value]);
-	      }
-	    }
-	  },
-
-	  created: function created() {
-	    this.$on('inputSelect', this.inputSelect);
-	  },
-	  mounted: function mounted() {
-	    this.resizeTextarea();
-	  }
-	};
-
-/***/ },
-
-/***/ 136:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.default = calcTextareaHeight;
-
-	var _merge = __webpack_require__(137);
-
-	var _merge2 = _interopRequireDefault(_merge);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var hiddenTextarea = void 0;
-
-	var HIDDEN_STYLE = '\n  height:0 !important;\n  visibility:hidden !important;\n  overflow:hidden !important;\n  position:absolute !important;\n  z-index:-1000 !important;\n  top:0 !important;\n  right:0 !important\n';
-
-	var CONTEXT_STYLE = ['letter-spacing', 'line-height', 'padding-top', 'padding-bottom', 'font-family', 'font-weight', 'font-size', 'text-rendering', 'text-transform', 'width', 'text-indent', 'padding-left', 'padding-right', 'border-width', 'box-sizing'];
-
-	function calculateNodeStyling(node) {
-	  var style = window.getComputedStyle(node);
-
-	  var boxSizing = style.getPropertyValue('box-sizing');
-
-	  var paddingSize = parseFloat(style.getPropertyValue('padding-bottom')) + parseFloat(style.getPropertyValue('padding-top'));
-
-	  var borderSize = parseFloat(style.getPropertyValue('border-bottom-width')) + parseFloat(style.getPropertyValue('border-top-width'));
-
-	  var contextStyle = CONTEXT_STYLE.map(function (name) {
-	    return name + ':' + style.getPropertyValue(name);
-	  }).join(';');
-
-	  return { contextStyle: contextStyle, paddingSize: paddingSize, borderSize: borderSize, boxSizing: boxSizing };
-	}
-
-	function calcTextareaHeight(targetNode) {
-	  var minRows = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-	  var maxRows = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-	  var options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
-
-	  if (!hiddenTextarea) {
-	    hiddenTextarea = document.createElement('textarea');
-	    document.body.appendChild(hiddenTextarea);
-	  }
-
-	  var _calculateNodeStyling = calculateNodeStyling(targetNode),
-	      paddingSize = _calculateNodeStyling.paddingSize,
-	      borderSize = _calculateNodeStyling.borderSize,
-	      boxSizing = _calculateNodeStyling.boxSizing,
-	      contextStyle = _calculateNodeStyling.contextStyle;
-
-	  hiddenTextarea.setAttribute('style', contextStyle + ';' + HIDDEN_STYLE);
-	  hiddenTextarea.value = targetNode.value || targetNode.placeholder || '';
-
-	  var height = hiddenTextarea.scrollHeight;
-
-	  if (boxSizing === 'border-box') {
-	    height = height + borderSize;
-	  } else if (boxSizing === 'content-box') {
-	    height = height - paddingSize;
-	  }
-
-	  hiddenTextarea.value = '';
-	  var singleRowHeight = hiddenTextarea.scrollHeight - paddingSize;
-
-	  if (minRows !== null) {
-	    var minHeight = singleRowHeight * minRows;
-	    if (boxSizing === 'border-box') {
-	      minHeight = minHeight + paddingSize + borderSize;
-	    }
-	    height = Math.max(minHeight, height);
-	  }
-	  if (maxRows !== null) {
-	    var maxHeight = singleRowHeight * maxRows;
-	    if (boxSizing === 'border-box') {
-	      maxHeight = maxHeight + paddingSize + borderSize;
-	    }
-	    height = Math.min(maxHeight, height);
-	  }
-
-	  return (0, _merge2.default)({ height: height + 'px' }, options);
-	};
-
-/***/ },
-
-/***/ 137:
-/***/ function(module, exports) {
-
-	module.exports = __webpack_require__(16);
-
-/***/ },
-
-/***/ 138:
-/***/ function(module, exports) {
-
-	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-	  return _c('div', {
-	    class: [
-	      _vm.type === 'textarea' ? 'el-textarea' : 'el-input',
-	      _vm.size ? 'el-input--' + _vm.size : '', {
-	        'is-disabled': _vm.disabled,
-	        'el-input-group': _vm.$slots.prepend || _vm.$slots.append,
-	        'el-input-group--append': _vm.$slots.append,
-	        'el-input-group--prepend': _vm.$slots.prepend
-	      }
-	    ]
-	  }, [(_vm.type !== 'textarea') ? [(_vm.$slots.prepend) ? _c('div', {
-	    staticClass: "el-input-group__prepend"
-	  }, [_vm._t("prepend")], 2) : _vm._e(), _vm._t("icon", [(_vm.icon) ? _c('i', {
-	    staticClass: "el-input__icon",
-	    class: [
-	      'el-icon-' + _vm.icon,
-	      _vm.onIconClick ? 'is-clickable' : ''
-	    ],
-	    on: {
-	      "click": _vm.handleIconClick
-	    }
-	  }) : _vm._e()]), (_vm.type !== 'textarea') ? _c('input', {
-	    ref: "input",
-	    staticClass: "el-input__inner",
-	    attrs: {
-	      "type": _vm.type,
-	      "name": _vm.name,
-	      "placeholder": _vm.placeholder,
-	      "disabled": _vm.disabled,
-	      "readonly": _vm.readonly,
-	      "maxlength": _vm.maxlength,
-	      "minlength": _vm.minlength,
-	      "autocomplete": _vm.autoComplete,
-	      "autofocus": _vm.autofocus,
-	      "min": _vm.min,
-	      "max": _vm.max,
-	      "form": _vm.form
-	    },
-	    domProps: {
-	      "value": _vm.currentValue
-	    },
-	    on: {
-	      "input": _vm.handleInput,
-	      "focus": _vm.handleFocus,
-	      "blur": _vm.handleBlur
-	    }
-	  }) : _vm._e(), (_vm.validating) ? _c('i', {
-	    staticClass: "el-input__icon el-icon-loading"
-	  }) : _vm._e(), (_vm.$slots.append) ? _c('div', {
-	    staticClass: "el-input-group__append"
-	  }, [_vm._t("append")], 2) : _vm._e()] : _c('textarea', {
-	    ref: "textarea",
-	    staticClass: "el-textarea__inner",
-	    style: (_vm.textareaStyle),
-	    attrs: {
-	      "name": _vm.name,
-	      "placeholder": _vm.placeholder,
-	      "disabled": _vm.disabled,
-	      "readonly": _vm.readonly,
-	      "rows": _vm.rows,
-	      "form": _vm.form,
-	      "autofocus": _vm.autofocus,
-	      "maxlength": _vm.maxlength,
-	      "minlength": _vm.minlength
-	    },
-	    domProps: {
-	      "value": _vm.currentValue
-	    },
-	    on: {
-	      "input": _vm.handleInput,
-	      "focus": _vm.handleFocus,
-	      "blur": _vm.handleBlur
-	    }
-	  })], 2)
-	},staticRenderFns: []}
-
-/***/ }
-
-/******/ });
-
-/***/ }),
-/* 19 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-exports.i18n = exports.use = exports.t = undefined;
-
-var _zhCN = __webpack_require__(102);
-
-var _zhCN2 = _interopRequireDefault(_zhCN);
-
-var _vue = __webpack_require__(4);
-
-var _vue2 = _interopRequireDefault(_vue);
-
-var _deepmerge = __webpack_require__(112);
-
-var _deepmerge2 = _interopRequireDefault(_deepmerge);
-
-var _format = __webpack_require__(101);
-
-var _format2 = _interopRequireDefault(_format);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var format = (0, _format2.default)(_vue2.default);
-var lang = _zhCN2.default;
-var merged = false;
-var i18nHandler = function i18nHandler() {
-  var vuei18n = Object.getPrototypeOf(this || _vue2.default).$t;
-  if (typeof vuei18n === 'function') {
-    if (!merged) {
-      merged = true;
-      _vue2.default.locale(_vue2.default.config.lang, (0, _deepmerge2.default)(lang, _vue2.default.locale(_vue2.default.config.lang) || {}, { clone: true }));
-    }
-    return vuei18n.apply(this, arguments);
-  }
-};
-
-var t = exports.t = function t(path, options) {
-  var value = i18nHandler.apply(this, arguments);
-  if (value !== null && value !== undefined) return value;
-
-  var array = path.split('.');
-  var current = lang;
-
-  for (var i = 0, j = array.length; i < j; i++) {
-    var property = array[i];
-    value = current[property];
-    if (i === j - 1) return format(value, options);
-    if (!value) return '';
-    current = value;
-  }
-  return '';
-};
-
-var use = exports.use = function use(l) {
-  lang = l || lang;
-};
-
-var i18n = exports.i18n = function i18n(fn) {
-  i18nHandler = fn || i18nHandler;
-};
-
-exports.default = { use: use, t: t, i18n: i18n };
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-/**
-* Modified from https://github.com/sdecima/javascript-detect-element-resize
-*
-* version: 0.5.3
-**/
-var isServer = typeof window === 'undefined';
-
-/* istanbul ignore next */
-var requestFrame = function () {
-  if (isServer) return;
-  var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || function (fn) {
-    return window.setTimeout(fn, 20);
-  };
-  return function (fn) {
-    return raf(fn);
-  };
-}();
-
-/* istanbul ignore next */
-var cancelFrame = function () {
-  if (isServer) return;
-  var cancel = window.cancelAnimationFrame || window.mozCancelAnimationFrame || window.webkitCancelAnimationFrame || window.clearTimeout;
-  return function (id) {
-    return cancel(id);
-  };
-}();
-
-/* istanbul ignore next */
-var resetTrigger = function resetTrigger(element) {
-  var trigger = element.__resizeTrigger__;
-  var expand = trigger.firstElementChild;
-  var contract = trigger.lastElementChild;
-  var expandChild = expand.firstElementChild;
-
-  contract.scrollLeft = contract.scrollWidth;
-  contract.scrollTop = contract.scrollHeight;
-  expandChild.style.width = expand.offsetWidth + 1 + 'px';
-  expandChild.style.height = expand.offsetHeight + 1 + 'px';
-  expand.scrollLeft = expand.scrollWidth;
-  expand.scrollTop = expand.scrollHeight;
-};
-
-/* istanbul ignore next */
-var checkTriggers = function checkTriggers(element) {
-  return element.offsetWidth !== element.__resizeLast__.width || element.offsetHeight !== element.__resizeLast__.height;
-};
-
-/* istanbul ignore next */
-var scrollListener = function scrollListener(event) {
-  var _this = this;
-
-  resetTrigger(this);
-  if (this.__resizeRAF__) cancelFrame(this.__resizeRAF__);
-  this.__resizeRAF__ = requestFrame(function () {
-    if (checkTriggers(_this)) {
-      _this.__resizeLast__.width = _this.offsetWidth;
-      _this.__resizeLast__.height = _this.offsetHeight;
-      _this.__resizeListeners__.forEach(function (fn) {
-        fn.call(_this, event);
-      });
-    }
-  });
-};
-
-/* Detect CSS Animations support to detect element display/re-attach */
-var attachEvent = isServer ? {} : document.attachEvent;
-var DOM_PREFIXES = 'Webkit Moz O ms'.split(' ');
-var START_EVENTS = 'webkitAnimationStart animationstart oAnimationStart MSAnimationStart'.split(' ');
-var RESIZE_ANIMATION_NAME = 'resizeanim';
-var animation = false;
-var keyFramePrefix = '';
-var animationStartEvent = 'animationstart';
-
-/* istanbul ignore next */
-if (!attachEvent && !isServer) {
-  var testElement = document.createElement('fakeelement');
-  if (testElement.style.animationName !== undefined) {
-    animation = true;
-  }
-
-  if (animation === false) {
-    var prefix = '';
-    for (var i = 0; i < DOM_PREFIXES.length; i++) {
-      if (testElement.style[DOM_PREFIXES[i] + 'AnimationName'] !== undefined) {
-        prefix = DOM_PREFIXES[i];
-        keyFramePrefix = '-' + prefix.toLowerCase() + '-';
-        animationStartEvent = START_EVENTS[i];
-        animation = true;
-        break;
-      }
-    }
-  }
-}
-
-var stylesCreated = false;
-/* istanbul ignore next */
-var createStyles = function createStyles() {
-  if (!stylesCreated && !isServer) {
-    var animationKeyframes = '@' + keyFramePrefix + 'keyframes ' + RESIZE_ANIMATION_NAME + ' { from { opacity: 0; } to { opacity: 0; } } ';
-    var animationStyle = keyFramePrefix + 'animation: 1ms ' + RESIZE_ANIMATION_NAME + ';';
-
-    // opacity: 0 works around a chrome bug https://code.google.com/p/chromium/issues/detail?id=286360
-    var css = animationKeyframes + '\n      .resize-triggers { ' + animationStyle + ' visibility: hidden; opacity: 0; }\n      .resize-triggers, .resize-triggers > div, .contract-trigger:before { content: " "; display: block; position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; }\n      .resize-triggers > div { background: #eee; overflow: auto; }\n      .contract-trigger:before { width: 200%; height: 200%; }';
-
-    var head = document.head || document.getElementsByTagName('head')[0];
-    var style = document.createElement('style');
-
-    style.type = 'text/css';
-    if (style.styleSheet) {
-      style.styleSheet.cssText = css;
-    } else {
-      style.appendChild(document.createTextNode(css));
-    }
-
-    head.appendChild(style);
-    stylesCreated = true;
-  }
-};
-
-/* istanbul ignore next */
-var addResizeListener = exports.addResizeListener = function addResizeListener(element, fn) {
-  if (isServer) return;
-  if (attachEvent) {
-    element.attachEvent('onresize', fn);
-  } else {
-    if (!element.__resizeTrigger__) {
-      if (getComputedStyle(element).position === 'static') {
-        element.style.position = 'relative';
-      }
-      createStyles();
-      element.__resizeLast__ = {};
-      element.__resizeListeners__ = [];
-
-      var resizeTrigger = element.__resizeTrigger__ = document.createElement('div');
-      resizeTrigger.className = 'resize-triggers';
-      resizeTrigger.innerHTML = '<div class="expand-trigger"><div></div></div><div class="contract-trigger"></div>';
-      element.appendChild(resizeTrigger);
-
-      resetTrigger(element);
-      element.addEventListener('scroll', scrollListener, true);
-
-      /* Listen for a css animation to detect element display/re-attach */
-      if (animationStartEvent) {
-        resizeTrigger.addEventListener(animationStartEvent, function (event) {
-          if (event.animationName === RESIZE_ANIMATION_NAME) {
-            resetTrigger(element);
-          }
-        });
-      }
-    }
-    element.__resizeListeners__.push(fn);
-  }
-};
-
-/* istanbul ignore next */
-var removeResizeListener = exports.removeResizeListener = function removeResizeListener(element, fn) {
-  if (attachEvent) {
-    element.detachEvent('onresize', fn);
-  } else {
-    element.__resizeListeners__.splice(element.__resizeListeners__.indexOf(fn), 1);
-    if (!element.__resizeListeners__.length) {
-      element.removeEventListener('scroll', scrollListener);
-      element.__resizeTrigger__ = !element.removeChild(element.__resizeTrigger__);
-    }
-  }
-};
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _vue = __webpack_require__(4);
-
-var _vue2 = _interopRequireDefault(_vue);
-
-var _popup = __webpack_require__(37);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var PopperJS = _vue2.default.prototype.$isServer ? function () {} : __webpack_require__(109);
-var stop = function stop(e) {
-  return e.stopPropagation();
-};
-
-/**
- * @param {HTMLElement} [reference=$refs.reference] - The reference element used to position the popper.
- * @param {HTMLElement} [popper=$refs.popper] - The HTML element used as popper, or a configuration used to generate the popper.
- * @param {String} [placement=button] - Placement of the popper accepted values: top(-start, -end), right(-start, -end), bottom(-start, -right), left(-start, -end)
- * @param {Number} [offset=0] - Amount of pixels the popper will be shifted (can be negative).
- * @param {Boolean} [visible=false] Visibility of the popup element.
- * @param {Boolean} [visible-arrow=false] Visibility of the arrow, no style.
- */
-exports.default = {
-  props: {
-    placement: {
-      type: String,
-      default: 'bottom'
-    },
-    boundariesPadding: {
-      type: Number,
-      default: 5
-    },
-    reference: {},
-    popper: {},
-    offset: {
-      default: 0
-    },
-    value: Boolean,
-    visibleArrow: Boolean,
-    transition: String,
-    appendToBody: {
-      type: Boolean,
-      default: true
-    },
-    options: {
-      type: Object,
-      default: function _default() {
-        return {
-          gpuAcceleration: false
-        };
-      }
-    }
-  },
-
-  data: function data() {
-    return {
-      showPopper: false,
-      currentPlacement: ''
-    };
-  },
-
-
-  watch: {
-    value: {
-      immediate: true,
-      handler: function handler(val) {
-        this.showPopper = val;
-        this.$emit('input', val);
-      }
-    },
-
-    showPopper: function showPopper(val) {
-      val ? this.updatePopper() : this.destroyPopper();
-      this.$emit('input', val);
-    }
-  },
-
-  methods: {
-    createPopper: function createPopper() {
-      var _this = this;
-
-      if (this.$isServer) return;
-      this.currentPlacement = this.currentPlacement || this.placement;
-      if (!/^(top|bottom|left|right)(-start|-end)?$/g.test(this.currentPlacement)) {
-        return;
-      }
-
-      var options = this.options;
-      var popper = this.popperElm = this.popperElm || this.popper || this.$refs.popper;
-      var reference = this.referenceElm = this.referenceElm || this.reference || this.$refs.reference;
-
-      if (!reference && this.$slots.reference && this.$slots.reference[0]) {
-        reference = this.referenceElm = this.$slots.reference[0].elm;
-      }
-      if (!popper || !reference) return;
-      if (this.visibleArrow) this.appendArrow(popper);
-      if (this.appendToBody) document.body.appendChild(this.popperElm);
-      if (this.popperJS && this.popperJS.destroy) {
-        this.popperJS.destroy();
-      }
-
-      options.placement = this.currentPlacement;
-      options.offset = this.offset;
-      this.popperJS = new PopperJS(reference, popper, options);
-      this.popperJS.onCreate(function (_) {
-        _this.$emit('created', _this);
-        _this.resetTransformOrigin();
-        _this.$nextTick(_this.updatePopper);
-      });
-      this.popperJS._popper.style.zIndex = _popup.PopupManager.nextZIndex();
-      this.popperElm.addEventListener('click', stop);
-    },
-    updatePopper: function updatePopper() {
-      this.popperJS ? this.popperJS.update() : this.createPopper();
-    },
-    doDestroy: function doDestroy() {
-      /* istanbul ignore if */
-      if (this.showPopper || !this.popperJS) return;
-      this.popperJS.destroy();
-      this.popperJS = null;
-    },
-    destroyPopper: function destroyPopper() {
-      if (this.popperJS) {
-        this.resetTransformOrigin();
-      }
-    },
-    resetTransformOrigin: function resetTransformOrigin() {
-      var placementMap = { top: 'bottom', bottom: 'top', left: 'right', right: 'left' };
-      var placement = this.popperJS._popper.getAttribute('x-placement').split('-')[0];
-      var origin = placementMap[placement];
-      this.popperJS._popper.style.transformOrigin = ['top', 'bottom'].indexOf(placement) > -1 ? 'center ' + origin : origin + ' center';
-    },
-    appendArrow: function appendArrow(element) {
-      var hash = void 0;
-      if (this.appended) {
-        return;
-      }
-
-      this.appended = true;
-
-      for (var item in element.attributes) {
-        if (/^_v-/.test(element.attributes[item].name)) {
-          hash = element.attributes[item].name;
-          break;
-        }
-      }
-
-      var arrow = document.createElement('div');
-
-      if (hash) {
-        arrow.setAttribute(hash, '');
-      }
-      arrow.setAttribute('x-arrow', '');
-      arrow.className = 'popper__arrow';
-      element.appendChild(arrow);
-    }
-  },
-
-  beforeDestroy: function beforeDestroy() {
-    this.doDestroy();
-    if (this.popperElm && this.popperElm.parentNode === document.body) {
-      this.popperElm.removeEventListener('click', stop);
-      document.body.removeChild(this.popperElm);
-    }
-  },
-
-
-  // call destroy in keep-alive mode
-  deactivated: function deactivated() {
-    this.$options.beforeDestroy[0].call(this);
-  }
-};
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _rule = __webpack_require__(2);
-
-var _rule2 = _interopRequireDefault(_rule);
-
-var _util = __webpack_require__(0);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function type(rule, value, callback, source, options) {
-  var ruleType = rule.type;
-  var errors = [];
-  var validate = rule.required || !rule.required && source.hasOwnProperty(rule.field);
-  if (validate) {
-    if ((0, _util.isEmptyValue)(value, ruleType) && !rule.required) {
-      return callback();
-    }
-    _rule2["default"].required(rule, value, source, errors, options, ruleType);
-    if (!(0, _util.isEmptyValue)(value, ruleType)) {
-      _rule2["default"].type(rule, value, source, errors, options);
-    }
-  }
-  callback(errors);
-}
-
-exports["default"] = type;
-module.exports = exports['default'];
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports, __webpack_require__) {
-
 /**
  * vuex v2.1.2
  * (c) 2017 Evan You
@@ -22352,6 +21275,1083 @@ return index;
 
 
 /***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+var utils = __webpack_require__(3);
+var normalizeHeaderName = __webpack_require__(63);
+
+var PROTECTION_PREFIX = /^\)\]\}',?\n/;
+var DEFAULT_CONTENT_TYPE = {
+  'Content-Type': 'application/x-www-form-urlencoded'
+};
+
+function setContentTypeIfUnset(headers, value) {
+  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
+    headers['Content-Type'] = value;
+  }
+}
+
+function getDefaultAdapter() {
+  var adapter;
+  if (typeof XMLHttpRequest !== 'undefined') {
+    // For browsers use XHR adapter
+    adapter = __webpack_require__(24);
+  } else if (typeof process !== 'undefined') {
+    // For node use HTTP adapter
+    adapter = __webpack_require__(24);
+  }
+  return adapter;
+}
+
+var defaults = {
+  adapter: getDefaultAdapter(),
+
+  transformRequest: [function transformRequest(data, headers) {
+    normalizeHeaderName(headers, 'Content-Type');
+    if (utils.isFormData(data) ||
+      utils.isArrayBuffer(data) ||
+      utils.isStream(data) ||
+      utils.isFile(data) ||
+      utils.isBlob(data)
+    ) {
+      return data;
+    }
+    if (utils.isArrayBufferView(data)) {
+      return data.buffer;
+    }
+    if (utils.isURLSearchParams(data)) {
+      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
+      return data.toString();
+    }
+    if (utils.isObject(data)) {
+      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
+      return JSON.stringify(data);
+    }
+    return data;
+  }],
+
+  transformResponse: [function transformResponse(data) {
+    /*eslint no-param-reassign:0*/
+    if (typeof data === 'string') {
+      data = data.replace(PROTECTION_PREFIX, '');
+      try {
+        data = JSON.parse(data);
+      } catch (e) { /* Ignore */ }
+    }
+    return data;
+  }],
+
+  timeout: 0,
+
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+
+  maxContentLength: -1,
+
+  validateStatus: function validateStatus(status) {
+    return status >= 200 && status < 300;
+  }
+};
+
+defaults.headers = {
+  common: {
+    'Accept': 'application/json, text/plain, */*'
+  }
+};
+
+utils.forEach(['delete', 'get', 'head'], function forEachMehtodNoData(method) {
+  defaults.headers[method] = {};
+});
+
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
+});
+
+module.exports = defaults;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13)))
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports =
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
+
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
+
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+
+
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/dist/";
+
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(0);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ 0:
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(133);
+
+
+/***/ },
+
+/***/ 13:
+/***/ function(module, exports) {
+
+	module.exports = __webpack_require__(12);
+
+/***/ },
+
+/***/ 133:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+
+	var _input = __webpack_require__(134);
+
+	var _input2 = _interopRequireDefault(_input);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/* istanbul ignore next */
+	_input2.default.install = function (Vue) {
+	  Vue.component(_input2.default.name, _input2.default);
+	};
+
+	exports.default = _input2.default;
+
+/***/ },
+
+/***/ 134:
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_exports__, __vue_options__
+	var __vue_styles__ = {}
+
+	/* script */
+	__vue_exports__ = __webpack_require__(135)
+
+	/* template */
+	var __vue_template__ = __webpack_require__(138)
+	__vue_options__ = __vue_exports__ = __vue_exports__ || {}
+	if (
+	  typeof __vue_exports__.default === "object" ||
+	  typeof __vue_exports__.default === "function"
+	) {
+	__vue_options__ = __vue_exports__ = __vue_exports__.default
+	}
+	if (typeof __vue_options__ === "function") {
+	  __vue_options__ = __vue_options__.options
+	}
+
+	__vue_options__.render = __vue_template__.render
+	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
+
+	module.exports = __vue_exports__
+
+
+/***/ },
+
+/***/ 135:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+
+	var _emitter = __webpack_require__(13);
+
+	var _emitter2 = _interopRequireDefault(_emitter);
+
+	var _calcTextareaHeight = __webpack_require__(136);
+
+	var _calcTextareaHeight2 = _interopRequireDefault(_calcTextareaHeight);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+
+	exports.default = {
+	  name: 'ElInput',
+
+	  componentName: 'ElInput',
+
+	  mixins: [_emitter2.default],
+
+	  data: function data() {
+	    return {
+	      currentValue: this.value,
+	      textareaStyle: {}
+	    };
+	  },
+
+
+	  props: {
+	    value: [String, Number],
+	    placeholder: String,
+	    size: String,
+	    resize: String,
+	    readonly: Boolean,
+	    autofocus: Boolean,
+	    icon: String,
+	    disabled: Boolean,
+	    type: {
+	      type: String,
+	      default: 'text'
+	    },
+	    name: String,
+	    autosize: {
+	      type: [Boolean, Object],
+	      default: false
+	    },
+	    rows: {
+	      type: Number,
+	      default: 2
+	    },
+	    autoComplete: {
+	      type: String,
+	      default: 'off'
+	    },
+	    form: String,
+	    maxlength: Number,
+	    minlength: Number,
+	    max: {},
+	    min: {},
+	    validateEvent: {
+	      type: Boolean,
+	      default: true
+	    },
+	    onIconClick: Function
+	  },
+
+	  computed: {
+	    validating: function validating() {
+	      return this.$parent.validateState === 'validating';
+	    }
+	  },
+
+	  watch: {
+	    'value': function value(val, oldValue) {
+	      this.setCurrentValue(val);
+	    }
+	  },
+
+	  methods: {
+	    handleBlur: function handleBlur(event) {
+	      this.$emit('blur', event);
+	      if (this.validateEvent) {
+	        this.dispatch('ElFormItem', 'el.form.blur', [this.currentValue]);
+	      }
+	    },
+	    inputSelect: function inputSelect() {
+	      this.$refs.input.select();
+	    },
+	    resizeTextarea: function resizeTextarea() {
+	      if (this.$isServer) return;
+	      var autosize = this.autosize,
+	          type = this.type;
+
+	      if (!autosize || type !== 'textarea') return;
+	      var minRows = autosize.minRows;
+	      var maxRows = autosize.maxRows;
+
+	      var options = {
+	        resize: this.resize
+	      };
+	      this.textareaStyle = (0, _calcTextareaHeight2.default)(this.$refs.textarea, minRows, maxRows, options);
+	    },
+	    handleFocus: function handleFocus(event) {
+	      this.$emit('focus', event);
+	    },
+	    handleInput: function handleInput(event) {
+	      this.setCurrentValue(event.target.value);
+	    },
+	    handleIconClick: function handleIconClick(event) {
+	      if (this.onIconClick) {
+	        this.onIconClick(event);
+	      }
+	      this.$emit('click', event);
+	    },
+	    setCurrentValue: function setCurrentValue(value) {
+	      var _this = this;
+
+	      if (value === this.currentValue) return;
+	      this.$nextTick(function (_) {
+	        _this.resizeTextarea();
+	      });
+	      this.currentValue = value;
+	      this.$emit('input', value);
+	      this.$emit('change', value);
+	      if (this.validateEvent) {
+	        this.dispatch('ElFormItem', 'el.form.change', [value]);
+	      }
+	    }
+	  },
+
+	  created: function created() {
+	    this.$on('inputSelect', this.inputSelect);
+	  },
+	  mounted: function mounted() {
+	    this.resizeTextarea();
+	  }
+	};
+
+/***/ },
+
+/***/ 136:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.default = calcTextareaHeight;
+
+	var _merge = __webpack_require__(137);
+
+	var _merge2 = _interopRequireDefault(_merge);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var hiddenTextarea = void 0;
+
+	var HIDDEN_STYLE = '\n  height:0 !important;\n  visibility:hidden !important;\n  overflow:hidden !important;\n  position:absolute !important;\n  z-index:-1000 !important;\n  top:0 !important;\n  right:0 !important\n';
+
+	var CONTEXT_STYLE = ['letter-spacing', 'line-height', 'padding-top', 'padding-bottom', 'font-family', 'font-weight', 'font-size', 'text-rendering', 'text-transform', 'width', 'text-indent', 'padding-left', 'padding-right', 'border-width', 'box-sizing'];
+
+	function calculateNodeStyling(node) {
+	  var style = window.getComputedStyle(node);
+
+	  var boxSizing = style.getPropertyValue('box-sizing');
+
+	  var paddingSize = parseFloat(style.getPropertyValue('padding-bottom')) + parseFloat(style.getPropertyValue('padding-top'));
+
+	  var borderSize = parseFloat(style.getPropertyValue('border-bottom-width')) + parseFloat(style.getPropertyValue('border-top-width'));
+
+	  var contextStyle = CONTEXT_STYLE.map(function (name) {
+	    return name + ':' + style.getPropertyValue(name);
+	  }).join(';');
+
+	  return { contextStyle: contextStyle, paddingSize: paddingSize, borderSize: borderSize, boxSizing: boxSizing };
+	}
+
+	function calcTextareaHeight(targetNode) {
+	  var minRows = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+	  var maxRows = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+	  var options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+
+	  if (!hiddenTextarea) {
+	    hiddenTextarea = document.createElement('textarea');
+	    document.body.appendChild(hiddenTextarea);
+	  }
+
+	  var _calculateNodeStyling = calculateNodeStyling(targetNode),
+	      paddingSize = _calculateNodeStyling.paddingSize,
+	      borderSize = _calculateNodeStyling.borderSize,
+	      boxSizing = _calculateNodeStyling.boxSizing,
+	      contextStyle = _calculateNodeStyling.contextStyle;
+
+	  hiddenTextarea.setAttribute('style', contextStyle + ';' + HIDDEN_STYLE);
+	  hiddenTextarea.value = targetNode.value || targetNode.placeholder || '';
+
+	  var height = hiddenTextarea.scrollHeight;
+
+	  if (boxSizing === 'border-box') {
+	    height = height + borderSize;
+	  } else if (boxSizing === 'content-box') {
+	    height = height - paddingSize;
+	  }
+
+	  hiddenTextarea.value = '';
+	  var singleRowHeight = hiddenTextarea.scrollHeight - paddingSize;
+
+	  if (minRows !== null) {
+	    var minHeight = singleRowHeight * minRows;
+	    if (boxSizing === 'border-box') {
+	      minHeight = minHeight + paddingSize + borderSize;
+	    }
+	    height = Math.max(minHeight, height);
+	  }
+	  if (maxRows !== null) {
+	    var maxHeight = singleRowHeight * maxRows;
+	    if (boxSizing === 'border-box') {
+	      maxHeight = maxHeight + paddingSize + borderSize;
+	    }
+	    height = Math.min(maxHeight, height);
+	  }
+
+	  return (0, _merge2.default)({ height: height + 'px' }, options);
+	};
+
+/***/ },
+
+/***/ 137:
+/***/ function(module, exports) {
+
+	module.exports = __webpack_require__(16);
+
+/***/ },
+
+/***/ 138:
+/***/ function(module, exports) {
+
+	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+	  return _c('div', {
+	    class: [
+	      _vm.type === 'textarea' ? 'el-textarea' : 'el-input',
+	      _vm.size ? 'el-input--' + _vm.size : '', {
+	        'is-disabled': _vm.disabled,
+	        'el-input-group': _vm.$slots.prepend || _vm.$slots.append,
+	        'el-input-group--append': _vm.$slots.append,
+	        'el-input-group--prepend': _vm.$slots.prepend
+	      }
+	    ]
+	  }, [(_vm.type !== 'textarea') ? [(_vm.$slots.prepend) ? _c('div', {
+	    staticClass: "el-input-group__prepend"
+	  }, [_vm._t("prepend")], 2) : _vm._e(), _vm._t("icon", [(_vm.icon) ? _c('i', {
+	    staticClass: "el-input__icon",
+	    class: [
+	      'el-icon-' + _vm.icon,
+	      _vm.onIconClick ? 'is-clickable' : ''
+	    ],
+	    on: {
+	      "click": _vm.handleIconClick
+	    }
+	  }) : _vm._e()]), (_vm.type !== 'textarea') ? _c('input', {
+	    ref: "input",
+	    staticClass: "el-input__inner",
+	    attrs: {
+	      "type": _vm.type,
+	      "name": _vm.name,
+	      "placeholder": _vm.placeholder,
+	      "disabled": _vm.disabled,
+	      "readonly": _vm.readonly,
+	      "maxlength": _vm.maxlength,
+	      "minlength": _vm.minlength,
+	      "autocomplete": _vm.autoComplete,
+	      "autofocus": _vm.autofocus,
+	      "min": _vm.min,
+	      "max": _vm.max,
+	      "form": _vm.form
+	    },
+	    domProps: {
+	      "value": _vm.currentValue
+	    },
+	    on: {
+	      "input": _vm.handleInput,
+	      "focus": _vm.handleFocus,
+	      "blur": _vm.handleBlur
+	    }
+	  }) : _vm._e(), (_vm.validating) ? _c('i', {
+	    staticClass: "el-input__icon el-icon-loading"
+	  }) : _vm._e(), (_vm.$slots.append) ? _c('div', {
+	    staticClass: "el-input-group__append"
+	  }, [_vm._t("append")], 2) : _vm._e()] : _c('textarea', {
+	    ref: "textarea",
+	    staticClass: "el-textarea__inner",
+	    style: (_vm.textareaStyle),
+	    attrs: {
+	      "name": _vm.name,
+	      "placeholder": _vm.placeholder,
+	      "disabled": _vm.disabled,
+	      "readonly": _vm.readonly,
+	      "rows": _vm.rows,
+	      "form": _vm.form,
+	      "autofocus": _vm.autofocus,
+	      "maxlength": _vm.maxlength,
+	      "minlength": _vm.minlength
+	    },
+	    domProps: {
+	      "value": _vm.currentValue
+	    },
+	    on: {
+	      "input": _vm.handleInput,
+	      "focus": _vm.handleFocus,
+	      "blur": _vm.handleBlur
+	    }
+	  })], 2)
+	},staticRenderFns: []}
+
+/***/ }
+
+/******/ });
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+exports.i18n = exports.use = exports.t = undefined;
+
+var _zhCN = __webpack_require__(102);
+
+var _zhCN2 = _interopRequireDefault(_zhCN);
+
+var _vue = __webpack_require__(4);
+
+var _vue2 = _interopRequireDefault(_vue);
+
+var _deepmerge = __webpack_require__(112);
+
+var _deepmerge2 = _interopRequireDefault(_deepmerge);
+
+var _format = __webpack_require__(101);
+
+var _format2 = _interopRequireDefault(_format);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var format = (0, _format2.default)(_vue2.default);
+var lang = _zhCN2.default;
+var merged = false;
+var i18nHandler = function i18nHandler() {
+  var vuei18n = Object.getPrototypeOf(this || _vue2.default).$t;
+  if (typeof vuei18n === 'function') {
+    if (!merged) {
+      merged = true;
+      _vue2.default.locale(_vue2.default.config.lang, (0, _deepmerge2.default)(lang, _vue2.default.locale(_vue2.default.config.lang) || {}, { clone: true }));
+    }
+    return vuei18n.apply(this, arguments);
+  }
+};
+
+var t = exports.t = function t(path, options) {
+  var value = i18nHandler.apply(this, arguments);
+  if (value !== null && value !== undefined) return value;
+
+  var array = path.split('.');
+  var current = lang;
+
+  for (var i = 0, j = array.length; i < j; i++) {
+    var property = array[i];
+    value = current[property];
+    if (i === j - 1) return format(value, options);
+    if (!value) return '';
+    current = value;
+  }
+  return '';
+};
+
+var use = exports.use = function use(l) {
+  lang = l || lang;
+};
+
+var i18n = exports.i18n = function i18n(fn) {
+  i18nHandler = fn || i18nHandler;
+};
+
+exports.default = { use: use, t: t, i18n: i18n };
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+/**
+* Modified from https://github.com/sdecima/javascript-detect-element-resize
+*
+* version: 0.5.3
+**/
+var isServer = typeof window === 'undefined';
+
+/* istanbul ignore next */
+var requestFrame = function () {
+  if (isServer) return;
+  var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || function (fn) {
+    return window.setTimeout(fn, 20);
+  };
+  return function (fn) {
+    return raf(fn);
+  };
+}();
+
+/* istanbul ignore next */
+var cancelFrame = function () {
+  if (isServer) return;
+  var cancel = window.cancelAnimationFrame || window.mozCancelAnimationFrame || window.webkitCancelAnimationFrame || window.clearTimeout;
+  return function (id) {
+    return cancel(id);
+  };
+}();
+
+/* istanbul ignore next */
+var resetTrigger = function resetTrigger(element) {
+  var trigger = element.__resizeTrigger__;
+  var expand = trigger.firstElementChild;
+  var contract = trigger.lastElementChild;
+  var expandChild = expand.firstElementChild;
+
+  contract.scrollLeft = contract.scrollWidth;
+  contract.scrollTop = contract.scrollHeight;
+  expandChild.style.width = expand.offsetWidth + 1 + 'px';
+  expandChild.style.height = expand.offsetHeight + 1 + 'px';
+  expand.scrollLeft = expand.scrollWidth;
+  expand.scrollTop = expand.scrollHeight;
+};
+
+/* istanbul ignore next */
+var checkTriggers = function checkTriggers(element) {
+  return element.offsetWidth !== element.__resizeLast__.width || element.offsetHeight !== element.__resizeLast__.height;
+};
+
+/* istanbul ignore next */
+var scrollListener = function scrollListener(event) {
+  var _this = this;
+
+  resetTrigger(this);
+  if (this.__resizeRAF__) cancelFrame(this.__resizeRAF__);
+  this.__resizeRAF__ = requestFrame(function () {
+    if (checkTriggers(_this)) {
+      _this.__resizeLast__.width = _this.offsetWidth;
+      _this.__resizeLast__.height = _this.offsetHeight;
+      _this.__resizeListeners__.forEach(function (fn) {
+        fn.call(_this, event);
+      });
+    }
+  });
+};
+
+/* Detect CSS Animations support to detect element display/re-attach */
+var attachEvent = isServer ? {} : document.attachEvent;
+var DOM_PREFIXES = 'Webkit Moz O ms'.split(' ');
+var START_EVENTS = 'webkitAnimationStart animationstart oAnimationStart MSAnimationStart'.split(' ');
+var RESIZE_ANIMATION_NAME = 'resizeanim';
+var animation = false;
+var keyFramePrefix = '';
+var animationStartEvent = 'animationstart';
+
+/* istanbul ignore next */
+if (!attachEvent && !isServer) {
+  var testElement = document.createElement('fakeelement');
+  if (testElement.style.animationName !== undefined) {
+    animation = true;
+  }
+
+  if (animation === false) {
+    var prefix = '';
+    for (var i = 0; i < DOM_PREFIXES.length; i++) {
+      if (testElement.style[DOM_PREFIXES[i] + 'AnimationName'] !== undefined) {
+        prefix = DOM_PREFIXES[i];
+        keyFramePrefix = '-' + prefix.toLowerCase() + '-';
+        animationStartEvent = START_EVENTS[i];
+        animation = true;
+        break;
+      }
+    }
+  }
+}
+
+var stylesCreated = false;
+/* istanbul ignore next */
+var createStyles = function createStyles() {
+  if (!stylesCreated && !isServer) {
+    var animationKeyframes = '@' + keyFramePrefix + 'keyframes ' + RESIZE_ANIMATION_NAME + ' { from { opacity: 0; } to { opacity: 0; } } ';
+    var animationStyle = keyFramePrefix + 'animation: 1ms ' + RESIZE_ANIMATION_NAME + ';';
+
+    // opacity: 0 works around a chrome bug https://code.google.com/p/chromium/issues/detail?id=286360
+    var css = animationKeyframes + '\n      .resize-triggers { ' + animationStyle + ' visibility: hidden; opacity: 0; }\n      .resize-triggers, .resize-triggers > div, .contract-trigger:before { content: " "; display: block; position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; }\n      .resize-triggers > div { background: #eee; overflow: auto; }\n      .contract-trigger:before { width: 200%; height: 200%; }';
+
+    var head = document.head || document.getElementsByTagName('head')[0];
+    var style = document.createElement('style');
+
+    style.type = 'text/css';
+    if (style.styleSheet) {
+      style.styleSheet.cssText = css;
+    } else {
+      style.appendChild(document.createTextNode(css));
+    }
+
+    head.appendChild(style);
+    stylesCreated = true;
+  }
+};
+
+/* istanbul ignore next */
+var addResizeListener = exports.addResizeListener = function addResizeListener(element, fn) {
+  if (isServer) return;
+  if (attachEvent) {
+    element.attachEvent('onresize', fn);
+  } else {
+    if (!element.__resizeTrigger__) {
+      if (getComputedStyle(element).position === 'static') {
+        element.style.position = 'relative';
+      }
+      createStyles();
+      element.__resizeLast__ = {};
+      element.__resizeListeners__ = [];
+
+      var resizeTrigger = element.__resizeTrigger__ = document.createElement('div');
+      resizeTrigger.className = 'resize-triggers';
+      resizeTrigger.innerHTML = '<div class="expand-trigger"><div></div></div><div class="contract-trigger"></div>';
+      element.appendChild(resizeTrigger);
+
+      resetTrigger(element);
+      element.addEventListener('scroll', scrollListener, true);
+
+      /* Listen for a css animation to detect element display/re-attach */
+      if (animationStartEvent) {
+        resizeTrigger.addEventListener(animationStartEvent, function (event) {
+          if (event.animationName === RESIZE_ANIMATION_NAME) {
+            resetTrigger(element);
+          }
+        });
+      }
+    }
+    element.__resizeListeners__.push(fn);
+  }
+};
+
+/* istanbul ignore next */
+var removeResizeListener = exports.removeResizeListener = function removeResizeListener(element, fn) {
+  if (attachEvent) {
+    element.detachEvent('onresize', fn);
+  } else {
+    element.__resizeListeners__.splice(element.__resizeListeners__.indexOf(fn), 1);
+    if (!element.__resizeListeners__.length) {
+      element.removeEventListener('scroll', scrollListener);
+      element.__resizeTrigger__ = !element.removeChild(element.__resizeTrigger__);
+    }
+  }
+};
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _vue = __webpack_require__(4);
+
+var _vue2 = _interopRequireDefault(_vue);
+
+var _popup = __webpack_require__(37);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var PopperJS = _vue2.default.prototype.$isServer ? function () {} : __webpack_require__(109);
+var stop = function stop(e) {
+  return e.stopPropagation();
+};
+
+/**
+ * @param {HTMLElement} [reference=$refs.reference] - The reference element used to position the popper.
+ * @param {HTMLElement} [popper=$refs.popper] - The HTML element used as popper, or a configuration used to generate the popper.
+ * @param {String} [placement=button] - Placement of the popper accepted values: top(-start, -end), right(-start, -end), bottom(-start, -right), left(-start, -end)
+ * @param {Number} [offset=0] - Amount of pixels the popper will be shifted (can be negative).
+ * @param {Boolean} [visible=false] Visibility of the popup element.
+ * @param {Boolean} [visible-arrow=false] Visibility of the arrow, no style.
+ */
+exports.default = {
+  props: {
+    placement: {
+      type: String,
+      default: 'bottom'
+    },
+    boundariesPadding: {
+      type: Number,
+      default: 5
+    },
+    reference: {},
+    popper: {},
+    offset: {
+      default: 0
+    },
+    value: Boolean,
+    visibleArrow: Boolean,
+    transition: String,
+    appendToBody: {
+      type: Boolean,
+      default: true
+    },
+    options: {
+      type: Object,
+      default: function _default() {
+        return {
+          gpuAcceleration: false
+        };
+      }
+    }
+  },
+
+  data: function data() {
+    return {
+      showPopper: false,
+      currentPlacement: ''
+    };
+  },
+
+
+  watch: {
+    value: {
+      immediate: true,
+      handler: function handler(val) {
+        this.showPopper = val;
+        this.$emit('input', val);
+      }
+    },
+
+    showPopper: function showPopper(val) {
+      val ? this.updatePopper() : this.destroyPopper();
+      this.$emit('input', val);
+    }
+  },
+
+  methods: {
+    createPopper: function createPopper() {
+      var _this = this;
+
+      if (this.$isServer) return;
+      this.currentPlacement = this.currentPlacement || this.placement;
+      if (!/^(top|bottom|left|right)(-start|-end)?$/g.test(this.currentPlacement)) {
+        return;
+      }
+
+      var options = this.options;
+      var popper = this.popperElm = this.popperElm || this.popper || this.$refs.popper;
+      var reference = this.referenceElm = this.referenceElm || this.reference || this.$refs.reference;
+
+      if (!reference && this.$slots.reference && this.$slots.reference[0]) {
+        reference = this.referenceElm = this.$slots.reference[0].elm;
+      }
+      if (!popper || !reference) return;
+      if (this.visibleArrow) this.appendArrow(popper);
+      if (this.appendToBody) document.body.appendChild(this.popperElm);
+      if (this.popperJS && this.popperJS.destroy) {
+        this.popperJS.destroy();
+      }
+
+      options.placement = this.currentPlacement;
+      options.offset = this.offset;
+      this.popperJS = new PopperJS(reference, popper, options);
+      this.popperJS.onCreate(function (_) {
+        _this.$emit('created', _this);
+        _this.resetTransformOrigin();
+        _this.$nextTick(_this.updatePopper);
+      });
+      this.popperJS._popper.style.zIndex = _popup.PopupManager.nextZIndex();
+      this.popperElm.addEventListener('click', stop);
+    },
+    updatePopper: function updatePopper() {
+      this.popperJS ? this.popperJS.update() : this.createPopper();
+    },
+    doDestroy: function doDestroy() {
+      /* istanbul ignore if */
+      if (this.showPopper || !this.popperJS) return;
+      this.popperJS.destroy();
+      this.popperJS = null;
+    },
+    destroyPopper: function destroyPopper() {
+      if (this.popperJS) {
+        this.resetTransformOrigin();
+      }
+    },
+    resetTransformOrigin: function resetTransformOrigin() {
+      var placementMap = { top: 'bottom', bottom: 'top', left: 'right', right: 'left' };
+      var placement = this.popperJS._popper.getAttribute('x-placement').split('-')[0];
+      var origin = placementMap[placement];
+      this.popperJS._popper.style.transformOrigin = ['top', 'bottom'].indexOf(placement) > -1 ? 'center ' + origin : origin + ' center';
+    },
+    appendArrow: function appendArrow(element) {
+      var hash = void 0;
+      if (this.appended) {
+        return;
+      }
+
+      this.appended = true;
+
+      for (var item in element.attributes) {
+        if (/^_v-/.test(element.attributes[item].name)) {
+          hash = element.attributes[item].name;
+          break;
+        }
+      }
+
+      var arrow = document.createElement('div');
+
+      if (hash) {
+        arrow.setAttribute(hash, '');
+      }
+      arrow.setAttribute('x-arrow', '');
+      arrow.className = 'popper__arrow';
+      element.appendChild(arrow);
+    }
+  },
+
+  beforeDestroy: function beforeDestroy() {
+    this.doDestroy();
+    if (this.popperElm && this.popperElm.parentNode === document.body) {
+      this.popperElm.removeEventListener('click', stop);
+      document.body.removeChild(this.popperElm);
+    }
+  },
+
+
+  // call destroy in keep-alive mode
+  deactivated: function deactivated() {
+    this.$options.beforeDestroy[0].call(this);
+  }
+};
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _rule = __webpack_require__(2);
+
+var _rule2 = _interopRequireDefault(_rule);
+
+var _util = __webpack_require__(0);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function type(rule, value, callback, source, options) {
+  var ruleType = rule.type;
+  var errors = [];
+  var validate = rule.required || !rule.required && source.hasOwnProperty(rule.field);
+  if (validate) {
+    if ((0, _util.isEmptyValue)(value, ruleType) && !rule.required) {
+      return callback();
+    }
+    _rule2["default"].required(rule, value, source, errors, options, ruleType);
+    if (!(0, _util.isEmptyValue)(value, ruleType)) {
+      _rule2["default"].type(rule, value, source, errors, options);
+    }
+  }
+  callback(errors);
+}
+
+exports["default"] = type;
+module.exports = exports['default'];
+
+/***/ }),
 /* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22761,7 +22761,7 @@ module.exports = function ( delay, noTrailing, callback, debounceMode ) {
 
 exports.__esModule = true;
 
-var _locale = __webpack_require__(19);
+var _locale = __webpack_require__(20);
 
 exports.default = {
   methods: {
@@ -22835,7 +22835,7 @@ module.exports =
 /***/ 45:
 /***/ function(module, exports) {
 
-	module.exports = __webpack_require__(20);
+	module.exports = __webpack_require__(21);
 
 /***/ },
 
@@ -24115,7 +24115,7 @@ module.exports = __webpack_require__(49);
 var utils = __webpack_require__(3);
 var bind = __webpack_require__(28);
 var Axios = __webpack_require__(51);
-var defaults = __webpack_require__(17);
+var defaults = __webpack_require__(18);
 
 /**
  * Create an instance of Axios
@@ -24235,7 +24235,7 @@ module.exports = CancelToken;
 "use strict";
 
 
-var defaults = __webpack_require__(17);
+var defaults = __webpack_require__(18);
 var utils = __webpack_require__(3);
 var InterceptorManager = __webpack_require__(52);
 var dispatchRequest = __webpack_require__(53);
@@ -24389,7 +24389,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(3);
 var transformData = __webpack_require__(56);
 var isCancel = __webpack_require__(26);
-var defaults = __webpack_require__(17);
+var defaults = __webpack_require__(18);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -28513,7 +28513,7 @@ module.exports =
 /* 18 */
 /***/ function(module, exports) {
 
-	module.exports = __webpack_require__(18);
+	module.exports = __webpack_require__(19);
 
 /***/ },
 /* 19 */
@@ -28647,7 +28647,7 @@ module.exports =
 /* 22 */
 /***/ function(module, exports) {
 
-	module.exports = __webpack_require__(21);
+	module.exports = __webpack_require__(22);
 
 /***/ },
 /* 23 */
@@ -33000,13 +33000,13 @@ module.exports =
 /* 104 */
 /***/ function(module, exports) {
 
-	module.exports = __webpack_require__(20);
+	module.exports = __webpack_require__(21);
 
 /***/ },
 /* 105 */
 /***/ function(module, exports) {
 
-	module.exports = __webpack_require__(19);
+	module.exports = __webpack_require__(20);
 
 /***/ },
 /* 106 */
@@ -50673,7 +50673,7 @@ module.exports =
 /***/ 8:
 /***/ function(module, exports) {
 
-	module.exports = __webpack_require__(18);
+	module.exports = __webpack_require__(19);
 
 /***/ },
 
@@ -51841,7 +51841,7 @@ module.exports =
 /***/ 8:
 /***/ function(module, exports) {
 
-	module.exports = __webpack_require__(18);
+	module.exports = __webpack_require__(19);
 
 /***/ },
 
@@ -51855,7 +51855,7 @@ module.exports =
 /***/ 12:
 /***/ function(module, exports) {
 
-	module.exports = __webpack_require__(21);
+	module.exports = __webpack_require__(22);
 
 /***/ },
 
@@ -51876,7 +51876,7 @@ module.exports =
 /***/ 45:
 /***/ function(module, exports) {
 
-	module.exports = __webpack_require__(20);
+	module.exports = __webpack_require__(21);
 
 /***/ },
 
@@ -51911,7 +51911,7 @@ module.exports =
 /***/ 176:
 /***/ function(module, exports) {
 
-	module.exports = __webpack_require__(19);
+	module.exports = __webpack_require__(20);
 
 /***/ },
 
@@ -53249,7 +53249,7 @@ module.exports =
 /***/ 12:
 /***/ function(module, exports) {
 
-	module.exports = __webpack_require__(21);
+	module.exports = __webpack_require__(22);
 
 /***/ },
 
@@ -56796,10 +56796,10 @@ module.exports = {
   object: __webpack_require__(130),
   "enum": __webpack_require__(124),
   pattern: __webpack_require__(131),
-  email: __webpack_require__(22),
-  url: __webpack_require__(22),
+  email: __webpack_require__(23),
+  url: __webpack_require__(23),
   date: __webpack_require__(123),
-  hex: __webpack_require__(22),
+  hex: __webpack_require__(23),
   required: __webpack_require__(133)
 };
 
@@ -80701,24 +80701,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__packages_text_vue__ = __webpack_require__(143);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__packages_text_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__packages_text_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__packages_hidden_vue__ = __webpack_require__(137);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__packages_hidden_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__packages_hidden_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__packages_number_vue__ = __webpack_require__(138);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__packages_number_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__packages_number_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__packages_textarea_vue__ = __webpack_require__(144);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__packages_textarea_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__packages_textarea_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__packages_select_vue__ = __webpack_require__(140);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__packages_select_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__packages_select_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__packages_tags_vue__ = __webpack_require__(142);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__packages_tags_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__packages_tags_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__packages_switch_vue__ = __webpack_require__(141);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__packages_switch_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__packages_switch_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__packages_picture_vue__ = __webpack_require__(139);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__packages_picture_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__packages_picture_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__packages_upload_vue__ = __webpack_require__(145);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__packages_upload_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__packages_upload_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuex__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__packages_text_vue__ = __webpack_require__(143);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__packages_text_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__packages_text_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__packages_hidden_vue__ = __webpack_require__(137);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__packages_hidden_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__packages_hidden_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__packages_number_vue__ = __webpack_require__(138);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__packages_number_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__packages_number_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__packages_textarea_vue__ = __webpack_require__(144);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__packages_textarea_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__packages_textarea_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__packages_select_vue__ = __webpack_require__(140);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__packages_select_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__packages_select_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__packages_tags_vue__ = __webpack_require__(142);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__packages_tags_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__packages_tags_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__packages_switch_vue__ = __webpack_require__(141);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__packages_switch_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__packages_switch_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__packages_picture_vue__ = __webpack_require__(139);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__packages_picture_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__packages_picture_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__packages_upload_vue__ = __webpack_require__(145);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__packages_upload_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__packages_upload_vue__);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 //
 //
 //
@@ -80746,6 +80750,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 
@@ -80758,22 +80763,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = {
     components: {
-        builderText: __WEBPACK_IMPORTED_MODULE_0__packages_text_vue___default.a,
-        builderHidden: __WEBPACK_IMPORTED_MODULE_1__packages_hidden_vue___default.a,
-        builderNumber: __WEBPACK_IMPORTED_MODULE_2__packages_number_vue___default.a,
-        builderTextarea: __WEBPACK_IMPORTED_MODULE_3__packages_textarea_vue___default.a,
-        builderSelect: __WEBPACK_IMPORTED_MODULE_4__packages_select_vue___default.a,
-        builderTags: __WEBPACK_IMPORTED_MODULE_5__packages_tags_vue___default.a,
-        builderSwitch: __WEBPACK_IMPORTED_MODULE_6__packages_switch_vue___default.a,
-        builderPicture: __WEBPACK_IMPORTED_MODULE_7__packages_picture_vue___default.a,
-        builderUpload: __WEBPACK_IMPORTED_MODULE_8__packages_upload_vue___default.a
+        builderText: __WEBPACK_IMPORTED_MODULE_1__packages_text_vue___default.a,
+        builderHidden: __WEBPACK_IMPORTED_MODULE_2__packages_hidden_vue___default.a,
+        builderNumber: __WEBPACK_IMPORTED_MODULE_3__packages_number_vue___default.a,
+        builderTextarea: __WEBPACK_IMPORTED_MODULE_4__packages_textarea_vue___default.a,
+        builderSelect: __WEBPACK_IMPORTED_MODULE_5__packages_select_vue___default.a,
+        builderTags: __WEBPACK_IMPORTED_MODULE_6__packages_tags_vue___default.a,
+        builderSwitch: __WEBPACK_IMPORTED_MODULE_7__packages_switch_vue___default.a,
+        builderPicture: __WEBPACK_IMPORTED_MODULE_8__packages_picture_vue___default.a,
+        builderUpload: __WEBPACK_IMPORTED_MODULE_9__packages_upload_vue___default.a
     },
     data() {
         return {
             disabled: false
         };
     },
-    methods: {
+    computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapState"])({
+        postData: 'postData'
+    })),
+    methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapMutations"])(['getCurrentData']), {
         handleSubmit() {
             let _this = this;
             this.disabled = true;
@@ -80806,9 +80814,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         handleReset() {
-            console.log('from表单重置功能-待开发！');
+            this.getCurrentData(this.postData); //重新获取页面信息
         }
-    },
+    }),
     props: {
         fromDatas: {
             type: Object,
@@ -80823,7 +80831,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuex__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__form_vue__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__form_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__form_vue__);
@@ -80934,15 +80942,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = {
-    created() {
-        if (this.datas.value == null) {
-            this.datas.value = '';
-        }
-    },
     props: {
         datas: {
             type: Object,
             default: ''
+        }
+    },
+    created() {
+        this.Initialization();
+    },
+    watch: {
+        datas: 'Initialization'
+    },
+    methods: {
+        Initialization() {
+            if (this.datas.value == null) {
+                this.datas.value = '';
+            }
         }
     }
 };
@@ -80983,23 +80999,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     created() {
-        if (this.datas.value == null) {
-            this.datas.value = '';
-        }
-        if (this.datas.min == null) {
-            this.min = 0;
-        }
-        if (this.datas.max == null) {
-            this.max = 'Infinity';
-        }
-        if (this.datas.step == null) {
-            this.step = 1;
-        }
-        if (this.datas.disabled == null) {
-            this.disabled = false;
-        }
-        if (this.datas.controls == null) {
-            this.controls = true;
+        this.Initialization();
+    },
+    watch: {
+        datas: 'Initialization'
+    },
+    methods: {
+        Initialization() {
+            if (this.datas.value == null) {
+                this.datas.value = '';
+            }
+            if (this.datas.min == null) {
+                this.min = 0;
+            }
+            if (this.datas.max == null) {
+                this.max = 'Infinity';
+            }
+            if (this.datas.step == null) {
+                this.step = 1;
+            }
+            if (this.datas.disabled == null) {
+                this.disabled = false;
+            }
+            if (this.datas.controls == null) {
+                this.controls = true;
+            }
         }
     }
 };
@@ -81057,34 +81081,40 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     created() {
-        if (this.datas.value == null) {
-            this.datas.value = '';
-        }
-        if (this.datas.fileName == null) {
-            this.datas.fileName = 'file';
-        }
-        if (this.datas.withCredentials == null) {
-            this.datas.withCredentials = false;
-        }
-        if (this.datas.showUploadList == null) {
-            this.datas.showUploadList = true;
-        }
-        // 上传文件大小显示语言提示beging
-        if (this.datas.maxSizeLang == null) {
-            this.datas.maxSizeLang = {};
-        }
-        if (this.datas.maxSizeLang.title == null) {
-            this.datas.maxSizeLang.title = '文件大小超过限制';
-        }
-        if (this.datas.maxSizeLang.message == null) {
-            this.datas.maxSizeLang.message = '文件大小超过系统限制';
-        }
-        if (this.datas.maxSizeLang.type == null) {
-            this.datas.maxSizeLang.type = 'warning';
-        }
-        // 上传文件大小显示语言提示end
+        this.Initialization();
+    },
+    watch: {
+        datas: 'Initialization'
     },
     methods: {
+        Initialization() {
+            if (this.datas.value == null) {
+                this.datas.value = '';
+            }
+            if (this.datas.fileName == null) {
+                this.datas.fileName = 'file';
+            }
+            if (this.datas.withCredentials == null) {
+                this.datas.withCredentials = false;
+            }
+            if (this.datas.showUploadList == null) {
+                this.datas.showUploadList = true;
+            }
+            // 上传文件大小显示语言提示beging
+            if (this.datas.maxSizeLang == null) {
+                this.datas.maxSizeLang = {};
+            }
+            if (this.datas.maxSizeLang.title == null) {
+                this.datas.maxSizeLang.title = '文件大小超过限制';
+            }
+            if (this.datas.maxSizeLang.message == null) {
+                this.datas.maxSizeLang.message = '文件大小超过系统限制';
+            }
+            if (this.datas.maxSizeLang.type == null) {
+                this.datas.maxSizeLang.type = 'warning';
+            }
+            // 上传文件大小显示语言提示end
+        },
         handleRemove(file, fileList) {
             this.datas.value = null;
         },
@@ -81166,16 +81196,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = {
-    created() {
-        this.datas.value = this.datas.value.toString();
-        if (this.datas.value == null) {
-            this.datas.value = '';
-        }
-    },
     props: {
         datas: {
             type: Object,
             default: ''
+        }
+    },
+    created() {
+        this.Initialization();
+    },
+    watch: {
+        datas: 'Initialization'
+    },
+    methods: {
+        Initialization() {
+            this.datas.value = this.datas.value.toString();
+            if (this.datas.value == null) {
+                this.datas.value = '';
+            }
         }
     }
 };
@@ -81212,11 +81250,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = {
-    created() {
-        if (this.datas.value == null) {
-            this.datas.value = '';
-        }
-    },
     props: {
         datas: {
             type: Object,
@@ -81232,22 +81265,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     created() {
-        if (this.datas.value == 1) {
-            this.datas.value = true;
-        } else if (this.datas.value == 0) {
-            this.datas.value = false;
-        }
-        if (this.datas.onText == null) {
-            this.onText = '开启';
-        }
-        if (this.datas.offText == null) {
-            this.offText = '关闭';
-        }
-        if (this.datas.onColor == null) {
-            this.onColor = '#1abc9c';
-        }
-        if (this.datas.offColor == null) {
-            this.offColor = '#95a5a6';
+        this.Initialization();
+    },
+    watch: {
+        datas: 'Initialization'
+    },
+    methods: {
+        Initialization() {
+            if (this.datas.value == 1) {
+                this.datas.value = true;
+            } else if (this.datas.value == 0) {
+                this.datas.value = false;
+            }
+            if (this.datas.onText == null) {
+                this.onText = '开启';
+            }
+            if (this.datas.offText == null) {
+                this.offText = '关闭';
+            }
+            if (this.datas.onColor == null) {
+                this.onColor = '#1abc9c';
+            }
+            if (this.datas.offColor == null) {
+                this.offColor = '#95a5a6';
+            }
         }
     }
 };
@@ -81291,37 +81332,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = {
-  created() {
-    this.dynamicTags = this.datas.value.toString().split(',');
-  },
-  data() {
-    return {
-      dynamicTags: [],
-      inputValue: ''
-    };
-  },
-  methods: {
-    handleClose(tag) {
-      this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
-      this.datas.value = this.dynamicTags.join(',');
+    props: {
+        datas: {
+            type: Object,
+            default: ''
+        }
     },
+    data() {
+        return {
+            dynamicTags: [],
+            inputValue: ''
+        };
+    },
+    created() {
+        this.Initialization();
+    },
+    watch: {
+        datas: 'Initialization'
+    },
+    methods: {
+        Initialization() {
+            this.dynamicTags = this.datas.value.toString().split(',');
+        },
+        handleClose(tag) {
+            this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+            this.datas.value = this.dynamicTags.join(',');
+        },
 
-    handleInputConfirm() {
-      let inputValue = this.inputValue;
-      let dynamicTags = this.dynamicTags;
-      if (inputValue) {
-        this.dynamicTags.push(inputValue);
-        this.datas.value = dynamicTags.join(',');
-      }
-      this.inputValue = '';
+        handleInputConfirm() {
+            let inputValue = this.inputValue;
+            let dynamicTags = this.dynamicTags;
+            if (inputValue) {
+                this.dynamicTags.push(inputValue);
+                this.datas.value = dynamicTags.join(',');
+            }
+            this.inputValue = '';
+        }
     }
-  },
-  props: {
-    datas: {
-      type: Object,
-      default: ''
-    }
-  }
 };
 
 /***/ }),
@@ -81361,15 +81408,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = {
-    created() {
-        if (this.datas.value == null) {
-            this.datas.value = '';
-        }
-    },
     props: {
         datas: {
             type: Object,
             default: ''
+        }
+    },
+    created() {
+        this.Initialization();
+    },
+    watch: {
+        datas: 'Initialization'
+    },
+    methods: {
+        Initialization() {
+            if (this.datas.value == null) {
+                this.datas.value = '';
+            }
         }
     }
 };
@@ -81412,15 +81467,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = {
-    created() {
-        if (this.datas.value == null) {
-            this.datas.value = '';
-        }
-    },
     props: {
         datas: {
             type: Object,
             default: ''
+        }
+    },
+    created() {
+        this.Initialization();
+    },
+    watch: {
+        datas: 'Initialization'
+    },
+    methods: {
+        Initialization() {
+            if (this.datas.value == null) {
+                this.datas.value = '';
+            }
         }
     }
 };
@@ -81475,7 +81538,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuex__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__form_vue__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__form_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__form_vue__);
@@ -82191,7 +82254,7 @@ window.axios.defaults.headers.common = {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vuex__);
 
 

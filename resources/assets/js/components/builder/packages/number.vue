@@ -28,23 +28,31 @@ export default{
         },
     },
     created() {
-        if (this.datas.value==null) {
-            this.datas.value = ''
-        }
-        if (this.datas.min==null) {
-            this.min = 0;
-        }
-        if (this.datas.max==null) {
-            this.max = 'Infinity';
-        }
-        if (this.datas.step==null) {
-            this.step = 1;
-        }
-        if (this.datas.disabled==null) {
-            this.disabled = false;
-        }
-        if (this.datas.controls==null) {
-            this.controls = true;
+        this.Initialization();
+    },
+    watch: {
+        datas:'Initialization'
+    },
+    methods:{
+        Initialization(){
+            if (this.datas.value==null) {
+                this.datas.value = ''
+            }
+            if (this.datas.min==null) {
+                this.min = 0;
+            }
+            if (this.datas.max==null) {
+                this.max = 'Infinity';
+            }
+            if (this.datas.step==null) {
+                this.step = 1;
+            }
+            if (this.datas.disabled==null) {
+                this.disabled = false;
+            }
+            if (this.datas.controls==null) {
+                this.controls = true;
+            }
         }
     }
 }

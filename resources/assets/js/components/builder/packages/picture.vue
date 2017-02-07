@@ -45,57 +45,63 @@ export default{
       };
     },
     created() {
-        if (this.datas.value==null) {
-            this.datas.value = ''
-        }
-        if (this.datas.fileName==null) {
-            this.datas.fileName = 'file';
-        }
-        if (this.datas.withCredentials==null) {
-            this.datas.withCredentials = false;
-        }
-        if (this.datas.showUploadList==null) {
-            this.datas.showUploadList = true;
-        }
-        // 上传文件大小显示语言提示beging
-        if (this.datas.maxSizeLang==null) {
-            this.datas.maxSizeLang = {};
-        }
-        if (this.datas.maxSizeLang.title==null) {
-            this.datas.maxSizeLang.title = '文件大小超过限制';
-        }
-        if (this.datas.maxSizeLang.message==null) {
-            this.datas.maxSizeLang.message = '文件大小超过系统限制';
-        }
-        if (this.datas.maxSizeLang.type==null) {
-            this.datas.maxSizeLang.type = 'warning';
-        }
-        // 上传文件大小显示语言提示end
+        this.Initialization();
+    },
+    watch: {
+        datas:'Initialization'
     },
     methods: {
-      handleRemove(file, fileList) {
-          this.datas.value = null;
-      },
-      handlePreview(file) {
-        //   console.log(file);
-      },
-      handleSuccess(Response, file, fileList){
-          if (Response.type=="success") {
-              this.datas.value = Response.uploadData.id;
-          }
-          this.$notify({
-              title: Response.title,
-              message: Response.message,
-              type: Response.type,
-          });
-      },
-      handleError(err, response, file){
-        //   console.log(err, response, file);
-      },
-      handleProgress(event, file, fileList){
-        //   console.log(event, file, fileList);
-      },
-      beforeUpload(file){
+        Initialization(){
+            if (this.datas.value==null) {
+                this.datas.value = ''
+            }
+            if (this.datas.fileName==null) {
+                this.datas.fileName = 'file';
+            }
+            if (this.datas.withCredentials==null) {
+                this.datas.withCredentials = false;
+            }
+            if (this.datas.showUploadList==null) {
+                this.datas.showUploadList = true;
+            }
+            // 上传文件大小显示语言提示beging
+            if (this.datas.maxSizeLang==null) {
+                this.datas.maxSizeLang = {};
+            }
+            if (this.datas.maxSizeLang.title==null) {
+                this.datas.maxSizeLang.title = '文件大小超过限制';
+            }
+            if (this.datas.maxSizeLang.message==null) {
+                this.datas.maxSizeLang.message = '文件大小超过系统限制';
+            }
+            if (this.datas.maxSizeLang.type==null) {
+                this.datas.maxSizeLang.type = 'warning';
+            }
+            // 上传文件大小显示语言提示end
+        },
+        handleRemove(file, fileList) {
+            this.datas.value = null;
+        },
+         handlePreview(file) {
+             //   console.log(file);
+         },
+         handleSuccess(Response, file, fileList){
+            if (Response.type=="success") {
+                this.datas.value = Response.uploadData.id;
+            }
+            this.$notify({
+                title: Response.title,
+                message: Response.message,
+                type: Response.type,
+            });
+        },
+        handleError(err, response, file){
+            //   console.log(err, response, file);
+        },
+        handleProgress(event, file, fileList){
+            //   console.log(event, file, fileList);
+        },
+        beforeUpload(file){
           if (this.datas.maxSize<file.size) {
               this.$notify({
                   title: this.datas.maxSizeLang.title,

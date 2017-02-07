@@ -31,8 +31,11 @@
 </template>
 <script>
 export default {
-    created() {
-        this.dynamicTags = this.datas.value.toString().split(',')
+    props: {
+        datas: {
+            type: Object,
+            default: ''
+        },
     },
     data() {
       return {
@@ -40,27 +43,30 @@ export default {
         inputValue: ''
       };
     },
-    methods: {
-      handleClose(tag) {
-        this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
-        this.datas.value = this.dynamicTags.join(',');
-      },
-
-      handleInputConfirm() {
-        let inputValue = this.inputValue;
-        let dynamicTags = this.dynamicTags;
-        if (inputValue) {
-            this.dynamicTags.push(inputValue);
-            this.datas.value = dynamicTags.join(',');
-        }
-        this.inputValue = '';
-      }
+    created() {
+        this.Initialization();
     },
-    props: {
-        datas: {
-            type: Object,
-            default: ''
+    watch: {
+        datas:'Initialization'
+    },
+    methods: {
+        Initialization(){
+            this.dynamicTags = this.datas.value.toString().split(',')
         },
+        handleClose(tag) {
+            this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+            this.datas.value = this.dynamicTags.join(',');
+        },
+
+        handleInputConfirm() {
+            let inputValue = this.inputValue;
+            let dynamicTags = this.dynamicTags;
+            if (inputValue) {
+                this.dynamicTags.push(inputValue);
+                this.datas.value = dynamicTags.join(',');
+            }
+            this.inputValue = '';
+        }
     },
   }
 </script>

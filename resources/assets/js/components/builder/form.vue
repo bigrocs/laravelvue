@@ -26,6 +26,7 @@
     </el-form>
 </template>
 <script>
+import { mapState,mapMutations } from 'vuex'
 import builderText from './packages/text.vue'
 import builderHidden from './packages/hidden.vue'
 import builderNumber from './packages/number.vue'
@@ -52,7 +53,15 @@ export default {
             disabled: false,
         };
     },
+    computed: {
+        ...mapState({
+            postData: 'postData',
+        }),
+    },
     methods:{
+        ...mapMutations([
+            'getCurrentData',
+        ]),
         handleSubmit(){
             let _this = this;
             this.disabled = true;
@@ -85,7 +94,7 @@ export default {
             });
         },
         handleReset() {
-            console.log('from表单重置功能-待开发！');
+            this.getCurrentData(this.postData)//重新获取页面信息
         },
     },
     props: {

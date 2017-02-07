@@ -33,8 +33,8 @@ mix.webpackConfig({
     plugins: [
         new BrowserSyncPlugin({
           open: 'external',
-          host: 'laravel54.dev',
-          proxy: 'laravel54.dev',
+          host: 'vue.dev',
+          proxy: 'vue.dev',
           files: ['resources/views/**/*.php', 'app/**/*.php', 'routes/**/*.php']
         })
     ]
