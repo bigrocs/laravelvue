@@ -11,7 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AdminConfig;
 use Facades\ {
     App\Facades\BuilderData
-};;
+};
 
 class ConfigController extends Controller
 {
@@ -53,7 +53,7 @@ class ConfigController extends Controller
 
         $data = BuilderData::addTableData($adminConfigs)
                                 ->addTableColumn(['prop' => 'id',         'label'=> 'ID',     'width'=> '55'])
-                                ->addTableColumn(['prop' => 'name',       'label'=> '名称',   'width'=> '200'])
+                                ->addTableColumn(['prop' => 'name',       'label'=> '名称',   'width'=> '240'])
                                 ->addTableColumn(['prop' => 'title',      'label'=> '标题',   'width'=> '180'])
                                 ->addTableColumn(['prop' => 'sort',       'label'=> '排序',   'width'=> '70'])
                                 ->addTableColumn(['prop' => 'status',     'label'=> '状态',   'width'=> '90','type' => 'status'])
