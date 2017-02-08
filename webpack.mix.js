@@ -12,7 +12,7 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
  |
  */
 
-mix.js('resources/assets/js/main.js', 'public/js');
+mix.js('resources/assets/js/admin.js', 'public/js');
 mix.webpackConfig({
     module: {
         rules: [

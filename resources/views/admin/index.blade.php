@@ -15,6 +15,6 @@
 <body class="skin-blue sidebar-mini fixed">
     <div id="app" apiUrl="/api/admin/main">
     </div>
-    <script src="{{ mix('/js/main.js') }}"></script>
+    <script src="{{ mix('/js/admin.js') }}"></script>
 </body>
 </html>

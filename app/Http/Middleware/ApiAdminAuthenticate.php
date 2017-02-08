@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 class ApiAdminAuthenticate
 {
     /**
-     * 检测登录状态
+     * API检测登录状态
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next

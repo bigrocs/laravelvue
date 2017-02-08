@@ -7,7 +7,7 @@
 require('./bootstrap');
 
 import BuilderHtml from './components/builder/index.vue'      //引入页面内容构建器
-import App from './components/app.vue'                        //引入页面主程序
+import App from './components/admin/app.vue'                        //引入页面主程序
 import store from './store.js'                                //引入状态配置文件
 
 let apiUrl = $('#app').attr('apiUrl');                    //获取主API网址
