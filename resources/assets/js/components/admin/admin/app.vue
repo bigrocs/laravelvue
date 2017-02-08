@@ -18,5 +18,6 @@ export default {
         mainContent,
         mainFooter
     },
+    
 }
 </script>

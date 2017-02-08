@@ -5,10 +5,20 @@
  */
 
 require('./bootstrap');
+//后台JS插件
+require('admin-lte');                               //AdminLTE JS编译
+require('jquery-slimscroll');                       //页面滚动插件 SlimScroll
+require('fastclick');                               //快速点击插件 fastClick
+//后台样式引入
+// import '../less/AdminLTE.less'         //AdminLTE样式
+import 'admin-lte/build/less/skins/_all-skins.less' //AdminLTE皮肤样式
 
 import BuilderHtml from './components/builder/index.vue'      //引入页面内容构建器
-import App from './components/admin/app.vue'                        //引入页面主程序
 import store from './store.js'                                //引入状态配置文件
+
+import App from './components/admin/app.vue'                  //引入页面主程序
+import Login from './components/admin/login.vue'                  //引入页面主程序
+
 
 let apiUrl = $('#app').attr('apiUrl');                    //获取主API网址
 
@@ -25,6 +35,8 @@ axios.post(apiUrl).then((Response) => {
             }
         }
     }
+    routes.push({path:'/login',name:'login',component:Login})
+    console.log(routes);
     const router = new VueRouter({
         routes,                                                  // （缩写）相当于 routes: routes
     })
