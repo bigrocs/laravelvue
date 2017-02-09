@@ -19,12 +19,6 @@ Route::get('/', function () {
 | 后台路由设置 routes
 |--------------------------------------------------------------------------
 */
-Route::group(['prefix' => 'admin','namespace' => 'Admin','as' => 'admin.'], function () {
-    // 后台首页设置BEGIN
-    Route::get ('/login'                        , 'LoginController@getLogin'              )->name('login');
-    Route::post('/login'                        , 'LoginController@postLogin');
-    // 后台首页设置EN
-});
 Route::group(['prefix' => 'admin',
     // 'middleware' => 'auth.admin'
 ], function () {

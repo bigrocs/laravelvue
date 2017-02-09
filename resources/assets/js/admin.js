@@ -35,9 +35,9 @@ axios.post(apiUrl).then((Response) => {
             }
         }
     }
-    routes.push({path:'/login',name:'login',component:Login})
-    console.log(routes);
+    routes.push({path:'/admin/login',name:'login',component:Login})
     const router = new VueRouter({
+        mode: 'history',
         routes,                                                  // （缩写）相当于 routes: routes
     })
     new Vue({

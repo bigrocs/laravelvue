@@ -16,7 +16,7 @@ class MainController extends Controller
                 [
                     'name'  => 'dashboard',
                     'title' =>  '首页 Dashboard',
-                    'path'  =>  '/',
+                    'path'  =>  '/admin/',
                     'icon'  =>  'fa fa-dashboard',
                 ],
                 [
@@ -33,7 +33,7 @@ class MainController extends Controller
                 [
                     'name'  => 'system_system',
                     'title' =>  '系统设置',
-                    'path'  =>  '/system',
+                    'path'  =>  '/admin/system',
                     'icon'  =>  'fa fa-wrench',
                     'parent'=>  'system_top',
                     'apiUrl'=> '/api/admin/system'
@@ -41,7 +41,7 @@ class MainController extends Controller
                 [
                     'name'  => 'system_config',
                     'title' =>  '配置管理',
-                    'path'  =>  '/config',
+                    'path'  =>  '/admin/config',
                     'icon'  =>  'fa fa-cogs',
                     'parent'=>  'system_top',
                     'apiUrl'=> '/api/admin/config'
@@ -49,7 +49,7 @@ class MainController extends Controller
                 [
                     'name'  => 'system_upload',
                     'title' =>  '上传管理',
-                    'path'  =>  '/upload',
+                    'path'  =>  '/admin/upload',
                     'icon'  =>  'fa fa-upload',
                     'parent'=>  'system_top',
                     'apiUrl'=> '/api/admin/upload'
@@ -62,7 +62,7 @@ class MainController extends Controller
                 [
                     'name'  => 'system_model',
                     'title' =>  '模块扩展',
-                    'path'  =>  '/model',
+                    'path'  =>  '/admin/model',
                     'icon'  =>  'fa fa-wrench',
                     'parent'=>  'system_application',
                     'apiUrl'=> '/api/admin/model'
@@ -70,7 +70,7 @@ class MainController extends Controller
                 [
                     'name'  => 'system_addon',
                     'title' =>  '插件管理',
-                    'path'  =>  '/addon',
+                    'path'  =>  '/admin/addon',
                     'icon'  =>  'fa fa-cogs',
                     'parent'=>  'system_application',
                     'apiUrl'=> '/api/admin/addon'
@@ -78,7 +78,7 @@ class MainController extends Controller
                 [
                     'name'  => 'system_theme',
                     'title' =>  '主题管理',
-                    'path'  =>  '/theme',
+                    'path'  =>  '/admin/theme',
                     'icon'  =>  'fa fa-adjust',
                     'parent'=>  'system_application',
                     'apiUrl'=> '/api/admin/theme'
