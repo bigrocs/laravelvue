@@ -42,7 +42,7 @@ class SystemController extends Controller
                 $adminConfig['rows'] = 5;
             }
             if ($adminConfig['type'] == 'picture') {
-                $adminConfig['postUrl'] = 'api/admin/upload/image';
+                $adminConfig['postUrl'] = '/api/admin/upload/image';
                 $uploadData[] = getUploadWhereOne($adminConfig['value']);
                 $adminConfig['fileList'] = $uploadData;
                 $adminConfig['maxSize'] = 1048567;//上传文件限制
@@ -57,7 +57,7 @@ class SystemController extends Controller
         }
         $tabs = explode(',', getAdminConfig('CONFIG_GROUP_LIST'));
         $data = BuilderData::addFormData($adminConfigs)
-                            ->addFormApiUrl('urlSubmit','api/admin/system/update')              //添加Submit通信API
+                            ->addFormApiUrl('urlSubmit','/api/admin/system/update')              //添加Submit通信API
                             ->setTabs($tabs)    //设置页面Tabs
                             ->setTitle('系统设置')
                             ->get();
