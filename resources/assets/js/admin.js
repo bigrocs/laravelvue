@@ -13,12 +13,11 @@ require('fastclick');                               //快速点击插件 fastCli
 // import '../less/AdminLTE.less'         //AdminLTE样式
 import 'admin-lte/build/less/skins/_all-skins.less' //AdminLTE皮肤样式
 
-import BuilderHtml from './components/builder/index.vue'      //引入页面内容构建器
 import store from './store.js'                                //引入状态配置文件
-
+import BuilderHtml from './components/builder/index.vue'      //引入页面内容构建器
 import App from './components/admin/app.vue'                  //主渲染页面
-import Index from './components/admin/index.vue'              //后台索引主页面
-import Login from './components/admin/login.vue'              //登录页面
+import IndexPage from './components/admin/index.vue'              //后台索引主页面
+import LoginPage from './components/admin/login.vue'              //登录页面
 
 
 let apiUrl = $('#app').attr('apiUrl');                    //获取主API网址
@@ -37,8 +36,8 @@ axios.post(apiUrl).then((Response) => {
         }
     }
     const routes = [
-        { path: '/admin/login', name:'login', component:Login},
-        { path: '/admin', name:'admin', component: Index,children: adminChildren},
+        { path: '/admin/login', name:'login', component:LoginPage},
+        { path: '/admin', name:'admin', component: IndexPage,children: adminChildren},
     ]
     // routes.push({path:'/admin/login',name:'login',component:Login})
     const router = new VueRouter({

@@ -11,8 +11,13 @@
         <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script>
+        window.Laravel = {
+            csrfToken:'{{ csrf_token() }}'
+        }
+    </script>
 </head>
-<body class="skin-blue sidebar-mini fixed">
+<body class="skin-red sidebar-mini fixed">
     <div id="app" apiUrl="/api/admin/main">
     </div>
     <script src="{{ mix('/js/admin.js') }}"></script>
