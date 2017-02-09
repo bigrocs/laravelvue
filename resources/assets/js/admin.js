@@ -16,8 +16,9 @@ import 'admin-lte/build/less/skins/_all-skins.less' //AdminLTE皮肤样式
 import BuilderHtml from './components/builder/index.vue'      //引入页面内容构建器
 import store from './store.js'                                //引入状态配置文件
 
-import App from './components/admin/app.vue'                  //引入页面主程序
-import Login from './components/admin/login.vue'                  //引入页面主程序
+import App from './components/admin/app.vue'                  //主渲染页面
+import Index from './components/admin/index.vue'              //后台索引主页面
+import Login from './components/admin/login.vue'              //登录页面
 
 
 let apiUrl = $('#app').attr('apiUrl');                    //获取主API网址
@@ -25,17 +26,21 @@ let apiUrl = $('#app').attr('apiUrl');                    //获取主API网址
 axios.post(apiUrl).then((Response) => {
     store.state.data = Response.data                          //初始化全局变量(服务端API数据)
 
-    const routes=[]                                           //begin解析路由JSON
+    const adminChildren=[]                                           //begin解析路由JSON
     for(var key in Response.data.routes){
         if(Response.data.routes[key].path!=null){
-            routes[key] = {
+            adminChildren[key] = {
                 path: Response.data.routes[key].path,
                 name: Response.data.routes[key].name,
                 component: BuilderHtml
             }
         }
     }
-    routes.push({path:'/admin/login',name:'login',component:Login})
+    const routes = [
+        { path: '/admin/login', name:'login', component:Login},
+        { path: '/admin', name:'admin', component: Index,children: adminChildren},
+    ]
+    // routes.push({path:'/admin/login',name:'login',component:Login})
     const router = new VueRouter({
         mode: 'history',
         routes,                                                  // （缩写）相当于 routes: routes

@@ -33,7 +33,7 @@ class MainController extends Controller
                 [
                     'name'  => 'system_system',
                     'title' =>  '系统设置',
-                    'path'  =>  '/admin/system',
+                    'path'  =>  '/system',
                     'icon'  =>  'fa fa-wrench',
                     'parent'=>  'system_top',
                     'apiUrl'=> '/api/admin/system'

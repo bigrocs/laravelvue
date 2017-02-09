@@ -19,7 +19,6 @@ class SystemController extends Controller
 
     public function __construct(AdminConfig $adminConfigRepo)
     {
-        $this->middleware('auth.admin');
         $this->adminConfigModel = $adminConfigRepo;
     }
     public function index(Request $request)
