@@ -19,9 +19,7 @@ Route::get('/', function () {
 | 后台路由设置 routes
 |--------------------------------------------------------------------------
 */
-Route::group(['prefix' => 'admin',
-    // 'middleware' => 'auth.admin'
-], function () {
+Route::group(['prefix' => 'admin'], function () {
     Route::get('/{vue_capture?}', function () {
         return view('admin.index');
     })->where('vue_capture', '[\/\w\.-]*');
