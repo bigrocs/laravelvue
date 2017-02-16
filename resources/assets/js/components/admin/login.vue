@@ -9,11 +9,11 @@
 
         <form action="#" method="post">
           <div class="form-group has-feedback">
-              <el-input type="email" v-model="username" placeholder="用户名/手机/邮箱"></el-input>
+              <el-input type="username" v-model="username" name="username" placeholder="用户名/手机/邮箱"></el-input>
               <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
           </div>
           <div class="form-group has-feedback">
-              <el-input type="password" v-model="password" placeholder="密码"></el-input>
+              <el-input type="password" v-model="password" name="password" placeholder="密码"></el-input>
               <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
           <div class="row">
@@ -60,8 +60,24 @@ export default {
     },
     methods:{
         handleLoginSubmit(){
-            console.log(this.username);
-            console.log(this.password);
+            const postData = {
+              'grant_type' : 'password',
+              'client_id' : '2',
+              'client_secret' : 'aqTidkQScKa6HFVoDrNVqt8JZqqsdWEssYersdLY',
+              'username' : this.username,
+              'password' : this.password,
+              'scope' : '',
+            }
+            const authUser = {}
+            axios.post('/oauth/token',postData).then((Response)=>{
+              if (Response.status === 200) {
+                // console.log(Response);
+                authUser.accessToken = Response.data.access_token
+                authUser.refreshToken = Response.data.refresh_token
+                window.localStorage.setItem('authUser',JSON.stringify(authUser))
+                const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+              }
+            })
         }
     }
 }

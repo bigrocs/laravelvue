@@ -27,4 +27,18 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    /**
+     * [findForPassport API根据用户名查询用户信息]
+     * @author BigRocs
+     * @email    bigrocs@qq.com
+     * @DateTime 2017-02-16T10:45:20+0800
+     * @param    [type]                   $username [description]
+     * @return   [type]                             [description]
+     */
+    public function findForPassport($username){
+        return $this->where('name', $username)
+                    ->orwhere('email',$username)
+                    ->orwhere('mobile',$username)
+                    ->first();
+    }
 }

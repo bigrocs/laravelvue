@@ -13,7 +13,7 @@ require('fastclick');                               //快速点击插件 fastCli
 // import '../less/AdminLTE.less'         //AdminLTE样式
 import 'admin-lte/build/less/skins/_all-skins.less' //AdminLTE皮肤样式
 
-import store from './store.js'                                //引入状态配置文件
+import store from './store'                                //引入状态配置文件
 import BuilderHtml from './components/builder/index.vue'      //引入页面内容构建器
 import App from './components/admin/app.vue'                  //主渲染页面
 import IndexPage from './components/admin/index.vue'              //后台索引主页面
