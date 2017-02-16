@@ -13,12 +13,13 @@
     <![endif]-->
     <script>
         window.Laravel = {
-            csrfToken:'{{ csrf_token() }}'
+            apiUrl: '/api/admin/main',
+            csrfToken:'{{ csrf_token() }}',
         }
     </script>
 </head>
 <body class="skin-red sidebar-mini fixed">
-    <div id="app" apiUrl="/api/admin/main">
+    <div id="app">
     </div>
     <script src="{{ mix('/js/admin.js') }}"></script>
 </body>

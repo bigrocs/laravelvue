@@ -79,3 +79,22 @@ export const initPostData = ({ commit }) => {
         inputSearch:''
     })
 }
+/**
+ * [initHeaders 初始化页面头部Headers]
+ * @author BigRocs
+ * @email    bigrocs@qq.com
+ * @DateTime 2017-02-16T16:34:05+0800
+ * @param    {[type]}                 options.commit [description]
+ * @param    {[type]}                 options.state  [description]
+ * @return   {[type]}                                [description]
+ */
+export const initHeaders = ({ commit,state }) => {
+    const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+    const Authorization = 'Bearer ' + tokenData.accessToken
+    commit(types.SET_HEADERS,{ Authorization })//设置头部Authorization
+    /**
+     * [common 赋值axios]
+     * @type {[type]}
+     */
+    window.axios.defaults.headers.common = state.headers  
+}

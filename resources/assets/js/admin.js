@@ -19,10 +19,7 @@ import App from './components/admin/app.vue'                  //主渲染页面
 import IndexPage from './components/admin/index.vue'              //后台索引主页面
 import LoginPage from './components/admin/login.vue'              //登录页面
 
-
-let apiUrl = $('#app').attr('apiUrl');                    //获取主API网址
-
-axios.post(apiUrl).then((Response) => {
+axios.post(window.Laravel.apiUrl).then((Response) => {
     store.state.data = Response.data                          //初始化全局变量(服务端API数据)
 
     const adminChildren=[]                                           //begin解析路由JSON

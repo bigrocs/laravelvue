@@ -1,6 +1,17 @@
 import * as types from './mutation-types'
 export default {
     /**
+     * [SET_HEADERS 设置Headers数据]
+     * @headers 当前请求头部    
+     */
+    [types.SET_HEADERS] (state,{
+        Accept = state.headers.Accept,
+        Authorization = state.headers.Authorization,
+    }){
+        state.headers.Accept = Accept
+        state.headers.Authorization = Authorization
+    },
+    /**
      * [SET_CURRENT_API_URL 设置currentApiUrl数据]
      * @currentApiUrl 当前路由通信ApiUrl     
      */

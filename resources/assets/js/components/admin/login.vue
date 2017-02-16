@@ -71,11 +71,9 @@ export default {
             const authUser = {}
             axios.post('/oauth/token',postData).then((Response)=>{
               if (Response.status === 200) {
-                // console.log(Response);
                 authUser.accessToken = Response.data.access_token
                 authUser.refreshToken = Response.data.refresh_token
                 window.localStorage.setItem('authUser',JSON.stringify(authUser))
-                const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
               }
             })
         }
