@@ -15,10 +15,10 @@ import 'font-awesome/less/font-awesome.less'        //字体样式
 import 'ionicons/dist/scss/ionicons.scss'           //字体样式
 import 'element-ui/lib/theme-default/index.css'     //饿了吗框架样式
 
-window.axios.defaults.headers.common = {
-    'X-CSRF-TOKEN': window.Laravel.csrfToken,
-    'X-Requested-With': 'XMLHttpRequest'
-};
+// window.axios.defaults.headers.common = {
+//     'X-CSRF-TOKEN': window.Laravel.csrfToken,
+//     'X-Requested-With': 'XMLHttpRequest'
+// };
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

@@ -95,7 +95,7 @@
 </template>
 
 <script>
-import { mapState,mapMutations } from 'vuex'
+import { mapState } from 'vuex'
 import builderForm from './form.vue'
 export default {
     components: {
@@ -175,9 +175,6 @@ export default {
         }),
     },
     methods: {
-        ...mapMutations([
-            'getCurrentData'
-        ]),
         /**
          * [compileTopButton 编译表格右侧按钮]
          * @Author   BigRocs                  BigRocs@qq.com
@@ -468,7 +465,13 @@ export default {
             this.multipleSelection = val;
         },
         /**
-         * 批量更改数据状态
+         * [changeDatastate 批量更改数据状态]
+         * @author BigRocs
+         * @email    bigrocs@qq.com
+         * @DateTime 2017-02-16T15:48:46+0800
+         * @param    {[type]}                 row   [description]
+         * @param    {[type]}                 state [description]
+         * @return   {[type]}                       [description]
          */
         changeDatastate(row,state){
             // 整理返回数据
@@ -499,20 +502,49 @@ export default {
             this.compileTableColumnType();//改变数据后重新编译显示页面
             return data;
         },
+        /**
+         * [handleSizeChange 设置每页显示数量并获取数据]
+         * @author BigRocs
+         * @email    bigrocs@qq.com
+         * @DateTime 2017-02-16T15:48:22+0800
+         * @param    {[type]}                 val [description]
+         * @return   {[type]}                     [description]
+         */
         handleSizeChange(val){
             this.$store.state.postData.pageSize = val;
-            this.getCurrentData(this.postData)//根据pageSize获取数据
+            this.$store.dispatch('getCurrentData',this.postData)//根据pageSize获取数据
         },
+        /**
+         * [handleCurrentChange 根据页码获取页面数据]
+         * @author BigRocs
+         * @email    bigrocs@qq.com
+         * @DateTime 2017-02-16T15:47:59+0800
+         * @param    {[type]}                 val [description]
+         * @return   {[type]}                     [description]
+         */
         handleCurrentChange(val) {
             this.$store.state.postData.page = val;
-            this.getCurrentData(this.postData)//根据page获取数据
+            this.$store.dispatch('getCurrentData',this.postData)//根据page获取数据
         },
+        /**
+         * [setSelectSearch 选择搜索数据列]
+         * @author BigRocs
+         * @email    bigrocs@qq.com
+         * @DateTime 2017-02-16T15:47:29+0800
+         */
         setSelectSearch(){
             this.$store.state.postData.selectSearch = this.selectSearch;
         },
+        /**
+         * [handleInputConfirm 根据搜索获取数据]
+         * @author BigRocs
+         * @email    bigrocs@qq.com
+         * @DateTime 2017-02-16T15:46:59+0800
+         * @return   {[type]}                 [description]
+         */
         handleInputConfirm(){
             this.$store.state.postData.inputSearch = this.inputSearch;
-            this.getCurrentData(this.postData)
+            this.$store.dispatch('getCurrentData',this.postData)//根据inputSearch获取数据
         }
     },
     props: {

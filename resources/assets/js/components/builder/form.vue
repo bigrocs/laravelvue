@@ -94,7 +94,7 @@ export default {
             });
         },
         handleReset() {
-            this.getCurrentData(this.postData)//重新获取页面信息
+            this.$store.dispatch('getCurrentData')//初始化页面数据
         },
     },
     props: {
