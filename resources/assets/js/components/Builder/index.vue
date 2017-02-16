@@ -19,7 +19,7 @@
 </div>
 </template>
 <script>
-import { mapState,mapMutations } from 'vuex'
+import { mapState } from 'vuex'
 import builderForm from './form.vue'
 import builderTable from './table.vue'
 export default {
@@ -29,11 +29,6 @@ export default {
     },
     created() {
         this.getData();
-    },
-    data() {
-        return {
-            datas: {}
-        };
     },
     watch: {
         $route: 'getData',
