@@ -40,8 +40,9 @@ LaravelVUE使用前后端分离技术,前端使用VUE 后端使用PHP框架larav
 ```
 composer install
 ```
-2、重命名.env.example为.env 执行下面命令
+2、重命名.env.example为.env 执行下面命令 并且声称laravel key
 ```
+php -r "file_exists('.env') || copy('.env.example', '.env');"
 php artisan key:generate
 ```
 3、设置数据库配置修改.env文件下列代码
@@ -54,6 +55,7 @@ DB_PASSWORD=secret   （数据库密码）
 ```
 php artisan migrate
 php artisan db:seed
+php artisan passport:install
 ```
 5、安装前端VUE编译以来
 ```
