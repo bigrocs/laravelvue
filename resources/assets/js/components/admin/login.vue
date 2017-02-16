@@ -56,9 +56,15 @@ export default {
         }
     },
     created() {
-
     },
     methods:{
+        /**
+         * [handleLoginSubmit 登录获取令牌]
+         * @author BigRocs
+         * @email    bigrocs@qq.com
+         * @DateTime 2017-02-16T16:55:45+0800
+         * @return   {[type]}                 [description]
+         */
         handleLoginSubmit(){
             const postData = {
               'grant_type' : 'password',
@@ -73,7 +79,8 @@ export default {
               if (Response.status === 200) {
                 authUser.accessToken = Response.data.access_token
                 authUser.refreshToken = Response.data.refresh_token
-                window.localStorage.setItem('authUser',JSON.stringify(authUser))
+                window.localStorage.setItem('authUser',JSON.stringify(authUser))//缓存令牌
+                this.$router.push({name:'admin'})//跳转路由
               }
             })
         }

@@ -5,11 +5,17 @@ export default {
      * @headers 当前请求头部    
      */
     [types.SET_HEADERS] (state,{
-        Accept = state.headers.Accept,
-        Authorization = state.headers.Authorization,
+        Accept = state.headers['Accept'],
+        Authorization = state.headers['Authorization'],
+        XCsrfToken = state.headers['X-CSRF-TOKEN'],
+        XRequestedWith = state.headers['X-Requested-With'],
     }){
-        state.headers.Accept = Accept
-        state.headers.Authorization = Authorization
+        state.headers = {
+            'Accept':Accept,
+            'Authorization':Authorization,
+            'X-CSRF-TOKEN': XCsrfToken,
+            'X-Requested-With': XRequestedWith,
+        }
     },
     /**
      * [SET_CURRENT_API_URL 设置currentApiUrl数据]
@@ -31,11 +37,11 @@ export default {
      * 不传入默认不修改
      */
     [types.SET_POST_DATA] (state,{ 
-    	tabIndex = state.postData.tabIndex,
-    	pageSize = state.postData.pageSize,
-    	page = state.postData.page,
-    	selectSearch = state.postData.selectSearch,
-    	inputSearch = state.postData.inputSearch 
+    	tabIndex = state.postData['tabIndex'],
+    	pageSize = state.postData['pageSize'],
+    	page = state.postData['page'],
+    	selectSearch = state.postData['selectSearch'],
+    	inputSearch = state.postData['inputSearch'] 
     }){
     	state.postData = {
     		tabIndex:tabIndex,

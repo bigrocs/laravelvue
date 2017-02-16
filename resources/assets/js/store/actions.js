@@ -93,7 +93,7 @@ export const initHeaders = ({ commit,state }) => {
     const Authorization = 'Bearer ' + tokenData.accessToken
     commit(types.SET_HEADERS,{ Authorization })//设置头部Authorization
     /**
-     * [common 赋值axios]
+     * [common 赋值axios headers]
      * @type {[type]}
      */
     window.axios.defaults.headers.common = state.headers  
