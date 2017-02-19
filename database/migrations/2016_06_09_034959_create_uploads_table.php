@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -39,6 +39,6 @@ class CreateUploadsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('uploads');
+        Schema::dropIfExists('uploads');
     }
 }

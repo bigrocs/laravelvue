@@ -16,7 +16,7 @@ class MainController extends Controller
                 [
                     'name'  => 'dashboard',
                     'title' =>  '首页 Dashboard',
-                    'path'  =>  '/admin/',
+                    'path'  =>  '/admin/dashboard',
                     'icon'  =>  'fa fa-dashboard',
                 ],
                 [
