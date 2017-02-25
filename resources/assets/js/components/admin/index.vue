@@ -22,7 +22,8 @@ export default {
 </script>
 <style lang="less">
     // admin-lte皮肤
-    @import "~admin-lte/build/less/AdminLTE";
+    // @import "../../../../../resources/assets/less/adminLTE";
+    // @import "resources/assets/less/adminLTE";
     @boxed-layout-bg-image-path: "~admin-lte/dist/img/boxed-bg.jpg";
     @import "~admin-lte/build/less/skins/_all-skins";
 </style>
