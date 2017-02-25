@@ -7,12 +7,12 @@
 require('./bootstrap');
 
 //后台JS插件
-// require('admin-lte');                               //AdminLTE JS编译
+require('admin-lte');                               //AdminLTE JS编译
 require('jquery-slimscroll');                       //页面滚动插件 SlimScroll
 require('fastclick');                               //快速点击插件 fastClick
 //后台样式引入
 // import '../less/AdminLTE.less'         //AdminLTE样式
-import 'admin-lte/build/less/skins/_all-skins.less' //AdminLTE皮肤样式
+// import 'admin-lte/build/less/skins/_all-skins.less' //AdminLTE皮肤样式
 
 import store from './store'                                //引入状态配置文件
 import BuilderHtml from './components/builder/index.vue'      //引入页面内容构建器
@@ -50,17 +50,17 @@ axios.post(window.Laravel.apiUrl).then((Response) => {
      * @param    {[type]}                 (to, from,         next [description]
      * @return   {[type]}                      [description]
      */
-    router.beforeEach((to, from, next) => {
-        if (to.meta.requiresAuth) {
-            const authUser = JSON.parse(window.localStorage.getItem('authUser'))
-            if (authUser && authUser.accessToken) {
-                next()
-            }else{
-                next({name:'login'})
-            }
-        }
-        next()
-    })
+    // router.beforeEach((to, from, next) => {
+    //     if (to.meta.requiresAuth) {
+    //         const authUser = JSON.parse(window.localStorage.getItem('authUser'))
+    //         if (authUser && authUser.accessToken) {
+    //             next()
+    //         }else{
+    //             next({name:'login'})
+    //         }
+    //     }
+    //     next()
+    // })
     new Vue({
         el: '#app',
         router,

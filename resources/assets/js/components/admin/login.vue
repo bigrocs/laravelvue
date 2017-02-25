@@ -7,7 +7,7 @@
       <div class="login-box-body">
         <p class="login-box-msg">登录管理员后台</p>
 
-        <form action="#" method="post">
+        <form action="/api/admin/login" method="post">
           <div class="form-group has-feedback">
               <el-input type="username" v-model="username" name="username" placeholder="用户名/手机/邮箱"></el-input>
               <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -26,7 +26,7 @@
             </div>
             <!-- /.col -->
             <div class="col-xs-4">
-                <button type="button" class="btn btn-primary btn-block btn-flat" @click="handleLoginSubmit">登录</button>
+                <button type="submit" class="btn btn-primary btn-block btn-flat" @click="handleLoginSubmit">登录</button>
             </div>
             <!-- /.col -->
           </div>
@@ -67,21 +67,22 @@ export default {
          */
         handleLoginSubmit(){
             const postData = {
-              'grant_type' : 'password',
-              'client_id' : '2',
-              'client_secret' : 'aqTidkQScKa6HFVoDrNVqt8JZqqsdWEssYersdLY',
+              // 'grant_type' : 'password',
+              // 'client_id' : '2',
+              // 'client_secret' : 'aqTidkQScKa6HFVoDrNVqt8JZqqsdWEssYersdLY',
               'username' : this.username,
               'password' : this.password,
-              'scope' : '',
+              // 'scope' : '',
             }
             const authUser = {}
-            axios.post('/oauth/token',postData).then((Response)=>{
-              if (Response.status === 200) {
-                authUser.accessToken = Response.data.access_token
-                authUser.refreshToken = Response.data.refresh_token
-                window.localStorage.setItem('authUser',JSON.stringify(authUser))//缓存令牌
-                this.$router.push({name:'admin'})//跳转路由
-              }
+            axios.post('/api/admin/login',postData).then((Response)=>{
+              console.log(Response);
+              // if (Response.status === 200) {
+              //   authUser.accessToken = Response.data.access_token
+              //   authUser.refreshToken = Response.data.refresh_token
+              //   window.localStorage.setItem('authUser',JSON.stringify(authUser))//缓存令牌
+              //   this.$router.push({name:'admin'})//跳转路由
+              // }
             })
         }
     }

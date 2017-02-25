@@ -3,9 +3,9 @@
     <!-- Logo -->
     <a href="#" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>C</b>MF</span>
+        <span class="logo-mini"><b>V</b>ue</span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>Laravel</b>CMF</span>
+        <span class="logo-lg"><b>Laravel</b>Vue</span>
     </a>
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" role="navigation">

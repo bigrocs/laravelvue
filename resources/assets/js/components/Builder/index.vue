@@ -28,7 +28,7 @@ export default {
         builderTable
     },
     created() {
-        this.$store.dispatch('initHeaders')//初始化页面头部Headers
+        // this.$store.dispatch('initHeaders')//初始化页面头部Headers
         this.getData();//初始化页面数据
     },
     watch: {

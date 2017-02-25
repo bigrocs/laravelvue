@@ -20,3 +20,7 @@ export default {
     },
 }
 </script>
+<style lang="less">
+    // admin-lte皮肤
+    @import "~admin-lte/build/less/skins/_all-skins.less";
+</style>
