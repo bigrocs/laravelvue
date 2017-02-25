@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>LaravelCmf</title>
     <link rel="shortcut icon" href="{{ config('website.icon') }}">
-    <link rel="stylesheet" href="//cdn.bootcss.com/admin-lte/2.3.8/css/AdminLTE.min.css">
+    {{-- <link rel="stylesheet" href="//cdn.bootcss.com/admin-lte/2.3.8/css/AdminLTE.min.css"> --}}
     <!--[if lt IE 9]>
         <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>

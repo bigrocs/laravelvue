@@ -9,9 +9,6 @@
 	// bootstrap
 	@import "resources/assets/sass/bootstrap";
 	// ionicons 字体
-	$ionicons-font-path: ".~ionicons/dist/fonts" !default;
+	$ionicons-font-path: "~ionicons/dist/fonts" !default;
 	@import "~ionicons/dist/scss/ionicons.scss";
-</style>
-<style lang="css">
-
 </style>
