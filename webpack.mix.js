@@ -14,22 +14,6 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 
 mix.js('resources/assets/js/admin.js', 'public/js');
 mix.webpackConfig({
-    module: {
-        rules: [
-            {
-                test: /\.less$/,
-                use: [
-                  'style-loader',
-                  { loader: 'css-loader', options: { importLoaders: 1 } },
-                  'less-loader'
-                ]
-            },
-            {
-                test: /\.scss$/,
-                loaders: ["style-loader", "css-loader", "sass-loader"]
-            },
-        ]
-    },
     plugins: [
         new BrowserSyncPlugin({
           open: 'external',
@@ -39,4 +23,4 @@ mix.webpackConfig({
         })
     ]
 })
-// mix.sass('resources/assets/sass/app.scss', 'public/css');
+// mix.sass('resources/assets/sass/bootstrap.scss', 'public/css');
