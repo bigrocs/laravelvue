@@ -85,8 +85,10 @@ class MainController extends Controller
                 ],
             ],
             'apiUrl'  =>[
+                'logout' => '/admin/logout',
+                'login'  => '/admin/login'
+            ],
 
-            ]
         ];
         return response()->json($data, 200);
     }

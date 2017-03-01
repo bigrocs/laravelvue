@@ -12,9 +12,9 @@ import * as types from './mutation-types'
  */
 export const getCurrentApiUrl = ({ commit,state },routeName) => {
 	let currentApiUrl = null
-	for(var key in state.data.routes){
-        if(state.data.routes[key].name == routeName){
-            currentApiUrl = state.data.routes[key].apiUrl
+	for(var key in state.mainData.routes){
+        if(state.mainData.routes[key].name == routeName){
+            currentApiUrl = state.mainData.routes[key].apiUrl
         }
     } 
     commit(types.SET_CURRENT_API_URL,currentApiUrl) 

@@ -8,6 +8,14 @@ Vue.use(Vuex)
 
 const state = {
     /**
+     * [mainData 主数据设置]
+     * @type {String}
+     */
+    mainData:{
+        routes:'',
+        apiUrl:''
+    },
+    /**
      * [dialogFormVisible dialog弹窗状态控制]
      * @type {Boolean}
      */

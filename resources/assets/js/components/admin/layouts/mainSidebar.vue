@@ -53,7 +53,7 @@ export default {
     },
     data() {
         return {
-            routes : this.$store.state.data.routes,
+            routes : this.$store.state.mainData.routes,
             menus :[],
         };
     },
