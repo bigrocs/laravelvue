@@ -90,11 +90,7 @@ export default {
          * @return   {[type]}                 [description]
          */
         handleSignOutSubmit(){
-          const data = {
-            url:this.mainData.apiUrl.logout,
-            notify:this.$notify
-          }
-          this.$store.dispatch('getNotify',data)//退出
+          this.$store.dispatch('getNotify',{ url:this.mainData.apiUrl.logout })//退出
           setTimeout(() =>  {
             window.location.href = this.mainData.apiUrl.login; 
           }, 3000);
