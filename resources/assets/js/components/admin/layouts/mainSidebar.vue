@@ -47,15 +47,20 @@
 </aside>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
     created() {
         this.getMenus()
     },
     data() {
         return {
-            routes : this.$store.state.mainData.routes,
             menus :[],
         };
+    },
+    computed: {
+        ...mapState({
+           routes: state => state.mainData.routes,
+        }),
     },
     methods:{
         // 获取子菜单
