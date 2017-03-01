@@ -7,19 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="description" content="admin login">
     <title>LaravelVue - </title>
-    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="http://laravel54.dev/vendor/tcg/voyager/assets/css/login.css">
+    <link rel="stylesheet" href="{{ mix('/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ mix('/css/login.css') }}">
     <style>
         body {
-            background-image:url('http://laravel54.dev/vendor/tcg/voyager/assets/images/bg.jpg');
+            background-image:url('{{ asset('/assets/apps/img/bg.jpg') }}');
         }
         .login-sidebar:after, .gradient-button {
             background: linear-gradient(-135deg, #bc1339, #e9721e);
             background: -webkit-linear-gradient(-135deg, #4cb5ff, #e9721e);
         }
     </style>
-
-    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
 </head>
 <body>
 <!-- Designed with ♥ by Frondor -->
@@ -32,38 +30,37 @@
                 <div class="col-sm-12 col-md-10 col-md-offset-2">
                     <img class="img-responsive pull-left logo hidden-xs" src="http://laravel54.dev/vendor/tcg/voyager/assets/images/logo-icon-light.png" alt="Logo Icon">
                     <div class="copy">
-                        <h1>Voyager</h1>
-                        <p>Welcome to Voyager. The Missing Admin for Laravel</p>
+                        <h1>LaravelVue</h1>
+                        <p>欢迎使用LaravelVue. 这个后台管理系统使用Laravel和Vue构建.</p>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="col-xs-12 col-sm-4 col-md-3 login-sidebar">
 
             <div class="logo-container">    
                 <img class="img-responsive logo" src="http://laravel54.dev/vendor/tcg/voyager/assets/images/logo-icon-light.png" alt="Logo Icon">
             </div>
 
-            <form action="/admin/login" method="POST">
+            <form action="{{ route('admin.auth.login') }}" method="POST">
             {{ csrf_field() }}
             <div class="group">      
               <input type="text" name="username" value="" required>
               <span class="highlight"></span>
               <span class="bar"></span>
-              <label><i class="glyphicon glyphicon-user"></i><span class="span-input"> E-mail</span></label>
+              <label><i class="glyphicon glyphicon-user"></i><span class="span-input"> 用户名/手机/邮箱</span></label>
             </div>
 
             <div class="group">      
               <input type="password" name="password" required>
               <span class="highlight"></span>
               <span class="bar"></span>
-              <label><i class="glyphicon glyphicon-lock"></i><span class="span-input"> Password</span></label>
+              <label><i class="glyphicon glyphicon-lock"></i><span class="span-input"> 登录密码</span></label>
             </div>
 
             <button type="submit" class="btn btn-block gradient-button">
-                <span class="signingin hidden"><span class="glyphicon glyphicon-refresh"></span> Loggin in...</span>
-                <span class="signin">Login</span>
+                <span class="signingin hidden"><span class="glyphicon glyphicon-refresh"></span> 登录中...</span>
+                <span class="signin">登 录</span>
             </button>
            
           </form>

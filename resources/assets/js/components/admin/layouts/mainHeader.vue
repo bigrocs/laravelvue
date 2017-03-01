@@ -84,8 +84,14 @@ export default {
          * @return   {[type]}                 [description]
          */
         handleSignOutSubmit(){
-            window.localStorage.clear()//删除localStorage登录用户数据
-            this.$router.push({name:'login'})//跳转路由
+          const data = {
+            url:'/admin/logout',
+            _this:this
+          }
+          this.$store.dispatch('getNotify',data)//退出
+          setTimeout(() =>  {
+            window.location.href="/admin/login"; 
+          }, 3000);
         },
         /**
          * [handleSiderbarToggle 左侧导航切换]

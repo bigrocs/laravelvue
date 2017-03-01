@@ -16,9 +16,9 @@ class AdminAuthenticated
     public function handle($request, Closure $next)
     {
         if (Auth::check()) {
-            return $next($request);
+            return $next($request);//登录成功返回
         }else{
-            return redirect(route('api.auth.login')); //登录成功返回
+            return redirect(route('admin.auth.login')); 
         }
     }
 }

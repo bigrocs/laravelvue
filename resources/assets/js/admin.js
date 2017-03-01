@@ -18,7 +18,6 @@ import store from './store'                                //引入状态配置�
 import BuilderHtml from './components/builder/index.vue'      //引入页面内容构建器
 import App from './components/admin/app.vue'                  //主渲染页面
 import IndexPage from './components/admin/index.vue'              //后台索引主页面
-import LoginPage from './components/admin/login.vue'              //登录页面
 
 axios.post(window.Laravel.apiUrl).then((Response) => {
     store.state.data = Response.data                          //初始化全局变量(服务端API数据)
@@ -35,32 +34,12 @@ axios.post(window.Laravel.apiUrl).then((Response) => {
         }
     }
     const routes = [
-        { path: '/admin/login', name:'login', component:LoginPage},
         { path: '/admin', name:'admin', component: IndexPage, children: adminChildren, meta: { requiresAuth: true }},
     ]
     const router = new VueRouter({
         mode: 'history',
         routes,                                                  // （缩写）相当于 routes: routes
     })
-    /**
-     * [登录判断]
-     * @author BigRocs
-     * @email    bigrocs@qq.com
-     * @DateTime 2017-02-17T14:47:27+0800
-     * @param    {[type]}                 (to, from,         next [description]
-     * @return   {[type]}                      [description]
-     */
-    // router.beforeEach((to, from, next) => {
-    //     if (to.meta.requiresAuth) {
-    //         const authUser = JSON.parse(window.localStorage.getItem('authUser'))
-    //         if (authUser && authUser.accessToken) {
-    //             next()
-    //         }else{
-    //             next({name:'login'})
-    //         }
-    //     }
-    //     next()
-    // })
     new Vue({
         el: '#app',
         router,

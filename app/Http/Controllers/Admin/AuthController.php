@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Admin;
+namespace App\Http\Controllers\Admin;
 use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -13,22 +13,33 @@ class AuthController extends Controller
 
         return view('admin.login');
     }
-    public function Login(Request $request)
+    public function postLogin(Request $request)
     {
-        // dd($request->username);
         if (Auth::attempt(['email' => $request->username, 'password' => $request->password]) ||
             Auth::attempt(['mobile' => $request->username, 'password' => $request->password]) ||
             Auth::attempt(['name' => $request->username, 'password' => $request->password])) {
-            // $user = Auth::user();
-            // dd($user);
             return redirect(route('admin')); //登录成功返回
         } else {
             echo '账号密码错误';
         }
     }
-    public function Logout()
+    /**
+     * [postLogout 用户退出]
+     * @author BigRocs
+     * @email    bigrocs@qq.com
+     * @DateTime 2017-03-01T11:44:04+0800
+     * @return   [type]                   [description]
+     */
+    public function postLogout()
     {
+        $data = [
+                    'title'     => '用户退出成功',
+                    'message'   => '用户退出成功!',
+                    'type'      => 'success',
+                ];
         Auth::logout();
+        return response()->json($data, 200);
+
     }
     public function demo()
     {

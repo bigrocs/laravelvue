@@ -1,3 +1,5 @@
 {
-  "/js/admin.js": "/js/admin.js"
+  "/js/admin.js": "/js/admin.js",
+  "/css/bootstrap.css": "/css/bootstrap.css",
+  "/css/login.css": "/css/login.css"
 }

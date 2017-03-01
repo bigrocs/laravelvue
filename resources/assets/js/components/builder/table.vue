@@ -439,7 +439,8 @@ export default {
         },
         handleHttp(url,data){
             let _this = this;
-            axios.post(url, data).then(function (Response) {
+            axios.post(url, data)
+              .then(function (Response) {
                 if (Response.data.duration==null) {
                     Response.data.duration = 4500;
                 }
@@ -453,7 +454,8 @@ export default {
                   onClose: Response.data.onClose,
                   offset: Response.data.offset,
                 });
-            }, (response) => {
+            })
+            .catch(function (error) {
                 _this.$notify({
                   title: '操作失败',
                   message: '操作失败请联系管理员！',

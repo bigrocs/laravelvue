@@ -39,6 +39,43 @@ export const getCurrentData = ({ commit,state },postData) => {
     })
 }
 /**
+ * [getNotify 获取post请求通知]
+ * @author BigRocs
+ * @email    bigrocs@qq.com
+ * @DateTime 2017-03-01T11:49:12+0800
+ * @param    {[type]}                 options.commit   [vuex赋值]
+ * @param    {[type]}                 options.state    [vuex状态数据]
+ * @param    {String}                 options._this    [description]
+ * @param    {[type]}                 options.url      [请求网址]
+ * @param    {String}                 options.postData [请求数据]
+ * @return   {[type]}                                  [description]
+ */
+export const getNotify = ({ commit,state },{_this = '', url = state.currentApiUrl, postData = ''}) => {
+    axios.post(url,postData)
+        .then((Response) => {
+            Response.data.duration = Response.data.duration ? Response.data.duration : 4500;  //设置自动取消时间
+            _this.$notify({
+              title: Response.data.title,
+              message: Response.data.message,
+              type: Response.data.type,
+              iconClass: Response.data.iconClass,
+              customClass: Response.data.customClass,
+              duration: Response.data.duration,
+              onClose: Response.data.onClose,
+              offset: Response.data.offset,
+            })
+        })
+        .catch(function (error) {
+            console.log(error);
+            _this.$notify({
+            title: '操作失败',
+            message: '操作失败请联系管理员！',
+            type: 'error',
+        });
+    })
+}
+
+/**
  * [setTabIndex 设置tabIndex]
  * @author BigRocs
  * @email    bigrocs@qq.com
@@ -80,6 +117,7 @@ export const initPostData = ({ commit }) => {
     })
 }
 /**
+ * 暂时废弃
  * [initHeaders 初始化页面头部Headers]
  * @author BigRocs
  * @email    bigrocs@qq.com
@@ -88,13 +126,13 @@ export const initPostData = ({ commit }) => {
  * @param    {[type]}                 options.state  [description]
  * @return   {[type]}                                [description]
  */
-export const initHeaders = ({ commit,state }) => {
-    const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
-    const Authorization = 'Bearer ' + tokenData.accessToken
-    commit(types.SET_HEADERS,{ Authorization })//设置头部Authorization
-    /**
-     * [common 赋值axios headers]
-     * @type {[type]}
-     */
-    window.axios.defaults.headers.common = state.headers  
-}
+// export const initHeaders = ({ commit,state }) => {
+//     const tokenData = JSON.parse(window.localStorage.getItem('authUser'))
+//     const Authorization = 'Bearer ' + tokenData.accessToken
+//     commit(types.SET_HEADERS,{ Authorization })//设置头部Authorization
+//     /**
+//      * [common 赋值axios headers]
+//      * @type {[type]}
+//      */
+//     window.axios.defaults.headers.common = state.headers  
+// }
