@@ -45,16 +45,16 @@ export const getCurrentData = ({ commit,state },postData) => {
  * @DateTime 2017-03-01T11:49:12+0800
  * @param    {[type]}                 options.commit   [vuex赋值]
  * @param    {[type]}                 options.state    [vuex状态数据]
- * @param    {String}                 options._this    [description]
+ * @param    {String}                 options.notify   [notify必须传入 this.$notify]
  * @param    {[type]}                 options.url      [请求网址]
  * @param    {String}                 options.postData [请求数据]
  * @return   {[type]}                                  [description]
  */
-export const getNotify = ({ commit,state },{_this = '', url = state.currentApiUrl, postData = ''}) => {
+export const getNotify = ({ commit,state },{notify, url = state.currentApiUrl, postData = ''}) => {
     axios.post(url,postData)
         .then((Response) => {
             Response.data.duration = Response.data.duration ? Response.data.duration : 4500;  //设置自动取消时间
-            _this.$notify({
+            notify({
               title: Response.data.title,
               message: Response.data.message,
               type: Response.data.type,

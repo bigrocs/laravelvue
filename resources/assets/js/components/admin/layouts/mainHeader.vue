@@ -69,11 +69,17 @@
 </header>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
     data(){
         return {
 
         }
+    },
+    computed: {
+        ...mapState({
+           mainData: 'mainData',
+        }),
     },
     methods: {
         /**
@@ -85,12 +91,12 @@ export default {
          */
         handleSignOutSubmit(){
           const data = {
-            url:'/admin/logout',
-            _this:this
+            url:this.mainData.apiUrl.logout,
+            notify:this.$notify
           }
           this.$store.dispatch('getNotify',data)//退出
           setTimeout(() =>  {
-            window.location.href="/admin/login"; 
+            window.location.href = this.mainData.apiUrl.login; 
           }, 3000);
         },
         /**
