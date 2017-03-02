@@ -7,7 +7,8 @@ window.VueRouter = require('vue-router');           //加载路由插件
 
 //常用组件加载
 require('bootstrap-sass');                          //bootstrap JS编译
-require('element-ui');                              //饿了么UI
+import ElementUI from 'element-ui'					//饿了么UI
+Vue.use(ElementUI)                           
 
 //CSS样式加载
 import 'element-ui/lib/theme-default/index.css'     //饿了吗框架样式
