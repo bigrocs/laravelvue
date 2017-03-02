@@ -7,20 +7,40 @@ use App\Http\Controllers\Controller;
 
 class AuthController extends Controller
 {
-    public function getLogin()
+    public function authCheck()
     {
-        view()->share(['metaTitle' => '后台登录']);
-
-        return view('admin.login');
+        if (Auth::check()) {
+            $data = [
+                    'title'     => '登录成功',
+                    'message'   => '登录已成功正在跳转请稍后!',
+                    'type'      => 'success',
+                    'state'     => true
+                ];
+            return response()->json($data, 200);
+        }else{
+            $data = [
+                    'title'     => '未登录！',
+                    'message'   => '未登录正在跳转登录页面请稍后!',
+                    'type'      => 'warning',
+                    'state'     => false
+                ];
+            return response()->json($data, 200);
+        }
     }
     public function postLogin(Request $request)
     {
         if (Auth::attempt(['email' => $request->username, 'password' => $request->password]) ||
             Auth::attempt(['mobile' => $request->username, 'password' => $request->password]) ||
-            Auth::attempt(['name' => $request->username, 'password' => $request->password])) {
-            return redirect(route('admin')); //登录成功返回
+            Auth::attempt(['name' => $request->username, 'password' => $request->password])) 
+        {
+            return redirect(route('admin.auth.check')); //登录成功 跳转到登录检测authCheck 以便携带cookies
         } else {
-            echo '账号密码错误';
+            $data = [
+                    'title'     => '登录失败',
+                    'message'   => '请检查账号密码是否正确!',
+                    'type'      => 'error',
+                ];
+            return response()->json($data, 200);
         }
     }
     /**
@@ -40,9 +60,5 @@ class AuthController extends Controller
         Auth::logout();
         return response()->json($data, 200);
 
-    }
-    public function demo()
-    {
-        echo '登录成功';
     }
 }

@@ -1,5 +1,5 @@
 import * as types from './mutation-types'
-import { Notification } from 'element-ui';
+import { Notification } from 'element-ui'
 
 /**
  * [getCurrentApiUrl 获取当前路由页面API通信网址]
@@ -48,11 +48,15 @@ export const getCurrentData = ({ commit,state },postData) => {
  * @param    {[type]}                 options.state    [vuex状态数据]
  * @param    {[type]}                 options.url      [请求网址]
  * @param    {String}                 options.postData [请求数据]
+ * @param    {String}                 Notification     [from element-ui]
  * @return   {[type]}                                  [description]
  */
-export const getNotify = ({ commit,state },{url = state.currentApiUrl, postData = ''}) => {
+export const getHttpNotify = ({ commit,state },{url = state.currentApiUrl, postData = '',thenFunction = ''}) => {
     axios.post(url,postData)
         .then((Response) => {
+            if (thenFunction) {
+              thenFunction(Response)
+            }
             Response.data.duration = Response.data.duration ? Response.data.duration : 4500;  //设置自动取消时间
             Notification({
               title: Response.data.title,

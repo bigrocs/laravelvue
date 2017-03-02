@@ -18,6 +18,7 @@ import store from './store'                                //引入状态配置�
 import BuilderHtml from './components/builder/index.vue'      //引入页面内容构建器
 import App from './components/admin/app.vue'                  //主渲染页面
 import IndexPage from './components/admin/index.vue'              //后台索引主页面
+import LoginPage from './components/admin/login.vue'              //后台索引主页面
 
 axios.post(window.Laravel.apiUrl).then((Response) => {
     store.state.mainData = Response.data                          //初始化全局变量(服务端API数据)
@@ -34,6 +35,7 @@ axios.post(window.Laravel.apiUrl).then((Response) => {
         }
     }
     const routes = [
+        { path: '/admin/login', name:'login', component: LoginPage },
         { path: '/admin', name:'admin', component: IndexPage, children: adminChildren, meta: { requiresAuth: true }},
     ]
     const router = new VueRouter({

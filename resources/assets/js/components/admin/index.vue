@@ -21,8 +21,51 @@ export default {
 }
 </script>
 <style lang="less">
+    // admin-lte
+    @import "~admin-lte/build/less/core.less";
+    @import "~admin-lte/build/less/variables.less";
+    @import "~admin-lte/build/less/mixins.less";
+    //COMPONENTS
+    //-----------
+    @import "~admin-lte/build/less/header.less";
+    @import "~admin-lte/build/less/sidebar.less";
+    @import "~admin-lte/build/less/sidebar-mini.less";
+    @import "~admin-lte/build/less/control-sidebar.less";
+    @import "~admin-lte/build/less/dropdown.less";
+    @import "~admin-lte/build/less/forms.less";
+    @import "~admin-lte/build/less/progress-bars.less";
+    @import "~admin-lte/build/less/small-box.less";
+    @import "~admin-lte/build/less/boxes.less";
+    @import "~admin-lte/build/less/info-box.less";
+    @import "~admin-lte/build/less/timeline.less";
+    @import "~admin-lte/build/less/buttons.less";
+    @import "~admin-lte/build/less/callout.less";
+    @import "~admin-lte/build/less/alerts.less";
+    @import "~admin-lte/build/less/navs.less";
+    @import "~admin-lte/build/less/products.less";
+    @import "~admin-lte/build/less/table.less";
+    @import "~admin-lte/build/less/labels.less";
+    @import "~admin-lte/build/less/direct-chat.less";
+    @import "~admin-lte/build/less/users-list.less";
+    @import "~admin-lte/build/less/carousel.less";
+    @import "~admin-lte/build/less/modal.less";
+    @import "~admin-lte/build/less/social-widgets.less";
+    //PAGES
+    //------
+    @import "~admin-lte/build/less/mailbox.less";
+    @import "~admin-lte/build/less/lockscreen.less";
+    @import "~admin-lte/build/less/login_and_register.less";
+    @import "~admin-lte/build/less/404_500_errors.less";
+    @import "~admin-lte/build/less/invoice.less";
+    @import "~admin-lte/build/less/profile";
+    //Plugins
+    //--------
+    @import "~admin-lte/build/less/plugins.less";
+    //Miscellaneous
+    //-------------
+    @import "~admin-lte/build/less/miscellaneous.less";
+    @import "~admin-lte/build/less/print.less";
     // admin-lte皮肤
-    @import "~admin-lte/build/less/adminLTE";
     @import "~admin-lte/build/less/skins/_all-skins";
     @boxed-layout-bg-image-path: "~admin-lte/dist/img/boxed-bg.jpg";
 </style>

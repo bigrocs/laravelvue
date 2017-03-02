@@ -78,7 +78,8 @@ export default {
     },
     computed: {
         ...mapState({
-           mainData: 'mainData',
+            login: state => state.mainData.apiUrl.login,
+            logout: state => state.mainData.apiUrl.logout,
         }),
     },
     methods: {
@@ -90,9 +91,9 @@ export default {
          * @return   {[type]}                 [description]
          */
         handleSignOutSubmit(){
-          this.$store.dispatch('getNotify',{ url:this.mainData.apiUrl.logout })//退出
+          this.$store.dispatch('getHttpNotify',{ url:this.logout })//退出
           setTimeout(() =>  {
-            window.location.href = this.mainData.apiUrl.login; 
+            window.location.href = this.login; 
           }, 3000);
         },
         /**

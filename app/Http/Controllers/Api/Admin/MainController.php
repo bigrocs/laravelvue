@@ -86,7 +86,8 @@ class MainController extends Controller
             ],
             'apiUrl'  =>[
                 'logout' => '/admin/logout',
-                'login'  => '/admin/login'
+                'login'  => '/admin/login',
+                'home'=> '/admin/dashboard'
             ],
 
         ];
