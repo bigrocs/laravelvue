@@ -85,10 +85,13 @@ class MainController extends Controller
                 ],
             ],
             'apiUrl'  =>[
-                'logout' => '/admin/logout',
-                'login'  => '/admin/login',
-                'home'=> '/admin/dashboard'
+                'logout'    => '/admin/logout',
+                'login'     => '/admin/login',
             ],
+            'config'  =>[
+                'homeRouterNmae'    => 'dashboard',
+                'loginRouterNmae'    => 'login'
+            ]
 
         ];
         return response()->json($data, 200);

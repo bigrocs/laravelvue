@@ -80,6 +80,7 @@ export default {
         ...mapState({
             login: state => state.mainData.apiUrl.login,
             logout: state => state.mainData.apiUrl.logout,
+            loginRouterNmae: state => state.mainData.config.loginRouterNmae,
         }),
     },
     methods: {
@@ -93,7 +94,7 @@ export default {
         handleSignOutSubmit(){
           this.$store.dispatch('getHttpNotify',{ url:this.logout })//退出
           setTimeout(() =>  {
-            window.location.href = this.login; 
+              this.$router.push({name:this.loginRouterNmae})
           }, 3000);
         },
         /**

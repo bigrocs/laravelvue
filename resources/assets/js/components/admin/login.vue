@@ -1,6 +1,6 @@
 <template>
 <!-- Designed with ♥ by Frondor -->
-<div class="container-fluid">
+<div class="login-container-fluid">
     <div class="row">
         <div class="faded-bg"></div>
         <div class="hidden-xs col-sm-8 col-md-9">
@@ -22,21 +22,21 @@
             </div>
 
           <form action="#" method="POST">
-            <div class="group">      
+            <div class="login-group">      
               <input type="text" name="username" v-model="username" value="" required>
-              <span class="highlight"></span>
-              <span class="bar"></span>
+              <span class="login-highlight"></span>
+              <span class="login-bar"></span>
               <label><i class="glyphicon glyphicon-user"></i><span class="span-input"> 用户名/手机/邮箱</span></label>
             </div>
 
-            <div class="group">      
+            <div class="login-group">      
               <input type="password" name="password" v-model="password" required>
-              <span class="highlight"></span>
-              <span class="bar"></span>
+              <span class="login-highlight"></span>
+              <span class="login-bar"></span>
               <label><i class="glyphicon glyphicon-lock"></i><span class="span-input"> 登录密码</span></label>
             </div>
 
-            <button type="button" class="btn btn-block gradient-button" @click="handleLoginSubmit">
+            <button type="button" class="btn btn-block login-gradient-button" @click="handleLoginSubmit">
                 <span class="signingin hidden"><span class="glyphicon glyphicon-refresh"></span> 登录中...</span>
                 <span class="signin">登 录</span>
             </button>
@@ -60,7 +60,7 @@ export default {
     computed: {
         ...mapState({
             login: state => state.mainData.apiUrl.login,
-            home: state => state.mainData.apiUrl.home,
+            homeRouterNmae: state => state.mainData.config.homeRouterNmae,
         }),
     },
     methods:{
@@ -84,12 +84,12 @@ export default {
              * @param    {[type]}                 Response [请求回参]
              * @return   {[type]}                          [description]
              */
-            let home = this.home;
+            let _this = this
             var thenFunction = function(Response){
                 let state = Response.data.state
                 if (state) {
                     setTimeout(() =>  {
-                        window.location.href = home; 
+                        _this.$router.push({name:_this.homeRouterNmae})
                     }, 3000);
                 }
             }
@@ -101,15 +101,14 @@ export default {
 </script>
 
 <style lang="css">
-    body {
+    .login-container-fluid {
         background-image:url('/assets/apps/img/bg.jpg');
     }
-    .login-sidebar:after, .gradient-button {
-        background: linear-gradient(-135deg, #bc1339, #e9721e);
+    .login-sidebar:after, .login-gradient-button {
+        background: linear-gradient(-135deg, #4cb5ff, #e9721e);
         background: -webkit-linear-gradient(-135deg, #4cb5ff, #e9721e);
     }
-
-    body {
+    .login-container-fluid {
         margin:0;
         padding:0;
         font-family:Roboto,Source Sans Pro,sans-serif;
@@ -165,11 +164,11 @@ export default {
         margin: 0 auto;
     }
 
-    .group { 
+    .login-group { 
         position:relative; 
         margin-bottom:45px; 
     }
-    .group input {
+    .login-group input {
         font-size:18px;
         padding:10px 10px 10px 10px;
         display:block;
@@ -179,9 +178,9 @@ export default {
         background:none;
         color:#eee;
     }
-    .group input:focus { outline:none; }
+    .login-group input:focus { outline:none; }
 
-    .group label                 {
+    .login-group label                 {
         color:rgba(255,255,255, 0.5); 
         font-size:18px;
         font-weight:normal;
@@ -194,14 +193,14 @@ export default {
         -webkit-transition:0.2s ease all;
     }
 
-    .group input:focus ~ label, input:valid ~ label  {
+    .login-group input:focus ~ label, input:valid ~ label  {
         top:-20px;
         font-size:14px;
         color:rgba(255,255,255, 0.7);
     }
 
-    .bar    { position:relative; display:block; width:100%; }
-    .bar:before, .bar:after {
+    .login-bar    { position:relative; display:block; width:100%; }
+    .login-bar:before, .login-bar:after {
         content:'';
         height:2px; 
         width:0;
@@ -212,18 +211,18 @@ export default {
         -moz-transition:0.2s ease all; 
         -webkit-transition:0.2s ease all;
     }
-    .bar:before {
+    .login-bar:before {
         left:50%;
     }
-    .bar:after {
+    .login-bar:after {
         right:50%; 
     }
 
-    .group input:focus ~ .bar:before, .group input:focus ~ .bar:after {
+    .login-group input:focus ~ .login-bar:before, .login-group input:focus ~ .login-bar:after {
         width:50%;
     }
 
-    .highlight {
+    .login-highlight {
         position:absolute;
         height:0%; 
         width:100px; 
@@ -233,7 +232,7 @@ export default {
         opacity:0.5;
     }
 
-    .group input:focus ~ .highlight {
+    .login-group input:focus ~ .highlight {
         -webkit-animation:inputHighlighter 0.3s ease;
         -moz-animation:inputHighlighter 0.3s ease;
         animation:inputHighlighter 0.3s ease;
@@ -269,7 +268,7 @@ export default {
         position:relative;
         top:-5px;
     }
-    .gradient-button {
+    .login-gradient-button {
         display:block;
         text-align:center;
         text-decoration:none;
@@ -281,7 +280,7 @@ export default {
         outline:none !important;
         opacity:0.8;
     }
-    .gradient-button:hover, .gradient-button:focus {
+    .login-gradient-button:hover, .login-gradient-button:focus {
         color: #FFF;
         opacity: 1
     }
