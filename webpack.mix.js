@@ -24,5 +24,3 @@ mix.webpackConfig({
     ]
 })
 // mix.sass('resources/assets/sass/bootstrap.scss', 'public/css');
-// mix.sass('resources/assets/sass/login.scss', 'public/css');
-// mix.less('resources/assets/less/adminLTE.less', 'public/css');
