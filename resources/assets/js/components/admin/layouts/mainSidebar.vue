@@ -30,13 +30,13 @@
                 <li v-else class="treeview">
                     <router-link :to="menu.path" active-class="active">
                         <i :class="menu.icon"></i><span>{{ menu.title }}</span>
-                        <span class="pull-right-container">
+                        <span v-if="menu.subMenus" class="pull-right-container">
                           <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </router-link>
                     <ul v-if="menu.subMenus" class="treeview-menu">
                         <li v-for="(subMenu, subKey, subIndex) in menu.subMenus">
-                            <router-link :to="subMenu.path" active-class="active"><i :class="subMenu.icon"></i>{{ subMenu.title }}</router-link>
+                            <router-link :to="subMenu.path" active-class=""><i :class="subMenu.icon"></i>{{ subMenu.title }}</router-link>
                         </li>
                     </ul>
                 </li>
@@ -88,7 +88,9 @@ export default {
                     this.menu[key].path = '';
                 }
                 if (this.isEmptyString(this.menu[key].parent)) {
-                    this.menu[key].subMenus = this.subMenus(routeName)
+                    if (!this.isEmptyObject(this.subMenus(routeName))) {
+                        this.menu[key].subMenus = this.subMenus(routeName)
+                    }
                     this.menus.push(this.menu[key])
                 }
             }
