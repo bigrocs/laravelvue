@@ -11,9 +11,9 @@ class AuthController extends Controller
     {
         if (Auth::check()) {
             $data = [
-                    'title'     => '登录成功',
-                    'message'   => '登录已成功正在跳转请稍后!',
-                    'type'      => 'success',
+                    'title'     => '登录状态正常',
+                    'message'   => '您访问的页面可能不存在！',
+                    'type'      => 'info',
                     'state'     => true
                 ];
             return response()->json($data, 200);
@@ -33,15 +33,21 @@ class AuthController extends Controller
             Auth::attempt(['mobile' => $request->username, 'password' => $request->password]) ||
             Auth::attempt(['name' => $request->username, 'password' => $request->password])) 
         {
-            return redirect(route('admin.auth.check')); //登录成功 跳转到登录检测authCheck 以便携带cookies
+            $data = [
+                    'title'     => '登录成功',
+                    'message'   => '登录已成功正在跳转请稍后!',
+                    'type'      => 'success',
+                    'state'     => true
+                ];
         } else {
             $data = [
                     'title'     => '登录失败',
                     'message'   => '请检查账号密码是否正确!',
                     'type'      => 'error',
+                    'state'     => false
                 ];
-            return response()->json($data, 200);
         }
+        return response()->json($data, 200);
     }
     /**
      * [postLogout 用户退出]
