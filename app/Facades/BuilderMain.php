@@ -8,6 +8,10 @@ namespace App\Facades;
 class BuilderMain
 {
     private $data;                                      // 数据
+    public function setRoute($key,$value){
+        $this->data['route'][$key] = $value;
+        return $this;
+    }
     /**
      * [setConfig 设置配置数据]
      * @author BigRocs
@@ -29,7 +33,7 @@ class BuilderMain
      * @param    [type]                   $value [description]
      * @return   [type]                          [description]
      */
-    public function getApiUrl($key,$value){
+    public function setApiUrl($key,$value){
         $this->data['apiUrl'][$key] = $value;
         return $this;
     }

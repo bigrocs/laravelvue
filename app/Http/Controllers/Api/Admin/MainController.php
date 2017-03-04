@@ -97,13 +97,21 @@ class MainController extends Controller
             ]
 
         ];
-        $datas = BuilderMain::setConfig('homeRouterNmae',   'dashboard')
+        $data = BuilderMain::setRoute('dashboard',         '/admin/dashboard')
+                             ->setRoute('systemSystem',     '/admin/system/index')
+                             ->setRoute('systemConfig',     '/admin/system/config')
+                             ->setRoute('systemUpload',     '/admin/system/upload')
+                             ->setRoute('systemModel',      '/admin/system/model')
+                             ->setRoute('systemAddon',      '/admin/system/addon')
+                             ->setRoute('systemTheme',      '/admin/system/theme')
+                             ->setConfig('homeRouterNmae',  'dashboard')
                              ->setConfig('loginRouterNmae', 'login')
-                             ->getApiUrl('logout',          '/admin/logout')
-                             ->getApiUrl('login',           '/admin/login')
-                             ->getApiUrl('authCheck',       '/admin/authCheck')
+                             ->setApiUrl('logout',          '/admin/logout')
+                             ->setApiUrl('login',           '/admin/login')
+                             ->setApiUrl('authCheck',       '/admin/authCheck')
+
                              ->get();
-                             dd($datas);
+                             // dd($datas);
         return response()->json($data, 200);
     }
 }
