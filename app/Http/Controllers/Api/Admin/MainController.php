@@ -104,14 +104,22 @@ class MainController extends Controller
                             ->setRoute('systemModel',      '/admin/system/model',  '/api/admin/system/model')
                             ->setRoute('systemAddon',      '/admin/system/addon',  '/api/admin/system/addon')
                             ->setRoute('systemTheme',      '/admin/system/theme',  '/api/admin/system/theme')
+                            ->setMenu('dashboard','首页 Dashboard','fa fa-dashboard')
+                            ->setMenu('systemHeader','系统 system','fa fa-adjust','',true)
+                            ->setMenu('systemTop','系统功能','fa fa-cog')
+                            ->setMenu('systemSystem','系统设置','fa fa-wrench','systemTop')
+                            ->setMenu('systemConfig','配置管理','fa fa-cogs','systemTop')
+                            ->setMenu('systemUpload','上传管理','fa fa-upload','systemTop')
+                            ->setMenu('systemApplication','应用中心','fa fa-folder-open-o')
+                            ->setMenu('systemModel','模块扩展','fa fa-wrench','systemApplication')
+                            ->setMenu('systemAddon','插件管理','fa fa-cogs','systemApplication')
+                            ->setMenu('systemTheme','主题管理','fa fa-adjust','systemApplication')
                             ->setConfig('homeRouterNmae',  'dashboard')
                             ->setConfig('loginRouterNmae', 'login')
                             ->setApiUrl('logout',          '/admin/logout')
                             ->setApiUrl('login',           '/admin/login')
                             ->setApiUrl('authCheck',       '/admin/authCheck')
-
-                             ->get();
-                             // dd($datas);
+                            ->get();
         return response()->json($data, 200);
     }
 }

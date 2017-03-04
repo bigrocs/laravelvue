@@ -17,9 +17,23 @@ class BuilderMain
      * @param    [type]                   $path   [路由路径]
      * @param    [type]                   $apiUrl [当前路由的API通信地址]
      */
-    public function setRoute($name,$path,$apiUrl=null){
-        // $this->data['route'][$name] = $path;
-        $this->data['route'][] = ['name'=>$name, 'path'=>$path, 'apiUrl'=>$apiUrl];
+    public function setRoute($name,$path,$apiUrl=''){
+        $this->data['route'][$name] = ['name'=>$name, 'path'=>$path, 'apiUrl'=>$apiUrl];
+        return $this;
+    }
+    /**
+     * [setMenu 设置导航菜单]
+     * @author BigRocs
+     * @email    bigrocs@qq.com
+     * @DateTime 2017-03-04T14:07:22+0800
+     * @param    [type]                   $name   [对应路由名称]
+     * @param    [type]                   $title  [菜单标题]
+     * @param    string                   $icon   [图标]
+     * @param    string                   $parent [父菜单name]
+     * @param    boolean                  $header [是否是header菜单]
+     */
+    public function setMenu($name,$title,$icon='',$parent='',$header=''){
+        $this->data['menu'][] = ['name'=>$name, 'title'=>$title, 'icon'=>$icon, 'parent'=>$parent, 'header'=>$header];
         return $this;
     }
     /**
