@@ -2,23 +2,17 @@ import * as types from './mutation-types'
 import { Notification } from 'element-ui'
 
 /**
- * [getCurrentApiUrl 获取当前路由页面API通信网址]
+ * [setCurrentApiUrl 设置当前路由页面API通信网址]
  * @author BigRocs
  * @email    bigrocs@qq.com
- * @DateTime 2017-02-16T14:39:45+0800
+ * @DateTime 2017-03-04T13:34:19+0800
  * @param    {[type]}                 options.commit [description]
  * @param    {[type]}                 options.state  [description]
- * @param    {[type]}                 routeName      [当前路由名称]
+ * @param    {[type]}                 apiUrl         [当前路由api通信网址]
  * @return   {[type]}                                [description]
  */
-export const getCurrentApiUrl = ({ commit,state },routeName) => {
-	let currentApiUrl = null
-	for(var key in state.mainData.routes){
-        if(state.mainData.routes[key].name == routeName){
-            currentApiUrl = state.mainData.routes[key].apiUrl
-        }
-    } 
-    commit(types.SET_CURRENT_API_URL,currentApiUrl) 
+export const setCurrentApiUrl = ({ commit,state },apiUrl) => {
+    commit(types.SET_CURRENT_API_URL,apiUrl) 
 }
 
 /**

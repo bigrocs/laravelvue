@@ -83,7 +83,7 @@ export default {
          */
         getData() {
             this.$store.dispatch('initPostData')//初始化页面POST数据
-            this.$store.dispatch('getCurrentApiUrl',this.$route.name)//初始化当前路由URL
+            this.$store.dispatch('setCurrentApiUrl',this.$route.meta.apiUrl)//初始化当前路由URL
             this.$store.dispatch('getCurrentData')//初始化页面POST数据
         }
     }

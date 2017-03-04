@@ -13,16 +13,13 @@ use Illuminate\Http\Request;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
 Route::group(['prefix' => 'admin', 'middleware' => 'api', 'namespace' => 'Api\Admin'], function () {
     Route::post('main', [ 'as' => 'api.main.index', 'uses' => 'MainController@index']);
-    // Route::get('login', [ 'as' => 'api.auth.login', 'uses' => 'AuthController@getLogin']);
-    // Route::post('login', [ 'as' => 'api.auth.login', 'uses' => 'AuthController@postLogin']);
-    // Route::post('logout', [ 'as' => 'api.auth.logout', 'uses' => 'AuthController@postLogout']);
 });
-Route::group(['prefix' => 'admin', 'middleware' => 'auth:api', 'namespace' => 'Api\Admin'], function () {
+/**
+ * system路由
+ */
+Route::group(['prefix' => 'admin/system', 'middleware' => 'auth:api', 'namespace' => 'Api\Admin'], function () {
 
     Route::post('system', [ 'as' => 'api.system.index', 'uses' => 'SystemController@index']);
     Route::post('system/update', ['as' => 'api.system.update', 'uses' => 'SystemController@update']);

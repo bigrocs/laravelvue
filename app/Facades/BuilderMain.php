@@ -8,8 +8,18 @@ namespace App\Facades;
 class BuilderMain
 {
     private $data;                                      // 数据
-    public function setRoute($key,$value){
-        $this->data['route'][$key] = $value;
+    /**
+     * [setRoute 设置路由线路]
+     * @author BigRocs
+     * @email    bigrocs@qq.com
+     * @DateTime 2017-03-04T11:57:17+0800
+     * @param    [type]                   $name   [路由名称]
+     * @param    [type]                   $path   [路由路径]
+     * @param    [type]                   $apiUrl [当前路由的API通信地址]
+     */
+    public function setRoute($name,$path,$apiUrl=null){
+        // $this->data['route'][$name] = $path;
+        $this->data['route'][] = ['name'=>$name, 'path'=>$path, 'apiUrl'=>$apiUrl];
         return $this;
     }
     /**

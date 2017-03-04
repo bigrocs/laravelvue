@@ -18,46 +18,25 @@ import IndexPage from './components/admin/index.vue'              //后台索引
 import LoginPage from './components/admin/login.vue'              //后台索引主页面
 
 axios.post(window.Laravel.apiUrl).then((Response) => {
-    store.state.mainData = Response.data                          //初始化全局变量(服务端API数据)
-
-    const adminChildren=[]                                           //begin解析路由JSON
-    for(var key in Response.data.routes){
-        if(Response.data.routes[key].path!=null){
-            adminChildren[key] = {
-                path: Response.data.routes[key].path,
-                name: Response.data.routes[key].name,
-                component: BuilderHtml, 
-                meta: { requiresAuth: true }
-            }
-        }
+    let mainData = store.state.mainData = Response.data                 //初始化全局变量(服务端API数据)
+    const adminChildren = []                                            //begin解析路由JSON
+    for (var key in mainData.route) {
+        adminChildren.push({
+            name: mainData.route[key].name,
+            path: mainData.route[key].path,
+            component: BuilderHtml, 
+            meta: { apiUrl: mainData.route[key].apiUrl }
+        })
     }
+
     const routes = [
-        { path: '/admin/login', name:store.state.mainData.config.loginRouterNmae, component: LoginPage },
-        { path: '/admin', name:'admin', component: IndexPage, children: adminChildren, meta: { requiresAuth: true }},
+        { path: '/admin/login', name:mainData.config.loginRouterNmae, component: LoginPage },
+        { path: '/admin', name:'admin', component: IndexPage, children: adminChildren },
     ]
     window.router = new VueRouter({
         mode: 'history',
         routes,                                                  // （缩写）相当于 routes: routes
     })
-    /**
-     * [登录判断]
-     * @author BigRocs
-     * @email    bigrocs@qq.com
-     * @DateTime 2017-02-17T14:47:27+0800
-     * @param    {[type]}                 (to, from,         next [description]
-     * @return   {[type]}                      [description]
-     */
-    // router.beforeEach((to, from, next) => {
-    //     if (to.meta.requiresAuth) {
-    //         const authUser = JSON.parse(window.localStorage.getItem('authUser'))
-    //         if (authUser && authUser.accessToken) {
-    //             next()
-    //         }else{
-    //             next({name:'login'})
-    //         }
-    //     }
-    //     next()
-    // })
     new Vue({
         el: '#app',
         router,

@@ -97,18 +97,18 @@ class MainController extends Controller
             ]
 
         ];
-        $data = BuilderMain::setRoute('dashboard',         '/admin/dashboard')
-                             ->setRoute('systemSystem',     '/admin/system/index')
-                             ->setRoute('systemConfig',     '/admin/system/config')
-                             ->setRoute('systemUpload',     '/admin/system/upload')
-                             ->setRoute('systemModel',      '/admin/system/model')
-                             ->setRoute('systemAddon',      '/admin/system/addon')
-                             ->setRoute('systemTheme',      '/admin/system/theme')
-                             ->setConfig('homeRouterNmae',  'dashboard')
-                             ->setConfig('loginRouterNmae', 'login')
-                             ->setApiUrl('logout',          '/admin/logout')
-                             ->setApiUrl('login',           '/admin/login')
-                             ->setApiUrl('authCheck',       '/admin/authCheck')
+        $data =  BuilderMain::setRoute('dashboard',        '/admin/dashboard')
+                            ->setRoute('systemSystem',     '/admin/system/system', '/api/admin/system/system')
+                            ->setRoute('systemConfig',     '/admin/system/config', '/api/admin/system/config')
+                            ->setRoute('systemUpload',     '/admin/system/upload', '/api/admin/system/upload')
+                            ->setRoute('systemModel',      '/admin/system/model',  '/api/admin/system/model')
+                            ->setRoute('systemAddon',      '/admin/system/addon',  '/api/admin/system/addon')
+                            ->setRoute('systemTheme',      '/admin/system/theme',  '/api/admin/system/theme')
+                            ->setConfig('homeRouterNmae',  'dashboard')
+                            ->setConfig('loginRouterNmae', 'login')
+                            ->setApiUrl('logout',          '/admin/logout')
+                            ->setApiUrl('login',           '/admin/login')
+                            ->setApiUrl('authCheck',       '/admin/authCheck')
 
                              ->get();
                              // dd($datas);
