@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use Facades\ {
+    App\Facades\BuilderMain
+};
 class MainController extends Controller
 {
     public function index()
@@ -87,6 +89,7 @@ class MainController extends Controller
             'apiUrl'  =>[
                 'logout'    => '/admin/logout',
                 'login'     => '/admin/login',
+                'authCheck' => '/admin/authCheck' //认证检测
             ],
             'config'  =>[
                 'homeRouterNmae'    => 'dashboard',
@@ -94,6 +97,13 @@ class MainController extends Controller
             ]
 
         ];
+        $datas = BuilderMain::setConfig('homeRouterNmae',   'dashboard')
+                             ->setConfig('loginRouterNmae', 'login')
+                             ->getApiUrl('logout',          '/admin/logout')
+                             ->getApiUrl('login',           '/admin/login')
+                             ->getApiUrl('authCheck',       '/admin/authCheck')
+                             ->get();
+                             dd($datas);
         return response()->json($data, 200);
     }
 }

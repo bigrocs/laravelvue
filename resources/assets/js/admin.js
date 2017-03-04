@@ -35,7 +35,7 @@ axios.post(window.Laravel.apiUrl).then((Response) => {
         { path: '/admin/login', name:store.state.mainData.config.loginRouterNmae, component: LoginPage },
         { path: '/admin', name:'admin', component: IndexPage, children: adminChildren, meta: { requiresAuth: true }},
     ]
-    const router = new VueRouter({
+    window.router = new VueRouter({
         mode: 'history',
         routes,                                                  // （缩写）相当于 routes: routes
     })

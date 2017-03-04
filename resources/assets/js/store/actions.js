@@ -38,6 +38,26 @@ export const getCurrentData = ({ commit,state },postData) => {
             document.title = state.currentData.title//设置页面标题
         }
     })
+    .catch(function (error) {
+        /**
+         * [thenFunction 如果登录没有成功跳转到登录页面]
+         * @author BigRocs
+         * @email    bigrocs@qq.com
+         * @DateTime 2017-03-04T09:26:41+0800
+         * @param    {[type]}                 Response [description]
+         * @return   {[type]}                          [description]
+         */
+        var thenFunction = (Response) => {
+            let dataState = Response.data.state
+            let loginRouterNmae = state.mainData.config.loginRouterNmae
+            if (!dataState) {
+                setTimeout(() =>  {
+                    router.push({name:loginRouterNmae})
+                }, 3000);
+            }
+        }
+        getHttpNotify({ commit,state },{url:state.mainData.apiUrl.authCheck, thenFunction}) //检测登录状态
+    })
 }
 /**
  * [getNotify 获取post请求通知]

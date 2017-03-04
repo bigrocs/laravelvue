@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::group(['prefix' => 'admin',  'namespace' => 'Admin'], function () {
-	Route::get('authCheck', [ 'as' => 'admin.auth.check', 'uses' => 'AuthController@authCheck']);
+	Route::post('authCheck', [ 'as' => 'admin.auth.check', 'uses' => 'AuthController@authCheck']);
     Route::post('login', [ 'as' => 'admin.auth.login', 'uses' => 'AuthController@postLogin']);
     Route::post('logout', [ 'as' => 'admin.auth.logout', 'uses' => 'AuthController@postLogout']);
 });

@@ -86,8 +86,8 @@ export default {
              */
             let _this = this
             var thenFunction = function(Response){
-                let state = Response.data.state
-                if (state) {
+                let dataState = Response.data.state
+                if (dataState) {
                     setTimeout(() =>  {
                         _this.$router.push({name:_this.homeRouterNmae})
                     }, 3000);
