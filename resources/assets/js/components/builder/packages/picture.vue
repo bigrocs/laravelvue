@@ -6,21 +6,22 @@
     <div class="col-md-6 col-sm-12">
         <el-upload
           :action="datas.postUrl"
-          :headers="datas.headers"
+          :headers="headers"
           :multiple="datas.multiple"
           :data="datas.data"
           :name="datas.fileName"
           :with-credentials="datas.withCredentials"
-          :show-upload-list="datas.showUploadList"
+          :show-file-list="datas.showUploadList"
           type="drag"
-          :thumbnail-mode="true"
+          :accept="datas.accept"
           :on-preview="handlePreview"
           :on-remove="handleRemove"
           :on-success="handleSuccess"
           :on-error="handleError"
           :on-progress="handleProgress"
+          list-type="picture"
           :before-upload="beforeUpload"
-          :default-file-list="fileList"
+          :auto-upload="true"
         >
           <i class="el-icon-upload"></i>
           <div class="el-dragger__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -41,8 +42,9 @@ export default{
     },
     data() {
       return {
-        fileList: this.datas.fileList
-      };
+          fileList: this.datas.fileList,
+          headers:window.axios.defaults.headers.common
+      }
     },
     created() {
         this.Initialization();
