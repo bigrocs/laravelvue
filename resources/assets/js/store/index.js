@@ -35,7 +35,7 @@ const state = {
      * @type {Object}
      */
     postData:{
-        tabIndex:0,
+        tabIndex:'0',
         pageSize:null,
         page:1,
         selectSearch:'',

@@ -126,7 +126,7 @@ export const initTabIndex = ({ commit }) => {
  */
 export const initPostData = ({ commit }) => {
 	commit(types.SET_POST_DATA,{
-        tabIndex:0,
+        tabIndex:'0',
         pageSize:null,
         page:1,
         selectSearch:'',
