@@ -68,4 +68,5 @@ export default {
     // admin-lte皮肤
     @import "~admin-lte/build/less/skins/_all-skins";
     @boxed-layout-bg-image-path: "~admin-lte/dist/img/boxed-bg.jpg";
+    @body-bg: #ecf0f5;
 </style>

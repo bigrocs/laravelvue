@@ -1,20 +1,24 @@
 <template>
 <div class="row">
     <div class="col-md-12">
-        <el-card class="box-card" v-if="currentData.tabs == null">
-            <template v-for="data in currentData" >
-                <builder-form   v-if="data.type == 'form'"      :fromDatas="data"></builder-form>
-                <builder-table  v-if="data.type == 'table'"     :tableDatas="data"></builder-table>
-            </template>
-        </el-card>
-        <el-tabs type="border-card" v-model="tabIndex" @tab-click="handleTabsClick" v-else>
-            <el-tab-pane v-for="(tabs,key) in currentData.tabs" :label="tabs">
-                <template v-if="tabIndex == key" v-for="data in currentData" >
-                    <builder-form   v-if="data.type == 'form'"      :fromDatas="data"></builder-form>
-                    <builder-table  v-if="data.type == 'table'"     :tableDatas="data"></builder-table>
-                </template>
-            </el-tab-pane>
-        </el-tabs>
+        <div class="box box-danger">
+            <div class="box-body">
+                <el-card class="box-card" v-if="currentData.tabs == null">
+                    <template v-for="data in currentData" >
+                        <builder-form   v-if="data.type == 'form'"      :fromDatas="data"></builder-form>
+                        <builder-table  v-if="data.type == 'table'"     :tableDatas="data"></builder-table>
+                    </template>
+                </el-card>
+                <el-tabs type="card" v-model="tabIndex" @tab-click="handleTabsClick" v-else>
+                    <el-tab-pane v-for="(tabs,key) in currentData.tabs" :label="tabs">
+                        <template v-if="tabIndex == key" v-for="data in currentData" >
+                            <builder-form   v-if="data.type == 'form'"      :fromDatas="data"></builder-form>
+                            <builder-table  v-if="data.type == 'table'"     :tableDatas="data"></builder-table>
+                        </template>
+                    </el-tab-pane>
+                </el-tabs>
+            </div>
+        </div>
     </div>
 </div>
 </template>
