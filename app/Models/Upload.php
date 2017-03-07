@@ -252,7 +252,7 @@ class Upload extends Model
      *
      * @return [type] [description]
      */
-    public function getUploadWhereOne($id)
+    public function getUploadWhereFirst($id)
     {
         $uploadObject = $this->where(['id' => $id])->first();
         if (!$uploadObject) {

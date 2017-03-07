@@ -10,7 +10,8 @@ use App\Http\Controllers\Controller;
 
 use App\Models\AdminConfig;
 use Facades\ {
-    App\Facades\BuilderData
+    App\Facades\BuilderData,
+    App\Facades\Helpers
 };
 
 class ConfigController extends Controller
@@ -27,8 +28,8 @@ class ConfigController extends Controller
         $group = $request->tabIndex;
         $group = empty($group) ? 0 : $group;
 
-        $pageSizes      = explode(',', getAdminConfig('ADMIN_PAGE_SIZES'));
-        $pageSize       = !empty($request->pageSize) ? $request->pageSize : getPageSize();
+        $pageSizes      = explode(',', Helpers::getAdminConfig('ADMIN_PAGE_SIZES'));
+        $pageSize       = !empty($request->pageSize) ? $request->pageSize : Helpers::getPageSize();
         $page           = !empty($request->page) ? $request->page : 1;
         $selectSearch   = !empty($request->selectSearch) ? $request->selectSearch : 'id';
         $inputSearch    = !empty($request->inputSearch) ? '%'.$request->inputSearch.'%' : '%%';
@@ -49,7 +50,7 @@ class ConfigController extends Controller
                             ->where('status', '>=', 0)
                             ->where($selectSearch, 'like', $inputSearch)
                             ->get();
-        $tabs = explode(',', getAdminConfig('CONFIG_GROUP_LIST'));
+        $tabs = explode(',', Helpers::getAdminConfig('CONFIG_GROUP_LIST'));
 
         $data = BuilderData::addTableData($adminConfigs)
                                 ->addTableColumn(['prop' => 'id',         'label'=> 'ID',     'width'=> '55'])

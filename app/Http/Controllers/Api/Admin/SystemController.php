@@ -10,7 +10,8 @@ use App\Http\Controllers\Controller;
 use App\Models\AdminConfig;
 
 use Facades\ {
-    App\Facades\BuilderData
+    App\Facades\BuilderData,
+    App\Facades\Helpers
 };
 class SystemController extends Controller
 {
@@ -30,7 +31,7 @@ class SystemController extends Controller
                             ->orderBy('sort', 'ASC')
                             ->where('status', '=', 1)
                             ->get();
-        $configPageSizes= explode(',', getAdminConfig('ADMIN_PAGE_SIZES'));
+        $configPageSizes= explode(',', Helpers::getAdminConfig('ADMIN_PAGE_SIZES'));
         foreach ($configPageSizes as &$pageSize) {
             $pageSize = $pageSize.' 条/页';
         }
@@ -43,7 +44,7 @@ class SystemController extends Controller
             }
             if ($adminConfig['type'] == 'picture') {
                 $adminConfig['postUrl'] = '/api/admin/system/upload/image';
-                $uploadData[] = getUploadWhereOne($adminConfig['value']);
+                $uploadData[] = Helpers::getUploadWhereFirst($adminConfig['value']);
                 $adminConfig['fileList'] = $uploadData;
                 $adminConfig['maxSize'] = 1048567;//上传文件限制
                 $maxSizeLang['title'] = '图片大小超过限制';
@@ -55,7 +56,7 @@ class SystemController extends Controller
                 $adminConfig['options'] = $configPageSizes;//根据选择器分组
             }
         }
-        $tabs = explode(',', getAdminConfig('CONFIG_GROUP_LIST'));
+        $tabs = explode(',', Helpers::getAdminConfig('CONFIG_GROUP_LIST'));
         $data = BuilderData::addFormData($adminConfigs)
                             ->addFormApiUrl('urlSubmit','/api/admin/system/system/update')              //添加Submit通信API
                             ->setTabs($tabs)    //设置页面Tabs
