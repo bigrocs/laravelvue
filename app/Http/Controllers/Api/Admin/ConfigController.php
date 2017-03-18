@@ -25,22 +25,14 @@ class ConfigController extends Controller
     }
     public function index(Request $request)
     {
-        $group = $request->tabIndex;
-        $group = empty($group) ? 0 : $group;
-
-        $pageSizes      = explode(',', Helpers::getAdminConfig('ADMIN_PAGE_SIZES'));
-        $pageSize       = !empty($request->pageSize) ? $request->pageSize : Helpers::getPageSize();
-        $page           = !empty($request->page) ? $request->page : 1;
-        $selectSearch   = !empty($request->selectSearch) ? $request->selectSearch : 'id';
-        $inputSearch    = !empty($request->inputSearch) ? '%'.$request->inputSearch.'%' : '%%';
-
+        //处理下请求数据
+        list($group,$pageSizes,$pageSize,$page,$selectSearch,$inputSearch) = Helpers::compileTableRequest($request);
         // [$total 获取数据总数]
         $total = $this->adminConfigModel
                             ->where('group', '=', $group)
                             ->where('status', '>=', 0)
                             ->where($selectSearch, 'like', $inputSearch)
                             ->count();
-
 
         // [$adminConfigs 获取数据对象]
         $adminConfigs = $this->adminConfigModel
@@ -50,8 +42,6 @@ class ConfigController extends Controller
                             ->where('status', '>=', 0)
                             ->where($selectSearch, 'like', $inputSearch)
                             ->get();
-        $tabs = explode(',', Helpers::getAdminConfig('CONFIG_GROUP_LIST'));
-
         $data = BuilderData::addTableData($adminConfigs)
                                 ->addTableColumn(['prop' => 'id',         'label'=> 'ID',     'width'=> '55'])
                                 ->addTableColumn(['prop' => 'name',       'label'=> '名称',   'width'=> '240'])
@@ -70,7 +60,7 @@ class ConfigController extends Controller
                                 ->addTableRightButton(['type'=>'edit'])                         // 添加编辑按钮
                                 ->addTableRightButton(['type'=>'forbid'])                       // 添加禁用/启用按钮
                                 ->addTableRightButton(['type'=>'delete'])                       // 添加删除按钮
-                                ->setTabs($tabs)                                                //设置页面Tabs
+                                ->setTabs(Helpers::getTabsConfigGroupList())                                                //设置页面Tabs
                                 ->setTablePagination(['total'=>$total,'pageSize'=>$pageSize,'pageSizes'=>$pageSizes,'layout'=>'total, sizes, prev, pager, next, jumper'])//分页设置
                                 ->setSearchTitle('请输入搜索内容')
                                 ->setSearchSelect(['id'=>'ID','name'=>'名称','title'=>'标题'])
@@ -101,7 +91,7 @@ class ConfigController extends Controller
         return response()->json($data, 200);
     }
     public function add(){
-        $configGroupList = explode(',', getAdminConfig('CONFIG_GROUP_LIST'));
+        $configGroupList = Helpers::getTabsConfigGroupList();
         $formItemType = BuilderData::getformItemType();
         $data = BuilderData::addFormApiUrl('urlSubmit','/api/admin/system/config/store')               //添加Submit通信API
                             ->addFormTitle('新增配置')                                           //添form表单页面标题
@@ -150,7 +140,7 @@ class ConfigController extends Controller
     }
     public function edit(Request $request){
         $adminConfig = $this->adminConfigModel->find($request->id);
-        $configGroupList = explode(',', getAdminConfig('CONFIG_GROUP_LIST'));
+         $configGroupList = Helpers::getTabsConfigGroupList();
         $formItemType = BuilderData::getformItemType();
         $data = BuilderData::addFormApiUrl('urlSubmit','/api/admin/system/config/update')               //添加Submit通信API
                             ->addFormTitle('新增配置')                                           //添form表单页面标题

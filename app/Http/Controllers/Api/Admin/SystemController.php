@@ -31,7 +31,7 @@ class SystemController extends Controller
                             ->orderBy('sort', 'ASC')
                             ->where('status', '=', 1)
                             ->get();
-        $configPageSizes= explode(',', Helpers::getAdminConfig('ADMIN_PAGE_SIZES'));
+        $configPageSizes= Helpers::getPageSizes();
         foreach ($configPageSizes as &$pageSize) {
             $pageSize = $pageSize.' 条/页';
         }
@@ -56,10 +56,9 @@ class SystemController extends Controller
                 $adminConfig['options'] = $configPageSizes;//根据选择器分组
             }
         }
-        $tabs = explode(',', Helpers::getAdminConfig('CONFIG_GROUP_LIST'));
         $data = BuilderData::addFormData($adminConfigs)
                             ->addFormApiUrl('urlSubmit','/api/admin/system/system/update')              //添加Submit通信API
-                            ->setTabs($tabs)    //设置页面Tabs
+                            ->setTabs(Helpers::getTabsConfigGroupList())    //设置页面Tabs
                             ->setTitle('系统设置')
                             ->get();
         return response()->json($data, 200);

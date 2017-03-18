@@ -10,14 +10,10 @@
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" role="navigation">
         <!-- Sidebar toggle button-->
-        <a href="javascript:void(0)"
-            class="sidebar-toggle"
-            data-toggle="offcanvas"
-            role="button"
-            @click="handleSiderbarToggle"
-        >
-            <span class="sr-only">Toggle navigation</span>
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+          <span class="sr-only">Toggle navigation</span>
         </a>
+
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
@@ -97,17 +93,7 @@ export default {
               this.$router.push({name:this.loginRouterNmae})
           }, 3000);
         },
-        /**
-         * [handleSiderbarToggle 左侧导航切换]
-         * @author BigRocs
-         * @email    bigrocs@qq.com
-         * @DateTime 2017-02-19T09:40:55+0800
-         * @return   {[type]}                 [description]
-         */
-        handleSiderbarToggle(){
-            document.body.classList.toggle('sidebar-collapse')
-            // document.body.classList.toggle('sidebar-open')
-        }
+
     }
 }
 </script>
