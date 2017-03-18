@@ -13,7 +13,7 @@ require('fastclick');                               //快速点击插件 fastCli
 
 import store from './store'                                //引入状态配置文件
 import BuilderHtml from './components/builder/index.vue'      //引入页面内容构建器
-import App from './components/admin/app.vue'                  //主渲染页面
+import App from './components/app.vue'                            //主路由渲染页面
 import IndexPage from './components/admin/index.vue'              //后台索引主页面
 import LoginPage from './components/admin/login.vue'              //后台索引主页面
 

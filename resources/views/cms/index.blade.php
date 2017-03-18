@@ -12,7 +12,7 @@
     <![endif]-->
     <script>
         window.Laravel = {
-            apiUrl: '/api/admin/main',
+            apiUrl: '/api/cms/main',
             csrfToken:'{{ csrf_token() }}',
         }
     </script>
@@ -20,6 +20,6 @@
 <body class="skin-red sidebar-mini fixed">
     <div id="app">
     </div>
-    <script src="{{ mix('/js/admin.js') }}"></script>
+    <script src="{{ mix('/js/cms.js') }}"></script>
 </body>
 </html>
