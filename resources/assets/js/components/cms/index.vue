@@ -1,5 +1,11 @@
 <template>
 <div class="wrapper">
-	 index demo
+	<main-header></main-header>
 </div>
 </template>
+<script>
+
+export default {
+
+}
+</script>

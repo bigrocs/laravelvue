@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('cms.index');
 });
 Route::group(['prefix' => 'admin',  'namespace' => 'Admin'], function () {
 	Route::post('authCheck', [ 'as' => 'admin.auth.check', 'uses' => 'AuthController@authCheck']);
