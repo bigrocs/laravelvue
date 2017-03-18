@@ -1,7 +1,7 @@
 require('./bootstrap');
-require('./components/cms/component');						//注册CMS组件
+require('./cms/component');						//注册CMS组件
 
-import store from './store'                                //引入状态配置文件
+import store from './cms/store'                                //引入状态配置文件
 import BuilderHtml from './components/builder/index.vue'      //引入页面内容构建器
 import App from './components/app.vue'                            //主路由渲染页面
 import IndexPage from './components/cms/index.vue'              //后台索引主页面

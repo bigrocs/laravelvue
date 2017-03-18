@@ -1,24 +1,23 @@
 <template>
-	<el-dialog title="提示" v-model="LoginRegisterDialogVisible" size="tiny">
+	<el-dialog title="登录注册" v-model="$store.state.loginRegisterDialogVisible" size="tiny">
 	  <span>这是一段信息</span>
 	  <span slot="footer" class="dialog-footer">
-	    <el-button @click="LoginRegisterDialogVisible = false">取 消</el-button>
-	    <el-button type="primary" @click="LoginRegisterDialogVisible = false">确 定</el-button>
+	    <el-button @click="handleLoginRegister">取 消</el-button>
+	    <el-button type="primary" @click="handleLoginRegister">确 定</el-button>
 	  </span>
 	</el-dialog>
 </template>
 <script>
-  export default {
+import { mapState } from 'vuex'
+export default {
     data() {
       	return {
-      		LoginRegisterDialogVisible : true,
       	};
     },
     methods: {
       	handleLoginRegister() {
-      		this.LoginRegisterDialogVisible = true;
-      		console.log(this.LoginRegisterDialogVisible);
+      		  this.$store.dispatch('closeLoginRegisterDialogVisible') //关闭变登录注册组件
       	}
     }
-  }
+}
 </script>

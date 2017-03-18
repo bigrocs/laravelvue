@@ -57,16 +57,21 @@
 </header>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
     data() {
       	return {
-      		LoginRegisterDialogVisible : false,
       	};
+    },
+    computed: {
+        ...mapState({
+            loginRegisterDialogVisible: 'loginRegisterDialogVisible',
+        }),
     },
     methods: {
       	handleLoginRegister() {
-      		this.LoginRegisterDialogVisible = true;
-      		console.log(this.LoginRegisterDialogVisible);
+      		this.$store.dispatch('openLoginRegisterDialogVisible') //关闭
+      		console.log(this.loginRegisterDialogVisible);
       	}
     }
 }
