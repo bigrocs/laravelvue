@@ -17,6 +17,10 @@ import App from './components/app.vue'                            //主路由渲
 import IndexPage from './components/admin/index.vue'              //后台索引主页面
 import LoginPage from './components/admin/login.vue'              //后台索引主页面
 
+const startVue = function(Response){
+    console.log('test');
+}
+
 axios.post(window.Laravel.apiUrl).then((Response) => {
     let mainData = store.state.mainData = Response.data                 //初始化全局变量(服务端API数据)
     const adminChildren = []                                            //begin解析路由JSON
