@@ -15,7 +15,7 @@ export const setCurrentApiUrl = ({ commit,state },apiUrl) => {
     commit(types.SET_CURRENT_API_URL,apiUrl) 
 }
 /**
- * [openLoginRegisterDialogVisible 打开登录注册组件]
+ * [changgeLoginDialogVisible 改变登录组件状态]
  * @author BigRocs
  * @email    bigrocs@qq.com
  * @DateTime 2017-03-18T15:05:45+0800
@@ -23,11 +23,11 @@ export const setCurrentApiUrl = ({ commit,state },apiUrl) => {
  * @param    {[type]}                 options.state  [description]
  * @return   {[type]}                                [description]
  */
-export const openLoginRegisterDialogVisible = ({ commit,state }) => {
-    commit(types.OPEN_LOGIN_REGISTER_DIALOG_VISIBLE) 
+export const changeLoginDialogVisible = ({ commit,state }) => {
+    commit(types.CHANGE_LOGIN_DIALOG_VISIBLE) 
 }
 /**
- * [closeLoginRegisterDialogVisible 关闭登录注册组件]
+ * [changeRegisterDialogVisible 改变注册组件状态]
  * @author BigRocs
  * @email    bigrocs@qq.com
  * @DateTime 2017-03-18T15:01:02+0800
@@ -35,8 +35,8 @@ export const openLoginRegisterDialogVisible = ({ commit,state }) => {
  * @param    {[type]}                 options.state  [description]
  * @return   {[type]}                                [description]
  */
-export const closeLoginRegisterDialogVisible = ({ commit,state }) => {
-    commit(types.CLOSE_LOGIN_REGISTER_DIALOG_VISIBLE) 
+export const changeRegisterDialogVisible = ({ commit,state }) => {
+    commit(types.CHANGE_REGISTER_DIALOG_VISIBLE) 
 }
 /**
  * [getCurrentData 获取当前页面数据]

@@ -19,18 +19,18 @@ export default {
     //     }
     // },
     /**
-     * [OPEN_LOGIN_REGISTER_DIALOG_VISIBLE 打开登录注册组件]
+     * [CHANGE_LOGIN_DIALOG_VISIBLE 改变登录组件状态]
      * @currentApiUrl 当前路由通信ApiUrl  
      */
-    [types.OPEN_LOGIN_REGISTER_DIALOG_VISIBLE] (state){
-        state.loginRegisterDialogVisible = true
+    [types.CHANGE_LOGIN_DIALOG_VISIBLE] (state){
+        state.loginDialogVisible = !state.loginDialogVisible
     },
     /**
-     * [CHANGE_LOGIN_REGISTER_DIALOG_VISIBLE 关闭登录注册组件]
+     * [CHANGE_REGISTER_DIALOG_VISIBLE 改变注册组件状态]
      * @currentApiUrl 当前路由通信ApiUrl  
      */
-    [types.CLOSE_LOGIN_REGISTER_DIALOG_VISIBLE] (state){
-        state.loginRegisterDialogVisible = false
+    [types.CHANGE_REGISTER_DIALOG_VISIBLE] (state){
+        state.registerDialogVisible = !state.registerDialogVisible
     },
     /**
      * [SET_CURRENT_API_URL 设置currentApiUrl数据]

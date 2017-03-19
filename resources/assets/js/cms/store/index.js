@@ -8,6 +8,14 @@ Vue.use(Vuex)
 
 const state = {
     /**
+     * [loginDialogVisible registerDialogVisible dialog弹窗状态控制]
+     * @type {Boolean}
+     */
+    loginDialogVisible:false,
+    registerDialogVisible:false,
+
+    //下面开始builder调用数据
+    /**
      * [mainData 主数据设置]
      * @type {String}
      */
@@ -15,11 +23,6 @@ const state = {
         routes:'',
         apiUrl:''
     },
-    /**
-     * [loginRegisterDialogVisible dialog弹窗状态控制]
-     * @type {Boolean}
-     */
-    loginRegisterDialogVisible:false,
     /**
      * [currentApiUrl 当前页面API通信网址]
      * @type {String}

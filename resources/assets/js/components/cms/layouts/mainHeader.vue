@@ -38,7 +38,8 @@
 	        <button type="submit" class="btn btn-default">搜索</button>
 	      </form>
 	      <ul class="nav navbar-nav navbar-right">
-	        <li><a href="javascript:void(0)" @click="handleLoginRegister">登录/注册</a></li>
+	        <li><a href="javascript:void(0)" @click="handleLogin">登录</a></li>
+	        <li><a href="javascript:void(0)" @click="handleRegister">注册</a></li>
 	        <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">会员中心 <span class="caret"></span></a>
 	          <ul class="dropdown-menu">
@@ -53,25 +54,20 @@
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
 	</nav>
-	<login-register></login-register>
 </header>
 </template>
 <script>
-import { mapState } from 'vuex'
 export default {
     data() {
       	return {
       	};
     },
-    computed: {
-        ...mapState({
-            loginRegisterDialogVisible: 'loginRegisterDialogVisible',
-        }),
-    },
     methods: {
-      	handleLoginRegister() {
-      		this.$store.dispatch('openLoginRegisterDialogVisible') //关闭
-      		console.log(this.loginRegisterDialogVisible);
+      	handleLogin() {
+      		this.$store.dispatch('changeLoginDialogVisible') //改变登录组件状态
+      	},
+      	handleRegister() {
+      		this.$store.dispatch('changeRegisterDialogVisible') //改变注册组件状态
       	}
     }
 }
