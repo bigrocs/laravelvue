@@ -84,7 +84,7 @@ export default {
                   }
               }
               let postData = this.postData
-              this.$store.dispatch('getHttpNotify',{ url:'admin/login', postData, thenFunction})//登录
+              this.$store.dispatch('getHttpNotify',{ url:'login', postData, thenFunction})//登录
             } else {
               console.log('error submit!!');
               return false;

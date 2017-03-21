@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Admin;
+namespace App\Http\Controllers\Api\Cms;
 
 use Illuminate\Http\Request;
 
@@ -32,9 +32,9 @@ class MainController extends Controller
                             ->setMenu('systemTheme','主题管理','fa fa-adjust','systemApplication')
                             ->setConfig('homeRouterNmae',  'dashboard')
                             ->setConfig('loginRouterNmae', 'login')
-                            ->setApiUrl('logout',          '/admin/logout')
-                            ->setApiUrl('login',           '/admin/login')
-                            ->setApiUrl('authCheck',       '/admin/authCheck')
+                            ->setApiUrl('logout',          '/logout')
+                            ->setApiUrl('login',           '/login')
+                            ->setApiUrl('authCheck',       '/authCheck')
                             ->get();
         return response()->json($data, 200);
     }

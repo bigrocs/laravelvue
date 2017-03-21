@@ -17,7 +17,7 @@ import App from './components/app.vue'                            //主路由渲
 import IndexPage from './components/admin/index.vue'              //后台索引主页面
 import LoginPage from './components/admin/login.vue'              //后台索引主页面
 
-const startVue = function(Response){
+const startVue = function(routes){
     console.log('test');
 }
 

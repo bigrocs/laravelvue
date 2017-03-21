@@ -12,13 +12,19 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+/*
+|--------------------------------------------------------------------------
+| Admin主路由设置 routes
+|--------------------------------------------------------------------------
+*/
 Route::group(['prefix' => 'admin', 'middleware' => 'api', 'namespace' => 'Api\Admin'], function () {
     Route::post('main', [ 'as' => 'api.admin.main.index', 'uses' => 'MainController@index']);
 });
-/**
- * system路由
- */
+/*
+|--------------------------------------------------------------------------
+| Admin授权路由设置 routes
+|--------------------------------------------------------------------------
+*/
 Route::group(['prefix' => 'admin/system', 'as' => 'api.admin.system', 'middleware' => 'auth:api', 'namespace' => 'Api\Admin'], function () {
 
     Route::post('system', [ 'as' => 'system.index', 'uses' => 'SystemController@index']);
@@ -33,4 +39,13 @@ Route::group(['prefix' => 'admin/system', 'as' => 'api.admin.system', 'middlewar
     Route::post('config/update', ['as' => 'config.store', 'uses' => 'ConfigController@update']);
 
     Route::post('upload/image', [ 'as' => 'upload.image', 'uses' => 'UploadController@postImage']);
+});
+
+/*
+|--------------------------------------------------------------------------
+| Cms主路由设置 routes
+|--------------------------------------------------------------------------
+*/
+Route::group(['prefix' => 'cms', 'middleware' => 'api', 'namespace' => 'Api\cms'], function () {
+    Route::post('main', [ 'as' => 'api.cms.main.index', 'uses' => 'MainController@index']);
 });
