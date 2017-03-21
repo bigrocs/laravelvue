@@ -17,13 +17,10 @@ import App from './components/app.vue'                            //主路由渲
 import IndexPage from './components/admin/index.vue'              //后台索引主页面
 import LoginPage from './components/admin/login.vue'              //后台索引主页面
 
-const startVue = function(routes){
-    console.log('test');
-}
 
 axios.post(window.Laravel.apiUrl).then((Response) => {
     let mainData = store.state.mainData = Response.data                 //初始化全局变量(服务端API数据)
-    const adminChildren = []                                            //begin解析路由JSON
+    let adminChildren = []                                            //begin解析路由JSON
     for (var key in mainData.route) {
         adminChildren.push({
             name: mainData.route[key].name,
@@ -33,10 +30,22 @@ axios.post(window.Laravel.apiUrl).then((Response) => {
         })
     }
 
-    const routes = [
+    let routes = [
         { path: '/admin/login', name:mainData.config.loginRouterNmae, component: LoginPage },
         { path: '/admin', name:'admin', component: IndexPage, children: adminChildren },
     ]
+
+    startVue(routes,store) //启动VUE
+    
+},(response) => {
+    console.log('获取主配置信息失败!');
+    console.log('请检查store.js文件Config.Api.mainUrl配置参数是否正确,或者服务端是否通信正常。');
+    console.log('服务端返回状态如下：');
+    console.log(response);
+});
+
+
+const startVue = function(routes,store){
     window.router = new VueRouter({
         mode: 'history',
         routes,                                                  // （缩写）相当于 routes: routes
@@ -46,10 +55,5 @@ axios.post(window.Laravel.apiUrl).then((Response) => {
         router,
         store,
         render: h => h(App)
-    });                                                        //Vue程序启动
-},(response) => {
-    console.log('获取主配置信息失败!');
-    console.log('请检查store.js文件Config.Api.mainUrl配置参数是否正确,或者服务端是否通信正常。');
-    console.log('服务端返回状态如下：');
-    console.log(response);
-});
+    });  
+}
