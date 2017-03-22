@@ -7,7 +7,7 @@
               </el-input>
           </el-form-item>
           <el-form-item prop="password">
-              <el-input v-model="postData.password" type="password" placeholder="请输入密码">
+              <el-input v-model="postData.password" type="password" placeholder="请输入密码"  @keyup.enter.native="submitForm('postData')">
                 <template slot="prepend">密码</template>
               </el-input>
           </el-form-item>
@@ -61,7 +61,15 @@ export default {
             }
       	};
     },
+    computed: {
+        ...mapState({
+            loginUrl: state => state.mainData.apiUrl.login,
+        }),
+    },
     methods: {
+        demo(){
+          console.log('test');
+        },
         submitForm(formName) {
           this.$refs[formName].validate((valid) => {
             if (valid) {
@@ -75,16 +83,15 @@ export default {
                */
               let _this = this
               var thenFunction = function(Response){
-                  console.log(Response);
                   let dataState = Response.data.state
                   if (dataState) {
+                      _this.$store.dispatch('authCheckTrue')//改变登录状态
                       setTimeout(() =>  {
-                          _this.$store.dispatch('changeLoginDialogVisible') //关闭变登录注册组件
+                          _this.$store.dispatch('changeLoginDialogVisible') //开启变登录注册组件
                       }, 3000);
                   }
               }
-              let postData = this.postData
-              this.$store.dispatch('getHttpNotify',{ url:'login', postData, thenFunction})//登录
+              this.$store.dispatch('getHttpNotify',{ url:this.loginUrl, postData:this.postData, thenFunction})//登录
             } else {
               console.log('error submit!!');
               return false;

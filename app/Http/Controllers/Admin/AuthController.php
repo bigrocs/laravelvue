@@ -62,6 +62,7 @@ class AuthController extends Controller
                     'title'     => '用户退出成功',
                     'message'   => '用户退出成功!',
                     'type'      => 'success',
+                    'state'     => true
                 ];
         Auth::logout();
         return response()->json($data, 200);

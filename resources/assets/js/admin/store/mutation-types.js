@@ -1,4 +1,0 @@
-export const SET_HEADERS 			= 'SET_HEADERS'
-export const SET_CURRENT_API_URL 	= 'SET_CURRENT_API_URL'
-export const SET_CURRENT_DATA 		= 'SET_CURRENT_DATA'
-export const SET_POST_DATA 			= 'SET_POST_DATA'

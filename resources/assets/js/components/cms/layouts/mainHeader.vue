@@ -38,18 +38,22 @@
 	        <button type="submit" class="btn btn-default">搜索</button>
 	      </form>
 	      <ul class="nav navbar-nav navbar-right">
-	        <li><a href="javascript:void(0)" @click="handleLogin">登录</a></li>
-	        <li><a href="javascript:void(0)" @click="handleRegister">注册</a></li>
-	        <li class="dropdown">
-	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">会员中心 <span class="caret"></span></a>
-	          <ul class="dropdown-menu">
-	            <li><a href="#">会员中心</a></li>
-	            <li><a href="#">会员中心</a></li>
-	            <li><a href="#">会员中心</a></li>
-	            <li role="separator" class="divider"></li>
-	            <li><a href="#">会员中心</a></li>
-	          </ul>
-	        </li>
+	      	<template v-if="$store.state.authStatus">        
+		        <li class="dropdown">
+		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">会员中心 <span class="caret"></span></a>
+		          <ul class="dropdown-menu">
+		            <li><a href="#">会员中心</a></li>
+		            <li><a href="#">会员中心</a></li>
+		            <li><a href="#">会员中心</a></li>
+		            <li role="separator" class="divider"></li>
+		            <li><a href="javascript:void(0)" @click="handleSignOutSubmit">用户退出</a></li>
+		          </ul>
+		        </li>
+		    </template>
+	      	<template v-else>
+	      		<li><a href="javascript:void(0)" @click="handleLogin">登录</a></li>
+	       		<li><a href="javascript:void(0)" @click="handleRegister">注册</a></li>
+	      	</template>
 	      </ul>
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
@@ -57,10 +61,16 @@
 </header>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
     data() {
       	return {
       	};
+    },
+    computed: {
+        ...mapState({
+            logout: state => state.mainData.apiUrl.logout,
+        }),
     },
     methods: {
       	handleLogin() {
@@ -68,7 +78,24 @@ export default {
       	},
       	handleRegister() {
       		this.$store.dispatch('changeRegisterDialogVisible') //改变注册组件状态
-      	}
+      	},
+      	 /**
+         * [handleSignOutSubmit 用户退出]
+         * @author BigRocs
+         * @email    bigrocs@qq.com
+         * @DateTime 2017-02-17T16:57:17+0800
+         * @return   {[type]}                 [description]
+         */
+        handleSignOutSubmit(){
+        	let _this = this
+            var thenFunction = function(Response){
+                let dataState = Response.data.state
+                if (dataState) {
+                    _this.$store.dispatch('authCheckFalse')//关闭登录状态
+                }
+            }
+          	this.$store.dispatch('getHttpNotify',{ url:this.logout, thenFunction})//退出
+        },
     }
 }
 </script>

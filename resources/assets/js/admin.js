@@ -11,7 +11,7 @@ require('admin-lte');                               //AdminLTE JS编译
 require('jquery-slimscroll');                       //页面滚动插件 SlimScroll
 require('fastclick');                               //快速点击插件 fastClick
 
-import store from './admin/store'                                 //引入状态配置文件
+import store from './store'                                 //引入状态配置文件
 import BuilderHtml from './components/builder/index.vue'          //引入页面内容构建器
 import App from './components/app.vue'                            //主路由渲染页面
 import IndexPage from './components/admin/index.vue'              //后台索引主页面

@@ -14,7 +14,54 @@ import { Notification } from 'element-ui'
 export const setCurrentApiUrl = ({ commit,state },apiUrl) => {
     commit(types.SET_CURRENT_API_URL,apiUrl) 
 }
-
+/**
+ * [changgeLoginDialogVisible 改变登录组件状态]
+ * @author BigRocs
+ * @email    bigrocs@qq.com
+ * @DateTime 2017-03-18T15:05:45+0800
+ * @param    {[type]}                 options.commit [description]
+ * @param    {[type]}                 options.state  [description]
+ * @return   {[type]}                                [description]
+ */
+export const changeLoginDialogVisible = ({ commit,state }) => {
+    commit(types.CHANGE_LOGIN_DIALOG_VISIBLE) 
+}
+/**
+ * [changeRegisterDialogVisible 改变注册组件状态]
+ * @author BigRocs
+ * @email    bigrocs@qq.com
+ * @DateTime 2017-03-18T15:01:02+0800
+ * @param    {[type]}                 options.commit [description]
+ * @param    {[type]}                 options.state  [description]
+ * @return   {[type]}                                [description]
+ */
+export const changeRegisterDialogVisible = ({ commit,state }) => {
+    commit(types.CHANGE_REGISTER_DIALOG_VISIBLE) 
+}
+/**
+ * [开启用户登录状态]
+ * @author BigRocs
+ * @email    bigrocs@qq.com
+ * @DateTime 2017-03-22T11:28:32+0800
+ * @param    {[type]}                 options.commit [description]
+ * @param    {[type]}                 options.state  [description]
+ * @return   {[type]}                                [description]
+ */
+export const authCheckTrue = ({ commit,state }) => {
+    commit(types.AUTH_STATUS_TRUE) 
+}
+/**
+ * [关闭用户登录状态]
+ * @author BigRocs
+ * @email    bigrocs@qq.com
+ * @DateTime 2017-03-22T11:28:16+0800
+ * @param    {[type]}                 options.commit [description]
+ * @param    {[type]}                 options.state  [description]
+ * @return   {[type]}                                [description]
+ */
+export const authCheckFalse = ({ commit,state }) => {
+    commit(types.AUTH_STATUS_FLASE) 
+}
 /**
  * [getCurrentData 获取当前页面数据]
  * @author BigRocs
@@ -57,31 +104,34 @@ export const getCurrentData = ({ commit,state },postData) => {
  * [getNotify 获取post请求通知]
  * @author BigRocs
  * @email    bigrocs@qq.com
- * @DateTime 2017-03-01T11:49:12+0800
- * @param    {[type]}                 options.commit   [vuex赋值]
- * @param    {[type]}                 options.state    [vuex状态数据]
- * @param    {[type]}                 options.url      [请求网址]
- * @param    {String}                 options.postData [请求数据]
- * @param    {String}                 Notification     [from element-ui]
- * @return   {[type]}                                  [description]
+ * @DateTime 2017-03-22T11:20:48+0800
+ * @param    {[type]}                 options.commit       [vuex赋值]
+ * @param    {[type]}                 options.state        [vuex状态数据]
+ * @param    {[type]}                 options.url          [请求网址]
+ * @param    {String}                 options.postData     [请求数据]
+ * @param    {String}                 options.thenFunction [请求后执行外部方法]
+ * @param    {Boolean}                options.notification [是否开启Notify提醒]
+ * @return   {[type]}                                      [description]
  */
-export const getHttpNotify = ({ commit,state },{url = state.currentApiUrl, postData = '',thenFunction = ''}) => {
+export const getHttpNotify = ({ commit,state },{url = state.currentApiUrl, postData = '',thenFunction = '',notification = true}) => {
     axios.post(url,postData)
         .then((Response) => {
             if (thenFunction) {
               thenFunction(Response)
             }
-            Response.data.duration = Response.data.duration ? Response.data.duration : 4500;  //设置自动取消时间
-            Notification({
-              title: Response.data.title,
-              message: Response.data.message,
-              type: Response.data.type,
-              iconClass: Response.data.iconClass,
-              customClass: Response.data.customClass,
-              duration: Response.data.duration,
-              onClose: Response.data.onClose,
-              offset: Response.data.offset,
-            })
+            if (notification) {
+              Response.data.duration = Response.data.duration ? Response.data.duration : 4500;  //设置自动取消时间
+              Notification({
+                title: Response.data.title,
+                message: Response.data.message,
+                type: Response.data.type,
+                iconClass: Response.data.iconClass,
+                customClass: Response.data.customClass,
+                duration: Response.data.duration,
+                onClose: Response.data.onClose,
+                offset: Response.data.offset,
+              })
+            }
         })
         .catch(function (error) {
             Notification({
