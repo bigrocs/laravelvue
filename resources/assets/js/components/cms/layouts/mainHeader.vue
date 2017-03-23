@@ -1,5 +1,5 @@
 <template>
-<header class="main-header">
+<header class="main-header navbar-div">
 	<nav class="navbar navbar-default">
 	  <div class="container-fluid">
 	    <!-- Brand and toggle get grouped for better mobile display -->
@@ -58,6 +58,9 @@
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
 	</nav>
+	<div>
+		123
+	</div>
 </header>
 </template>
 <script>
@@ -99,3 +102,30 @@ export default {
     }
 }
 </script>
+
+<style lang="less">
+	.navbar-div{
+		padding:0 0.20in 0 0.20in;
+	}
+	@media (max-width: 768px) { 
+		.el-dialog--tiny{
+			width:80%;
+		}
+	}
+	@media (min-width: 768px) { 
+		.el-dialog--tiny{
+			width:60%;
+		}
+	}
+	@media (min-width: 992px) { 
+		.el-dialog--tiny{
+			width:40%;
+		}
+	}
+	@media (min-width: 1200px) { 
+		.el-dialog--tiny{
+			width:30%;
+		}	
+	}		
+
+</style>
