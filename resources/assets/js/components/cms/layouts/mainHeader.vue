@@ -42,11 +42,13 @@
 		        <li class="dropdown">
 		          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">会员中心 <span class="caret"></span></a>
 		          <ul class="dropdown-menu">
-		            <li><a href="#">会员中心</a></li>
-		            <li><a href="#">会员中心</a></li>
-		            <li><a href="#">会员中心</a></li>
+		            <li><a href="#"><i style="width: 16px;text-align: center;" class="fa fa-tachometer"></i> 个人中心</a></li>
 		            <li role="separator" class="divider"></li>
-		            <li><a href="javascript:void(0)" @click="handleSignOutSubmit">用户退出</a></li>
+		            <li><a href="#"><i style="width: 16px;text-align: center;" class="fa fa-edit"></i> 信息修改</a></li>
+		            <li><a href="#"><i style="width: 16px;text-align: center;" class="fa fa-envelope-o"></i> 消息中心</a></li>
+		            <li><a href="#"><i style="width: 16px;text-align: center;" class="fa fa-shield"></i> 安全中心</a></li>
+		            <li role="separator" class="divider"></li>
+		            <li><a href="javascript:void(0)" @click="handleSignOutSubmit"><i style="width: 16px;text-align: center;" class="fa fa-sign-out"></i> 用户退出</a></li>
 		          </ul>
 		        </li>
 		    </template>
