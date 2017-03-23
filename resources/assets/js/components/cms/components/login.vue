@@ -2,12 +2,12 @@
 	<el-dialog title="用户登录" v-model="$store.state.loginDialogVisible" size="tiny">
       <el-form :model="postData" :rules="rules" ref="postData" >
           <el-form-item prop="username">
-              <el-input v-model="postData.username" placeholder="邮箱/手机号/用户名">
+              <el-input name="username" v-model="postData.username" placeholder="邮箱/手机号/用户名">
                 <template slot="prepend">账号</template>
               </el-input>
           </el-form-item>
           <el-form-item prop="password">
-              <el-input v-model="postData.password" type="password" placeholder="请输入密码"  @keyup.enter.native="submitForm('postData')">
+              <el-input name="password" v-model="postData.password" type="password" placeholder="请输入密码"  @keyup.enter.native="submitForm('postData')">
                 <template slot="prepend">密码</template>
               </el-input>
           </el-form-item>
