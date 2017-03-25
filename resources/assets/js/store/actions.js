@@ -39,29 +39,25 @@ export const changeRegisterDialogVisible = ({ commit,state }) => {
     commit(types.CHANGE_REGISTER_DIALOG_VISIBLE) 
 }
 /**
- * [开启用户登录状态]
+ * [authCheck 检测用户登录状态]
  * @author BigRocs
  * @email    bigrocs@qq.com
- * @DateTime 2017-03-22T11:28:32+0800
+ * @DateTime 2017-03-25T10:33:07+0800
  * @param    {[type]}                 options.commit [description]
  * @param    {[type]}                 options.state  [description]
  * @return   {[type]}                                [description]
  */
-export const authCheckTrue = ({ commit,state }) => {
-    commit(types.AUTH_STATUS_TRUE) 
+export const authCheck = ({ commit,state }) => {
+    let thenFunction = (Response) => {
+        if (Response.data.state) {
+            commit(types.AUTH_STATUS_TRUE)          //开启用户登录状态
+        }else{
+            commit(types.AUTH_STATUS_FLASE)         //关闭用户登录状态
+        }
+    }
+    getHttpNotify({ commit,state },{url:state.mainData.apiUrl.authCheck, thenFunction, notification:false})//请求
 }
-/**
- * [关闭用户登录状态]
- * @author BigRocs
- * @email    bigrocs@qq.com
- * @DateTime 2017-03-22T11:28:16+0800
- * @param    {[type]}                 options.commit [description]
- * @param    {[type]}                 options.state  [description]
- * @return   {[type]}                                [description]
- */
-export const authCheckFalse = ({ commit,state }) => {
-    commit(types.AUTH_STATUS_FLASE) 
-}
+
 /**
  * [getCurrentData 获取当前页面数据]
  * @author BigRocs

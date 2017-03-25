@@ -51,6 +51,9 @@
 <script>
 import { mapState } from 'vuex'
 export default {
+    created() {
+        this.$store.dispatch('authCheck')//用户认证检查
+    },
     data(){
         return{
             username:'',
@@ -59,11 +62,27 @@ export default {
     },
     computed: {
         ...mapState({
+            authStatus: state => state.authStatus,
             login: state => state.mainData.apiUrl.login,
             homeRouterNmae: state => state.mainData.config.homeRouterNmae,
         }),
     },
+    watch: {
+        authStatus:'toHome',
+    },
     methods:{
+        /**
+         * [toHome 如果登录跳转回home]
+         * @author BigRocs
+         * @email    bigrocs@qq.com
+         * @DateTime 2017-03-25T10:56:56+0800
+         * @return   {[type]}                 [description]
+         */
+        toHome(){
+            if (this.authStatus) {
+                this.$router.push({name:this.homeRouterNmae})
+            }
+        },
         /**
          * [handleLoginSubmit 登录获取令牌]
          * @author BigRocs

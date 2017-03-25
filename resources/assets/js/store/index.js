@@ -13,7 +13,9 @@ const state = {
      */
     loginDialogVisible:false,
     registerDialogVisible:false,
-    authStatus:false,//登录状态
+    //登录状态
+    authStatus:false,
+    
     //下面开始builder调用数据
     /**
      * [mainData 主数据设置]

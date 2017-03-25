@@ -7,6 +7,7 @@
 </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 import mainHeader from './layouts/mainHeader.vue'
 import mainSidebar from './layouts/mainSidebar.vue'
 import mainContent from './layouts/mainContent.vue'
@@ -18,6 +19,30 @@ export default {
         mainContent,
         mainFooter
     },
+    created() {
+        this.$store.dispatch('authCheck')//用户认证检查
+        this.toLogin()
+    },
+    computed: {
+        ...mapState({
+            authStatus: state => state.authStatus,
+            loginRouterNmae: state => state.mainData.config.loginRouterNmae,
+        }),
+    },
+    methods:{
+        /**
+         * [toLogin 未登录成功跳转到登录页面]
+         * @author BigRocs
+         * @email    bigrocs@qq.com
+         * @DateTime 2017-03-25T11:02:18+0800
+         * @return   {[type]}                 [description]
+         */
+        toLogin(){
+            if (!this.authStatus) {
+                this.$router.push({name:this.loginRouterNmae})
+            }
+        },
+    }
 }
 </script>
 <style lang="less">
