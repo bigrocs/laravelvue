@@ -15,7 +15,8 @@ import store from './store'                                 //引入状态配置
 import BuilderHtml from './components/builder/index.vue'          //引入页面内容构建器
 import App from './components/app.vue'                            //主路由渲染页面
 import IndexPage from './components/admin/index.vue'              //后台索引主页面
-import LoginPage from './components/admin/login.vue'              //后台索引主页面
+import LoginPage from './components/admin/login.vue'              //后台登录页面
+import notFound from './components/admin/notFound.vue'            //后台404页面  
 
 
 axios.post(window.Laravel.apiUrl).then((Response) => {
@@ -29,7 +30,7 @@ axios.post(window.Laravel.apiUrl).then((Response) => {
             meta: { apiUrl: mainData.route[key].apiUrl }
         })
     }
-
+    adminChildren.push({ path: '*', name:'notFound', component: notFound }) //404页面
     let routes = [
         { path: '/admin/login', name:mainData.config.loginRouterNmae, component: LoginPage },
         { path: '/admin', name:'admin', component: IndexPage, children: adminChildren },
