@@ -57,7 +57,30 @@ export const authCheck = ({ commit,state }) => {
     }
     getHttpNotify({ commit,state },{url:state.mainData.apiUrl.authCheck, thenFunction, notification:false})//请求
 }
-
+/**
+ * [开启用户登录状态]
+ * @author BigRocs
+ * @email    bigrocs@qq.com
+ * @DateTime 2017-03-22T11:28:32+0800
+ * @param    {[type]}                 options.commit [description]
+ * @param    {[type]}                 options.state  [description]
+ * @return   {[type]}                                [description]
+ */
+export const authCheckTrue = ({ commit,state }) => {
+    commit(types.AUTH_STATUS_TRUE) 
+}
+/**
+ * [关闭用户登录状态]
+ * @author BigRocs
+ * @email    bigrocs@qq.com
+ * @DateTime 2017-03-22T11:28:16+0800
+ * @param    {[type]}                 options.commit [description]
+ * @param    {[type]}                 options.state  [description]
+ * @return   {[type]}                                [description]
+ */
+export const authCheckFalse = ({ commit,state }) => {
+    commit(types.AUTH_STATUS_FLASE) 
+}
 /**
  * [getCurrentData 获取当前页面数据]
  * @author BigRocs

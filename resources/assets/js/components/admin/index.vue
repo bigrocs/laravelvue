@@ -21,13 +21,15 @@ export default {
     },
     created() {
         this.$store.dispatch('authCheck')//用户认证检查
-        this.toLogin()
     },
     computed: {
         ...mapState({
             authStatus: state => state.authStatus,
             loginRouterNmae: state => state.mainData.config.loginRouterNmae,
         }),
+    },
+    watch: {
+        authStatus:'toLogin',
     },
     methods:{
         /**
