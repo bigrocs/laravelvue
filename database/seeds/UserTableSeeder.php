@@ -15,7 +15,8 @@ class UserTableSeeder extends Seeder
             'name' 	    => 'admin',
             'email' 	=> 'bigrocs@qq.com',
             'mobile' 	=> '18816161818',
-            'password' 	=> bcrypt('admin888')
+            'password' 	=> bcrypt('admin888'),
+            'status'  => 1
         ]);
     }
 }

@@ -25,7 +25,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'api', 'namespace' => 'Api\Ad
 | Admin授权路由设置 routes
 |--------------------------------------------------------------------------
 */
-Route::group(['prefix' => 'admin/system', 'as' => 'api.admin.system', 'middleware' => 'auth:api', 'namespace' => 'Api\Admin'], function () {
+Route::group(['prefix' => 'admin/system', 'as' => 'api.admin.system.', 'middleware' => 'auth:api', 'namespace' => 'Api\Admin'], function () {
 
     Route::post('system', [ 'as' => 'system.index', 'uses' => 'SystemController@index']);
     Route::post('system/update', ['as' => 'system.update', 'uses' => 'SystemController@update']);
@@ -39,6 +39,8 @@ Route::group(['prefix' => 'admin/system', 'as' => 'api.admin.system', 'middlewar
     Route::post('config/update', ['as' => 'config.store', 'uses' => 'ConfigController@update']);
 
     Route::post('upload/image', [ 'as' => 'upload.image', 'uses' => 'UploadController@postImage']);
+
+    Route::post('user', [ 'as' => 'user.index', 'uses' => 'UserController@index']);
 });
 
 /*
