@@ -97,6 +97,19 @@ export const getCurrentData = ({ commit,state },postData) => {
         if(state.currentData.title){
             document.title = state.currentData.title//设置页面标题
         }
+        if (Response.data.notification) {
+              Response.data.duration = Response.data.duration ? Response.data.duration : 4500;  //设置自动取消时间
+              Notification({
+                title: Response.data.title,
+                message: Response.data.message,
+                type: Response.data.type,
+                iconClass: Response.data.iconClass,
+                customClass: Response.data.customClass,
+                duration: Response.data.duration,
+                onClose: Response.data.onClose,
+                offset: Response.data.offset,
+              })
+        }
     })
     .catch(function (error) {
         /**
