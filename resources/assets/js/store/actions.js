@@ -97,18 +97,9 @@ export const getCurrentData = ({ commit,state },postData) => {
         if(state.currentData.title){
             document.title = state.currentData.title//设置页面标题
         }
+        //notification信息
         if (Response.data.notification) {
-              Response.data.duration = Response.data.duration ? Response.data.duration : 4500;  //设置自动取消时间
-              Notification({
-                title: Response.data.title,
-                message: Response.data.message,
-                type: Response.data.type,
-                iconClass: Response.data.iconClass,
-                customClass: Response.data.customClass,
-                duration: Response.data.duration,
-                onClose: Response.data.onClose,
-                offset: Response.data.offset,
-              })
+            actionsNotification({ commit },Response.data)
         }
     })
     .catch(function (error) {
@@ -152,17 +143,7 @@ export const getHttpNotify = ({ commit,state },{url = state.currentApiUrl, postD
               thenFunction(Response)
             }
             if (notification) {
-              Response.data.duration = Response.data.duration ? Response.data.duration : 4500;  //设置自动取消时间
-              Notification({
-                title: Response.data.title,
-                message: Response.data.message,
-                type: Response.data.type,
-                iconClass: Response.data.iconClass,
-                customClass: Response.data.customClass,
-                duration: Response.data.duration,
-                onClose: Response.data.onClose,
-                offset: Response.data.offset,
-              })
+                actionsNotification({ commit },Response.data)
             }
         })
         .catch(function (error) {
@@ -213,6 +194,19 @@ export const initPostData = ({ commit }) => {
         page:1,
         selectSearch:'',
         inputSearch:''
+    })
+}
+export const actionsNotification = ({ commit }, datas = '') => {
+    datas.duration = datas.duration ? datas.duration : 4500;  //设置自动取消时间
+    Notification({
+      title: datas.title,
+      message: datas.message,
+      type: datas.type,
+      iconClass: datas.iconClass,
+      customClass: datas.customClass,
+      duration: datas.duration,
+      onClose: datas.onClose,
+      offset: datas.offset,
     })
 }
 /**

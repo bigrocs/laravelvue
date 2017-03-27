@@ -17,7 +17,7 @@ class AdminAuthenticated
     public function handle($request, Closure $next)
     {
         $user = Auth::user();
-        if ($user->hasRole('user')) {
+        if ($user->hasRole('admin')) {
             return $next($request);//登录成功返回
         }else{
             $data = [
