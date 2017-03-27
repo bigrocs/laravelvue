@@ -65,6 +65,7 @@
                             {{ scope.row[column.prop].title }}
                         </el-tag>
                     </template>
+                    <table-tags v-else-if="column.type=='tags'" :datas="scope.row[column.prop]" :config="column.tags"></table-tags>
                     <template v-else-if="column.prop=='rightButton'">
                         <el-button v-for="rightButton in scope.row[column.prop]" class="table-button-min" :type="rightButton.type" size="mini"  @click="handleClick(rightButton.method,scope.$index, scope.row)">
                             <i :class="rightButton.icon"></i>
@@ -97,9 +98,11 @@
 <script>
 import { mapState } from 'vuex'
 import builderForm from './form.vue'
+import tableTags from './packages/table/tags.vue'
 export default {
     components: {
-        builderForm
+        builderForm,
+        tableTags
     },
     created() {
         this.compileTopButton()             //编译顶部按钮

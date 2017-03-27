@@ -27,15 +27,15 @@
 </template>
 <script>
 import { mapState,mapMutations } from 'vuex'
-import builderText from './packages/text.vue'
-import builderHidden from './packages/hidden.vue'
-import builderNumber from './packages/number.vue'
-import builderTextarea from './packages/textarea.vue'
-import builderSelect from './packages/select.vue'
-import builderTags from './packages/tags.vue'
-import builderSwitch from './packages/switch.vue'
-import builderPicture from './packages/picture.vue'
-import builderUpload from './packages/upload.vue'
+import builderText from './packages/form/text.vue'
+import builderHidden from './packages/form/hidden.vue'
+import builderNumber from './packages/form/number.vue'
+import builderTextarea from './packages/form/textarea.vue'
+import builderSelect from './packages/form/select.vue'
+import builderTags from './packages/form/tags.vue'
+import builderSwitch from './packages/form/switch.vue'
+import builderPicture from './packages/form/picture.vue'
+import builderUpload from './packages/form/upload.vue'
 export default {
     components: {
         builderText,

@@ -40,11 +40,12 @@ class UserController extends Controller
                         ->get();
 
         $users->load('roles');//加载关联数据
-                        
+        
+        $rolesTags = ['type'=>'primary',    'dataName'=>'display_name'];   // rolesTags  tags显示配置     
         $data = BuilderData::addTableData($users)
                                 ->addTableColumn(['prop' => 'id',         'label'=> 'ID',     'width'=> '55'])
                                 ->addTableColumn(['prop' => 'picture',    'label'=> '头像',   'width'=> '100'])
-                                ->addTableColumn(['prop' => 'roles',      'label'=> '角色',   'width'=> '120',    'type' => 'tags'])
+                                ->addTableColumn(['prop' => 'roles',      'label'=> '角色',   'width'=> '120',    'type' => 'tags',    'tags'=>$rolesTags])
                                 ->addTableColumn(['prop' => 'name',       'label'=> '用户名', 'width'=> '120'])
                                 ->addTableColumn(['prop' => 'email',      'label'=> '邮箱',   'width'=> '180'])
                                 ->addTableColumn(['prop' => 'mobile',     'label'=> '手机',  'width'=> '180'])
