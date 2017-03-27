@@ -36,15 +36,19 @@ class UserController extends Controller
                         ->orderBy('id', 'ASC')
                         ->where('status', '>=', 0)
                         ->where($selectSearch, 'like', $inputSearch)
+                        ->with('roles')
                         ->get();
+
+        $users->load('roles');//加载关联数据
+                        
         $data = BuilderData::addTableData($users)
                                 ->addTableColumn(['prop' => 'id',         'label'=> 'ID',     'width'=> '55'])
                                 ->addTableColumn(['prop' => 'picture',    'label'=> '头像',   'width'=> '100'])
-                                ->addTableColumn(['prop' => 'role',    	  'label'=> '角色',   'width'=> '120'])
+                                ->addTableColumn(['prop' => 'roles',      'label'=> '角色',   'width'=> '120',    'type' => 'tags'])
                                 ->addTableColumn(['prop' => 'name',       'label'=> '用户名', 'width'=> '120'])
                                 ->addTableColumn(['prop' => 'email',      'label'=> '邮箱',   'width'=> '180'])
                                 ->addTableColumn(['prop' => 'mobile',     'label'=> '手机',  'width'=> '180'])
-                                ->addTableColumn(['prop' => 'status',     'label'=> '状态',   'width'=> '90','type' => 'status'])
+                                ->addTableColumn(['prop' => 'status',     'label'=> '状态',   'width'=> '90',     'type' => 'status'])
                                 ->addTableColumn(['prop' => 'rightButton','label'=> '操作',   'type' => 'btn'])
                                 ->addTableApiUrl('urlStatus','/api/admin/system/user/status')         //添加状态通信API
                                 ->addTableApiUrl('urlDelete','/api/admin/system/user/delete')         //添加删除通信API
