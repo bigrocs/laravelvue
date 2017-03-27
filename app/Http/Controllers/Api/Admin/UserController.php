@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\Admin;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Controller;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Facades\ {
     App\Facades\BuilderData,
