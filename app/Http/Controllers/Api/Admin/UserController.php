@@ -23,8 +23,6 @@ class UserController extends Controller
     }
     public function index(Request $request)
     {
-    	// $data = $this->userModel->roles();
-    	// dd($data);
         //处理下请求数据
         list($group,$pageSizes,$pageSize,$page,$selectSearch,$inputSearch) = Helpers::compileTableRequest($request);
         // [$total 获取数据总数]

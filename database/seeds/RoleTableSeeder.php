@@ -26,5 +26,10 @@ class RoleTableSeeder extends Seeder
             'display_name'      => '禁用用户',
             'description'       => '关到小黑屋里面的用户,没有任何权限。'
         ]);
+
+        DB::table('role_user')->insert([
+            'user_id'            => 1,
+            'role_id'            => 1,
+        ]);
     }
 }
