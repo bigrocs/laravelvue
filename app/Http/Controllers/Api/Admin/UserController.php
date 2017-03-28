@@ -41,14 +41,14 @@ class UserController extends Controller
 
         $users->load('roles');//加载关联数据
         
-        $rolesTags = ['type'=>'primary',    'dataName'=>'display_name'];   // rolesTags  tags显示配置     
+        $rolesTags = ['type'=>'primary',    'valueName'=>'display_name'];   // rolesTags  tags显示配置      valueName显示数据对象名称 如果不填写默认显示整个对象
         $data = BuilderData::addTableData($users)
                                 ->addTableColumn(['prop' => 'id',         'label'=> 'ID',     'width'=> '55'])
                                 ->addTableColumn(['prop' => 'picture',    'label'=> '头像',   'width'=> '100'])
                                 ->addTableColumn(['prop' => 'roles',      'label'=> '角色',   'width'=> '120',    'type' => 'tags',    'tags'=>$rolesTags])
                                 ->addTableColumn(['prop' => 'name',       'label'=> '用户名', 'width'=> '120'])
                                 ->addTableColumn(['prop' => 'email',      'label'=> '邮箱',   'width'=> '180'])
-                                ->addTableColumn(['prop' => 'mobile',     'label'=> '手机',  'width'=> '180'])
+                                ->addTableColumn(['prop' => 'mobile',     'label'=> '手机',   'width'=> '180'])
                                 ->addTableColumn(['prop' => 'status',     'label'=> '状态',   'width'=> '90',     'type' => 'status'])
                                 ->addTableColumn(['prop' => 'rightButton','label'=> '操作',   'type' => 'btn'])
                                 ->addTableApiUrl('urlStatus','/api/admin/system/user/status')         //添加状态通信API

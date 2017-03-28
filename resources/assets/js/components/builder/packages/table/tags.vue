@@ -1,10 +1,12 @@
 <template>
     <div>
         <el-tag
+            :style="tagStyle"
             v-for="tag in datas"
-            type="success"
+            :type="config.type"
         >
-            {{tag.display_name}}
+          <template v-if="config.valueName">{{tag[config.valueName]}}</template>
+          <template v-else>{{tag}}</template>            
         </el-tag>
     </div>
 </template>
@@ -17,28 +19,20 @@ export default {
         },
         config: {
             type: Object,
-            default: ''
+            default: {
+                valueName:'',
+                type:'',
+            }
         },
     },
     data() {
-      return {
-      };
-    },
-    created() {
-      console.log(this.config);
-    },
-    methods: {
-
+        return {
+            tagStyle:{
+                marginTop:'5px' ,
+                marginLeft:'10px' ,
+                marginBottom:'5px' ,
+            }
+        };
     },
   }
 </script>
-<style lang="css">
-    .input-new-tag{
-        width:78px !important;
-        margin-left:10px !important;
-    }
-    .el-tag+.el-tag{
-        margin-left:10px !important;
-        margin-bottom:10px !important;
-    }
-</style>

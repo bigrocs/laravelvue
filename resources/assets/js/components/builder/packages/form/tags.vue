@@ -8,6 +8,7 @@
           v-for="tag in dynamicTags"
           :closable="true"
           :close-transition="false"
+          :style="tagStyle"
           type="success"
           @close="handleClose(tag)"
         >
@@ -40,7 +41,11 @@ export default {
     data() {
       return {
         dynamicTags: [],
-        inputValue: ''
+        inputValue: '',
+        tagStyle:{
+            marginLeft:'10px' ,
+            marginBottom:'10px' ,
+        }
       };
     },
     created() {
@@ -74,9 +79,5 @@ export default {
     .input-new-tag{
         width:78px !important;
         margin-left:10px !important;
-    }
-    .el-tag+.el-tag{
-        margin-left:10px !important;
-        margin-bottom:10px !important;
     }
 </style>

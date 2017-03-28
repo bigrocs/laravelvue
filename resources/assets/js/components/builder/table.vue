@@ -59,12 +59,13 @@
                 :filtered-value="column.filteredValue"
             >
                 <template scope="scope">
-                    <template v-if="column.prop=='status'">
+<!--                     <template v-if="column.prop=='status'">
                         <el-tag :type="scope.row[column.prop].type">
                             <i :class="scope.row[column.prop].icon"></i>
                             {{ scope.row[column.prop].title }}
                         </el-tag>
-                    </template>
+                    </template> -->
+                    <table-status v-if="column.type=='status'" :datas="scope.row[column.prop]"></table-status>
                     <table-tags v-else-if="column.type=='tags'" :datas="scope.row[column.prop]" :config="column.tags"></table-tags>
                     <template v-else-if="column.prop=='rightButton'">
                         <el-button v-for="rightButton in scope.row[column.prop]" class="table-button-min" :type="rightButton.type" size="mini"  @click="handleClick(rightButton.method,scope.$index, scope.row)">
@@ -99,10 +100,12 @@
 import { mapState } from 'vuex'
 import builderForm from './form.vue'
 import tableTags from './packages/table/tags.vue'
+import tableStatus from './packages/table/status.vue'
 export default {
     components: {
         builderForm,
-        tableTags
+        tableTags,
+        tableStatus
     },
     created() {
         this.compileTopButton()             //编译顶部按钮
@@ -274,41 +277,42 @@ export default {
                     {
                         case 'status':
                             this.statusProp = this.tableDatas.column[i].prop;
-                            switch(this.tableDatas.datas[w][this.statusProp]){
-                                case -1:
-                                    this.tableDatas.datas[w][this.statusProp] = {
-                                        'value':-1,
-                                        'type':'danger',
-                                        'icon':'fa fa-trash',
-                                        'title':'删除',
-                                    };
-                                    break;
-                                case 0:
-                                    this.tableDatas.datas[w][this.statusProp] = {
-                                        'value':0,
-                                        'type':'warning',
-                                        'icon':'fa fa-ban',
-                                        'title':'禁用',
-                                    };
-                                    break;
-                                case 1:
-                                    this.tableDatas.datas[w][this.statusProp] = {
-                                        'value':1,
-                                        'type':'success',
-                                        'icon':'fa fa-check',
-                                        'title':'正常',
-                                    };
-                                    break;
-                                case 2:
-                                    this.tableDatas.datas[w][this.statusProp] = {
-                                        'value':2,
-                                        'type':'warning',
-                                        'icon':'fa fa-eye-slash',
-                                        'title':'隐藏',
-                                    };
-                                    break;
-                            }
-                            break;
+                                break;
+                        //     switch(this.tableDatas.datas[w][this.statusProp]){
+                        //         case -1:
+                        //             this.tableDatas.datas[w][this.statusProp] = {
+                        //                 'value':-1,
+                        //                 'type':'danger',
+                        //                 'icon':'fa fa-trash',
+                        //                 'title':'删除',
+                        //             };
+                        //             break;
+                        //         case 0:
+                        //             this.tableDatas.datas[w][this.statusProp] = {
+                        //                 'value':0,
+                        //                 'type':'warning',
+                        //                 'icon':'fa fa-ban',
+                        //                 'title':'禁用',
+                        //             };
+                        //             break;
+                        //         case 1:
+                        //             this.tableDatas.datas[w][this.statusProp] = {
+                        //                 'value':1,
+                        //                 'type':'success',
+                        //                 'icon':'fa fa-check',
+                        //                 'title':'正常',
+                        //             };
+                        //             break;
+                        //         case 2:
+                        //             this.tableDatas.datas[w][this.statusProp] = {
+                        //                 'value':2,
+                        //                 'type':'warning',
+                        //                 'icon':'fa fa-eye-slash',
+                        //                 'title':'隐藏',
+                        //             };
+                        //             break;
+                        //     }
+                        //     break;
                         case 'btn':
                             let rightButtonData = [];
                             let rightButtonList = this.rightButtonList;
@@ -317,7 +321,7 @@ export default {
                             let column = this.tableDatas.column;
                             for (var key in rightButtonList) {
                                 if(rightButtonList[key].type == 'forbid' || rightButtonList[key].type == 'hide'){
-                                    var statusValue = datas[w][statusProp].value;
+                                    var statusValue = datas[w][statusProp];
                                     if (rightButtonList[key][statusValue]) {
                                         rightButtonData.push(rightButtonList[key][statusValue]);
                                     }
