@@ -16,7 +16,7 @@ import BuilderHtml from './components/builder/index.vue'          //引入页面
 import App from './components/app.vue'                            //主路由渲染页面
 import IndexPage from './components/admin/index.vue'              //后台索引主页面
 import LoginPage from './components/admin/login.vue'              //后台登录页面
-import notFound from './components/admin/notFound.vue'            //后台404页面  
+import notFound from './components/admin/notFound.vue'            //后台404页面
 
 
 axios.post(window.Laravel.apiUrl).then((Response) => {
@@ -26,7 +26,7 @@ axios.post(window.Laravel.apiUrl).then((Response) => {
         adminChildren.push({
             name: mainData.route[key].name,
             path: mainData.route[key].path,
-            component: BuilderHtml, 
+            component: BuilderHtml,
             meta: { apiUrl: mainData.route[key].apiUrl }
         })
     }
@@ -37,7 +37,7 @@ axios.post(window.Laravel.apiUrl).then((Response) => {
     ]
 
     startVue(routes,store) //启动VUE
-    
+
 },(response) => {
     console.log('获取主配置信息失败!');
     console.log('请检查store.js文件Config.Api.mainUrl配置参数是否正确,或者服务端是否通信正常。');
@@ -56,5 +56,5 @@ const startVue = function(routes,store){
         router,
         store,
         render: h => h(App)
-    });  
+    });
 }
