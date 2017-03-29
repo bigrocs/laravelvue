@@ -7,7 +7,7 @@
                     <i :class="topButton.icon"></i>
                     {{topButton.title}}
                 </el-button> -->
-                <table-button v-for="(topButton,key) in tableDatas.topButton" :key="key" :datas="topButton" type="topButton"></table-button>
+                <table-button v-for="(topButton,key) in tableDatas.topButton" :key="key" :datas="topButton" :apiUrl="tableDatas.apiUrl" type="topButton"></table-button>
             </div>
             <div class="col-md-4">
                 <el-input
@@ -105,6 +105,7 @@ export default {
         tableStatus
     },
     created() {
+        console.log(this.$store.state.dialogFormVisible)
         // this.compileTopButton()             //编译顶部按钮
         this.compileRightButton()           //编译右侧按钮
         this.compileTableColumnType()       //编译整个页面属性

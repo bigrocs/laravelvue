@@ -57,6 +57,13 @@ export default {
         state.currentData = currentData
     },
     /**
+     * [DOALOG_FORM_VISIBLE_TRUE 显示form弹窗]
+     * @currentApiUrl 当前页面显示数据   
+     */
+    [types.DOALOG_FORM_VISIBLE_TRUE] (state,currentData){
+        state.dialogFormVisible = true
+    },
+    /**
      * [SET_POST_DATA 设置postData数据]
      * @type {Number}
      * 不传入默认不修改

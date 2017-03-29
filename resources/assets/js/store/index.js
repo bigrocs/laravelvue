@@ -46,6 +46,7 @@ const state = {
         selectSearch:'',
         inputSearch:''
     },
+    dialogFormVisible: false,
     /**
      * [headers API通信header头部初始数据]
      * @type {Object}

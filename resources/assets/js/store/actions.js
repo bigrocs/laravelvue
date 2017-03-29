@@ -82,6 +82,18 @@ export const authCheckFalse = ({ commit,state }) => {
     commit(types.AUTH_STATUS_FLASE) 
 }
 /**
+ * [打开form弹窗]
+ * @author BigRocs
+ * @email    bigrocs@qq.com
+ * @DateTime 2017-03-29T14:21:55+0800
+ * @param    {[type]}                 options.commit [description]
+ * @param    {[type]}                 options.state  [description]
+ * @return   {[type]}                                [description]
+ */
+export const dialogFormVisibleTrue = ({ commit,state }) => {
+    commit(types.DOALOG_FORM_VISIBLE_TRUE) 
+}
+/**
  * [getCurrentData 获取当前页面数据]
  * @author BigRocs
  * @email    bigrocs@qq.com
