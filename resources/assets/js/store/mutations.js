@@ -51,17 +51,22 @@ export default {
     },
     /**
      * [SET_CURRENT_DATA 设置currentData数据]
-     * @currentApiUrl 当前页面显示数据   
+     * @currentData 当前页面显示数据   
      */
     [types.SET_CURRENT_DATA] (state,currentData){
         state.currentData = currentData
     },
     /**
-     * [DOALOG_FORM_VISIBLE_TRUE 显示form弹窗]
-     * @currentApiUrl 当前页面显示数据   
+     * [DOALOG_FORM_VISIBLE_TRUE 显示form弹窗] 
      */
-    [types.DOALOG_FORM_VISIBLE_TRUE] (state,currentData){
+    [types.DOALOG_FORM_VISIBLE_TRUE] (state){
         state.dialogFormVisible = true
+    },
+    /**
+     * [SET_DOALOG_FORM_DATA 设置dialogFormData显示的数据] 
+     */
+    [types.SET_DOALOG_FORM_DATA] (state,data){
+        state.dialogFormData = data
     },
     /**
      * [SET_POST_DATA 设置postData数据]

@@ -85,8 +85,8 @@
             :total="tableDatas.pagination.total">
         </el-pagination>
     </div>
-    <el-dialog size="large" :title="dialogForm.form.title" v-model="$store.state.dialogFormVisible">
-        <builder-form :fromDatas="dialogForm.form"></builder-form>
+    <el-dialog size="large" :title="$store.state.dialogFormData.title" v-model="$store.state.dialogFormVisible">
+        <builder-form :fromDatas="$store.state.dialogFormData"></builder-form>
     </el-dialog>
 </div>
 </template>
@@ -105,7 +105,6 @@ export default {
         tableStatus
     },
     created() {
-        console.log(this.$store.state.dialogFormVisible)
         // this.compileTopButton()             //编译顶部按钮
         this.compileRightButton()           //编译右侧按钮
         this.compileTableColumnType()       //编译整个页面属性

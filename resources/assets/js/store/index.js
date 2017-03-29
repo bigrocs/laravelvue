@@ -34,7 +34,7 @@ const state = {
      * [currentData 当前页面数据]
      * @type {String}
      */
-    currentData:'',
+    currentData:{},
     /**
      * [postData 页面访问post初始数据]
      * @type {Object}
@@ -47,6 +47,7 @@ const state = {
         inputSearch:''
     },
     dialogFormVisible: false,
+    dialogFormData:{},
     /**
      * [headers API通信header头部初始数据]
      * @type {Object}

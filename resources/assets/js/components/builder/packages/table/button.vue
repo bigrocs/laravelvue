@@ -127,10 +127,10 @@ export default {
         handleClick(method,index, row) {
             switch (method) {
                 case 'add':
-                    this.dialogFormHttp(this.apiUrl.urlAdd)
+                    this.openDialogForm(this.apiUrl.urlAdd)
                     break;
                 case 'edit':
-                    this.dialogFormHttp(this.apiUrl.urlEdit,{'id':row.id})
+                    this.openDialogForm(this.apiUrl.urlEdit,{'id':row.id})
                     break;
                 case 'resume':
                     var data = this.changeDatastate(row,1);//批量数据更改状态
@@ -193,19 +193,22 @@ export default {
                 });
             });
         },
-        dialogFormHttp(url,data){
-            console.log(url);
+        /**
+         * [dialogFormHttp description]
+         * @author BigRocs
+         * @email    bigrocs@qq.com
+         * @DateTime 2017-03-29T14:51:09+0800
+         * @param    {[type]}                 url  [description]
+         * @param    {[type]}                 data [description]
+         * @return   {[type]}                      [description]
+         */
+        openDialogForm(url,data){
             let _this = this;
-            this.$store.dispatch('dialogFormVisibleTrue')//打开弹窗form
-            // axios.post(url,data).then(function (Response) {
-            //     _this.$set(_this.dialogForm, 'form', Response.data.form) //获取页面数据赋值
-            // }, (response) => {
-            //     this.$notify({
-            //       title: '操作失败',
-            //       message: '操作失败请联系管理员！',
-            //       type: 'error',
-            //     });
-            // });
+            this.$store.dispatch('dialogFormVisibleTrue')                 //打开弹窗form
+            let thenFunction = function(Response){
+                _this.$store.dispatch('setDialogFormData',Response.data.form)
+            }
+            this.$store.dispatch('getHttpNotify',{url,postData:data,thenFunction,notification:false})     //获取页面数据
         },
     }
 }

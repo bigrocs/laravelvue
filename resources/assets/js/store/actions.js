@@ -94,6 +94,19 @@ export const dialogFormVisibleTrue = ({ commit,state }) => {
     commit(types.DOALOG_FORM_VISIBLE_TRUE) 
 }
 /**
+ * [设置dialogFormData显示的数据]
+ * @author BigRocs
+ * @email    bigrocs@qq.com
+ * @DateTime 2017-03-29T14:48:54+0800
+ * @param    {[type]}                 options.commit [description]
+ * @param    {[type]}                 options.state  [description]
+ * @param    {[type]}                 data           [页面数据]
+ * @return   {[type]}                                [description]
+ */
+export const setDialogFormData = ({ commit,state },data) => {
+    commit(types.SET_DOALOG_FORM_DATA,data) 
+}
+/**
  * [getCurrentData 获取当前页面数据]
  * @author BigRocs
  * @email    bigrocs@qq.com
