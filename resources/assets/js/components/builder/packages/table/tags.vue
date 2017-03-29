@@ -2,7 +2,8 @@
     <div>
         <el-tag
             :style="tagStyle"
-            v-for="tag in datas"
+            v-for="(tag,key) in datas"
+            :key="key"
             :type="config.type"
         >
           <template v-if="config.valueName">{{tag[config.valueName]}}</template>

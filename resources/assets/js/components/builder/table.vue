@@ -3,10 +3,11 @@
     <div slot="header" class="table-header">
         <div class="row">
             <div class="col-md-8">
-                <el-button v-for="topButton in topButtonList" class="table-button" :type="topButton.type" @click="handleClick(topButton.method)">
+<!--                 <el-button v-for="topButton in topButtonList" class="table-button" :type="topButton.type" @click="handleClick(topButton.method)">
                     <i :class="topButton.icon"></i>
                     {{topButton.title}}
-                </el-button>
+                </el-button> -->
+                <table-button v-for="(topButton,key) in tableDatas.topButton" :key="key" :datas="topButton" type="topButton"></table-button>
             </div>
             <div class="col-md-4">
                 <el-input
@@ -17,7 +18,7 @@
                     @blur="handleInputConfirm"
                 >
                     <el-select v-if="tableDatas.search.select" v-model="selectSearch" slot="prepend" placeholder="请选择">
-                        <el-option v-for="(label, value) in tableDatas.search.select" :label="label" :value="value"></el-option>
+                        <el-option v-for="(label, value) in tableDatas.search.select"  :key="value" :label="label" :value="value"></el-option>
                     </el-select>
                     <el-button slot="append" icon="search" @click="handleInputConfirm"></el-button>
                 </el-input>
@@ -59,16 +60,10 @@
                 :filtered-value="column.filteredValue"
             >
                 <template scope="scope">
-<!--                     <template v-if="column.prop=='status'">
-                        <el-tag :type="scope.row[column.prop].type">
-                            <i :class="scope.row[column.prop].icon"></i>
-                            {{ scope.row[column.prop].title }}
-                        </el-tag>
-                    </template> -->
                     <table-status v-if="column.type=='status'" :datas="scope.row[column.prop]"></table-status>
                     <table-tags v-else-if="column.type=='tags'" :datas="scope.row[column.prop]" :config="column.tags"></table-tags>
                     <template v-else-if="column.prop=='rightButton'">
-                        <el-button v-for="rightButton in scope.row[column.prop]" class="table-button-min" :type="rightButton.type" size="mini"  @click="handleClick(rightButton.method,scope.$index, scope.row)">
+                        <el-button v-for="(rightButton,key) in scope.row[column.prop]" :key="key" class="table-button-min" :type="rightButton.type" size="mini"  @click="handleClick(rightButton.method,scope.$index, scope.row)">
                             <i :class="rightButton.icon"></i>
                             {{rightButton.title}}
                         </el-button>
@@ -100,21 +95,23 @@
 import { mapState } from 'vuex'
 import builderForm from './form.vue'
 import tableTags from './packages/table/tags.vue'
+import tableButton from './packages/table/button.vue'
 import tableStatus from './packages/table/status.vue'
 export default {
     components: {
         builderForm,
         tableTags,
+        tableButton,
         tableStatus
     },
     created() {
-        this.compileTopButton()             //编译顶部按钮
+        // this.compileTopButton()             //编译顶部按钮
         this.compileRightButton()           //编译右侧按钮
         this.compileTableColumnType()       //编译整个页面属性
     },
     data() {
       return {
-          topButtonList:[],
+          // topButtonList:[],
           rightButtonList:[],
           statusProp:null,
           inputSearch:'',
@@ -187,34 +184,34 @@ export default {
          * @DateTime 2017-01-6 T17:00:30+0800
          * @return   [type]                   [description]
          */
-        compileTopButton(){
-            let topButtonList = [];
-            let topButton = this.tableDatas.topButton;
-            let buttonProperty = this.button;
-            for (var key in topButton) {
-                let topButtonType = topButton[key].type;
-                let topButtonProperty = topButton[key].property;
-                switch (topButtonType) {
-                    case 'add':  // 新增按钮
-                        var button = Object.assign(buttonProperty.add,topButtonProperty);
-                        topButtonList.push(button);
-                        break;
-                    case 'resume':  // 启用按钮
-                        var button = Object.assign(buttonProperty.resume,topButtonProperty);
-                        topButtonList.push(button);
-                        break;
-                    case 'forbid':  // 禁用按钮
-                        var button = Object.assign(buttonProperty.forbid,topButtonProperty);
-                        topButtonList.push(button);
-                        break;
-                    case 'delete':  // 禁用按钮
-                        var button = Object.assign(buttonProperty.delete,topButtonProperty);;
-                        topButtonList.push(button);
-                        break;
-                }
-            }
-            this.topButtonList = topButtonList;
-        },
+        // compileTopButton(){
+        //     let topButtonList = [];
+        //     let topButton = this.tableDatas.topButton;
+        //     let buttonProperty = this.button;
+        //     for (var key in topButton) {
+        //         let topButtonType = topButton[key].type;
+        //         let topButtonProperty = topButton[key].property;
+        //         switch (topButtonType) {
+        //             case 'add':  // 新增按钮
+        //                 var button = Object.assign(buttonProperty.add,topButtonProperty);
+        //                 topButtonList.push(button);
+        //                 break;
+        //             case 'resume':  // 启用按钮
+        //                 var button = Object.assign(buttonProperty.resume,topButtonProperty);
+        //                 topButtonList.push(button);
+        //                 break;
+        //             case 'forbid':  // 禁用按钮
+        //                 var button = Object.assign(buttonProperty.forbid,topButtonProperty);
+        //                 topButtonList.push(button);
+        //                 break;
+        //             case 'delete':  // 禁用按钮
+        //                 var button = Object.assign(buttonProperty.delete,topButtonProperty);;
+        //                 topButtonList.push(button);
+        //                 break;
+        //         }
+        //     }
+        //     this.topButtonList = topButtonList;
+        // },
         /**
          * [compileRightButton 编译表格右侧按钮]
          * @Author   BigRocs                  BigRocs@qq.com
@@ -278,41 +275,6 @@ export default {
                         case 'status':
                             this.statusProp = this.tableDatas.column[i].prop;
                                 break;
-                        //     switch(this.tableDatas.datas[w][this.statusProp]){
-                        //         case -1:
-                        //             this.tableDatas.datas[w][this.statusProp] = {
-                        //                 'value':-1,
-                        //                 'type':'danger',
-                        //                 'icon':'fa fa-trash',
-                        //                 'title':'删除',
-                        //             };
-                        //             break;
-                        //         case 0:
-                        //             this.tableDatas.datas[w][this.statusProp] = {
-                        //                 'value':0,
-                        //                 'type':'warning',
-                        //                 'icon':'fa fa-ban',
-                        //                 'title':'禁用',
-                        //             };
-                        //             break;
-                        //         case 1:
-                        //             this.tableDatas.datas[w][this.statusProp] = {
-                        //                 'value':1,
-                        //                 'type':'success',
-                        //                 'icon':'fa fa-check',
-                        //                 'title':'正常',
-                        //             };
-                        //             break;
-                        //         case 2:
-                        //             this.tableDatas.datas[w][this.statusProp] = {
-                        //                 'value':2,
-                        //                 'type':'warning',
-                        //                 'icon':'fa fa-eye-slash',
-                        //                 'title':'隐藏',
-                        //             };
-                        //             break;
-                        //     }
-                        //     break;
                         case 'btn':
                             let rightButtonData = [];
                             let rightButtonList = this.rightButtonList;

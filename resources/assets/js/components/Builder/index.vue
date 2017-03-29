@@ -10,7 +10,7 @@
                     </template>
                 </el-card>
                 <el-tabs type="card" v-model="tabIndex" @tab-click="handleTabsClick" v-else>
-                    <el-tab-pane v-for="(tabs,key) in currentData.tabs" :label="tabs">
+                    <el-tab-pane v-for="(tabs,key) in currentData.tabs" :key="key" :label="tabs">
                         <template v-if="tabIndex == key" v-for="data in currentData" >
                             <builder-form   v-if="data.type == 'form'"      :fromDatas="data"></builder-form>
                             <builder-table  v-if="data.type == 'table'"     :tableDatas="data"></builder-table>

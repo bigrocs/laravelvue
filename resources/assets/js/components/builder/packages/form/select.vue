@@ -25,9 +25,10 @@
             :popper-class="datas.popperClass"
             v-model="datas.value">
             <el-option
-              v-for="(item,key) in datas.options"
-              :label="item"
-              :value="key.toString()">
+                v-for="(item,key) in datas.options"
+                :label="item"
+                :key="key"
+                :value="key.toString()">
             </el-option>
         </el-select>
     </div>

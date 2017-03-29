@@ -5,7 +5,8 @@
     </div>
     <div class="col-md-6 col-sm-12">
         <el-tag
-          v-for="tag in dynamicTags"
+          v-for="(tag,key) in dynamicTags"
+          :key="key"
           :closable="true"
           :close-transition="false"
           :style="tagStyle"
