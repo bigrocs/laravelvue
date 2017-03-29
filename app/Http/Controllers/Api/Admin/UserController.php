@@ -29,7 +29,7 @@ class UserController extends Controller
         $total = $this->userModel
                         ->where('status', '>=', 0)
                         ->where($selectSearch, 'like', $inputSearch)
-                        ->count();                 
+                        ->count();
         //[$userModel 获取数据对象]
         $users = $this->userModel
                         ->page($page, $pageSize)
@@ -40,7 +40,7 @@ class UserController extends Controller
                         ->get();
 
         $users->load('roles');//加载关联数据
-        
+
         $rolesTags = ['type'=>'primary',    'valueName'=>'display_name'];   // rolesTags  tags显示配置      valueName显示数据对象名称 如果不填写默认显示整个对象
         $data = BuilderData::addTableData($users)
                                 ->addTableColumn(['prop' => 'id',         'label'=> 'ID',     'width'=> '55'])

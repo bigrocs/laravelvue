@@ -3,12 +3,12 @@
     <div slot="header" class="table-header">
         <div class="row">
             <div class="col-md-8">
-                <table-button 
-                  v-for="(topButton,key) in tableDatas.topButton" 
-                  :key="key" 
-                  :datas="topButton" 
-                  :apiUrl="tableDatas.apiUrl" 
-                  :multipleSelection="multipleSelection" 
+                <table-button
+                  v-for="(topButton,key) in tableDatas.topButton"
+                  :key="key"
+                  :buttonDatas="topButton"
+                  :apiUrl="tableDatas.apiUrl"
+                  :multipleSelection="multipleSelection"
                   type="topButton"
                 >
                 </table-button>
@@ -67,10 +67,18 @@
                     <table-status v-if="column.type=='status'" :datas="scope.row[column.prop]"></table-status>
                     <table-tags v-else-if="column.type=='tags'" :datas="scope.row[column.prop]" :config="column.tags"></table-tags>
                     <template v-else-if="column.prop=='rightButton'">
-                        <el-button v-for="(rightButton,key) in scope.row[column.prop]" :key="key" class="table-button-min" :type="rightButton.type" size="mini"  @click="handleClick(rightButton.method,scope.$index, scope.row)">
-                            <i :class="rightButton.icon"></i>
-                            {{rightButton.title}}
-                        </el-button>
+                        <table-button
+                          v-for="(rightButton,key) in tableDatas.rightButton"
+                          :key="key"
+                          :buttonDatas="rightButton"
+                          :id="scope.row['id']"
+                          :status="scope.row[statusProp].toString()"
+                          :apiUrl="tableDatas.apiUrl"
+                          :multipleSelection="multipleSelection"
+                          size="mini"
+                          type="rightButton"
+                        >
+                        </table-button>
                     </template>
                     <template v-else>
                         {{ scope.row[column.prop] }}
@@ -107,7 +115,7 @@ export default {
     },
     created() {
         // this.compileTopButton()             //编译顶部按钮
-        this.compileRightButton()           //编译右侧按钮
+        // this.compileRightButton()           //编译右侧按钮
         this.compileTableColumnType()       //编译整个页面属性
     },
     data() {
@@ -175,46 +183,6 @@ export default {
     },
     methods: {
         /**
-         * [compileRightButton 编译表格右侧按钮]
-         * @Author   BigRocs                  BigRocs@qq.com
-         * @DateTime 2017-01-6T17:00:30+0800
-         * @return   [type]                   [description]
-         */
-        compileRightButton(){
-            let rightButtonList = [];
-            for (var key in this.tableDatas.rightButton) {
-                switch (this.tableDatas.rightButton[key].type) {
-                    case 'edit':  // 编辑按钮
-                        var button = this.button.edit;
-                        rightButtonList.push(button);
-                        break;
-                    case 'forbid':  //改变记录状态按钮，会更具数据当前的状态自动选择应该显示启用/禁用
-                        var button ={
-                            0:this.button.resume,
-                            1:this.button.forbid,
-                            'type':'forbid',
-                        };
-                        rightButtonList.push(button);
-                        break;
-                    case 'hide':  //改变记录状态按钮，会更具数据当前的状态自动选择应该显示启用/禁用
-                            var button ={
-                                2:this.button.display,
-                                1:this.button.hide,
-                                'type':'hide',
-                            };
-                            rightButtonList.push(button);
-                            break;
-                    case 'delete':  // 删除按钮
-                        var button = this.button.delete;
-                        rightButtonList.push(button);
-                        break;
-                    default:
-                        break;
-                }
-            }
-            this.rightButtonList = rightButtonList;
-        },
-        /**
          * [compileTableColumnType 根据表格标题字段指定类型编译列表数据]
          * @Author   BigRocs                  BigRocs@qq.com
          * @DateTime 2016-07-07T10:02:07+0800
@@ -237,150 +205,11 @@ export default {
                         case 'status':
                             this.statusProp = this.tableDatas.column[i].prop;
                                 break;
-                        case 'btn':
-                            let rightButtonData = [];
-                            let rightButtonList = this.rightButtonList;
-                            let datas = this.tableDatas.datas;
-                            let statusProp = this.statusProp;
-                            let column = this.tableDatas.column;
-                            for (var key in rightButtonList) {
-                                if(rightButtonList[key].type == 'forbid' || rightButtonList[key].type == 'hide'){
-                                    var statusValue = datas[w][statusProp];
-                                    if (rightButtonList[key][statusValue]) {
-                                        rightButtonData.push(rightButtonList[key][statusValue]);
-                                    }
-                                }else{
-                                    rightButtonData.push(rightButtonList[key]);
-                                }
-                            }
-                            this.tableDatas.datas[w][column[i].prop] = rightButtonData;
-                            break;
-                        default:
+
                     }
                 }
             }
         },
-        /**
-         * [handleClick 左右table按钮中控制分发器]
-         * @Author   BigRocs                  BigRocs@qq.com
-         * @DateTime 2017-01-03T10:02:07+0800
-         * @param    [type]                     $method       [动作命令]
-         * @param   [type]                      $index        [动作行序号]
-         * @param   [type]                      $row          [动作数据]
-         */
-        // handleClick(method,index, row) {
-        //     switch (method) {
-        //         case 'add':
-        //             this.handleAdd(index, row)
-        //             break;
-        //         case 'edit':
-        //             this.handleEdit(index, row)
-        //             break;
-        //         case 'resume':
-        //             this.handleResume(index, row)
-        //             break;
-        //         case 'forbid':
-        //             this.handleForbid(index, row)
-        //             break;
-        //         case 'display':
-        //             this.handleDisplay(index, row)
-        //             break;
-        //         case 'hide':
-        //             this.handleHide(index, row)
-        //             break;
-        //         case 'delete':
-        //             this.handleDelete(index, row)
-        //             break;
-        //         default:
-        //     }
-        // },
-        // handleAdd(index, row) {
-        //     this.dialogFormHttp(this.tableDatas.apiUrl.urlAdd)
-        // },
-        // handleEdit(index, row) {
-        //     this.dialogFormHttp(this.tableDatas.apiUrl.urlEdit,{'id':row.id})
-        // },
-        // handleResume(index, row){
-        //     var data = this.changeDatastate(row,1);//批量数据更改状态
-        //     this.handleHttp(this.tableDatas.apiUrl.urlStatus,data);
-        // },
-        // handleForbid(index, row){
-        //     var data = this.changeDatastate(row,0);//批量数据更改状态
-        //     this.handleHttp(this.tableDatas.apiUrl.urlStatus,data);
-        // },
-        // handleDisplay(index, row){
-        //     var data = this.changeDatastate(row,1);//批量数据更改状态
-        //     this.handleHttp(this.tableDatas.apiUrl.urlStatus,data);
-        // },
-        // handleHide(index, row){
-        //     let data = this.changeDatastate(row,2);//批量数据更改状态
-        //     this.handleHttp(this.tableDatas.apiUrl.urlStatus,data);
-        // },
-        // handleDelete(index, row){
-        //     let data = [];
-        //     if (row==null) {
-        //         for (let key in this.multipleSelection) {
-        //             data[key] = {
-        //                 'id':this.multipleSelection[key].id,
-        //             }
-        //         }
-        //     }else{
-        //         data = [{
-        //             'id':row.id
-        //         }];
-        //     }
-        //     this.$confirm('此操作将永久删除此数据, 是否继续?', '危险提示', {
-        //         confirmButtonText: '确定',
-        //         cancelButtonText: '取消',
-        //         type: 'error'
-        //     }).then(() => {
-        //         if (index == null) {
-        //             //批量删除页面显示数据
-        //             for (var key in this.multipleSelection) {
-        //                 for (var dataKey in this.tableDatas.datas) {
-        //                     if (this.multipleSelection[key].id == this.tableDatas.datas[dataKey].id) {
-        //                         this.tableDatas.datas.splice(dataKey, 1);
-        //                     }
-        //                 }
-        //             }
-        //         }else{
-        //             this.tableDatas.datas.splice(index, 1);
-        //         }
-        //         this.handleHttp(this.tableDatas.apiUrl.urlDelete,data);//通知服务端删除数据
-        //     }).catch(() => {
-        //         this.$notify({
-        //             title: '操作取消',
-        //             message: '已取消删除',
-        //             type: 'info',
-        //         });
-        //     });
-        // },
-        // handleHttp(url,data){
-        //     let _this = this;
-        //     axios.post(url, data)
-        //       .then(function (Response) {
-        //         if (Response.data.duration==null) {
-        //             Response.data.duration = 4500;
-        //         }
-        //         _this.$notify({
-        //           title: Response.data.title,
-        //           message: Response.data.message,
-        //           type: Response.data.type,
-        //           iconClass: Response.data.iconClass,
-        //           customClass: Response.data.customClass,
-        //           duration: Response.data.duration,
-        //           onClose: Response.data.onClose,
-        //           offset: Response.data.offset,
-        //         });
-        //     })
-        //     .catch(function (error) {
-        //         _this.$notify({
-        //           title: '操作失败',
-        //           message: '操作失败请联系管理员！',
-        //           type: 'error',
-        //         });
-        //     });
-        // },
         handleSelectionChange(val) {
             this.multipleSelection = val;
         },
