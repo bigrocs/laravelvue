@@ -20,16 +20,19 @@
             </div>
         </div>
     </div>
+    <dialog-form></dialog-form>
 </div>
 </template>
 <script>
 import { mapState } from 'vuex'
 import builderForm from './form.vue'
 import builderTable from './table.vue'
+import dialogForm from './packages/dialogForm.vue'
 export default {
     components: {
         builderForm,
-        builderTable
+        builderTable,
+        dialogForm
     },
     created() {
         this.getData();//初始化页面数据

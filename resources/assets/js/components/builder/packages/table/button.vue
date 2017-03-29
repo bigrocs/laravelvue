@@ -127,10 +127,10 @@ export default {
         handleClick(method,index, row) {
             switch (method) {
                 case 'add':
-                    this.openDialogForm(this.apiUrl.urlAdd)
+                    this.$store.dispatch('openDialogForm',{url:this.apiUrl.urlAdd})     //获取页面数据
                     break;
                 case 'edit':
-                    this.openDialogForm(this.apiUrl.urlEdit,{'id':row.id})
+                    this.$store.dispatch('openDialogForm',{url:this.apiUrl.urlEdit},{'id':row.id})     //获取页面数据
                     break;
                 case 'resume':
                     var data = this.changeDatastate(row,1);//批量数据更改状态
@@ -192,23 +192,6 @@ export default {
                     type: 'info',
                 });
             });
-        },
-        /**
-         * [dialogFormHttp description]
-         * @author BigRocs
-         * @email    bigrocs@qq.com
-         * @DateTime 2017-03-29T14:51:09+0800
-         * @param    {[type]}                 url  [description]
-         * @param    {[type]}                 data [description]
-         * @return   {[type]}                      [description]
-         */
-        openDialogForm(url,data){
-            let _this = this;
-            this.$store.dispatch('dialogFormVisibleTrue')                 //打开弹窗form
-            let thenFunction = function(Response){
-                _this.$store.dispatch('setDialogFormData',Response.data.form)
-            }
-            this.$store.dispatch('getHttpNotify',{url,postData:data,thenFunction,notification:false})     //获取页面数据
         },
     }
 }

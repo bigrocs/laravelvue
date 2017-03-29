@@ -82,29 +82,22 @@ export const authCheckFalse = ({ commit,state }) => {
     commit(types.AUTH_STATUS_FLASE) 
 }
 /**
- * [打开form弹窗]
+ * [打开DialogForm并填写数据]
  * @author BigRocs
  * @email    bigrocs@qq.com
- * @DateTime 2017-03-29T14:21:55+0800
- * @param    {[type]}                 options.commit [description]
- * @param    {[type]}                 options.state  [description]
- * @return   {[type]}                                [description]
+ * @DateTime 2017-03-29T15:23:45+0800
+ * @param    {[type]}                 options.commit   [description]
+ * @param    {[type]}                 options.state    [description]
+ * @param    {[type]}                 options.url      [description]
+ * @param    {[type]}                 options.postData [description]
+ * @return   {[type]}                                  [description]
  */
-export const dialogFormVisibleTrue = ({ commit,state }) => {
+export const openDialogForm = ({ commit,state },{url,postData}) => {
     commit(types.DOALOG_FORM_VISIBLE_TRUE) 
-}
-/**
- * [设置dialogFormData显示的数据]
- * @author BigRocs
- * @email    bigrocs@qq.com
- * @DateTime 2017-03-29T14:48:54+0800
- * @param    {[type]}                 options.commit [description]
- * @param    {[type]}                 options.state  [description]
- * @param    {[type]}                 data           [页面数据]
- * @return   {[type]}                                [description]
- */
-export const setDialogFormData = ({ commit,state },data) => {
-    commit(types.SET_DOALOG_FORM_DATA,data) 
+    let thenFunction = function(Response){
+        commit(types.SET_DOALOG_FORM_DATA,Response.data.form) 
+    }
+    getHttpNotify({ commit,state },{url,postData,thenFunction,notification:false}) //检测登录状态
 }
 /**
  * [getCurrentData 获取当前页面数据]

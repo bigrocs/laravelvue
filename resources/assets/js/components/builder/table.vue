@@ -85,9 +85,6 @@
             :total="tableDatas.pagination.total">
         </el-pagination>
     </div>
-    <el-dialog size="large" :title="$store.state.dialogFormData.title" v-model="$store.state.dialogFormVisible">
-        <builder-form :fromDatas="$store.state.dialogFormData"></builder-form>
-    </el-dialog>
 </div>
 </template>
 
@@ -116,11 +113,6 @@ export default {
           statusProp:null,
           inputSearch:'',
           selectSearch:'',
-          dialogForm:{
-              form:{
-                  title:''
-              }
-          },
           multipleSelection: [],
           button:{
               'add':{
@@ -393,19 +385,19 @@ export default {
                 });
             });
         },
-        dialogFormHttp(url,data){
-            let _this = this;
-            this.$store.state.dialogFormVisible = true
-            axios.post(url,data).then(function (Response) {
-                _this.$set(_this.dialogForm, 'form', Response.data.form) //获取页面数据赋值
-            }, (response) => {
-                this.$notify({
-                  title: '操作失败',
-                  message: '操作失败请联系管理员！',
-                  type: 'error',
-                });
-            });
-        },
+        // dialogFormHttp(url,data){
+        //     let _this = this;
+        //     this.$store.state.dialogFormVisible = true
+        //     axios.post(url,data).then(function (Response) {
+        //         _this.$set(_this.dialogForm, 'form', Response.data.form) //获取页面数据赋值
+        //     }, (response) => {
+        //         this.$notify({
+        //           title: '操作失败',
+        //           message: '操作失败请联系管理员！',
+        //           type: 'error',
+        //         });
+        //     });
+        // },
         handleHttp(url,data){
             let _this = this;
             axios.post(url, data)
