@@ -19,7 +19,7 @@
     "browser-sync": "^2.18.7",
     "browser-sync-webpack-plugin": "^1.1.4",
     "cross-env": "^3.2.4",
-    "element-ui": "^1.2.6",
+    "element-ui": "^1.2.7",
     "fastclick": "^1.0.6",
     "font-awesome": "^4.7.0",
     "ionicons": "^3.0.0",
