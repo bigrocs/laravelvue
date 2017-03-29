@@ -3,11 +3,15 @@
     <div slot="header" class="table-header">
         <div class="row">
             <div class="col-md-8">
-<!--                 <el-button v-for="topButton in topButtonList" class="table-button" :type="topButton.type" @click="handleClick(topButton.method)">
-                    <i :class="topButton.icon"></i>
-                    {{topButton.title}}
-                </el-button> -->
-                <table-button v-for="(topButton,key) in tableDatas.topButton" :key="key" :datas="topButton" :apiUrl="tableDatas.apiUrl" type="topButton"></table-button>
+                <table-button 
+                  v-for="(topButton,key) in tableDatas.topButton" 
+                  :key="key" 
+                  :datas="topButton" 
+                  :apiUrl="tableDatas.apiUrl" 
+                  :multipleSelection="multipleSelection" 
+                  type="topButton"
+                >
+                </table-button>
             </div>
             <div class="col-md-4">
                 <el-input
@@ -171,40 +175,6 @@ export default {
     },
     methods: {
         /**
-         * [compileTopButton 编译表格右侧按钮]
-         * @Author   BigRocs                  BigRocs@qq.com
-         * @DateTime 2017-01-6 T17:00:30+0800
-         * @return   [type]                   [description]
-         */
-        // compileTopButton(){
-        //     let topButtonList = [];
-        //     let topButton = this.tableDatas.topButton;
-        //     let buttonProperty = this.button;
-        //     for (var key in topButton) {
-        //         let topButtonType = topButton[key].type;
-        //         let topButtonProperty = topButton[key].property;
-        //         switch (topButtonType) {
-        //             case 'add':  // 新增按钮
-        //                 var button = Object.assign(buttonProperty.add,topButtonProperty);
-        //                 topButtonList.push(button);
-        //                 break;
-        //             case 'resume':  // 启用按钮
-        //                 var button = Object.assign(buttonProperty.resume,topButtonProperty);
-        //                 topButtonList.push(button);
-        //                 break;
-        //             case 'forbid':  // 禁用按钮
-        //                 var button = Object.assign(buttonProperty.forbid,topButtonProperty);
-        //                 topButtonList.push(button);
-        //                 break;
-        //             case 'delete':  // 禁用按钮
-        //                 var button = Object.assign(buttonProperty.delete,topButtonProperty);;
-        //                 topButtonList.push(button);
-        //                 break;
-        //         }
-        //     }
-        //     this.topButtonList = topButtonList;
-        // },
-        /**
          * [compileRightButton 编译表格右侧按钮]
          * @Author   BigRocs                  BigRocs@qq.com
          * @DateTime 2017-01-6T17:00:30+0800
@@ -298,172 +268,121 @@ export default {
          * @param   [type]                      $index        [动作行序号]
          * @param   [type]                      $row          [动作数据]
          */
-        handleClick(method,index, row) {
-            switch (method) {
-                case 'add':
-                    this.handleAdd(index, row)
-                    break;
-                case 'edit':
-                    this.handleEdit(index, row)
-                    break;
-                case 'resume':
-                    this.handleResume(index, row)
-                    break;
-                case 'forbid':
-                    this.handleForbid(index, row)
-                    break;
-                case 'display':
-                    this.handleDisplay(index, row)
-                    break;
-                case 'hide':
-                    this.handleHide(index, row)
-                    break;
-                case 'delete':
-                    this.handleDelete(index, row)
-                    break;
-                default:
-            }
-        },
-        handleAdd(index, row) {
-            this.dialogFormHttp(this.tableDatas.apiUrl.urlAdd)
-        },
-        handleEdit(index, row) {
-            this.dialogFormHttp(this.tableDatas.apiUrl.urlEdit,{'id':row.id})
-        },
-        handleResume(index, row){
-            var data = this.changeDatastate(row,1);//批量数据更改状态
-            this.handleHttp(this.tableDatas.apiUrl.urlStatus,data);
-        },
-        handleForbid(index, row){
-            var data = this.changeDatastate(row,0);//批量数据更改状态
-            this.handleHttp(this.tableDatas.apiUrl.urlStatus,data);
-        },
-        handleDisplay(index, row){
-            var data = this.changeDatastate(row,1);//批量数据更改状态
-            this.handleHttp(this.tableDatas.apiUrl.urlStatus,data);
-        },
-        handleHide(index, row){
-            let data = this.changeDatastate(row,2);//批量数据更改状态
-            this.handleHttp(this.tableDatas.apiUrl.urlStatus,data);
-        },
-        handleDelete(index, row){
-            let data = [];
-            if (row==null) {
-                for (let key in this.multipleSelection) {
-                    data[key] = {
-                        'id':this.multipleSelection[key].id,
-                    }
-                }
-            }else{
-                data = [{
-                    'id':row.id
-                }];
-            }
-            this.$confirm('此操作将永久删除此数据, 是否继续?', '危险提示', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
-                type: 'error'
-            }).then(() => {
-                if (index == null) {
-                    //批量删除页面显示数据
-                    for (var key in this.multipleSelection) {
-                        for (var dataKey in this.tableDatas.datas) {
-                            if (this.multipleSelection[key].id == this.tableDatas.datas[dataKey].id) {
-                                this.tableDatas.datas.splice(dataKey, 1);
-                            }
-                        }
-                    }
-                }else{
-                    this.tableDatas.datas.splice(index, 1);
-                }
-                this.handleHttp(this.tableDatas.apiUrl.urlDelete,data);//通知服务端删除数据
-            }).catch(() => {
-                this.$notify({
-                    title: '操作取消',
-                    message: '已取消删除',
-                    type: 'info',
-                });
-            });
-        },
-        // dialogFormHttp(url,data){
-        //     let _this = this;
-        //     this.$store.state.dialogFormVisible = true
-        //     axios.post(url,data).then(function (Response) {
-        //         _this.$set(_this.dialogForm, 'form', Response.data.form) //获取页面数据赋值
-        //     }, (response) => {
+        // handleClick(method,index, row) {
+        //     switch (method) {
+        //         case 'add':
+        //             this.handleAdd(index, row)
+        //             break;
+        //         case 'edit':
+        //             this.handleEdit(index, row)
+        //             break;
+        //         case 'resume':
+        //             this.handleResume(index, row)
+        //             break;
+        //         case 'forbid':
+        //             this.handleForbid(index, row)
+        //             break;
+        //         case 'display':
+        //             this.handleDisplay(index, row)
+        //             break;
+        //         case 'hide':
+        //             this.handleHide(index, row)
+        //             break;
+        //         case 'delete':
+        //             this.handleDelete(index, row)
+        //             break;
+        //         default:
+        //     }
+        // },
+        // handleAdd(index, row) {
+        //     this.dialogFormHttp(this.tableDatas.apiUrl.urlAdd)
+        // },
+        // handleEdit(index, row) {
+        //     this.dialogFormHttp(this.tableDatas.apiUrl.urlEdit,{'id':row.id})
+        // },
+        // handleResume(index, row){
+        //     var data = this.changeDatastate(row,1);//批量数据更改状态
+        //     this.handleHttp(this.tableDatas.apiUrl.urlStatus,data);
+        // },
+        // handleForbid(index, row){
+        //     var data = this.changeDatastate(row,0);//批量数据更改状态
+        //     this.handleHttp(this.tableDatas.apiUrl.urlStatus,data);
+        // },
+        // handleDisplay(index, row){
+        //     var data = this.changeDatastate(row,1);//批量数据更改状态
+        //     this.handleHttp(this.tableDatas.apiUrl.urlStatus,data);
+        // },
+        // handleHide(index, row){
+        //     let data = this.changeDatastate(row,2);//批量数据更改状态
+        //     this.handleHttp(this.tableDatas.apiUrl.urlStatus,data);
+        // },
+        // handleDelete(index, row){
+        //     let data = [];
+        //     if (row==null) {
+        //         for (let key in this.multipleSelection) {
+        //             data[key] = {
+        //                 'id':this.multipleSelection[key].id,
+        //             }
+        //         }
+        //     }else{
+        //         data = [{
+        //             'id':row.id
+        //         }];
+        //     }
+        //     this.$confirm('此操作将永久删除此数据, 是否继续?', '危险提示', {
+        //         confirmButtonText: '确定',
+        //         cancelButtonText: '取消',
+        //         type: 'error'
+        //     }).then(() => {
+        //         if (index == null) {
+        //             //批量删除页面显示数据
+        //             for (var key in this.multipleSelection) {
+        //                 for (var dataKey in this.tableDatas.datas) {
+        //                     if (this.multipleSelection[key].id == this.tableDatas.datas[dataKey].id) {
+        //                         this.tableDatas.datas.splice(dataKey, 1);
+        //                     }
+        //                 }
+        //             }
+        //         }else{
+        //             this.tableDatas.datas.splice(index, 1);
+        //         }
+        //         this.handleHttp(this.tableDatas.apiUrl.urlDelete,data);//通知服务端删除数据
+        //     }).catch(() => {
         //         this.$notify({
+        //             title: '操作取消',
+        //             message: '已取消删除',
+        //             type: 'info',
+        //         });
+        //     });
+        // },
+        // handleHttp(url,data){
+        //     let _this = this;
+        //     axios.post(url, data)
+        //       .then(function (Response) {
+        //         if (Response.data.duration==null) {
+        //             Response.data.duration = 4500;
+        //         }
+        //         _this.$notify({
+        //           title: Response.data.title,
+        //           message: Response.data.message,
+        //           type: Response.data.type,
+        //           iconClass: Response.data.iconClass,
+        //           customClass: Response.data.customClass,
+        //           duration: Response.data.duration,
+        //           onClose: Response.data.onClose,
+        //           offset: Response.data.offset,
+        //         });
+        //     })
+        //     .catch(function (error) {
+        //         _this.$notify({
         //           title: '操作失败',
         //           message: '操作失败请联系管理员！',
         //           type: 'error',
         //         });
         //     });
         // },
-        handleHttp(url,data){
-            let _this = this;
-            axios.post(url, data)
-              .then(function (Response) {
-                if (Response.data.duration==null) {
-                    Response.data.duration = 4500;
-                }
-                _this.$notify({
-                  title: Response.data.title,
-                  message: Response.data.message,
-                  type: Response.data.type,
-                  iconClass: Response.data.iconClass,
-                  customClass: Response.data.customClass,
-                  duration: Response.data.duration,
-                  onClose: Response.data.onClose,
-                  offset: Response.data.offset,
-                });
-            })
-            .catch(function (error) {
-                _this.$notify({
-                  title: '操作失败',
-                  message: '操作失败请联系管理员！',
-                  type: 'error',
-                });
-            });
-        },
         handleSelectionChange(val) {
             this.multipleSelection = val;
-        },
-        /**
-         * [changeDatastate 批量更改数据状态]
-         * @author BigRocs
-         * @email    bigrocs@qq.com
-         * @DateTime 2017-02-16T15:48:46+0800
-         * @param    {[type]}                 row   [description]
-         * @param    {[type]}                 state [description]
-         * @return   {[type]}                       [description]
-         */
-        changeDatastate(row,state){
-            // 整理返回数据
-            var data = [];
-            if (row==null) {
-                for (var key in this.multipleSelection) {
-                    data[key] = {
-                        'id':this.multipleSelection[key].id,
-                        'status':state,
-                    }
-                }
-                //改变页面显示数据
-                for (var key in this.multipleSelection) {
-                    for (var dataKey in this.tableDatas.datas) {
-                        if (this.multipleSelection[key].id == this.tableDatas.datas[dataKey].id) {
-                            this.tableDatas.datas[dataKey][this.statusProp] = state;
-                        }
-                    }
-                }
-            }else{
-                data = [{
-                    'id':row.id,
-                    'status':state,
-                }];
-                row[this.statusProp] = state;
-            }
-
-            this.compileTableColumnType();//改变数据后重新编译显示页面
-            return data;
         },
         /**
          * [handleSizeChange 设置每页显示数量并获取数据]
@@ -522,11 +441,6 @@ export default {
     .el-select .el-input {
         width: 110px;
      }
-    .table-button{
-        margin-bottom:10px !important;
-        margin-left:0px !important;
-        margin-right:10px !important;
-    }
     .table-button-min{
         margin-bottom:5px !important;
         margin-left:0px !important;

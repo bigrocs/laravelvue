@@ -109,7 +109,7 @@ export const openDialogForm = ({ commit,state },{url,postData}) => {
  * @param    {[type]}                 postData       [description]
  * @return   {[type]}                                [description]
  */
-export const getCurrentData = ({ commit,state },postData) => {
+export const getCurrentData = ({ commit,state },postData=state.postData) => {
     axios.post(state.currentApiUrl,postData).then((Response) => {
     	commit(types.SET_CURRENT_DATA,Response.data) 
         if(state.currentData.title){
