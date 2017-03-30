@@ -69,4 +69,26 @@ class UserController extends Controller
                                 ->get();
         return response()->json($data, 200);
     }
+    public function status(Request $request){
+        foreach ($request->all() as $value) {
+            $this->userModel->where('id', '=', $value['id'])->update(['status' => $value['status']]);
+        }
+        $data = [
+                    'title'     => '状态已更改',
+                    'message'   => '后台配置数据状态更改成功!',
+                    'type'      => 'success',
+                ];
+        return response()->json($data, 200);
+    }
+    public function delete(Request $request){
+        foreach ($request->all() as $value) {
+            $response = $this->userModel->find($value['id'])->forceDelete();
+        }
+        $data = [
+                    'title'     => '删除成功',
+                    'message'   => '后台配置数据删除成功!',
+                    'type'      => 'success',
+                ];
+        return response()->json($data, 200);
+    }
 }

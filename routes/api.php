@@ -41,6 +41,12 @@ Route::group(['prefix' => 'admin/system', 'as' => 'api.admin.system.', 'middlewa
     Route::post('upload/image', [ 'as' => 'upload.image', 'uses' => 'UploadController@postImage']);
 
     Route::post('user', [ 'as' => 'user.index', 'uses' => 'UserController@index']);
+    Route::post('user/status', ['as' => 'user.status', 'uses' => 'UserController@status']);
+    Route::post('user/delete', ['as' => 'user.delete', 'uses' => 'UserController@delete']);
+    Route::post('user/add', ['as' => 'user.add', 'uses' => 'UserController@add']);
+    Route::post('user/store', ['as' => 'user.store', 'uses' => 'UserController@store']);
+    Route::post('user/edit', ['as' => 'user.edit', 'uses' => 'UserController@edit']);
+    Route::post('user/update', ['as' => 'user.store', 'uses' => 'UserController@update']);
 });
 
 /*
