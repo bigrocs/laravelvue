@@ -54,8 +54,8 @@
             >
                 <template scope="scope">
                     <table-status v-if="column.type=='status'" :datas="scope.row[column.prop]"></table-status>
-                    <table-tags v-else-if="column.type=='tags'" :datas="scope.row[column.prop]" :config="column.tags"></table-tags>
-                    <template v-else-if="column.type=='btn'">
+                    <table-tags v-if="column.type=='tags'" :datas="scope.row[column.prop]" :config="column.tags"></table-tags>
+                    <template v-if="column.type=='btn'">
                         <table-button
                           v-for="(rightButton,key) in tableDatas.rightButton"
                           :key="key"
@@ -69,9 +69,7 @@
                         >
                         </table-button>
                     </template>
-                    <template v-else>
-                        {{ scope.row[column.prop] }}
-                    </template>
+                    <template v-if="!column.type">{{ scope.row[column.prop] }}</template>
                 </template>
             </el-table-column>
         </template>
