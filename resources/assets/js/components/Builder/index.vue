@@ -60,9 +60,9 @@ export default {
          * @return   {[type]}                       [description]
          */
         handleTabsClick(tab, event){
-            this.$store.dispatch('initPostData')//初始化页面POST数据
-            this.$store.dispatch('setTabIndex',tab.index)//初始化页面POST数据
-            this.$store.dispatch('getCurrentData',this.postData)//初始化页面POST数据
+            this.$store.dispatch('initPostData')//初始化POST数据
+            this.$store.dispatch('setPostData',{tabIndex:tab.index})//设置post数据
+            this.$store.dispatch('getCurrentData',this.postData)//重新获取页面数据
         },
 
         /**

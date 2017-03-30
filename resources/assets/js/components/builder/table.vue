@@ -14,18 +14,7 @@
                 </table-button>
             </div>
             <div class="col-md-4">
-                <el-input
-                    v-if="tableDatas.search.title"
-                    v-model="inputSearch"
-                    :placeholder="tableDatas.search.title"
-                    @keyup.enter.native="handleInputConfirm"
-                    @blur="handleInputConfirm"
-                >
-                    <el-select v-if="tableDatas.search.select" v-model="selectSearch" slot="prepend" placeholder="请选择">
-                        <el-option v-for="(label, value) in tableDatas.search.select"  :key="value" :label="label" :value="value"></el-option>
-                    </el-select>
-                    <el-button slot="append" icon="search" @click="handleInputConfirm"></el-button>
-                </el-input>
+                <table-search :datas="tableDatas.search"></table-search>
             </div>
         </div>
     </div>
@@ -100,57 +89,15 @@ import tableTags from './packages/table/tags.vue'
 import tableButton from './packages/table/button.vue'
 import tableStatus from './packages/table/status.vue'
 import tablePagination from './packages/pagination.vue'
+import tableSearch from './packages/search.vue'
 export default {
     components: {
         builderForm,
         tableTags,
         tableButton,
         tableStatus,
-        tablePagination
-    },
-    created() {
-
-    },
-    data() {
-      return {
-          inputSearch:'',
-          selectSearch:'',
-          multipleSelection: [],
-      }
-    },
-    watch: {
-        selectSearch:'setSelectSearch',
-    },
-    computed: {
-        ...mapState({
-            postData: 'postData',
-        }),
-    },
-    methods: {
-        handleSelectionChange(val) {
-            this.multipleSelection = val;
-        },
-
-        /**
-         * [setSelectSearch 选择搜索数据列]
-         * @author BigRocs
-         * @email    bigrocs@qq.com
-         * @DateTime 2017-02-16T15:47:29+0800
-         */
-        setSelectSearch(){
-            this.$store.state.postData.selectSearch = this.selectSearch;
-        },
-        /**
-         * [handleInputConfirm 根据搜索获取数据]
-         * @author BigRocs
-         * @email    bigrocs@qq.com
-         * @DateTime 2017-02-16T15:46:59+0800
-         * @return   {[type]}                 [description]
-         */
-        handleInputConfirm(){
-            this.$store.state.postData.inputSearch = this.inputSearch;
-            this.$store.dispatch('getCurrentData',this.postData)//根据inputSearch获取数据
-        }
+        tablePagination,
+        tableSearch
     },
     props: {
         tableDatas: {
@@ -158,6 +105,18 @@ export default {
             default: ''
         },
     },
+    data() {
+      return {
+          multipleSelection: [],
+      }
+    },
+    methods: {
+        handleSelectionChange(val) {
+            this.multipleSelection = val;
+        },
+
+    },
+
 }
 </script>
 <style lang="css">

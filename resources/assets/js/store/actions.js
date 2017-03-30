@@ -174,30 +174,6 @@ export const getHttpNotify = ({ commit,state },{url = state.currentApiUrl, postD
 }
 
 /**
- * [setTabIndex 设置tabIndex]
- * @author BigRocs
- * @email    bigrocs@qq.com
- * @DateTime 2017-02-16T15:15:12+0800
- * @param    {[type]}                 options.commit [description]
- * @param    {Number}                 tabIndex       [description]
- * @return   {[type]}                                [description]
- */
-export const setTabIndex = ({ commit }, tabIndex = 0) => {
-	commit(types.SET_POST_DATA,{ tabIndex })
-}
-/**
- * [initTabIndex 初始化tabIndex]
- * @author BigRocs
- * @email    bigrocs@qq.com
- * @DateTime 2017-02-16T14:39:18+0800
- * @param    {[type]}                 options.commit [description]
- * @return   {[type]}                                [description]
- */
-export const initTabIndex = ({ commit }) => {
-	const tabIndex = 0
-	commit(types.SET_POST_DATA,{ tabIndex })
-}
-/**
  * [initPostData 初始化postData数据]
  * @author BigRocs
  * @email    bigrocs@qq.com
@@ -212,6 +188,34 @@ export const initPostData = ({ commit }) => {
         page:1,
         selectSearch:'',
         inputSearch:''
+    })
+}
+/**
+ * [setPostData 设置初始化postData数据 不出入默认初始化]
+ * @author BigRocs
+ * @email    bigrocs@qq.com
+ * @DateTime 2017-03-30T14:16:42+0800
+ * @param    {[type]}                 options.commit       [description]
+ * @param    {String}                 options.tabIndex     [description]
+ * @param    {[type]}                 options.pageSize     [description]
+ * @param    {Number}                 options.page         [description]
+ * @param    {String}                 options.selectSearch [description]
+ * @param    {String}                 options.inputSearch  [description]
+ * @return   {[type]}                                      [description]
+ */
+export const setPostData = ({ commit,state },{
+        tabIndex = state.postData['tabIndex'],
+        pageSize = state.postData['pageSize'],
+        page = state.postData['page'],
+        selectSearch = state.postData['selectSearch'],
+        inputSearch = state.postData['inputSearch'] 
+    }) => {
+    commit(types.SET_POST_DATA,{
+        tabIndex:tabIndex,
+        pageSize:pageSize,
+        page:page,
+        selectSearch:selectSearch,
+        inputSearch:inputSearch
     })
 }
 export const actionsNotification = ({ commit }, datas = '') => {
