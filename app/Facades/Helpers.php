@@ -55,7 +55,7 @@ class Helpers
      */
     public function getPageSize(){
         $pageSizes = explode(',', $this->getAdminConfig('ADMIN_PAGE_SIZES'));
-        return $pageSizes[intval($this->getAdminConfig('ADMIN_PAGE_SIZE'))];
+        return intval($pageSizes[intval($this->getAdminConfig('ADMIN_PAGE_SIZE'))]);
     }
     /**
      * [getPageSizes 分页数数组]
@@ -65,7 +65,11 @@ class Helpers
      * @return   [type]                   [description]
      */
     public function getPageSizes(){
-        return explode(',', $this->getAdminConfig('ADMIN_PAGE_SIZES'));
+        $pageSizes = explode(',', $this->getAdminConfig('ADMIN_PAGE_SIZES'));
+        foreach ($pageSizes as $key => &$value) {
+            $value = intval($value);
+        }
+        return $pageSizes;
     }
     /**
      * [getTabsConfigGroupList 转换为Tabs]

@@ -66,13 +66,13 @@
                 <template scope="scope">
                     <table-status v-if="column.type=='status'" :datas="scope.row[column.prop]"></table-status>
                     <table-tags v-else-if="column.type=='tags'" :datas="scope.row[column.prop]" :config="column.tags"></table-tags>
-                    <template v-else-if="column.prop=='rightButton'">
+                    <template v-else-if="column.type=='btn'">
                         <table-button
                           v-for="(rightButton,key) in tableDatas.rightButton"
                           :key="key"
                           :buttonDatas="rightButton"
                           :id="scope.row['id']"
-                          :status="scope.row[statusProp].toString()"
+                          :status="scope.row['status'].toString()"
                           :apiUrl="tableDatas.apiUrl"
                           :multipleSelection="multipleSelection"
                           size="mini"
@@ -88,14 +88,7 @@
         </template>
     </el-table>
     <div class="table-bottom">
-        <el-pagination
-            @size-change="handleSizeChange"
-            @current-change="handleCurrentChange"
-            :page-sizes="this.tableDatas.pagination.pageSizes"
-            :page-size="tableDatas.pagination.pageSize"
-            :layout="tableDatas.pagination.layout"
-            :total="tableDatas.pagination.total">
-        </el-pagination>
+        <tablePagination :datas="tableDatas.pagination"></tablePagination>
     </div>
 </div>
 </template>
@@ -106,74 +99,26 @@ import builderForm from './form.vue'
 import tableTags from './packages/table/tags.vue'
 import tableButton from './packages/table/button.vue'
 import tableStatus from './packages/table/status.vue'
+import tablePagination from './packages/pagination.vue'
 export default {
     components: {
         builderForm,
         tableTags,
         tableButton,
-        tableStatus
+        tableStatus,
+        tablePagination
     },
     created() {
-        // this.compileTopButton()             //编译顶部按钮
-        // this.compileRightButton()           //编译右侧按钮
-        this.compileTableColumnType()       //编译整个页面属性
+
     },
     data() {
       return {
-          // topButtonList:[],
-          rightButtonList:[],
-          statusProp:null,
           inputSearch:'',
           selectSearch:'',
           multipleSelection: [],
-          button:{
-              'add':{
-                  'title':'新增',
-                  'icon':'fa fa-plus',
-                  'type':'primary',
-                  'method':'add'
-              },
-              'edit':{
-                  'title':'编辑',
-                  'icon':'fa fa-edit',
-                  'type':'info',
-                  'method':'edit'
-              },
-              'resume':{
-                  'title':'启用',
-                  'icon':'fa fa-check',
-                  'type':'success',
-                  'method':'resume'
-              },
-              'forbid':{
-                  'title':'禁用',
-                  'icon':'fa fa-ban',
-                  'type':'warning',
-                  'method':'forbid'
-              },
-              'display':{
-                  'title':'显示',
-                  'icon':'fa fa-check',
-                  'type':'success',
-                  'method':'display'
-              },
-              'hide':{
-                  'title':'隐藏',
-                  'icon':'fa fa-eye-slash',
-                  'type':'warning',
-                  'method':'hide'
-              },
-              'delete':{
-                  'title':'删除',
-                  'icon':'fa fa-trash',
-                  'type':'danger',
-                  'method':'delete'
-              },
-          }
       }
     },
     watch: {
-        tableDatas: 'compileTableColumnType',
         selectSearch:'setSelectSearch',
     },
     computed: {
@@ -182,61 +127,10 @@ export default {
         }),
     },
     methods: {
-        /**
-         * [compileTableColumnType 根据表格标题字段指定类型编译列表数据]
-         * @Author   BigRocs                  BigRocs@qq.com
-         * @DateTime 2016-07-07T10:02:07+0800
-         * @param    [type]                   $tableArray    [编译前的数组]
-         * @return   [type]                                  [编译后的数组]
-         */
-        compileTableColumnType(){
-            let pageSizes = this.tableDatas.pagination.pageSizes
-            let pageSize = this.tableDatas.pagination.pageSize
-            for(var key in pageSizes){
-                pageSizes[key] = Number(pageSizes[key])
-            }
-            this.tableDatas.pagination.pageSizes = pageSizes;
-            this.tableDatas.pagination.pageSize = Number(pageSize)
-
-            for (var w = 0; w < this.tableDatas.datas.length; w++) {
-                for (var i = 0; i < this.tableDatas.column.length; i++) {
-                    switch(this.tableDatas.column[i].type)
-                    {
-                        case 'status':
-                            this.statusProp = this.tableDatas.column[i].prop;
-                                break;
-
-                    }
-                }
-            }
-        },
         handleSelectionChange(val) {
             this.multipleSelection = val;
         },
-        /**
-         * [handleSizeChange 设置每页显示数量并获取数据]
-         * @author BigRocs
-         * @email    bigrocs@qq.com
-         * @DateTime 2017-02-16T15:48:22+0800
-         * @param    {[type]}                 val [description]
-         * @return   {[type]}                     [description]
-         */
-        handleSizeChange(val){
-            this.$store.state.postData.pageSize = val;
-            this.$store.dispatch('getCurrentData',this.postData)//根据pageSize获取数据
-        },
-        /**
-         * [handleCurrentChange 根据页码获取页面数据]
-         * @author BigRocs
-         * @email    bigrocs@qq.com
-         * @DateTime 2017-02-16T15:47:59+0800
-         * @param    {[type]}                 val [description]
-         * @return   {[type]}                     [description]
-         */
-        handleCurrentChange(val) {
-            this.$store.state.postData.page = val;
-            this.$store.dispatch('getCurrentData',this.postData)//根据page获取数据
-        },
+
         /**
          * [setSelectSearch 选择搜索数据列]
          * @author BigRocs
@@ -268,13 +162,8 @@ export default {
 </script>
 <style lang="css">
     .el-select .el-input {
-        width: 110px;
+        width: 1.2in;
      }
-    .table-button-min{
-        margin-bottom:5px !important;
-        margin-left:0px !important;
-        margin-right:5px !important;
-    }
     .table-header{
         padding-bottom:15px;
     }

@@ -181,7 +181,8 @@ export default {
                     this.$store.dispatch('openDialogForm',{url:this.apiUrl.urlAdd})     //获取页面数据
                     break;
                 case 'edit':
-                    this.$store.dispatch('openDialogForm',{url:this.apiUrl.urlEdit},{'id':this.id})     //获取页面数据
+                    var postData = {'id':this.id};        //发送数据ID
+                    this.$store.dispatch('openDialogForm',{url:this.apiUrl.urlEdit,postData})     //获取页面数据
                     break;
                 case 'resume':
                     var postData = this.changeDataState(this.id,1);//批量数据更改状态

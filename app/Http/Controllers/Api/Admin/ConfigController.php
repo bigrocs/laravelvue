@@ -44,11 +44,11 @@ class ConfigController extends Controller
                             ->get();
         $data = BuilderData::addTableData($adminConfigs)
                                 ->addTableColumn(['prop' => 'id',         'label'=> 'ID',     'width'=> '55'])
-                                ->addTableColumn(['prop' => 'name',       'label'=> '名称',   'width'=> '240'])
-                                ->addTableColumn(['prop' => 'title',      'label'=> '标题',   'width'=> '180'])
+                                ->addTableColumn(['prop' => 'name',       'label'=> '名称',   'minWidth'=> '240'])
+                                ->addTableColumn(['prop' => 'title',      'label'=> '标题',   'minWidth'=> '180'])
                                 ->addTableColumn(['prop' => 'sort',       'label'=> '排序',   'width'=> '70'])
-                                ->addTableColumn(['prop' => 'status',     'label'=> '状态',   'width'=> '90','type' => 'status'])
-                                ->addTableColumn(['prop' => 'rightButton','label'=> '操作',   'type' => 'btn'])
+                                ->addTableColumn(['prop' => 'status',     'label'=> '状态',   'minWidth'=> '90','type' => 'status'])
+                                ->addTableColumn(['prop' => 'rightButton','label'=> '操作',   'minWidth'=> '220','type' => 'btn'])
                                 ->addTableApiUrl('urlStatus','/api/admin/system/config/status')         //添加状态通信API
                                 ->addTableApiUrl('urlDelete','/api/admin/system/config/delete')         //添加删除通信API
                                 ->addTableApiUrl('urlAdd','/api/admin/system/config/add')               //添加数据接口
@@ -140,7 +140,7 @@ class ConfigController extends Controller
     }
     public function edit(Request $request){
         $adminConfig = $this->adminConfigModel->find($request->id);
-         $configGroupList = Helpers::getTabsConfigGroupList();
+        $configGroupList = Helpers::getTabsConfigGroupList();
         $formItemType = BuilderData::getformItemType();
         $data = BuilderData::addFormApiUrl('urlSubmit','/api/admin/system/config/update')               //添加Submit通信API
                             ->addFormTitle('新增配置')                                           //添form表单页面标题
