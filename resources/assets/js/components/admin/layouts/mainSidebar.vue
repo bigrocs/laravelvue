@@ -5,7 +5,7 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="http://laravelvue.dev/local/images/pYChbqF94gPZQRUWkCxvnGezaxXS0eFrXIW84MHg.jpeg" class="img-circle" alt="User Image">
+                <img src="/assets/apps/img/avatar.jpeg" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
                 <p>laravelVue Admin</p>

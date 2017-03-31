@@ -39,8 +39,9 @@ class UserController extends Controller
                         ->with('roles')
                         ->get();
 
-        $users->load('roles');//加载关联数据
-
+        $users->load('roles');//加载关联权限数据
+        $users->load('userInfos');//加载关联头像数据
+    
         $rolesTags = ['type'=>'primary',    'valueName'=>'display_name'];   // rolesTags  tags显示配置      valueName显示数据对象名称 如果不填写默认显示整个对象
         $data = BuilderData::addTableData($users)
                                 ->addTableColumn(['prop' => 'id',         'label'=> 'ID',     'width'=> '55'])

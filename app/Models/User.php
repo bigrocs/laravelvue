@@ -29,6 +29,17 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
     /**
+     * [uploads 关联Upload模型]
+     * @author BigRocs
+     * @email    bigrocs@qq.com
+     * @DateTime 2017-03-31T16:42:02+0800
+     * @return   [type]                   [description]
+     */
+    public function userInfos()
+    {
+        return $this->hasOne('App\Models\UserInfo');
+    }
+    /**
      * [findForPassport API根据用户名查询用户信息]
      * @author BigRocs
      * @email    bigrocs@qq.com
