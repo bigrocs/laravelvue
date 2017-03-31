@@ -54,7 +54,7 @@
             >
                 <template scope="scope">
                     <table-status v-if="column.type=='status'" :datas="scope.row[column.prop]"></table-status>
-                    <table-tags v-if="column.type=='tags'" :datas="scope.row[column.prop]" :config="column.tags"></table-tags>
+                    <table-tags v-if="column.type=='tags'" :datas="scope.row[column.prop]" :config="column.config"></table-tags>
                     <template v-if="column.type=='btn'">
                         <table-button
                           v-for="(rightButton,key) in tableDatas.rightButton"
