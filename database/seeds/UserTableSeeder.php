@@ -18,5 +18,11 @@ class UserTableSeeder extends Seeder
             'password' 	=> bcrypt('admin888'),
             'status'  => 1
         ]);
+        DB::table('user_infos')->insert([
+            'user_id'   => 1,
+            'avatar'    => 1,
+            'integral'  => 0,
+            'money'     => 0,
+        ]);
     }
 }

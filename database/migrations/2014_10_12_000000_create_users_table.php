@@ -20,8 +20,16 @@ class CreateUsersTable extends Migration
             $table->bigInteger('mobile')        ->comment('用户手机')->unsigned();
             $table->string('password')          ->comment('用户密码');
             $table->rememberToken()             ->comment('记住用户令牌');
-            $table->tinyInteger('status')   ->comment('状态')->default(1);
+            $table->tinyInteger('status')       ->comment('状态')->default(1);
             $table->timestamps();
+        });
+        Schema::create('user_infos', function (Blueprint $table) {
+            $table->integer('user_id')->unsigned();
+            $table->integer('avatar')           ->comment('用户头像')->unsigned();
+            $table->integer('integral')         ->comment('用户积分')->unsigned();
+            $table->decimal('money',11, 2)      ->comment('用户余额')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -33,5 +41,6 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
+        Schema::dropIfExists('user_infos');
     }
 }
