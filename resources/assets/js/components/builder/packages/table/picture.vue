@@ -10,10 +10,13 @@
                 @click="pictureDialogVisible = true"
             >
         </template>
+        <el-dialog v-model="pictureDialogVisible">
             <img 
+                :src="src" 
                 :class="config.class" 
                 :alt="config.alt" 
             >
+        </el-dialog>    
     </div>
 </template>
 <script>

@@ -46,6 +46,7 @@ class UserController extends Controller
         $pictureConfig = ['keyNmae'=>'avatar', 'width'=>50, 'height'=>50, 'class'=>'img-responsive img-circle', 'alt'=>'用户头像'];
         $data = BuilderData::addTableData($users)
                                 ->addTableColumn(['prop' => 'id',         'label'=> 'ID',     'width'=> '55'])
+                                ->addTableColumn(['prop' => 'user_infos', 'label'=> '头像',   'width'=> '90',    'type' => 'picture',    'config'=>$pictureConfig])
                                 ->addTableColumn(['prop' => 'roles',      'label'=> '角色',   'minWidth'=> '120',    'type' => 'tags',       'config'=>$rolesConfig])
                                 ->addTableColumn(['prop' => 'name',       'label'=> '用户名', 'minWidth'=> '120'])
                                 ->addTableColumn(['prop' => 'email',      'label'=> '邮箱',   'minWidth'=> '180'])
