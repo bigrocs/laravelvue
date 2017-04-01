@@ -43,12 +43,11 @@ class UserController extends Controller
         $users->load('userInfos');//加载关联头像数据
     
         $rolesConfig = ['type'=>'primary',    'keyNmae'=>'display_name'];   // rolesTags  tags显示配置      valueName显示数据对象名称 如果不填写默认显示整个对象
-        $pictureConfig = ['keyNmae'=>'avatarImg'];
+        $pictureConfig = ['keyNmae'=>'avatar'];
         $data = BuilderData::addTableData($users)
                                 ->addTableColumn(['prop' => 'id',         'label'=> 'ID',     'width'=> '55'])
-                                ->addTableColumn(['prop' => 'user_infos',    'label'=> '头像',   'minWidth'=> '100',    'config'=>$pictureConfig])
-                                ->addTableColumn(['prop' => 'user_infos',    'label'=> '大头像',   'minWidth'=> '100',    'config'=>$pictureConfig])
-                                ->addTableColumn(['prop' => 'roles',      'label'=> '角色',   'minWidth'=> '120',    'type' => 'tags',    'config'=>$rolesConfig])
+                                ->addTableColumn(['prop' => 'user_infos', 'label'=> '头像',   'minWidth'=> '100',    'type' => 'picture',    'config'=>$pictureConfig])
+                                ->addTableColumn(['prop' => 'roles',      'label'=> '角色',   'minWidth'=> '120',    'type' => 'tags',       'config'=>$rolesConfig])
                                 ->addTableColumn(['prop' => 'name',       'label'=> '用户名', 'minWidth'=> '120'])
                                 ->addTableColumn(['prop' => 'email',      'label'=> '邮箱',   'minWidth'=> '180'])
                                 ->addTableColumn(['prop' => 'mobile',     'label'=> '手机',   'minWidth'=> '180'])
