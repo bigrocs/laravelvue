@@ -6,7 +6,7 @@
             :key="key"
             :type="config.type"
         >
-          <template v-if="config.valueName">{{tag[config.valueName]}}</template>
+          <template v-if="config.keyNmae">{{tag[config.keyNmae]}}</template>
           <template v-else>{{tag}}</template>            
         </el-tag>
     </div>
@@ -18,12 +18,9 @@ export default {
             type: Array,
             default: ''
         },
-        config: {
+        column: {
             type: Object,
-            default: {
-                valueName:'',
-                type:'',
-            }
+            default: ''
         },
     },
     data() {
@@ -32,8 +29,23 @@ export default {
                 marginTop:'5px' ,
                 marginLeft:'10px' ,
                 marginBottom:'5px' ,
+            },
+            config:{
+                type:'',
+                valueName:''
             }
         };
+    },
+    created() {
+        this.compileColumn()
+    },
+    methods: {
+        compileColumn() {
+            if(this.column.config){
+                this.config = this.column.config;
+            }
+        },
+
     },
   }
 </script>

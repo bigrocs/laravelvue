@@ -42,8 +42,8 @@ class UserController extends Controller
         $users->load('roles');//加载关联权限数据
         $users->load('userInfos');//加载关联头像数据
     
-        $rolesConfig = ['type'=>'primary',    'valueName'=>'display_name'];   // rolesTags  tags显示配置      valueName显示数据对象名称 如果不填写默认显示整个对象
-        $pictureConfig = ['valueName'=>'avatarImg'];
+        $rolesConfig = ['type'=>'primary',    'keyNmae'=>'display_name'];   // rolesTags  tags显示配置      valueName显示数据对象名称 如果不填写默认显示整个对象
+        $pictureConfig = ['keyNmae'=>'avatarImg'];
         $data = BuilderData::addTableData($users)
                                 ->addTableColumn(['prop' => 'id',         'label'=> 'ID',     'width'=> '55'])
                                 ->addTableColumn(['prop' => 'user_infos',    'label'=> '头像',   'minWidth'=> '100',    'config'=>$pictureConfig])

@@ -54,7 +54,7 @@
             >
                 <template scope="scope">
                     <table-status v-if="column.type=='status'" :datas="scope.row[column.prop]"></table-status>
-                    <table-tags v-if="column.type=='tags'" :datas="scope.row[column.prop]" :config="column.config"></table-tags>
+                    <table-tags v-if="column.type=='tags'" :datas="scope.row[column.prop]" :column="column"></table-tags>
                     <template v-if="column.type=='btn'">
                         <table-button
                           v-for="(rightButton,key) in tableDatas.rightButton"
@@ -69,7 +69,7 @@
                         >
                         </table-button>
                     </template>
-                    <template v-if="!column.type">{{ scope.row[column.prop] }}</template>
+                   <table-scope v-if="!column.type" :datas="scope.row[column.prop]" :column="column"></table-scope>
                 </template>
             </el-table-column>
         </template>
@@ -88,6 +88,7 @@ import tableButton from './packages/table/button.vue'
 import tableStatus from './packages/table/status.vue'
 import tablePagination from './packages/pagination.vue'
 import tableSearch from './packages/search.vue'
+import tableScope from './packages/table/scope.vue'
 export default {
     components: {
         builderForm,
@@ -95,7 +96,8 @@ export default {
         tableButton,
         tableStatus,
         tablePagination,
-        tableSearch
+        tableSearch,
+        tableScope
     },
     props: {
         tableDatas: {
