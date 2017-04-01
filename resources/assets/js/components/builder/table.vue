@@ -55,6 +55,7 @@
                 <template scope="scope">
                     <table-status v-if="column.type=='status'" :datas="scope.row[column.prop]"></table-status>
                     <table-tags v-if="column.type=='tags'" :datas="scope.row[column.prop]" :column="column"></table-tags>
+                    <table-picture v-if="column.type=='picture'" :datas="scope.row[column.prop]" :column="column"></table-picture>
                     <template v-if="column.type=='btn'">
                         <table-button
                           v-for="(rightButton,key) in tableDatas.rightButton"
@@ -83,21 +84,22 @@
 <script>
 import { mapState } from 'vuex'
 import builderForm from './form.vue'
-import tableTags from './packages/table/tags.vue'
-import tableButton from './packages/table/button.vue'
-import tableStatus from './packages/table/status.vue'
+
 import tablePagination from './packages/pagination.vue'
 import tableSearch from './packages/search.vue'
+
+import tableButton from './packages/table/button.vue'
 import tableScope from './packages/table/scope.vue'
+import tableTags from './packages/table/tags.vue'
+import tableStatus from './packages/table/status.vue'
+import tablePicture from './packages/table/picture.vue'
 export default {
     components: {
         builderForm,
-        tableTags,
-        tableButton,
-        tableStatus,
-        tablePagination,
-        tableSearch,
-        tableScope
+
+        tablePagination,tableSearch,
+
+        tableScope,tableButton, tableTags,tableStatus,tablePicture
     },
     props: {
         tableDatas: {
