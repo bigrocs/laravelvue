@@ -8,12 +8,13 @@
                 :width="config.width" 
                 :height="config.height"
                 @click="pictureDialogVisible = true"
+                style="cursor:pointer"
             >
         </template>
         <el-dialog v-model="pictureDialogVisible">
             <img 
                 :src="src" 
-                :class="config.class" 
+                class="img-responsive img-rounded" 
                 :alt="config.alt" 
             >
         </el-dialog>    
