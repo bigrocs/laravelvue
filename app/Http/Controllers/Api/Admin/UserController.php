@@ -110,15 +110,9 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        foreach ($input as $key => $value) {
-            if($value['name']=='password'){
-                @$create[$value['name']] = bcrypt($value['value']);//密码进行嘻哈
-            }else{
-                @$create[$value['name']] = $value['value'];
-            }
-        }
-        $user = $this->userModel->create($create);
-        $response = $user->userInfos()->create($create);//插入关联数据库userInfos
+        $input['password'] = bcrypt($input['password']);
+        $user = $this->userModel->create($input);
+        $response = $user->userInfos()->create($input);//插入关联数据库userInfos
         if ($response->wasRecentlyCreated) {
             $data = [
                         'title'     => '新增数据成功！',
