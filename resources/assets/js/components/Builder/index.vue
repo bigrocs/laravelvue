@@ -39,7 +39,6 @@ export default {
     },
     watch: {
         $route: 'getData',
-        dialogFormVisible:'watchDialogFormVisible',
     },
     computed: {
         ...mapState({
@@ -65,20 +64,6 @@ export default {
             this.$store.dispatch('getCurrentData',this.postData)//重新获取页面数据
         },
 
-        /**
-         * [watchDialogFormVisible 实现form提交新数据后 更新table数据]
-         * @author BigRocs
-         * @email    bigrocs@qq.com
-         * @DateTime 2017-02-16T15:20:52+0800
-         * @return   {[type]}                 [description]
-         * 减少请求次数
-         * 只有状态改变为关闭时才执行(form表单提交后)
-         */
-        watchDialogFormVisible(){
-            if (!this.dialogFormVisible) {
-                this.$store.dispatch('getCurrentData',this.postData)//初始化页面POST数据
-            }
-        },
 
         /**
          * [getData 获取页面数据]

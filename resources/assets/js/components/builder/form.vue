@@ -65,33 +65,22 @@ export default {
         handleSubmit(){
             let _this = this;
             this.disabled = true;
-            const data = [];
+            let postData = [];
             for(var key in this.fromDatas.datas){
-                data[key] = {
+                postData[key] = {
                     'id': this.fromDatas.datas[key].id,
                     'name': this.fromDatas.datas[key].name,
                     'value': this.fromDatas.datas[key].value,
                 }
             }
-            axios.post(this.fromDatas.apiUrl.submit, data).then(function (Response) {
-                if (Response.data.duration==null) {
-                    Response.data.duration = 4500;
-                }
-                _this.$notify({
-                  title: Response.data.title,
-                  message: Response.data.message,
-                  type: Response.data.type,
-                  iconClass: Response.data.iconClass,
-                  customClass: Response.data.customClass,
-                  duration: Response.data.duration,
-                  onClose: Response.data.onClose,
-                  offset: Response.data.offset,
-                });
+            let thenFunction = (Response) => {
                 setTimeout(() =>  {
                     _this.disabled = false;
                 }, 1000);
                 _this.$store.state.dialogFormVisible = false //关闭dialog页面
-            });
+                _this.handleReset()//重新加载页面POST数据
+            }
+            this.$store.dispatch('getHttpNotify',{url:this.fromDatas.apiUrl.submit,postData,thenFunction})     //获取页面数据
         },
         handleReset() {
             this.$store.dispatch('getCurrentData')//初始化页面数据
