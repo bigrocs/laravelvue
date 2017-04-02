@@ -107,4 +107,31 @@ class UserController extends Controller
                             ->get();
         return response()->json($data, 200);
     }
+    public function store(Request $request)
+    {
+        $input = $request->all();
+        foreach ($input as $key => $value) {
+            if($value['name']=='password'){
+                @$create[$value['name']] = bcrypt($value['value']);//密码进行嘻哈
+            }else{
+                @$create[$value['name']] = $value['value'];
+            }
+        }
+        $user = $this->userModel->create($create);
+        $response = $user->userInfos()->create($create);//插入关联数据库userInfos
+        if ($response->wasRecentlyCreated) {
+            $data = [
+                        'title'     => '新增数据成功！',
+                        'message'   => '新增配置数据成功！!',
+                        'type'      => 'success',
+                    ];
+        }else{
+            $data = [
+                        'title'     => '新增数据失败！',
+                        'message'   => '新增配置数据失败！!',
+                        'type'      => 'error',
+                    ];
+        }
+        return response()->json($data, 200);
+    }
 }
