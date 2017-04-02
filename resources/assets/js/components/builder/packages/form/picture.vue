@@ -24,8 +24,8 @@
           :before-upload="beforeUpload"
           :auto-upload="true"
         >
-          <img v-if="imageUrl" :src="imageUrl" :style="datas.stylePicture" class="img-responsive" >
-          <i v-else class="el-icon-plus" :style="datas.stylePictureUploaderIcon"></i>
+          <img v-if="imageUrl" :src="imageUrl" :style="stylePicture" class="img-responsive" >
+          <i v-else class="el-icon-plus" :style="stylePictureUploaderIcon"></i>
         </el-upload>
     </div>
     <div class="col-md-6 col-sm-12">
@@ -69,26 +69,26 @@ export default{
     },
     methods: {
         Initialization(){
-            if (this.datas.value==null) { this.datas.value = '' }
-            if (this.datas.fileName==null) { this.datas.fileName = 'file' }
-            if (this.datas.withCredentials==null) { this.datas.withCredentials = false }
-            if (this.datas.showFileList==null) { this.datas.showFileList = false }
-            if (this.datas.class==null) { this.datas.class = 'picture-uploader' }
+            if (!this.datas.value) { this.datas.value = '' }
+            if (!this.datas.fileName) { this.datas.fileName = 'file' }
+            if (!this.datas.withCredentials) { this.datas.withCredentials = false }
+            if (!this.datas.showFileList) { this.datas.showFileList = false }
+            if (!this.datas.class) { this.datas.class = 'picture-uploader' }
             // 上传文件大小显示语言提示beging
-            if (this.datas.maxSizeLang==null) { this.datas.maxSizeLang = {} }
-            if (this.datas.maxSizeLang.title==null) { this.datas.maxSizeLang.title = '文件大小超过限制' }
-            if (this.datas.maxSizeLang.message==null) { this.datas.maxSizeLang.message = '文件大小超过系统限制' }
-            if (this.datas.maxSizeLang.type==null) { this.datas.maxSizeLang.type = 'warning' }
+            if (!this.datas.maxSizeLang) { this.datas.maxSizeLang = {} }
+            if (!this.datas.maxSizeLang.title) { this.datas.maxSizeLang.title = '文件大小超过限制' }
+            if (!this.datas.maxSizeLang.message) { this.datas.maxSizeLang.message = '文件大小超过系统限制' }
+            if (!this.datas.maxSizeLang.type) { this.datas.maxSizeLang.type = 'warning' }
             // 上传文件大小显示语言提示end
             //样式传参
-            if (this.datas.stylePictureUploaderIcon==null) { this.datas.stylePictureUploaderIcon = this.stylePictureUploaderIcon }
-            if (this.datas.stylePicture==null) { this.datas.stylePicture = this.stylePicture }
+            if (this.datas.stylePictureUploaderIcon) { this.stylePictureUploaderIcon = this.datas.stylePictureUploaderIcon }
+            if (this.datas.stylePicture) { this.stylePicture = this.datas.stylePicture }
         },
         handleRemove(file, fileList) {
             this.datas.value = null;
         },
          handlePreview(file) {
-             //   console.log(file);
+               console.log(file);
          },
          handleSuccess(Response, file, fileList){
             /**
@@ -110,10 +110,10 @@ export default{
             });
         },
         handleError(err, response, file){
-            //   console.log(err, response, file);
+              console.log(err, response, file);
         },
         handleProgress(event, file, fileList){
-            //   console.log(event, file, fileList);
+              console.log(event, file, fileList);
         },
         beforeUpload(file){
           /**
