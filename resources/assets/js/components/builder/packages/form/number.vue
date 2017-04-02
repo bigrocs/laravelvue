@@ -11,7 +11,9 @@
             :size="datas.size"
             :disabled="datas.disabled"
             :controls="datas.controls"
-            v-model="datas.value">
+            v-model="value"
+            @change="handleChange"
+        >
         </el-input-number>
     </div>
     <div class="col-md-6 col-sm-12">
@@ -24,8 +26,15 @@ export default{
     props: {
         datas: {
             type: Object,
-            default: ''
+            default: {
+                value:0
+            }
         },
+    },
+    data() {
+        return {
+            value:0
+        };
     },
     created() {
         this.Initialization();
@@ -35,24 +44,27 @@ export default{
     },
     methods:{
         Initialization(){
-            if (this.datas.value==null) {
-                this.datas.value = ''
+            if (this.datas.value) {
+                this.value = this.datas.value
             }
-            if (this.datas.min==null) {
-                this.min = 0;
+            if (!this.datas.min) {
+                this.datas.min = 0;
             }
-            if (this.datas.max==null) {
-                this.max = 'Infinity';
+            if (!this.datas.max) {
+                this.datas.max = Infinity;
             }
-            if (this.datas.step==null) {
-                this.step = 1;
+            if (!this.datas.step) {
+                this.datas.step = 1;
             }
-            if (this.datas.disabled==null) {
-                this.disabled = false;
+            if (!this.datas.disabled) {
+                this.datas.disabled = false;
             }
-            if (this.datas.controls==null) {
-                this.controls = true;
+            if (!this.datas.controls) {
+                this.datas.controls = true;
             }
+        },
+        handleChange(value){
+            this.datas.value = value
         }
     }
 }
