@@ -8,6 +8,7 @@
             <builder-switch     v-if="data.type == 'switch'"    :datas="data"></builder-switch>
             <builder-tags       v-if="data.type == 'tags'"      :datas="data"></builder-tags>
             <builder-text       v-if="data.type == 'text'"      :datas="data"></builder-text>
+            <builder-password   v-if="data.type == 'password'"  :datas="data"></builder-password>
             <builder-textarea   v-if="data.type == 'textarea'"  :datas="data"></builder-textarea>
             <builder-upload     v-if="data.type == 'upload'"    :datas="data"></builder-upload>
         </div>
@@ -28,6 +29,7 @@
 <script>
 import { mapState,mapMutations } from 'vuex'
 import builderText from './packages/form/text.vue'
+import builderPassword from './packages/form/password.vue'
 import builderHidden from './packages/form/hidden.vue'
 import builderNumber from './packages/form/number.vue'
 import builderTextarea from './packages/form/textarea.vue'
@@ -39,6 +41,7 @@ import builderUpload from './packages/form/upload.vue'
 export default {
     components: {
         builderText,
+        builderPassword,
         builderHidden,
         builderNumber,
         builderTextarea,

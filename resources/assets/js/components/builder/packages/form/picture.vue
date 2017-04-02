@@ -89,7 +89,7 @@ export default{
             this.datas.value = null;
         },
          handlePreview(file) {
-               console.log(file);
+               // console.log(file);
          },
          handleSuccess(Response, file, fileList){
             /**
@@ -111,10 +111,10 @@ export default{
             });
         },
         handleError(err, response, file){
-              console.log(err, response, file);
+              // console.log(err, response, file);
         },
         handleProgress(event, file, fileList){
-              console.log(event, file, fileList);
+              // console.log(event, file, fileList);
         },
         beforeUpload(file){
           /**
