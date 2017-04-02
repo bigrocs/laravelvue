@@ -119,10 +119,7 @@ class ConfigController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        foreach ($input as $key => $value) {
-            @$create[$value['name']] = $value['value'];
-        }
-        $response = $this->adminConfigModel->create($create);
+        $response = $this->adminConfigModel->create($input);
         if ($response->wasRecentlyCreated) {
             $data = [
                         'title'     => '新增数据成功！',
@@ -160,10 +157,7 @@ class ConfigController extends Controller
     public function update(Request $request)
     {
         $input = $request->all();
-        foreach ($input as $key => $value) {
-            @$fill[$value['name']] = $value['value'];
-        }
-        $response = $this->adminConfigModel->find($fill['id'])->fill($fill)->save();
+        $response = $this->adminConfigModel->find($input['id'])->fill($input)->save();
         if ($response) {
             $data = [
                         'title'     => '数据编辑成功！',
