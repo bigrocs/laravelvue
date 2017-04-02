@@ -43,7 +43,7 @@ export default{
     },
     data() {
       return {
-          imageUrl: this.datas.fileList[0].url,
+          imageUrl: '',
           headers:window.axios.defaults.headers.common,
           /**
            * [style下面是样式定义]
@@ -69,6 +69,7 @@ export default{
     },
     methods: {
         Initialization(){
+            if (this.datas.fileList) { this.imageUrl = this.datas.fileList[0].url}
             if (!this.datas.value) { this.datas.value = '' }
             if (!this.datas.fileName) { this.datas.fileName = 'file' }
             if (!this.datas.withCredentials) { this.datas.withCredentials = false }
