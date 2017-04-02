@@ -64,9 +64,11 @@ class SystemController extends Controller
         return response()->json($data, 200);
     }
     public function update(Request $request){
-        foreach ($request->all() as $value) {
-            $adminConfig = $this->adminConfigModel->where('id', '=', $value['id'])->update(['value' => $value['value']]);
+        $input = $request->all();
+        foreach ($input as $name => $value) {
+            $adminConfig = $this->adminConfigModel->where('name', '=', $name)->update(['value' => $value]);
         }
+
         $data = [
                     'title'     => '保存成功',
                     'message'   => '系统设置保存成功!',
