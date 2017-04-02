@@ -10,6 +10,10 @@ use Facades\ {
 class UserInfo extends Model
 {
 
+    protected $fillable = [
+        'avatar', 'integral', 'money'
+    ];
+    public $timestamps = false;
 	/**
 	 * [getAvatarAttribute 根据ID获取头像图片URL]
 	 * @author BigRocs
