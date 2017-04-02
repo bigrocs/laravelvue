@@ -229,18 +229,12 @@ export default {
          */
         changeDataState(id,state){
             // 整理返回数据
-            let data = [];
+            let data = new Object();
             if (id) {
-                data = [{
-                    'id':id,
-                    'status':state,
-                }];
+                data[id] = state
             }else{
                 for (var key in this.multipleSelection) {
-                    data[key] = {
-                        'id':this.multipleSelection[key].id,
-                        'status':state,
-                    }
+                    data[this.multipleSelection[key].id] = state
                 }
             }
 
