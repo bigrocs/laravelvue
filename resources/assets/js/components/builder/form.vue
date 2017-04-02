@@ -87,6 +87,7 @@ export default {
         },
         handleReset() {
             this.$store.dispatch('getCurrentData')//初始化页面数据
+            this.disabled = false;
         },
     },
     props: {
