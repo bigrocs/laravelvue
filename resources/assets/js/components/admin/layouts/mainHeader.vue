@@ -26,7 +26,7 @@
                     <ul class="dropdown-menu">
                       <!-- User image -->
                       <li class="user-header">
-                        <img src="htt/assets/apps/img/avatar.jpeg" class="img-circle" alt="User Image">
+                        <img src="/assets/apps/img/avatar.jpeg" class="img-circle" alt="User Image">
 
                         <p>
                           Alexander Pierce - 后台管理员
