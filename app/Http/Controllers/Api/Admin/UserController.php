@@ -94,18 +94,16 @@ class UserController extends Controller
         return response()->json($data, 200);
     }
     public function add(){
-        $configGroupList = Helpers::getTabsConfigGroupList();
-        $formItemType = BuilderData::getformItemType();
         $data = BuilderData::addFormApiUrl('submit','/api/admin/system/user/store')               //添加Submit通信API
-                            ->addFormTitle('新增配置')                                           //添form表单页面标题
-                            ->addFormItem(['name' => 'group',     'type' => 'select',   'label' => '配置分组',     'placeholder' => '配置所属的分组',                          'options'=>$configGroupList,    'value'=>0])
-                            ->addFormItem(['name' => 'type',      'type' => 'select',   'label' => '配置类型',     'placeholder' => '配置类型的分组',                          'options'=>$formItemType,       'value'=>'text'])
-                            ->addFormItem(['name' => 'name',      'type' => 'text',     'label' => '配置名称',     'placeholder' => '配置名称'])
-                            ->addFormItem(['name' => 'title',     'type' => 'text',     'label' => '配置标题',     'placeholder' => '配置标题'])
-                            ->addFormItem(['name' => 'value',     'type' => 'textarea', 'label' => '配置值',       'placeholder' => '配置值',                                   'rows'=>4])
-                            ->addFormItem(['name' => 'options',   'type' => 'textarea', 'label' => '配置项',       'placeholder' => '如果是单选、多选、下拉等类型 需要配置该项',   'rows'=>4])
-                            ->addFormItem(['name' => 'tip',       'type' => 'textarea', 'label' => '配置说明',     'placeholder' => '配置说明',                                  'rows'=>4])
-                            ->addFormItem(['name' => 'sort',      'type' => 'number',   'label' => '排序',         'placeholder' => '用于显示的顺序'                             ,'value'=>0])
+                            ->addFormTitle('新增用户')                                           //添form表单页面标题
+                            ->addFormItem(['name' => 'name',      'type' => 'text',     'label' => '用户名'     ])
+                            ->addFormItem(['name' => 'email',     'type' => 'text',     'label' => '用户邮箱'   ])
+                            ->addFormItem(['name' => 'mobile',    'type' => 'text',     'label' => '用户手机'   ])
+                            ->addFormItem(['name' => 'password',  'type' => 'password',     'label' => '用户密码'   ])
+                            ->addFormItem(['name' => 'passwordValidator','type' => 'password',  'label' => '密码验证'])
+                            ->addFormItem(['name' => 'avatar',    'type' => 'picture',  'label' => '用户头像', 'postUrl'=>'/api/admin/system/upload/image'])
+                            ->addFormItem(['name' => 'integral',  'type' => 'number',   'label' => '用户积分'   ])
+                            ->addFormItem(['name' => 'money',     'type' => 'number',   'label' => '用户余额'  ])
                             ->get();
         return response()->json($data, 200);
     }
