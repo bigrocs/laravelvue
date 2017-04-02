@@ -24,7 +24,7 @@
           :before-upload="beforeUpload"
           :auto-upload="true"
         >
-          <img v-if="imageUrl" :src="imageUrl" :style="datas.stylePicture">
+          <img v-if="imageUrl" :src="imageUrl" :style="datas.stylePicture" class="img-responsive" >
           <i v-else class="el-icon-plus" :style="datas.stylePictureUploaderIcon"></i>
         </el-upload>
     </div>
@@ -57,7 +57,7 @@ export default{
                 textAlign: 'center',
           },
           stylePicture:{
-            margin:'0.07in'
+            padding:'0.07in'
           }
       }
     },
