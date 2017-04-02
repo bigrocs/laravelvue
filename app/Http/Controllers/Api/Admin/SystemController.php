@@ -57,7 +57,7 @@ class SystemController extends Controller
             }
         }
         $data = BuilderData::addFormData($adminConfigs)
-                            ->addFormApiUrl('urlSubmit','/api/admin/system/system/update')              //添加Submit通信API
+                            ->addFormApiUrl('submit','/api/admin/system/system/update')              //添加Submit通信API
                             ->setTabs(Helpers::getTabsConfigGroupList())    //设置页面Tabs
                             ->setTitle('系统设置')
                             ->get();

@@ -178,27 +178,27 @@ export default {
             }
             switch (method) {
                 case 'add':
-                    this.$store.dispatch('openDialogForm',{url:this.apiUrl.urlAdd})     //获取页面数据
+                    this.$store.dispatch('openDialogForm',{url:this.apiUrl.add})     //获取页面数据
                     break;
                 case 'edit':
                     var postData = {'id':this.id};        //发送数据ID
-                    this.$store.dispatch('openDialogForm',{url:this.apiUrl.urlEdit,postData})     //获取页面数据
+                    this.$store.dispatch('openDialogForm',{url:this.apiUrl.edit,postData})     //获取页面数据
                     break;
                 case 'resume':
                     var postData = this.changeDataState(this.id,1);//批量数据更改状态
-                    this.$store.dispatch('getHttpNotify',{url:this.apiUrl.urlStatus,postData,thenFunction})     //获取页面数据
+                    this.$store.dispatch('getHttpNotify',{url:this.apiUrl.status,postData,thenFunction})     //获取页面数据
                     break;
                 case 'forbid':
                     var postData = this.changeDataState(this.id,0);//批量数据更改状态
-                    this.$store.dispatch('getHttpNotify',{url:this.apiUrl.urlStatus,postData,thenFunction})     //获取页面数据
+                    this.$store.dispatch('getHttpNotify',{url:this.apiUrl.status,postData,thenFunction})     //获取页面数据
                     break;
                 case 'display':
                     var postData = this.changeDataState(this.id,1);//批量数据更改状态
-                    this.$store.dispatch('getHttpNotify',{url:this.apiUrl.urlStatus,postData,thenFunction})     //获取页面数据
+                    this.$store.dispatch('getHttpNotify',{url:this.apiUrl.status,postData,thenFunction})     //获取页面数据
                     break;
                 case 'hide':
                     var postData = this.changeDataState(this.id,2);//批量数据更改状态
-                    this.$store.dispatch('getHttpNotify',{url:this.apiUrl.urlStatus,postData,thenFunction})     //获取页面数据
+                    this.$store.dispatch('getHttpNotify',{url:this.apiUrl.status,postData,thenFunction})     //获取页面数据
                     break;
                 case 'delete':
                     var postData = this.changeDataState(this.id,-1);//批量数据更改状态
@@ -207,7 +207,7 @@ export default {
                         cancelButtonText: '取消',
                         type: 'error'
                     }).then(() => {
-                        this.$store.dispatch('getHttpNotify',{url:this.apiUrl.urlDelete,postData,thenFunction})     //获取页面数据
+                        this.$store.dispatch('getHttpNotify',{url:this.apiUrl.delete,postData,thenFunction})     //获取页面数据
                     }).catch(() => {
                         this.$notify({
                             title: '操作取消',

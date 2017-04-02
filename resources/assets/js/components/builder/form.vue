@@ -73,7 +73,7 @@ export default {
                     'value': this.fromDatas.datas[key].value,
                 }
             }
-            axios.post(this.fromDatas.apiUrl.urlSubmit, data).then(function (Response) {
+            axios.post(this.fromDatas.apiUrl.submit, data).then(function (Response) {
                 if (Response.data.duration==null) {
                     Response.data.duration = 4500;
                 }
