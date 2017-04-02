@@ -69,8 +69,9 @@ class ConfigController extends Controller
         return response()->json($data, 200);
     }
     public function status(Request $request){
-        foreach ($request->all() as $value) {
-            $adminConfig = $this->adminConfigModel->where('id', '=', $value['id'])->update(['status' => $value['status']]);
+        $input = $request->all();
+        foreach ($input as $id => $value) {
+            $adminConfig = $this->adminConfigModel->where('id', '=', $id)->update(['status' => $value]);
         }
         $data = [
                     'title'     => '状态已更改',
