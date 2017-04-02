@@ -72,8 +72,9 @@ class UserController extends Controller
         return response()->json($data, 200);
     }
     public function status(Request $request){
-        foreach ($request->all() as $value) {
-            $this->userModel->where('id', '=', $value['id'])->update(['status' => $value['status']]);
+        $input = $request->all();
+        foreach ($input as $id => $value) {
+            $this->userModel->where('id', '=', $id)->update(['status' => $value]);
         }
         $data = [
                     'title'     => '状态已更改',
@@ -83,8 +84,9 @@ class UserController extends Controller
         return response()->json($data, 200);
     }
     public function delete(Request $request){
-        foreach ($request->all() as $value) {
-            $response = $this->userModel->find($value['id'])->forceDelete();
+        $input = $request->all();
+        foreach ($input as $id => $value) {
+            $response = $this->userModel->find($id)->forceDelete();
         }
         $data = [
                     'title'     => '删除成功',

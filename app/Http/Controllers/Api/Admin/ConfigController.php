@@ -81,8 +81,9 @@ class ConfigController extends Controller
         return response()->json($data, 200);
     }
     public function delete(Request $request){
-        foreach ($request->all() as $value) {
-            $response = $this->adminConfigModel->find($value['id'])->forceDelete();
+        $input = $request->all();
+        foreach ($input as $id => $value) {
+            $response = $this->adminConfigModel->find($id)->forceDelete();
         }
         $data = [
                     'title'     => '删除成功',
