@@ -68,13 +68,9 @@ export default {
         handleSubmit(){
             let _this = this;
             this.disabled = true;
-            let postData = [];
+            let postData = new Object();
             for(var key in this.fromDatas.datas){
-                postData[key] = {
-                    'id': this.fromDatas.datas[key].id,
-                    'name': this.fromDatas.datas[key].name,
-                    'value': this.fromDatas.datas[key].value,
-                }
+                postData[this.fromDatas.datas[key].name] = this.fromDatas.datas[key].value
             }
             let thenFunction = (Response) => {
                 setTimeout(() =>  {
