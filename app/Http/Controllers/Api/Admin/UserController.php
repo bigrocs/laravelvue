@@ -96,6 +96,12 @@ class UserController extends Controller
         return response()->json($data, 200);
     }
     public function add(){
+        $rules = [
+            'name'=> [
+                ['required' => true,  'message' => '请输入用户名', 'trigger'=> 'blur'],
+                [ 'min'=> 4, 'max'=> 10, 'message'=> '长度在 4 到 10 个字符', 'trigger'=> 'blur' ]
+            ],
+        ];
         $data = BuilderData::addFormApiUrl('submit','/api/admin/system/user/store')               //添加Submit通信API
                             ->addFormTitle('新增用户')                                           //添form表单页面标题
                             ->addFormItem(['name' => 'name',      'type' => 'text',     'label' => '用户名'     ])
@@ -106,6 +112,7 @@ class UserController extends Controller
                             ->addFormItem(['name' => 'avatar',    'type' => 'picture',  'label' => '用户头像', 'postUrl'=>'/api/admin/system/upload/image'])
                             ->addFormItem(['name' => 'integral',  'type' => 'number',   'label' => '用户积分'   ])
                             ->addFormItem(['name' => 'money',     'type' => 'number',   'label' => '用户余额'  ])
+                            ->setFormRules($rules)
                             ->get();
         return response()->json($data, 200);
     }
