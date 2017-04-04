@@ -49,27 +49,38 @@ class BuilderData
          $this->data['form']['apiUrl'][$key]   = $ApiUrl;
          return $this;
      }
-     public function addFormItem($formItem){
+    public function addFormItem($formItem){
          $this->data['form']['datas'][]   = $formItem;
          return $this;
-     }
-     /**
-      * [setFormObject 给form Item 列赋值value]
-      * @param [type] $Object [传入数据]
-      */
-     public function setFormObject($Object){
+    }
+    /**
+     * [setFormObject 给form Item 列赋值value]
+     * @param [type] $Object [传入数据]
+     */
+    public function setFormObject($Object){
          foreach ($this->data['form']['datas'] as &$item) {
                  $item['value'] = $Object[$item['name']];
          }
          return $this;
-     }
-     public function addFormTitle($title){
+    }
+    public function addFormTitle($title){
          $this->data['form']['title']   = $title;
          return $this;
-     }
-     public function getformItemType(){
+    }
+    public function getformItemType(){
          return $this->formItemType;
-     }
+    }
+    /**
+     * [setFormRules 设置form验证规则]
+     * @author BigRocs
+     * @email    bigrocs@qq.com
+     * @DateTime 2017-04-04T11:41:52+0800
+     * @param    [type]                   $rules [description]
+     */
+    public function setFormRules($rules){
+        $this->data['form']['rules']   = $rules;
+        return $this;
+    }
     /**
      * TableData方法
      */
