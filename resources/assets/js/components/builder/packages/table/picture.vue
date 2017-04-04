@@ -47,6 +47,7 @@ export default {
     },
     methods: {
         compileColumn() {
+            this.src = null
             if(this.column.config){
                 this.config = this.column.config;
             }
