@@ -42,6 +42,9 @@ export default {
     created() {
         this.compileColumn()
     },
+    watch: {
+        datas: 'compileColumn',
+    },
     methods: {
         compileColumn() {
             if(this.column.config){
