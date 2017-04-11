@@ -1,16 +1,16 @@
 <template>
-    <el-form ref="fromDatas" :model="fromDatas" label-width="80px">
-        <div class="form-group" v-for="data in fromDatas.datas">
-            <builder-hidden     v-if="data.type == 'hidden'"    :datas="data"></builder-hidden>
-            <builder-number     v-if="data.type == 'number'"    :datas="data"></builder-number>
-            <builder-picture    v-if="data.type == 'picture'"   :datas="data"></builder-picture>
-            <builder-select     v-if="data.type == 'select'"    :datas="data"></builder-select>
-            <builder-switch     v-if="data.type == 'switch'"    :datas="data"></builder-switch>
-            <builder-tags       v-if="data.type == 'tags'"      :datas="data"></builder-tags>
-            <builder-text       v-if="data.type == 'text'"      :datas="data"></builder-text>
-            <builder-password   v-if="data.type == 'password'"  :datas="data"></builder-password>
-            <builder-textarea   v-if="data.type == 'textarea'"  :datas="data"></builder-textarea>
-            <builder-upload     v-if="data.type == 'upload'"    :datas="data"></builder-upload>
+    <el-form :model="fromDatas" :rules="datas.rules" label-width="90px">
+        <div class="form-group" v-for="config in datas.datas">
+            <builder-hidden     v-if="config.type == 'hidden'"    :datas="config"></builder-hidden>
+            <builder-number     v-if="config.type == 'number'"    :datas="config"></builder-number>
+            <builder-picture    v-if="config.type == 'picture'"   :datas="config"></builder-picture>
+            <builder-select     v-if="config.type == 'select'"    :datas="config"></builder-select>
+            <builder-switch     v-if="config.type == 'switch'"    :datas="config"></builder-switch>
+            <builder-tags       v-if="config.type == 'tags'"      :datas="config"></builder-tags>
+            <builder-text       v-if="config.type == 'text'"      :datas="fromDatas" :config="config"></builder-text>
+            <builder-password   v-if="config.type == 'password'"  :datas="config"></builder-password>
+            <builder-textarea   v-if="config.type == 'textarea'"  :datas="config"></builder-textarea>
+            <builder-upload     v-if="config.type == 'upload'"    :datas="config"></builder-upload>
         </div>
         <div class="row">
             <div class="col-md-6 col-sm-8">
@@ -51,27 +51,51 @@ export default {
         builderPicture,
         builderUpload
     },
+    props: {
+        datas: {
+            type: Object,
+            default: ''
+        },
+    },
     data() {
         return {
             disabled: false,
+            config:{},
+            fromDatas:{}
         };
     },
-    computed: {
-        ...mapState({
-            postData: 'postData',
-        }),
+    created() {
+        this.compileData();//初始化页面数据
+    },
+    watch: {
+        datas: 'compileData',
     },
     methods:{
-        ...mapMutations([
-            'getCurrentData',
-        ]),
+        /**
+         * [compileData 编译fromDatas数据]
+         * @author BigRocs
+         * @email    bigrocs@qq.com
+         * @DateTime 2017-04-11T14:25:47+0800
+         * @return   {[type]}                 [description]
+         */
+        compileData(){
+            let datas = this.datas.datas
+            this.fromDatas = {}
+            for (var key in datas) {
+                var name = datas[key].name
+                var value = datas[key].value
+                this.fromDatas[name] = value
+            }
+        },
         handleSubmit(){
             let _this = this;
             this.disabled = true;
-            let postData = new Object();
-            for(var key in this.fromDatas.datas){
-                postData[this.fromDatas.datas[key].name] = this.fromDatas.datas[key].value
-            }
+            let postData = this.fromDatas
+            console.log(postData);
+            // let postData = new Object();
+            // for(var key in this.fromDatas.datas){
+            //     postData[this.fromDatas.datas[key].name] = this.fromDatas.datas[key].value
+            // }
             let thenFunction = (Response) => {
                 setTimeout(() =>  {
                     _this.disabled = false;
@@ -79,17 +103,11 @@ export default {
                 _this.$store.state.dialogFormVisible = false //关闭dialog页面
                 _this.handleReset()//重新加载页面POST数据
             }
-            this.$store.dispatch('getHttpNotify',{url:this.fromDatas.apiUrl.submit,postData,thenFunction})     //获取页面数据
+            this.$store.dispatch('getHttpNotify',{url:this.datas.apiUrl.submit,postData,thenFunction})     //获取页面数据
         },
         handleReset() {
             this.$store.dispatch('getCurrentData')//初始化页面数据
             this.disabled = false;
-        },
-    },
-    props: {
-        fromDatas: {
-            type: Object,
-            default: ''
         },
     },
 }
