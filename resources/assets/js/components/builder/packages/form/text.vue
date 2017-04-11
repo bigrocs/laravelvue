@@ -1,34 +1,36 @@
 <template>
 <div class="row">
-    <el-form-item :label="config.label" :prop="name">
+    <div class="col-md-12">
+        <label>{{ datas.label }}</label>
+    </div>
+    <div class="col-md-6 col-sm-12">
         <el-input
             type="text"
-            :placeholder="config.placeholder"
-            :maxlength="config.maxlength"
-            :minlength="config.minlength"
-            :disabled="config.disabled"
-            :size="config.size"
-            :icon="config.icon"
-            :rows="config.rows"
-            :autosize="config.autosize"
-            :name="config.name"
-            :max="config.max"
-            :min="config.min"
-            :autofocus="config.autofocus"
-            :form="config.form"
-            v-model="datas[name]">
+            :placeholder="datas.placeholder"
+            :maxlength="datas.maxlength"
+            :minlength="datas.minlength"
+            :disabled="datas.disabled"
+            :size="datas.size"
+            :icon="datas.icon"
+            :rows="datas.rows"
+            :autosize="datas.autosize"
+            :name="datas.name"
+            :max="datas.max"
+            :min="datas.min"
+            :autofocus="datas.autofocus"
+            :form="datas.form"
+            v-model="datas.value">
         </el-input>
-    </el-form-item>
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <span class="check-tip small">{{ datas.placeholder }}</span>
+    </div>
 </div>
 </template>
 <script>
 export default{
     props: {
         datas: {
-            type: '',
-            default: ''
-        },
-        config: {
             type: Object,
             default: ''
         },
@@ -39,15 +41,9 @@ export default{
     watch: {
         datas:'Initialization'
     },
-    data() {
-        return {
-            name: '',
-        };
-    },
     methods:{
         Initialization(){
-            this.name = this.config.name
-            if (this.datas[this.name]==null) {this.datas[this.name] = ''}
+            if (this.datas.value==null) {this.datas.value = ''}
         }
     }
 }
