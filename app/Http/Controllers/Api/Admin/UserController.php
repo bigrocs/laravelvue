@@ -101,10 +101,6 @@ class UserController extends Controller
                 ['required' => true,  'message' => '请输入用户名', 'trigger'=> 'blur'],
                 [ 'min'=> 4, 'max'=> 10, 'message'=> '长度在 4 到 10 个字符', 'trigger'=> 'blur' ]
             ],
-            'email'=> [
-                [ 'required'=> true, 'message'=> '请输入邮箱地址', 'trigger'=> 'blur' ],
-                [ 'type'=> 'email', 'message'=> '请输入正确的邮箱地址', 'trigger'=> 'blur,change' ]
-            ]
         ];
         $data = BuilderData::addFormApiUrl('submit','/api/admin/system/user/store')               //添加Submit通信API
                             ->addFormTitle('新增用户')                                           //添form表单页面标题
