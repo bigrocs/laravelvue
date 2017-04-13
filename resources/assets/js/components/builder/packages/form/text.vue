@@ -1,5 +1,4 @@
 <template>
-<div class="row">
     <el-form-item :label="config.label" :prop="name">
         <el-input
             type="text"
@@ -19,7 +18,6 @@
             v-model="datas[name]">
         </el-input>
     </el-form-item>
-</div>
 </template>
 <script>
 export default{
