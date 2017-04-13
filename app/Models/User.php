@@ -53,4 +53,48 @@ class User extends Authenticatable
                     ->orwhere('mobile',$username)
                     ->first();
     }
+    public function getRules(){
+        $validatePassword = "
+            (rule, value, callback) => {
+                if (value === '') {
+                  callback(new Error('请输入密码'));
+                } else {
+                  if (this.fromDatas.checkPassword !== '') {
+                    this.\$refs.fromDatas.validateField('checkPassword');
+                  }
+                  callback();
+                }
+            }";
+        $validateCheckPassword = "
+            (rule, value, callback) => {
+                if (value === '') {
+                  callback(new Error('请再次输入密码'));
+                } else if (value !== this.fromDatas.password) {
+                  callback(new Error('两次输入密码不一致!'));
+                } else {
+                  callback();
+                }
+            }";
+        $rules = [
+            'name'=> [
+                ['required' => true,  'message' => '请输入用户名', 'trigger'=> 'blur'],
+                [ 'min'=> 4, 'max'=> 10, 'message'=> '长度在 4 到 10 个字符', 'trigger'=> 'blur' ]
+            ],
+            'email'=> [
+                [ 'required'=> true, 'message'=> '请输入邮箱地址', 'trigger'=> 'blur' ],
+                [ 'type'=> 'email', 'message'=> '请输入正确的邮箱地址', 'trigger'=> 'blur,change' ]
+            ],
+            // 'mobile'=> [
+            //     [ 'required'=> true, 'message'=> '请输入手机号码', 'trigger'=> 'blur' ],
+            //     [ 'min'=> 11, 'max'=> 11, 'type'=> 'number', 'message'=> '请输入正确的手机号码', 'trigger'=> 'blur,change' ]
+            // ],
+            'password'=> [
+                [ 'required'=> true, 'validator'=> $validatePassword, 'trigger'=> 'blur', 'relation'=>'checkPassword' ]
+            ],
+            'checkPassword'=> [
+                [ 'required'=> true, 'validator'=> $validateCheckPassword, 'trigger'=> 'blur', 'checkMessage'=>'两次输入密码不一致!', 'relation'=>'password' ]
+            ]
+        ];
+        return $rules;
+    }
 }
