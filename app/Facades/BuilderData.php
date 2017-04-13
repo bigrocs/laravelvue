@@ -63,8 +63,12 @@ class BuilderData
          }
          return $this;
     }
-    public function addFormTitle($title){
+    public function setFormTitle($title){
          $this->data['form']['title']   = $title;
+         return $this;
+    }
+    public function setFormConfig($config){
+         $this->data['form']['config']   = $config;
          return $this;
     }
     public function getformItemType(){
