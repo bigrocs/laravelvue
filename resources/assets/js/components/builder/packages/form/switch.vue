@@ -1,68 +1,75 @@
 <template>
-<div class="row">
-    <div class="col-md-12">
-        <label>{{ datas.label }}</label>
-    </div>
-    <div class="col-md-6 col-sm-12">
+    <el-form-item :label="config.label" :prop="config.name">
         <el-switch
-            :disabled="datas.disabled"
-            :width="datas.width"
-            :on-icon-class="datas.onIconClass"
-            :off-icon-class="datas.offIconClass"
+            :disabled="config.disabled"
+            :width="config.width"
+            :on-icon-class="config.onIconClass"
+            :off-icon-class="config.offIconClass"
             :on-text="onText"
             :off-text="offText"
             :on-color="onColor"
             :off-color="offColor"
-            :name="datas.name"
-            v-model="datas.value">
+            :name="config.name"
+            v-model="value">
         </el-switch>
-    </div>
-    <div class="col-md-6 col-sm-12">
-        <span class="check-tip small">{{ datas.placeholder }}</span>
-    </div>
-</div>
+    </el-form-item>
 </template>
 <script>
 export default{
     props: {
         datas: {
+            type: '',
+            default: ''
+        },
+        config: {
             type: Object,
             default: ''
         },
     },
     data() {
       return {
-          onText:   this.datas.onText,
-          offText:  this.datas.offText,
-          onColor:  this.datas.onColor,
-          offColor: this.datas.offColor,
+          onText:   this.config.onText,
+          offText:  this.config.offText,
+          onColor:  this.config.onColor,
+          offColor: this.config.offColor,
       };
     },
     created() {
         this.Initialization();
     },
+    data() {
+        return {
+            value:false,
+        };
+    },
     watch: {
-        datas:'Initialization'
+        datas:'Initialization',
+        value:'setDatas'
     },
     methods:{
         Initialization(){
-            if (this.datas.value == 1) {
-                this.datas.value = true
-            }else if (this.datas.value == 0) {
-                this.datas.value = false
+            let name = this.config.name
+            if (this.config.value== 1) {
+                this.value = true
+            }else if (this.config.value== 0) {
+                this.value = false
             }
-            if (this.datas.onText==null) {
+            if (this.config.onText==null) {
                 this.onText = '开启';
             }
-            if (this.datas.offText==null) {
+            if (this.config.offText==null) {
                 this.offText = '关闭';
             }
-            if (this.datas.onColor==null) {
+            if (this.config.onColor==null) {
                 this.onColor = '#1abc9c';
             }
-            if (this.datas.offColor==null) {
+            if (this.config.offColor==null) {
                 this.offColor = '#95a5a6';
             }
+        },
+        setDatas(){
+            let name = this.config.name
+            this.datas[name] = this.value
         }
     }
 }

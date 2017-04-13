@@ -1,5 +1,5 @@
 <template>
-    <el-form-item :label="config.label" :prop="name">
+    <el-form-item :label="config.label" :prop="config.name">
         <el-input
             type="password"
             :placeholder="config.placeholder"
@@ -15,7 +15,7 @@
             :min="config.min"
             :autofocus="config.autofocus"
             :form="config.form"
-            v-model="datas[name]">
+            v-model="datas[config.name]">
         </el-input>
     </el-form-item>
 </template>
@@ -37,15 +37,10 @@ export default{
     watch: {
         datas:'Initialization'
     },
-    data() {
-        return {
-            name: '',
-        };
-    },
     methods:{
         Initialization(){
-            this.name = this.config.name
-            if (this.datas[this.name]==null) {this.datas[this.name] = ''}
+            let name = this.config.name
+            if (this.datas[name]==null) {this.datas[name] = ''}
         }
     }
 }

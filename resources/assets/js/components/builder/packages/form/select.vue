@@ -1,60 +1,68 @@
 <template>
-<div class="row">
-    <div class="col-md-12">
-        <label>{{ datas.label }}</label>
-    </div>
-    <div class="col-md-6 col-sm-12">
+    <el-form-item :label="config.label" :prop="config.name">
         <el-select
             type="text"
-            :placeholder="datas.placeholder"
-            :multiple="datas.multiple"
-            :disabled="datas.disabled"
-            :size="datas.size"
-            :clearable="datas.clearable"
-            :multiple-limit="datas.multipleLimit"
-            :name="datas.name"
-            :filterable="datas.filterable"
-            :allow-create="datas.allowCreate"
-            :filter-method="datas.filterMethod"
-            :remote="datas.remote"
-            :remote-method="datas.remoteMethod"
-            :loading="datas.loading"
-            :loading-text="datas.loadingText"
-            :no-match-text="datas.noMatchText"
-            :no-data-text="datas.noDataText"
-            :popper-class="datas.popperClass"
-            v-model="datas.value">
+            :placeholder="config.placeholder"
+            :multiple="config.multiple"
+            :disabled="config.disabled"
+            :size="config.size"
+            :clearable="config.clearable"
+            :multiple-limit="config.multipleLimit"
+            :name="config.name"
+            :filterable="config.filterable"
+            :allow-create="config.allowCreate"
+            :filter-method="config.filterMethod"
+            :remote="config.remote"
+            :remote-method="config.remoteMethod"
+            :loading="config.loading"
+            :loading-text="config.loadingText"
+            :no-match-text="config.noMatchText"
+            :no-data-text="config.noDataText"
+            :popper-class="config.popperClass"
+            v-model="value">
             <el-option
-                v-for="(item,key) in datas.options"
+                v-for="(item,key) in config.options"
                 :label="item"
                 :key="key"
                 :value="key.toString()">
             </el-option>
         </el-select>
-    </div>
-    <div class="col-md-6 col-sm-12">
-        <span class="check-tip small">{{ datas.placeholder }}</span>
-    </div>
+    </el-form-item>
 </div>
 </template>
 <script>
 export default{
     props: {
         datas: {
+            type: '',
+            default: ''
+        },
+        config: {
             type: Object,
             default: ''
         },
+    },
+    data() {
+        return {
+            value:''
+        };
     },
     created() {
         this.Initialization();
     },
     watch: {
-        datas:'Initialization'
+        datas:'Initialization',
+        value:'setDatas'
     },
     methods:{
         Initialization(){
-            this.datas.value = this.datas.value.toString()
-            if (this.datas.value==null) {this.datas.value = ''}
+            let name = this.config.name
+            this.value = this.datas[name].toString()
+            if (this.datas[name]==null) {this.value = ''}
+        },
+        setDatas(){
+            let name = this.config.name
+            this.datas[name] = this.value
         }
     }
 }

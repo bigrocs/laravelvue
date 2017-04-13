@@ -1,34 +1,28 @@
 <template>
-<div class="row">
-    <div class="col-md-12">
-        <label>{{ datas.label }}</label>
-    </div>
-    <div class="col-md-6 col-sm-12">
+    <el-form-item :label="config.label" :prop="config.name">
         <el-input-number
-            :min="datas.min"
-            :max="datas.max"
-            :step="datas.step"
-            :size="datas.size"
-            :disabled="datas.disabled"
-            :controls="datas.controls"
+            :min="config.min"
+            :max="config.max"
+            :step="config.step"
+            :size="config.size"
+            :disabled="config.disabled"
+            :controls="config.controls"
             v-model="value"
             @change="handleChange"
         >
         </el-input-number>
-    </div>
-    <div class="col-md-6 col-sm-12">
-        <span class="check-tip small">{{ datas.placeholder }}</span>
-    </div>
-</div>
+    </el-form-item>
 </template>
 <script>
 export default{
     props: {
         datas: {
+            type: '',
+            default: ''
+        },
+        config: {
             type: Object,
-            default: {
-                value:0
-            }
+            default: ''
         },
     },
     data() {
@@ -44,27 +38,29 @@ export default{
     },
     methods:{
         Initialization(){
-            if (this.datas.value) {
-                this.value = this.datas.value
+            let name = this.config.name
+            if (this.datas[name]) {
+                this.value = this.datas[name]
             }
-            if (!this.datas.min) {
-                this.datas.min = 0;
+            if (!this.config.min) {
+                this.config.min = 0;
             }
-            if (!this.datas.max) {
-                this.datas.max = Infinity;
+            if (!this.config.max) {
+                this.config.max = Infinity;
             }
-            if (!this.datas.step) {
-                this.datas.step = 1;
+            if (!this.config.step) {
+                this.config.step = 1;
             }
             if (!this.datas.disabled) {
                 this.datas.disabled = false;
             }
-            if (!this.datas.controls) {
-                this.datas.controls = true;
+            if (!this.config.controls) {
+                this.config.controls = true;
             }
         },
         handleChange(value){
-            this.datas.value = value
+            let name = this.config.name
+            this.datas[name] = value
         }
     }
 }
