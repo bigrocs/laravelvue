@@ -1,9 +1,5 @@
 <template>
-<div class="row">
-    <div class="col-md-12">
-        <label>{{ datas.label }}</label>
-    </div>
-    <div class="col-md-6 col-sm-12">
+    <el-form-item :label="config.label" :prop="config.name">
         <el-tag
           v-for="(tag,key) in dynamicTags"
           :key="key"
@@ -25,16 +21,17 @@
           @blur="handleInputConfirm"
         >
         </el-input>
-    </div>
-    <div class="col-md-6 col-sm-12">
-        <span class="check-tip small">{{ datas.placeholder }}</span>
-    </div>
+    </el-form-item>
 </div>
 </template>
 <script>
 export default {
     props: {
         datas: {
+            type: '',
+            default: ''
+        },
+        config: {
             type: Object,
             default: ''
         },
@@ -57,19 +54,22 @@ export default {
     },
     methods: {
         Initialization(){
-            this.dynamicTags = this.datas.value.toString().split(',')
+            let name = this.config.name
+            this.dynamicTags = this.datas[name].toString().split(',')
         },
         handleClose(tag) {
+            let name = this.config.name
             this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
-            this.datas.value = this.dynamicTags.join(',');
+            this.datas[name] = this.dynamicTags.join(',');
         },
 
         handleInputConfirm() {
+            let name = this.config.name
             let inputValue = this.inputValue;
             let dynamicTags = this.dynamicTags;
             if (inputValue) {
                 this.dynamicTags.push(inputValue);
-                this.datas.value = dynamicTags.join(',');
+                this.datas[name] = dynamicTags.join(',');
             }
             this.inputValue = '';
         }

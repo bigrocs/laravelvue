@@ -1,42 +1,39 @@
 <template>
-<div class="row">
-    <div class="col-md-12">
-        <label>{{ datas.label }}</label>
-    </div>
-    <div class="col-md-6 col-sm-12">
+    <el-form-item :label="config.label" :prop="config.name">
         <el-upload
-          :class="datas.class"
-          :action="datas.postUrl"
+          :class="config.class"
+          :action="config.postUrl"
           :headers="headers"
-          :multiple="datas.multiple"
-          :data="datas.data"
-          :name="datas.fileName"
-          :with-credentials="datas.withCredentials"
-          :show-file-list="datas.showFileList"
+          :multiple="config.multiple"
+          :data="config.data"
+          :name="config.fileName"
+          :with-credentials="config.withCredentials"
+          :show-file-list="config.showFileList"
           type="drag"
-          :accept="datas.accept"
+          :accept="config.accept"
           :on-preview="handlePreview"
           :on-remove="handleRemove"
           :on-success="handleSuccess"
           :on-error="handleError"
           :on-progress="handleProgress"
-          :list-type="datas.picture"
+          :list-type="config.picture"
           :before-upload="beforeUpload"
           :auto-upload="true"
         >
           <img v-if="imageUrl" :src="imageUrl" :style="stylePicture" class="img-responsive" >
           <i v-else class="el-icon-plus" :style="stylePictureUploaderIcon"></i>
         </el-upload>
-    </div>
-    <div class="col-md-6 col-sm-12">
-        <span class="check-tip small">{{ datas.placeholder }}</span>
-    </div>
+    </el-form-item>
 </div>
 </template>
 <script>
 export default{
     props: {
         datas: {
+            type: '',
+            default: ''
+        },
+        config: {
             type: Object,
             default: ''
         },
@@ -69,24 +66,26 @@ export default{
     },
     methods: {
         Initialization(){
-            if (this.datas.fileList) { this.imageUrl = this.datas.fileList[0].url}
-            if (!this.datas.value) { this.datas.value = '' }
-            if (!this.datas.fileName) { this.datas.fileName = 'file' }
-            if (!this.datas.withCredentials) { this.datas.withCredentials = false }
-            if (!this.datas.showFileList) { this.datas.showFileList = false }
-            if (!this.datas.class) { this.datas.class = 'picture-uploader' }
+            let name = this.config.name
+            if (this.config.fileList) { this.imageUrl = this.config.fileList[0].url}
+            if (!this.datas[name]) { this.datas[name] = '' }
+            if (!this.config.fileName) { this.config.fileName = 'file' }
+            if (!this.config.withCredentials) { this.config.withCredentials = false }
+            if (!this.config.showFileList) { this.config.showFileList = false }
+            if (!this.config.class) { this.config.class = 'picture-uploader' }
             // 上传文件大小显示语言提示beging
-            if (!this.datas.maxSizeLang) { this.datas.maxSizeLang = {} }
-            if (!this.datas.maxSizeLang.title) { this.datas.maxSizeLang.title = '文件大小超过限制' }
-            if (!this.datas.maxSizeLang.message) { this.datas.maxSizeLang.message = '文件大小超过系统限制' }
-            if (!this.datas.maxSizeLang.type) { this.datas.maxSizeLang.type = 'warning' }
+            if (!this.config.maxSizeLang) { this.config.maxSizeLang = {} }
+            if (!this.config.maxSizeLang.title) { this.config.maxSizeLang.title = '文件大小超过限制' }
+            if (!this.config.maxSizeLang.message) { this.config.maxSizeLang.message = '文件大小超过系统限制' }
+            if (!this.config.maxSizeLang.type) { this.config.maxSizeLang.type = 'warning' }
             // 上传文件大小显示语言提示end
             //样式传参
-            if (this.datas.stylePictureUploaderIcon) { this.stylePictureUploaderIcon = this.datas.stylePictureUploaderIcon }
-            if (this.datas.stylePicture) { this.stylePicture = this.datas.stylePicture }
+            if (this.config.stylePictureUploaderIcon) { this.stylePictureUploaderIcon = this.config.stylePictureUploaderIcon }
+            if (this.config.stylePicture) { this.stylePicture = this.config.stylePicture }
         },
         handleRemove(file, fileList) {
-            this.datas.value = null;
+            let name = this.config.name
+            this.datas[name] = null;
         },
          handlePreview(file) {
                // console.log(file);
@@ -101,8 +100,9 @@ export default{
              * @return   {[type]}                               [description]
              */
             if (Response.type=="success") {
+                let name = this.config.name
                 this.imageUrl = URL.createObjectURL(file.raw);
-                this.datas.value = Response.uploadData.id;
+                this.datas[name] = Response.uploadData.id;
             }
             this.$notify({
                 title: Response.title,
@@ -122,14 +122,14 @@ export default{
            * @author BigRocs
            * @email    bigrocs@qq.com
            * @DateTime 2017-03-06T14:54:48+0800
-           * @param    {[type]}                 this.datas.maxSize<file.size [description]
+           * @param    {[type]}                 this.config.maxSize<file.size [description]
            * @return   {[type]}                                              [description]
            */
-          if (this.datas.maxSize<file.size) {
+          if (this.config.maxSize<file.size) {
               this.$notify({
-                  title: this.datas.maxSizeLang.title,
-                  message: this.datas.maxSizeLang.message,
-                  type: this.datas.maxSizeLang.type,
+                  title: this.config.maxSizeLang.title,
+                  message: this.config.maxSizeLang.message,
+                  type: this.config.maxSizeLang.type,
               });
               return false;
           }

@@ -2,11 +2,11 @@
     <el-form :model="fromDatas" ref="fromDatas" :rules="datas.rules" :inline="inline" :label-position="position" :label-width="width" :label-suffix="suffix">
         <div class="form-group" v-for="config in datas.datas">
             <builder-hidden     v-if="config.type == 'hidden'"    :datas="config"></builder-hidden>
-            <builder-number     v-if="config.type == 'number'"    :datas="config"></builder-number>
-            <builder-picture    v-if="config.type == 'picture'"   :datas="config"></builder-picture>
-            <builder-select     v-if="config.type == 'select'"    :datas="config"></builder-select>
-            <builder-switch     v-if="config.type == 'switch'"    :datas="config"></builder-switch>
-            <builder-tags       v-if="config.type == 'tags'"      :datas="config"></builder-tags>
+            <builder-number     v-if="config.type == 'number'"    :datas="fromDatas" :config="config"></builder-number>
+            <builder-picture    v-if="config.type == 'picture'"   :datas="fromDatas" :config="config"></builder-picture>
+            <builder-select     v-if="config.type == 'select'"    :datas="fromDatas" :config="config"></builder-select>
+            <builder-switch     v-if="config.type == 'switch'"    :datas="fromDatas" :config="config"></builder-switch>
+            <builder-tags       v-if="config.type == 'tags'"      :datas="fromDatas" :config="config"></builder-tags>
             <builder-text       v-if="config.type == 'text'"      :datas="fromDatas" :config="config"></builder-text>
             <builder-password   v-if="config.type == 'password'"  :datas="fromDatas" :config="config"></builder-password>
             <builder-textarea   v-if="config.type == 'textarea'"  :datas="fromDatas" :config="config"></builder-textarea>
