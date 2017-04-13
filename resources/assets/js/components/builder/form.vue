@@ -1,5 +1,5 @@
 <template>
-    <el-form :model="fromDatas" :rules="datas.rules" label-width="90px">
+    <el-form :model="fromDatas" ref="fromDatas" :rules="datas.rules" :inline="inline" :label-position="position" :label-width="width" :label-suffix="suffix">
         <div class="form-group" v-for="config in datas.datas">
             <builder-hidden     v-if="config.type == 'hidden'"    :datas="config"></builder-hidden>
             <builder-number     v-if="config.type == 'number'"    :datas="config"></builder-number>
@@ -8,8 +8,8 @@
             <builder-switch     v-if="config.type == 'switch'"    :datas="config"></builder-switch>
             <builder-tags       v-if="config.type == 'tags'"      :datas="config"></builder-tags>
             <builder-text       v-if="config.type == 'text'"      :datas="fromDatas" :config="config"></builder-text>
-            <builder-password   v-if="config.type == 'password'"  :datas="config"></builder-password>
-            <builder-textarea   v-if="config.type == 'textarea'"  :datas="config"></builder-textarea>
+            <builder-password   v-if="config.type == 'password'"  :datas="fromDatas" :config="config"></builder-password>
+            <builder-textarea   v-if="config.type == 'textarea'"  :datas="fromDatas" :config="config"></builder-textarea>
             <builder-upload     v-if="config.type == 'upload'"    :datas="config"></builder-upload>
         </div>
         <div class="row">
@@ -26,6 +26,29 @@
         </div>
     </el-form>
 </template>
+<style lang="less">
+    @media (max-width: 768px) { 
+        .el-form {
+            width:100%;
+        }
+    }
+    @media (min-width: 768px) { 
+        .el-form {
+            width:80%;
+        }
+    }
+    @media (min-width: 992px) { 
+        .el-form {
+            width:70%;
+        }
+    }
+    @media (min-width: 1200px) { 
+        .el-form {
+            width:60%;
+        }
+    }   
+
+</style>
 <script>
 import { mapState,mapMutations } from 'vuex'
 import builderText from './packages/form/text.vue'
@@ -59,9 +82,12 @@ export default {
     },
     data() {
         return {
+            width:'80px',
+            inline:false,
+            position:'right',
+            suffix:'',
             disabled: false,
-            config:{},
-            fromDatas:{}
+            fromDatas:{},
         };
     },
     created() {
@@ -79,6 +105,52 @@ export default {
          * @return   {[type]}                 [description]
          */
         compileData(){
+            this.setFromRules()
+            this.setFromConfig()
+            this.setFromDatas()
+        },
+        /**
+         * [setFromRules 设置验证规则]
+         * @author BigRocs
+         * @email    bigrocs@qq.com
+         * @DateTime 2017-04-13T13:54:53+0800
+         */
+        setFromRules(){
+            eval(this.datas.rules)
+            let rules = this.datas.rules;
+            if (rules!==undefined) {
+                for (var name in rules) {
+                    for (var key in rules[name]) {
+                        let validator = rules[name][key].validator
+                        if (validator!==undefined) {
+                            rules[name][key].validator = eval(validator) //执行自定义JS规则代码
+                        }
+                    }
+                }
+            }
+        },
+        /**
+         * [setFromConfig 设置form配置]
+         * @author BigRocs
+         * @email    bigrocs@qq.com
+         * @DateTime 2017-04-13T13:55:03+0800
+         */
+        setFromConfig(){
+            let config = this.datas.config;
+            if (config!==undefined) {
+                if (config.width) { this.width = config.width }
+                if (config.inline) { this.inline = config.inline }
+                if (config.position) { this.position = config.position }
+                if (config.suffix) { this.suffix = config.suffix }
+            }  
+        },
+        /**
+         * [setFromDatas 设置form渲染数据]
+         * @author BigRocs
+         * @email    bigrocs@qq.com
+         * @DateTime 2017-04-13T13:55:32+0800
+         */
+        setFromDatas(){
             let datas = this.datas.datas
             this.fromDatas = {}
             for (var key in datas) {
@@ -91,11 +163,6 @@ export default {
             let _this = this;
             this.disabled = true;
             let postData = this.fromDatas
-            console.log(postData);
-            // let postData = new Object();
-            // for(var key in this.fromDatas.datas){
-            //     postData[this.fromDatas.datas[key].name] = this.fromDatas.datas[key].value
-            // }
             let thenFunction = (Response) => {
                 setTimeout(() =>  {
                     _this.disabled = false;
