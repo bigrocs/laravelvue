@@ -55,12 +55,22 @@ class BuilderData
     }
     /**
      * [setFormObject 给form Item 列赋值value]
-     * @param [type] $Object [传入数据]
+     * @author BigRocs
+     * @email    bigrocs@qq.com
+     * @DateTime 2017-04-14T17:17:43+0800
+     * @param    [type]                   $Object [数据合计]
+     * @param    array                    $loads  [合并装载的子元素名]
      */
-    public function setFormObject($Object){
+    public function setFormObject($Object,$loads=[]){
+        $dataArray = $Object->toArray();
+        if ($loads) {
+            foreach ($loads as $key => $load) {
+                $dataArray = array_merge($dataArray,$dataArray[$load]);
+            }
+        }
          foreach ($this->data['form']['datas'] as &$item) {
                 if (!isset($item['value'])) {
-                    $item['value'] = $Object[$item['name']];
+                    @$item['value'] = $dataArray[$item['name']];
                 }
          }
          return $this;
