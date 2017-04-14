@@ -12,8 +12,7 @@
             <builder-textarea   v-if="config.type == 'textarea'"  :datas="fromDatas" :config="config"></builder-textarea>
             <builder-upload     v-if="config.type == 'upload'"    :datas="config"></builder-upload>
         </div>
-        <div class="row">
-            <div class="col-md-6 col-sm-8">
+        <el-form-item>
                 <div class="btn-group btn-group-justified">
                     <div class="btn-group">
                         <button type="button" class="btn btn-info" @click="handleSubmit" :disabled="disabled">确定</button>
@@ -22,8 +21,7 @@
                         <button type="button" class="btn btn-warning"  @click="handleReset">重置</button>
                     </div>
                 </div>
-            </div>
-        </div>
+        </el-form-item>
     </el-form>
 </template>
 <style lang="less">
