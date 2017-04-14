@@ -142,7 +142,7 @@ class ConfigController extends Controller
         $configGroupList = Helpers::getTabsConfigGroupList();
         $formItemType = BuilderData::getformItemType();
         $data = BuilderData::addFormApiUrl('submit','/api/admin/system/config/update')               //添加Submit通信API
-                            ->setFormTitle('新增配置')                                           //添form表单页面标题
+                            ->setFormTitle('编辑配置')                                           //添form表单页面标题
                             ->addFormItem(['name' => 'id',        'type' => 'text',     'label' => '数据ID',       'placeholder' => 'ID','disabled'=>true])
                             ->addFormItem(['name' => 'group',     'type' => 'select',   'label' => '配置分组',     'placeholder' => '配置所属的分组','options'=>$configGroupList])
                             ->addFormItem(['name' => 'type',      'type' => 'select',   'label' => '配置类型',     'placeholder' => '配置类型的分组','options'=>$formItemType])
