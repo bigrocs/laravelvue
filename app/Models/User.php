@@ -53,15 +53,37 @@ class User extends Authenticatable
                     ->orwhere('mobile',$username)
                     ->first();
     }
+    /**
+     * [getRules 前端验证规则]
+     * @author BigRocs
+     * @email    bigrocs@qq.com
+     * @DateTime 2017-04-14T11:09:32+0800
+     * @return   [type]                   [description]
+     */
     public function getRules(){
+        $mobilePassword = "
+            (rule, value, callback) => {
+                if (value === '') {
+                  callback(new Error('请输入手机号码'));
+                } else {
+                    if (!/^1[3578]\d{9}$/.test(value)) {
+                        callback(new Error('请输入正确的手机号码'));
+                    }
+                    callback();
+                }
+            }
+        ";
         $validatePassword = "
             (rule, value, callback) => {
                 if (value === '') {
                   callback(new Error('请输入密码'));
                 } else {
-                  if (this.fromDatas.checkPassword !== '') {
-                    this.\$refs.fromDatas.validateField('checkPassword');
-                  }
+                    if (!/^.{6,16}$/.test(value)) {
+                        callback(new Error('密码长度在 6 到 16 个字符'));
+                    }
+                    if (this.fromDatas.checkPassword !== '') {
+                        this.\$refs.fromDatas.validateField('checkPassword');
+                    }
                   callback();
                 }
             }";
@@ -84,16 +106,19 @@ class User extends Authenticatable
                 [ 'required'=> true, 'message'=> '请输入邮箱地址', 'trigger'=> 'blur' ],
                 [ 'type'=> 'email', 'message'=> '请输入正确的邮箱地址', 'trigger'=> 'blur,change' ]
             ],
-            // 'mobile'=> [
-            //     [ 'required'=> true, 'message'=> '请输入手机号码', 'trigger'=> 'blur' ],
-            //     [ 'min'=> 11, 'max'=> 11, 'type'=> 'number', 'message'=> '请输入正确的手机号码', 'trigger'=> 'blur,change' ]
-            // ],
+            'mobile'=> [
+                [ 'required'=> true, 'validator'=> $mobilePassword,'trigger'=> 'blur' ],
+                // [ 'min'=> 11, 'max'=> 11, 'type'=> 'number', 'message'=> '请输入正确的手机号码', 'trigger'=> 'blur,change' ]
+            ],
             'password'=> [
-                [ 'required'=> true, 'validator'=> $validatePassword, 'trigger'=> 'blur', 'relation'=>'checkPassword' ]
+                [ 'required'=> true, 'validator'=> $validatePassword, 'trigger'=> 'blur']
             ],
             'checkPassword'=> [
-                [ 'required'=> true, 'validator'=> $validateCheckPassword, 'trigger'=> 'blur', 'checkMessage'=>'两次输入密码不一致!', 'relation'=>'password' ]
-            ]
+                [ 'required'=> true, 'validator'=> $validateCheckPassword, 'trigger'=> 'blur', 'checkMessage'=>'两次输入密码不一致!' ]
+            ],
+            'avatar'=> [
+                [ 'required'=> true, 'message'=> '请上传头像', 'trigger'=> 'blur' ],
+            ],
         ];
         return $rules;
     }
