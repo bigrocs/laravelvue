@@ -59,7 +59,9 @@ class BuilderData
      */
     public function setFormObject($Object){
          foreach ($this->data['form']['datas'] as &$item) {
-                 $item['value'] = $Object[$item['name']];
+                if (!isset($item['value'])) {
+                    $item['value'] = $Object[$item['name']];
+                }
          }
          return $this;
     }
