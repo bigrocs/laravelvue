@@ -60,7 +60,7 @@ class SystemController extends Controller
                             ->addFormApiUrl('submit','/api/admin/system/system/update')              //添加Submit通信API
                             ->setTabs(Helpers::getTabsConfigGroupList())    //设置页面Tabs
                             ->setTitle('系统设置')
-                            ->setFormConfig(['width'=>'90px'])
+                            ->setFormConfig(['width'=>'100px'])
                             ->get();
         return response()->json($data, 200);
     }
