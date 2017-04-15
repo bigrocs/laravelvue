@@ -25,6 +25,6 @@ class UserInfo extends Model
     public function getAvatarAttribute($id)
     {
     	$uploadObject = Helpers::getUploadWhereFirst($id);
-        return $uploadObject->url;
+        return $avatar = ['url'=> $uploadObject->url , 'id'=> $id];
     }
 }
