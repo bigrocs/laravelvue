@@ -31,16 +31,6 @@ class SystemController extends Controller
                             ->orderBy('sort', 'ASC')
                             ->where('status', '=', 1)
                             ->get();
-        $configPageSizes= Helpers::getPageSizes();
-        foreach ($configPageSizes as &$pageSize) {
-            $pageSize = $pageSize.' 条/页';
-        }
-        foreach ($adminConfigs as $adminConfig) {
-
-            if ($adminConfig['name'] == 'ADMIN_PAGE_SIZE') {
-                $adminConfig['options'] = $configPageSizes;//根据选择器分组
-            }
-        }
         $data = BuilderData::addFormData($adminConfigs)
                             ->addFormApiUrl('submit','/api/admin/system/system/update')              //添加Submit通信API
                             ->setTabs(Helpers::getTabsConfigGroupList())    //设置页面Tabs
@@ -54,7 +44,6 @@ class SystemController extends Controller
         foreach ($input as $name => $value) {
             $adminConfig = $this->adminConfigModel->where('name', '=', $name)->update(['value' => $value]);
         }
-
         $data = [
                     'title'     => '保存成功',
                     'message'   => '系统设置保存成功!',

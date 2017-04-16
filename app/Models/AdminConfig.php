@@ -42,7 +42,7 @@ class AdminConfig extends Model
         'value' => 'required|string'
     ]
     ;
-    protected $appends = ['imageUrl','uploadUrl','label','rows'];
+    protected $appends = ['imageUrl','uploadUrl','label','rows','options'];
     /**
      * [getImageUrlAttribute 获取上传图片网址]
      * @author BigRocs
@@ -78,6 +78,22 @@ class AdminConfig extends Model
     {
         if ($this->attributes['type'] == 'textarea') {
             return 5;
+        }
+    }
+    /**
+     * [getOptionsAttribute 获取分页选择显示数据]
+     * @author BigRocs
+     * @email    bigrocs@qq.com
+     * @DateTime 2017-04-16T09:07:22+0800
+     * @return   [type]                   [description]
+     */
+    public function getOptionsAttribute()
+    {
+        if ($this->attributes['name'] == 'ADMIN_PAGE_SIZE') {
+            return $configPageSizes= collect(Helpers::getPageSizes())
+                                        ->map(function ($value) {
+                                            return $value.' 条/页';
+                                        });
         }
     }
 }
