@@ -37,7 +37,7 @@ class BuilderData
      */
      public function addFormData($formData){
          $this->data['form']['type']    = 'form';      //自动设置数据样式为 table
-         $this->data['form']['datas']   = $formData;   //设置 table数据
+         $this->data['form']['datas']   = $formData->toArray();   //设置 table数据
          return $this;
      }
      /**
