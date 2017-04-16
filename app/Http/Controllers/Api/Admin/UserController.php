@@ -104,7 +104,7 @@ class UserController extends Controller
                             ->addFormItem(['name' => 'mobile',    'type' => 'text',     'label' => '用户手机'   ])
                             ->addFormItem(['name' => 'password',  'type' => 'password',     'label' => '用户密码'   ])
                             ->addFormItem(['name' => 'checkPassword','type' => 'password',  'label' => '密码验证'])
-                            ->addFormItem(['name' => 'avatar',    'type' => 'picture',  'label' => '用户头像', 'postUrl'=>'/api/admin/system/upload/image'])
+                            ->addFormItem(['name' => 'avatar',    'type' => 'picture',  'label' => '用户头像', 'uploadUrl'=>'/api/admin/system/upload/image'])
                             ->addFormItem(['name' => 'integral',  'type' => 'number',   'label' => '用户积分'   ])
                             ->addFormItem(['name' => 'money',     'type' => 'number',   'label' => '用户余额'  ])
                             ->setFormRules($this->userModel->getRules())
@@ -114,7 +114,6 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
         $user = $this->userModel->create($input);
         $response = $user->userInfos()->create($input);//插入关联数据库userInfos
         if ($response->wasRecentlyCreated) {
@@ -132,24 +131,41 @@ class UserController extends Controller
         }
         return response()->json($data, 200);
     }
-    public function edit(Request $request){
+    public function edit(Request $request){ 
         $users = $this->userModel->find($request->id);
         $users->load('roles');//加载关联权限数据
         $users->load('userInfos');//加载关联头像数据
         $data = BuilderData::addFormApiUrl('submit','/api/admin/system/user/update')               //添加Submit通信API
                             ->setFormTitle('编辑用户')                                           //添form表单页面标题
                             ->setFormConfig(['width'=>'90px'])
+                            ->addFormItem(['name' => 'id',        'type' => 'hidden',     'label' => 'ID'     ])
                             ->addFormItem(['name' => 'name',      'type' => 'text',     'label' => '用户名'     ])
                             ->addFormItem(['name' => 'email',     'type' => 'text',     'label' => '用户邮箱'   ])
                             ->addFormItem(['name' => 'mobile',    'type' => 'text',     'label' => '用户手机'   ])
-                            ->addFormItem(['name' => 'password',  'type' => 'password',     'label' => '用户密码', 'value'=>''   ])
+                            ->addFormItem(['name' => 'password',  'type' => 'password',     'label' => '用户密码' ])
                             ->addFormItem(['name' => 'checkPassword','type' => 'password',  'label' => '密码验证'])
-                            ->addFormItem(['name' => 'avatar',    'type' => 'picture',  'label' => '用户头像', 'postUrl'=>'/api/admin/system/upload/image'])
-                            ->addFormItem(['name' => 'integral',  'type' => 'number',   'label' => '用户积分', ])
-                            ->addFormItem(['name' => 'money',     'type' => 'number',   'label' => '用户余额',])
-                            ->setFormObject($users, ['user_infos'])
+                            ->addFormItem(['name' => 'avatar',    'type' => 'picture',  'label' => '用户头像', 'loadAttribute'=>['user_infos.avatar','imageUrl'=>'user_infos.avatarUrl'], 'uploadUrl'=>'/api/admin/system/upload/image'])
+                            ->addFormItem(['name' => 'integral',  'type' => 'number',   'label' => '用户积分', 'loadAttribute'=>['user_infos.integral']])
+                            ->addFormItem(['name' => 'money',     'type' => 'number',   'label' => '用户余额', 'loadAttribute'=>['user_infos.money']])
+                            ->setFormObject($users)
                             ->setFormRules($this->userModel->getRules())
                             ->get();
+        return response()->json($data, 200);
+    }
+    public function update(Request $request)
+    {
+        $input = $request->all();
+        if(!$input['password']){
+            unset($input['password']);
+        }
+        $user = $this->userModel->find($input['id']);
+        $user->fill($input)->save();
+        $user->userInfos()->update(['avatar'=>$request->avatar, 'integral'=>$request->integral, 'money'=>$request->money]);
+        $data = [
+                        'title'     => '用户编辑成功！',
+                        'message'   => '编辑用户数据成功！!',
+                        'type'      => 'success',
+                    ];
         return response()->json($data, 200);
     }
 }
