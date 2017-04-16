@@ -2,7 +2,7 @@
     <el-form-item :label="config.label" :prop="config.name">
         <el-upload
           :class="config.class"
-          :action="config.postUrl"
+          :action="config.uploadUrl"
           :headers="headers"
           :multiple="config.multiple"
           :data="config.data"
@@ -67,7 +67,7 @@ export default{
     methods: {
         Initialization(){
             let name = this.config.name
-            if (this.config.fileList) { this.imageUrl = this.config.fileList[0].url}
+            if (this.config.imageUrl) { this.imageUrl = this.config.imageUrl}
             if (!this.datas[name]) { this.datas[name] = '' }
             if (!this.config.fileName) { this.config.fileName = 'file' }
             if (!this.config.withCredentials) { this.config.withCredentials = false }
