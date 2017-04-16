@@ -15,7 +15,7 @@
         <el-form-item>
                 <div class="btn-group btn-group-justified">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-info" @click="handleSubmit" :disabled="disabled">确定</button>
+                        <button type="button" class="btn btn-info" @click="handleSubmit('fromDatas')" :disabled="disabled">确定</button>
                     </div>
                     <div class="btn-group">
                         <button type="button" class="btn btn-warning"  @click="handleReset">重置</button>
@@ -157,18 +157,25 @@ export default {
                 this.fromDatas[name] = value
             }
         },
-        handleSubmit(){
-            let _this = this;
-            this.disabled = true;
-            let postData = this.fromDatas
-            let thenFunction = (Response) => {
-                setTimeout(() =>  {
-                    _this.disabled = false;
-                }, 1000);
-                _this.$store.state.dialogFormVisible = false //关闭dialog页面
-                _this.handleReset()//重新加载页面POST数据
-            }
-            this.$store.dispatch('getHttpNotify',{url:this.datas.apiUrl.submit,postData,thenFunction})     //获取页面数据
+        handleSubmit(formName){
+            this.$refs[formName].validate((valid) => {
+                if (valid) {
+                    let _this = this;
+                    this.disabled = true;
+                    let postData = this.fromDatas
+                    let thenFunction = (Response) => {
+                        setTimeout(() =>  {
+                            _this.disabled = false;
+                        }, 1000);
+                        _this.$store.state.dialogFormVisible = false //关闭dialog页面
+                        _this.handleReset()//重新加载页面POST数据
+                    }
+                    this.$store.dispatch('getHttpNotify',{url:this.datas.apiUrl.submit,postData,thenFunction})     //获取页面数据
+                } else {
+                    console.log('error submit!! 请检查你的提交信息是否符合规则');
+                    return false;
+                }
+            });
         },
         handleReset() {
             this.$store.dispatch('getCurrentData')//初始化页面数据
