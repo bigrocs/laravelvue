@@ -53,6 +53,10 @@ class User extends Authenticatable
                     ->orwhere('mobile',$username)
                     ->first();
     }
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
     /**
      * [getRules 前端验证规则]
      * @author BigRocs
@@ -76,7 +80,7 @@ class User extends Authenticatable
         $validatePassword = "
             (rule, value, callback) => {
                 if (value === '') {
-                  callback(new Error('请输入密码'));
+                  callback();
                 } else {
                     if (!/^.{6,16}$/.test(value)) {
                         callback(new Error('密码长度在 6 到 16 个字符'));
@@ -90,7 +94,7 @@ class User extends Authenticatable
         $validateCheckPassword = "
             (rule, value, callback) => {
                 if (value === '') {
-                  callback(new Error('请再次输入密码'));
+                  callback();
                 } else if (value !== this.fromDatas.password) {
                   callback(new Error('两次输入密码不一致!'));
                 } else {
@@ -111,10 +115,10 @@ class User extends Authenticatable
                 // [ 'min'=> 11, 'max'=> 11, 'type'=> 'number', 'message'=> '请输入正确的手机号码', 'trigger'=> 'blur,change' ]
             ],
             'password'=> [
-                [ 'required'=> true, 'validator'=> $validatePassword, 'trigger'=> 'blur']
+                [ 'validator'=> $validatePassword, 'trigger'=> 'blur']
             ],
             'checkPassword'=> [
-                [ 'required'=> true, 'validator'=> $validateCheckPassword, 'trigger'=> 'blur', 'checkMessage'=>'两次输入密码不一致!' ]
+                [ 'validator'=> $validateCheckPassword, 'trigger'=> 'blur', 'checkMessage'=>'两次输入密码不一致!' ]
             ],
             'avatar'=> [
                 [ 'required'=> true, 'message'=> '请上传头像', 'trigger'=> 'blur' ],
