@@ -43,7 +43,7 @@ class UserController extends Controller
         $users->load('userInfos');//加载关联头像数据
     
         $rolesConfig = ['type'=>'primary',    'keyNmae'=>'display_name'];   // rolesTags  tags显示配置      valueName显示数据对象名称 如果不填写默认显示整个对象
-        $pictureConfig = ['keyNmae'=>'avatar', 'width'=>50, 'height'=>50, 'class'=>'img-responsive img-circle', 'alt'=>'用户头像'];
+        $pictureConfig = ['keyNmae'=>'avatarUrl', 'width'=>50, 'height'=>50, 'class'=>'img-responsive img-circle', 'alt'=>'用户头像'];
         $data = BuilderData::addTableData($users)
                                 ->addTableColumn(['prop' => 'id',         'label'=> 'ID',     'width'=> '55'])
                                 ->addTableColumn(['prop' => 'user_infos', 'label'=> '头像',   'width'=> '90',    'type' => 'picture',    'config'=>$pictureConfig])
@@ -130,6 +130,26 @@ class UserController extends Controller
                         'type'      => 'error',
                     ];
         }
+        return response()->json($data, 200);
+    }
+    public function edit(Request $request){
+        $users = $this->userModel->find($request->id);
+        $users->load('roles');//加载关联权限数据
+        $users->load('userInfos');//加载关联头像数据
+        $data = BuilderData::addFormApiUrl('submit','/api/admin/system/user/update')               //添加Submit通信API
+                            ->setFormTitle('编辑用户')                                           //添form表单页面标题
+                            ->setFormConfig(['width'=>'90px'])
+                            ->addFormItem(['name' => 'name',      'type' => 'text',     'label' => '用户名'     ])
+                            ->addFormItem(['name' => 'email',     'type' => 'text',     'label' => '用户邮箱'   ])
+                            ->addFormItem(['name' => 'mobile',    'type' => 'text',     'label' => '用户手机'   ])
+                            ->addFormItem(['name' => 'password',  'type' => 'password',     'label' => '用户密码', 'value'=>''   ])
+                            ->addFormItem(['name' => 'checkPassword','type' => 'password',  'label' => '密码验证'])
+                            ->addFormItem(['name' => 'avatar',    'type' => 'picture',  'label' => '用户头像', 'postUrl'=>'/api/admin/system/upload/image'])
+                            ->addFormItem(['name' => 'integral',  'type' => 'number',   'label' => '用户积分', ])
+                            ->addFormItem(['name' => 'money',     'type' => 'number',   'label' => '用户余额',])
+                            ->setFormObject($users, ['user_infos'])
+                            ->setFormRules($this->userModel->getRules())
+                            ->get();
         return response()->json($data, 200);
     }
 }
