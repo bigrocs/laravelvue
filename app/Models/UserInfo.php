@@ -14,17 +14,18 @@ class UserInfo extends Model
         'avatar', 'integral', 'money'
     ];
     public $timestamps = false;
+
+    protected $appends = ['avatarUrl'];
 	/**
-	 * [getAvatarAttribute 根据ID获取头像图片URL]
+	 * [getAvatarUrlAttribute 根据ID获取头像图片URL]
 	 * @author BigRocs
 	 * @email    bigrocs@qq.com
 	 * @DateTime 2017-04-01T13:51:44+0800
 	 * @param    [type]                   $value [头像图片ID]
 	 * @return   [type]                          [description]
 	 */
-    public function getAvatarAttribute($id)
+    public function getAvatarUrlAttribute()
     {
-    	$uploadObject = Helpers::getUploadWhereFirst($id);
-        return $avatar = ['url'=> $uploadObject->url , 'id'=> $id];
+    	return Helpers::getUploadWhereFirst($this->attributes['avatar'])->url;
     }
 }
