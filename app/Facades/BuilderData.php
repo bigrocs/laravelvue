@@ -37,7 +37,7 @@ class BuilderData
      */
      public function addFormData($formData){
          $this->data['form']['type']    = 'form';      //自动设置数据样式为 table
-         $this->data['form']['datas']   = $formData->toArray();   //设置 table数据
+         $this->data['form']['datas']   = $formData;   //设置 table数据
          return $this;
      }
      /**
@@ -58,19 +58,26 @@ class BuilderData
      * @author BigRocs
      * @email    bigrocs@qq.com
      * @DateTime 2017-04-14T17:17:43+0800
-     * @param    [type]                   $Object [数据合计]
-     * @param    array                    $loads  [合并装载的子元素名]
+     * @param    [type]                   $Object [数据合集]
      */
-    public function setFormObject($Object,$loads=[]){
+    public function setFormObject($Object){
         $dataArray = $Object->toArray();
-        if ($loads) {
-            foreach ($loads as $key => $load) {
-                $dataArray = array_merge($dataArray,$dataArray[$load]);
-            }
-        }
          foreach ($this->data['form']['datas'] as &$item) {
                 if (!isset($item['value'])) {
                     @$item['value'] = $dataArray[$item['name']];
+                }
+                if (isset($item['loadAttribute'])) {
+                    $loadAttribute = collect($item['loadAttribute'])
+                        ->map(function ($value) {
+                            return explode('.',$value);
+                        });
+                    foreach ($loadAttribute as $key => $value) {
+                        if($key){
+                            @$item[$key] = $dataArray[$value[0]][$value[1]];
+                        }else{
+                           @$item['value'] = $dataArray[$value[0]][$value[1]]; 
+                        }
+                    }
                 }
          }
          return $this;
