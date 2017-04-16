@@ -24,7 +24,7 @@ class CreateAdminConfigsTable extends Migration
             $table->string('icon')          ->comment('配置字体图标')->nullable();
             $table->string('property')      ->comment('配置属性')->nullable();
             $table->string('options')       ->comment('配置额外值')->nullable();
-            $table->string('tip')           ->comment('配置说明')->nullable();
+            $table->string('placeholder')           ->comment('配置说明')->nullable();
             $table->tinyInteger('status')   ->comment('状态')->default(1);
             $table->bigInteger('sort')      ->comment('排序')->unsigned()->default(0);
             $table->timestamps();

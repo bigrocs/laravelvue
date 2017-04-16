@@ -20,7 +20,7 @@ class AdminConfigTableSeeder extends Seeder
             'icon' 		=> '',
             'property' 	=> '',
             'options' 	=> '',
-            'tip' 		=> '站点关闭后将不能访问',
+            'placeholder' 		=> '站点关闭后将不能访问',
             'sort' 		=> '1',
             'status' 	=> '1',
         ]);
@@ -33,7 +33,7 @@ class AdminConfigTableSeeder extends Seeder
             'icon' 		=> '',
             'property' 	=> '',
             'options' 	=> '',
-            'tip' 		=> '网站标题前台显示标题',
+            'placeholder' 		=> '网站标题前台显示标题',
             'sort' 		=> '2',
             'status' 	=> '1',
         ]);
@@ -46,7 +46,7 @@ class AdminConfigTableSeeder extends Seeder
             'icon' 		=> '',
             'property' 	=> '',
             'options' 	=> '',
-            'tip' 		=> '网站口号、宣传标语、一句话介绍',
+            'placeholder' 		=> '网站口号、宣传标语、一句话介绍',
             'sort' 		=> '3',
             'status' 	=> '1',
         ]);
@@ -59,7 +59,7 @@ class AdminConfigTableSeeder extends Seeder
             'icon' 		=> '',
             'property' 	=> '',
             'options' 	=> '',
-            'tip' 		=> '设置网站LOGO',
+            'placeholder' 		=> '设置网站LOGO',
             'sort' 		=> '4',
             'status' 	=> '1',
         ]);
@@ -72,7 +72,7 @@ class AdminConfigTableSeeder extends Seeder
             'icon' 		=> '',
             'property' 	=> '',
             'options' 	=> '',
-            'tip' 		=> '网站搜索引擎描述',
+            'placeholder' 		=> '网站搜索引擎描述',
             'sort' 		=> '5',
             'status' 	=> '1',
         ]);
@@ -85,7 +85,7 @@ class AdminConfigTableSeeder extends Seeder
             'icon'      => '',
             'property'  => '',
             'options'   => '',
-            'tip'       => '网站搜索引擎关键字',
+            'placeholder'       => '网站搜索引擎关键字',
             'sort'      => '6   ',
             'status'    => '1',
         ]);
@@ -98,7 +98,7 @@ class AdminConfigTableSeeder extends Seeder
             'icon'      => '',
             'property'  => '',
             'options'   => '',
-            'tip'       => '设置在网站底部显示的版权信息，如“版权所有 © 2007-2017 鹏皓网络科技”',
+            'placeholder'       => '设置在网站底部显示的版权信息，如“版权所有 © 2007-2017 鹏皓网络科技”',
             'sort'      => '7',
             'status'    => '1',
         ]);
@@ -111,7 +111,7 @@ class AdminConfigTableSeeder extends Seeder
             'icon'      => '',
             'property'  => '',
             'options'   => '',
-            'tip'       => '设置在网站底部显示的备案号，如“鲁ICP备1272117-1号”',
+            'placeholder'       => '设置在网站底部显示的备案号，如“鲁ICP备1272117-1号”',
             'sort'      => '8',
             'status'    => '1',
         ]);
@@ -124,7 +124,7 @@ class AdminConfigTableSeeder extends Seeder
             'icon'      => '',
             'property'  => '',
             'options'   => '',
-            'tip'       => '支持百度、Google、cnzz等所有Javascript的统计代码',
+            'placeholder'       => '支持百度、Google、cnzz等所有Javascript的统计代码',
             'sort'      => '9',
             'status'    => '1',
         ]);
@@ -137,7 +137,7 @@ class AdminConfigTableSeeder extends Seeder
             'icon'      => '',
             'property'  => '',
             'options'   => '',
-            'tip'       => '文件上传大小单位：MB',
+            'placeholder'       => '文件上传大小单位：MB',
             'sort'      => '1',
             'status'    => '1',
         ]);
@@ -150,7 +150,7 @@ class AdminConfigTableSeeder extends Seeder
             'icon'      => '',
             'property'  => '',
             'options'   => '',
-            'tip'       => '图片上传大小单位：MB',
+            'placeholder'       => '图片上传大小单位：MB',
             'sort'      => '2',
             'status'    => '1',
         ]);
@@ -163,7 +163,7 @@ class AdminConfigTableSeeder extends Seeder
             'icon'      => '',
             'property'  => '',
             'options'   => '',
-            'tip'       => '分页时每页的记录数',
+            'placeholder'       => '分页时每页的记录数',
             'sort'      => '3',
             'status'    => '1',
         ]);
@@ -176,7 +176,7 @@ class AdminConfigTableSeeder extends Seeder
             'icon'      => '',
             'property'  => '',
             'options'   => '',
-            'tip'       => '分页时每页的记录数分组选择器',
+            'placeholder'       => '分页时每页的记录数分组选择器',
             'sort'      => '4',
             'status'    => '1',
         ]);
@@ -189,7 +189,7 @@ class AdminConfigTableSeeder extends Seeder
             'icon'      => '',
             'property'  => '',
             'options'   => '',
-            'tip'       => '配置分组',
+            'placeholder'       => '配置分组',
             'sort'      => '5',
             'status'    => '1',
         ]);

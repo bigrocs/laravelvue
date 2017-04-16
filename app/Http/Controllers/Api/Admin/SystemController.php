@@ -36,22 +36,7 @@ class SystemController extends Controller
             $pageSize = $pageSize.' 条/页';
         }
         foreach ($adminConfigs as $adminConfig) {
-            $adminConfig = $adminConfig;
-            $adminConfig['label'] = $adminConfig['title'];
-            $adminConfig['placeholder'] = $adminConfig['tip'];
-            if ($adminConfig['type'] == 'textarea') {
-                $adminConfig['rows'] = 5;
-            }
-            if ($adminConfig['type'] == 'picture') {
-                $adminConfig['postUrl'] = '/api/admin/system/upload/image';
-                $uploadData[] = Helpers::getUploadWhereFirst($adminConfig['value']);
-                $adminConfig['fileList'] = $uploadData;
-                $adminConfig['maxSize'] = 1048567;//上传文件限制
-                $maxSizeLang['title'] = '图片大小超过限制';
-                $maxSizeLang['message'] = '上传图片大小超过系统'.'1M'.'限制';
-                $maxSizeLang['type'] = 'warning';
-                $adminConfig['maxSizeLang'] = $maxSizeLang;
-            }
+
             if ($adminConfig['name'] == 'ADMIN_PAGE_SIZE') {
                 $adminConfig['options'] = $configPageSizes;//根据选择器分组
             }
