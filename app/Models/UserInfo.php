@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-use App\CustomCollection;
 use Illuminate\Database\Eloquent\Model;
 
 use Facades\ {
