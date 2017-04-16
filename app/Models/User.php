@@ -121,7 +121,7 @@ class User extends Authenticatable
                 [ 'validator'=> $validateCheckPassword, 'trigger'=> 'blur', 'checkMessage'=>'两次输入密码不一致!' ]
             ],
             'avatar'=> [
-                [ 'required'=> true, 'message'=> '请上传头像', 'trigger'=> 'blur' ],
+                [ 'required'=> true, 'message'=> '请上传头像' ],
             ],
         ];
         return $rules;
