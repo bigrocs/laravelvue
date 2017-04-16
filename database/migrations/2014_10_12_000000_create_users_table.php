@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
         Schema::create('user_infos', function (Blueprint $table) {
-            $table->integer('user_id')->unsigned();
+            $table->increments('user_id')->unsigned();
             $table->integer('avatar')           ->comment('用户头像')->unsigned()->default(1);
             $table->integer('integral')         ->comment('用户积分')->unsigned()->default(0);
             $table->decimal('money',11, 2)      ->comment('用户余额')->unsigned()->default(0);
