@@ -40,8 +40,8 @@ class AdminConfig extends Model
         'title' => 'required|string',
         'name' => 'required|string',
         'value' => 'required|string'
-    ]
-    ;
+    ];
+    
     protected $appends = ['imageUrl','uploadUrl','label','rows','options'];
     /**
      * [getImageUrlAttribute 获取上传图片网址]
