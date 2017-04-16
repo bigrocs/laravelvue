@@ -52,9 +52,9 @@ export default {
                 this.config = this.column.config;
             }
             if (this.config.keyNmae) {
-                this.src = this.datas[this.config.keyNmae].url
+                this.src = this.datas[this.config.keyNmae]
             }else{
-                this.src = this.datas.url
+                this.src = this.datas
             }
         },
 
