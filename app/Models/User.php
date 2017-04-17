@@ -58,6 +58,19 @@ class User extends Authenticatable
         $this->attributes['password'] = bcrypt($value);
     }
     /**
+     * [addRoles 批量增加用户角色]
+     * @author BigRocs
+     * @email    bigrocs@qq.com
+     * @DateTime 2017-04-17T14:05:10+0800
+     * @param    [type]                   $roles [description]
+     */
+    public function addRoles($roles)
+    {
+        foreach ($roles as $role) {
+            $response = $this->roles()->attach($role);
+        }
+    }
+    /**
      * [getRules 前端验证规则]
      * @author BigRocs
      * @email    bigrocs@qq.com
