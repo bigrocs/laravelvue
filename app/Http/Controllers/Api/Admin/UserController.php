@@ -123,7 +123,7 @@ class UserController extends Controller
     {
         $input = $request->all();
         $user = $this->userModel->create($input);
-        $user->addRoles($request->roles);//增加用户角色
+        $user->roles()->attach($request->roles);//增加用户角色
         $response = $user->userInfos()->create($input);//插入关联数据库userInfos
         if ($response->wasRecentlyCreated) {
             $data = [
@@ -144,6 +144,14 @@ class UserController extends Controller
         $users = $this->userModel->find($request->id);
         $users->load('roles');//加载关联权限数据
         $users->load('userInfos');//加载关联头像数据
+        $users->roles->transform(function ($item, $key) {
+            return $item['id'];
+        });//处理集合只留id
+        $roles = $this->roleModel->all();
+        $roles->transform(function ($item, $key) {
+            $item['name'] = $item['display_name'];
+            return $item;
+        });
         $data = BuilderData::addFormApiUrl('submit','/api/admin/system/user/update')               //添加Submit通信API
                             ->setFormTitle('编辑用户')                                           //添form表单页面标题
                             ->setFormConfig(['width'=>'90px'])
@@ -153,6 +161,7 @@ class UserController extends Controller
                             ->addFormItem(['name' => 'mobile',    'type' => 'text',     'label' => '用户手机'   ])
                             ->addFormItem(['name' => 'password',  'type' => 'password',  'label' => '用户密码' ])
                             ->addFormItem(['name' => 'checkPassword','type' => 'password','label' => '密码验证'])
+                            ->addFormItem(['name' => 'roles',     'type' => 'checkbox', 'label' => '用户角色', 'options'=>$roles])
                             ->addFormItem(['name' => 'avatar',    'type' => 'picture',  'label' => '用户头像', 'loadAttribute'=>['user_infos.avatar','imageUrl'=>'user_infos.avatarUrl'], 'uploadUrl'=>'/api/admin/system/upload/image', 'width'=>'250px', 'height'=>'250px'])
                             ->addFormItem(['name' => 'integral',  'type' => 'number',   'label' => '用户积分', 'loadAttribute'=>['user_infos.integral']])
                             ->addFormItem(['name' => 'money',     'type' => 'number',   'label' => '用户余额', 'loadAttribute'=>['user_infos.money']])
@@ -169,6 +178,7 @@ class UserController extends Controller
         }
         $user = $this->userModel->find($input['id']);
         $user->fill($input)->save();
+        $user->roles()->sync($request->roles);//更新用户角色
         $user->userInfos()->update(['avatar'=>$request->avatar, 'integral'=>$request->integral, 'money'=>$request->money]);
         $data = [
                         'title'     => '用户编辑成功！',
