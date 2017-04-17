@@ -93,9 +93,7 @@ class User extends Authenticatable
             }";
         $validateCheckPassword = "
             (rule, value, callback) => {
-                if (value === '') {
-                  callback();
-                } else if (value !== this.fromDatas.password) {
+                if (value !== this.fromDatas.password) {
                   callback(new Error('两次输入密码不一致!'));
                 } else {
                   callback();
