@@ -1,6 +1,7 @@
 <template>
     <el-form :model="fromDatas" ref="fromDatas" :rules="datas.rules" :inline="inline" :label-position="position" :label-width="width" :label-suffix="suffix">
         <div class="form-group" v-for="config in datas.datas">
+            <builder-checkbox   v-if="config.type == 'checkbox'"  :datas="fromDatas" :config="config"></builder-checkbox>
             <builder-hidden     v-if="config.type == 'hidden'"    :datas="config"></builder-hidden>
             <builder-number     v-if="config.type == 'number'"    :datas="fromDatas" :config="config"></builder-number>
             <builder-picture    v-if="config.type == 'picture'"   :datas="fromDatas" :config="config"></builder-picture>
@@ -49,6 +50,7 @@
 </style>
 <script>
 import { mapState,mapMutations } from 'vuex'
+import builderCheckbox from './packages/form/checkbox.vue'
 import builderText from './packages/form/text.vue'
 import builderPassword from './packages/form/password.vue'
 import builderHidden from './packages/form/hidden.vue'
@@ -61,6 +63,7 @@ import builderPicture from './packages/form/picture.vue'
 import builderUpload from './packages/form/upload.vue'
 export default {
     components: {
+        builderCheckbox,
         builderText,
         builderPassword,
         builderHidden,
