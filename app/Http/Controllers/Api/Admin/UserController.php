@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Role;
 use Facades\ {
     App\Facades\BuilderData,
     App\Facades\Helpers
@@ -17,9 +18,10 @@ class UserController extends Controller
 	/** @var userRepo */
     private $userModel;
 
-    public function __construct(User $userRepo)
+    public function __construct(User $userRepo,Role $rolePepo)
     {
         $this->userModel = $userRepo;
+        $this->roleModel = $rolePepo;
     }
     public function index(Request $request)
     {
@@ -96,15 +98,21 @@ class UserController extends Controller
         return response()->json($data, 200);
     }
     public function add(){
+        $roles = $this->roleModel->all();
+        $roles->transform(function ($item, $key) {
+            $item['name'] = $item['display_name'];
+            return $item;
+        });
         $data = BuilderData::addFormApiUrl('submit','/api/admin/system/user/store')               //添加Submit通信API
                             ->setFormTitle('新增用户')                                           //添form表单页面标题
                             ->setFormConfig(['width'=>'90px'])
                             ->addFormItem(['name' => 'name',      'type' => 'text',     'label' => '用户名'     ])
                             ->addFormItem(['name' => 'email',     'type' => 'text',     'label' => '用户邮箱'   ])
                             ->addFormItem(['name' => 'mobile',    'type' => 'text',     'label' => '用户手机'   ])
-                            ->addFormItem(['name' => 'password',  'type' => 'password',     'label' => '用户密码'   ])
-                            ->addFormItem(['name' => 'checkPassword','type' => 'password',  'label' => '密码验证'])
-                            ->addFormItem(['name' => 'avatar',    'type' => 'picture',  'label' => '用户头像', 'uploadUrl'=>'/api/admin/system/upload/image'])
+                            ->addFormItem(['name' => 'password',  'type' => 'password', 'label' => '用户密码'   ])
+                            ->addFormItem(['name' => 'checkPassword','type' => 'password','label' => '密码验证'])
+                            ->addFormItem(['name' => 'roles',     'type' => 'checkbox', 'label' => '用户角色',  'value'=>[2], 'options'=>$roles])
+                            ->addFormItem(['name' => 'avatar',    'type' => 'picture',  'label' => '用户头像',  'uploadUrl'=>'/api/admin/system/upload/image', 'width'=>'250px', 'height'=>'250px'])
                             ->addFormItem(['name' => 'integral',  'type' => 'number',   'label' => '用户积分'   ])
                             ->addFormItem(['name' => 'money',     'type' => 'number',   'label' => '用户余额'  ])
                             ->setFormRules($this->userModel->getRules())
@@ -115,6 +123,7 @@ class UserController extends Controller
     {
         $input = $request->all();
         $user = $this->userModel->create($input);
+        $user->addRoles($request->roles);//增加用户角色
         $response = $user->userInfos()->create($input);//插入关联数据库userInfos
         if ($response->wasRecentlyCreated) {
             $data = [
@@ -138,13 +147,13 @@ class UserController extends Controller
         $data = BuilderData::addFormApiUrl('submit','/api/admin/system/user/update')               //添加Submit通信API
                             ->setFormTitle('编辑用户')                                           //添form表单页面标题
                             ->setFormConfig(['width'=>'90px'])
-                            ->addFormItem(['name' => 'id',        'type' => 'hidden',     'label' => 'ID'     ])
+                            ->addFormItem(['name' => 'id',        'type' => 'hidden',   'label' => 'ID'     ])
                             ->addFormItem(['name' => 'name',      'type' => 'text',     'label' => '用户名'     ])
                             ->addFormItem(['name' => 'email',     'type' => 'text',     'label' => '用户邮箱'   ])
                             ->addFormItem(['name' => 'mobile',    'type' => 'text',     'label' => '用户手机'   ])
-                            ->addFormItem(['name' => 'password',  'type' => 'password',     'label' => '用户密码' ])
-                            ->addFormItem(['name' => 'checkPassword','type' => 'password',  'label' => '密码验证'])
-                            ->addFormItem(['name' => 'avatar',    'type' => 'picture',  'label' => '用户头像', 'loadAttribute'=>['user_infos.avatar','imageUrl'=>'user_infos.avatarUrl'], 'uploadUrl'=>'/api/admin/system/upload/image'])
+                            ->addFormItem(['name' => 'password',  'type' => 'password',  'label' => '用户密码' ])
+                            ->addFormItem(['name' => 'checkPassword','type' => 'password','label' => '密码验证'])
+                            ->addFormItem(['name' => 'avatar',    'type' => 'picture',  'label' => '用户头像', 'loadAttribute'=>['user_infos.avatar','imageUrl'=>'user_infos.avatarUrl'], 'uploadUrl'=>'/api/admin/system/upload/image', 'width'=>'250px', 'height'=>'250px'])
                             ->addFormItem(['name' => 'integral',  'type' => 'number',   'label' => '用户积分', 'loadAttribute'=>['user_infos.integral']])
                             ->addFormItem(['name' => 'money',     'type' => 'number',   'label' => '用户余额', 'loadAttribute'=>['user_infos.money']])
                             ->setFormObject($users)
