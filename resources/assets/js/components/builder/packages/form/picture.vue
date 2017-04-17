@@ -20,7 +20,13 @@
           :before-upload="beforeUpload"
           :auto-upload="true"
         >
-          <img v-if="imageUrl" :src="imageUrl" :style="stylePicture" class="img-responsive" >
+          <img v-if="imageUrl" 
+            :src="imageUrl" 
+            :style="stylePicture" 
+            class="img-responsive" 
+            :width="config.width" 
+            :height="config.height"
+          >
           <i v-else class="el-icon-plus" :style="stylePictureUploaderIcon"></i>
         </el-upload>
     </el-form-item>
