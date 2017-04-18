@@ -17,6 +17,7 @@ class UserController extends Controller
 {
 	/** @var userRepo */
     private $userModel;
+    private $roleModel;
 
     public function __construct(User $userRepo,Role $rolePepo)
     {
