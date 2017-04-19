@@ -22,7 +22,6 @@
         :data="tableDatas.datas"
         :stripe="tableDatas.stripe"
         border
-        style="width: 100%"
         @selection-change="handleSelectionChange">
         <el-table-column
             type="selection"
