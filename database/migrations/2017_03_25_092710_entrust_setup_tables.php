@@ -19,6 +19,8 @@ class EntrustSetupTables extends Migration
             $table->string('name')->unique();
             $table->string('display_name')->nullable();
             $table->string('description')->nullable();
+            $table->tinyInteger('status')   ->comment('状态')->default(1);
+            $table->bigInteger('sort')      ->comment('排序')->unsigned()->default(0);
             $table->timestamps();
         });
 
