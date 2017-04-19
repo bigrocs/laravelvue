@@ -48,14 +48,14 @@ class UserController extends Controller
         $rolesConfig = ['type'=>'primary',    'keyNmae'=>'display_name'];   // rolesTags  tags显示配置      valueName显示数据对象名称 如果不填写默认显示整个对象
         $pictureConfig = ['keyNmae'=>'avatarUrl', 'width'=>50, 'height'=>50, 'class'=>'img-responsive img-circle', 'alt'=>'用户头像'];
         $data = BuilderData::addTableData($users)
-                                ->addTableColumn(['prop' => 'id',         'label'=> 'ID',     'width'=> '55'])
-                                ->addTableColumn(['prop' => 'user_infos', 'label'=> '头像',   'width'=> '90',    'type' => 'picture',    'config'=>$pictureConfig])
-                                ->addTableColumn(['prop' => 'roles',      'label'=> '角色',   'minWidth'=> '120',    'type' => 'tags',       'config'=>$rolesConfig])
-                                ->addTableColumn(['prop' => 'name',       'label'=> '用户名', 'minWidth'=> '120'])
-                                ->addTableColumn(['prop' => 'email',      'label'=> '邮箱',   'minWidth'=> '180'])
-                                ->addTableColumn(['prop' => 'mobile',     'label'=> '手机',   'minWidth'=> '180'])
-                                ->addTableColumn(['prop' => 'status',     'label'=> '状态',   'width'=> '90',      'type' => 'status'])
-                                ->addTableColumn(['prop' => 'rightButton','label'=> '操作',   'minWidth'=> '220',  'type' => 'btn'])
+                                ->addTableColumn(['prop' => 'id',         'label'=> 'ID',     'width'=> 55])
+                                ->addTableColumn(['prop' => 'user_infos', 'label'=> '头像',   'width'=> 90,    'type' => 'picture',    'config'=>$pictureConfig])
+                                ->addTableColumn(['prop' => 'roles',      'label'=> '角色',   'minWidth'=> 120,    'type' => 'tags',       'config'=>$rolesConfig])
+                                ->addTableColumn(['prop' => 'name',       'label'=> '用户名', 'minWidth'=> 120])
+                                ->addTableColumn(['prop' => 'email',      'label'=> '邮箱',   'minWidth'=> 180])
+                                ->addTableColumn(['prop' => 'mobile',     'label'=> '手机',   'minWidth'=> 180])
+                                ->addTableColumn(['prop' => 'status',     'label'=> '状态',   'width'=> 90,      'type' => 'status'])
+                                ->addTableColumn(['prop' => 'rightButton','label'=> '操作',   'minWidth'=> 220,  'type' => 'btn'])
                                 ->addTableApiUrl('status','/api/admin/system/user/status')         //添加状态通信API
                                 ->addTableApiUrl('delete','/api/admin/system/user/delete')         //添加删除通信API
                                 ->addTableApiUrl('add','/api/admin/system/user/add')               //添加数据接口
