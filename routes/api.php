@@ -47,6 +47,14 @@ Route::group(['prefix' => 'admin/system', 'as' => 'api.admin.system.', 'middlewa
     Route::post('user/store', ['as' => 'user.store', 'uses' => 'UserController@store']);
     Route::post('user/edit', ['as' => 'user.edit', 'uses' => 'UserController@edit']);
     Route::post('user/update', ['as' => 'user.store', 'uses' => 'UserController@update']);
+
+    Route::post('role', [ 'as' => 'role.index', 'uses' => 'RoleController@index']);
+    Route::post('role/status', ['as' => 'role.status', 'uses' => 'RoleController@status']);
+    Route::post('role/delete', ['as' => 'role.delete', 'uses' => 'RoleController@delete']);
+    Route::post('role/add', ['as' => 'role.add', 'uses' => 'RoleController@add']);
+    Route::post('role/store', ['as' => 'role.store', 'uses' => 'RoleController@store']);
+    Route::post('role/edit', ['as' => 'role.edit', 'uses' => 'RoleController@edit']);
+    Route::post('role/update', ['as' => 'role.store', 'uses' => 'RoleController@update']);
 });
 
 /*
