@@ -47,7 +47,7 @@ class UserController extends Controller
     
         $rolesConfig = ['type'=>'primary',    'keyNmae'=>'display_name'];   // rolesTags  tags显示配置      valueName显示数据对象名称 如果不填写默认显示整个对象
         $pictureConfig = ['keyNmae'=>'avatarUrl', 'width'=>50, 'height'=>50, 'class'=>'img-responsive img-circle', 'alt'=>'用户头像'];
-        $data = BuilderData::addTableData($users)
+        return $data = BuilderData::addTableData($users)
                                 ->addTableColumn(['prop' => 'id',         'label'=> 'ID',     'width'=> 55])
                                 ->addTableColumn(['prop' => 'user_infos', 'label'=> '头像',   'width'=> 90,    'type' => 'picture',    'config'=>$pictureConfig])
                                 ->addTableColumn(['prop' => 'roles',      'label'=> '角色',   'minWidth'=> 120,    'type' => 'tags',       'config'=>$rolesConfig])
@@ -72,7 +72,6 @@ class UserController extends Controller
                                 ->setSearchSelect(['id'=>'ID','name'=>'用户名','email'=>'邮箱','mobile'=>'手机'])
                                 ->setTitle('配置管理')
                                 ->get();
-        return response()->json($data, 200);
     }
     public function status(Request $request){
         $input = $request->all();
@@ -104,7 +103,7 @@ class UserController extends Controller
             $item['name'] = $item['display_name'];
             return $item;
         });
-        $data = BuilderData::addFormApiUrl('submit','/api/admin/system/user/store')               //添加Submit通信API
+        return $data = BuilderData::addFormApiUrl('submit','/api/admin/system/user/store')               //添加Submit通信API
                             ->setFormTitle('新增用户')                                           //添form表单页面标题
                             ->setFormConfig(['width'=>'90px'])
                             ->addFormItem(['name' => 'name',      'type' => 'text',     'label' => '用户名'     ])
@@ -118,7 +117,6 @@ class UserController extends Controller
                             ->addFormItem(['name' => 'money',     'type' => 'number',   'label' => '用户余额'  ])
                             ->setFormRules($this->userModel->getRules())
                             ->get();
-        return response()->json($data, 200);
     }
     public function store(Request $request)
     {
@@ -153,7 +151,7 @@ class UserController extends Controller
             $item['name'] = $item['display_name'];
             return $item;
         });
-        $data = BuilderData::addFormApiUrl('submit','/api/admin/system/user/update')               //添加Submit通信API
+        return $data = BuilderData::addFormApiUrl('submit','/api/admin/system/user/update')               //添加Submit通信API
                             ->setFormTitle('编辑用户')                                           //添form表单页面标题
                             ->setFormConfig(['width'=>'90px'])
                             ->addFormItem(['name' => 'id',        'type' => 'hidden',   'label' => 'ID'     ])
@@ -169,7 +167,6 @@ class UserController extends Controller
                             ->setFormObject($users)
                             ->setFormRules($this->userModel->getRules())
                             ->get();
-        return response()->json($data, 200);
     }
     public function update(Request $request)
     {

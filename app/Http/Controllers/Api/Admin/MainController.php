@@ -13,7 +13,7 @@ class MainController extends Controller
 {
     public function index()
     {
-        $data =  BuilderMain::setRoute('dashboard',        '/admin/dashboard')
+        return $data =  BuilderMain::setRoute('dashboard',        '/admin/dashboard')
                             ->setRoute('systemSystem',     '/admin/system/system',        '/api/admin/system/system')
                             ->setRoute('systemConfig',     '/admin/system/config',        '/api/admin/system/config')
                             ->setRoute('systemUpload',     '/admin/system/upload',        '/api/admin/system/upload')
@@ -43,6 +43,5 @@ class MainController extends Controller
                             ->setApiUrl('login',           '/admin/login')
                             ->setApiUrl('authCheck',       '/admin/authCheck')
                             ->get();
-        return response()->json($data, 200);
     }
 }

@@ -42,7 +42,7 @@ class ConfigController extends Controller
                             ->where('status', '>=', 0)
                             ->where($selectSearch, 'like', $inputSearch)
                             ->get();
-        $data = BuilderData::addTableData($adminConfigs)
+        return $data = BuilderData::addTableData($adminConfigs)
                                 ->addTableColumn(['prop' => 'id',         'label'=> 'ID',     'width'=> '55'])
                                 ->addTableColumn(['prop' => 'name',       'label'=> '名称',   'minWidth'=> '240'])
                                 ->addTableColumn(['prop' => 'title',      'label'=> '标题',   'minWidth'=> '180'])
@@ -66,7 +66,6 @@ class ConfigController extends Controller
                                 ->setSearchSelect(['id'=>'ID','name'=>'名称','title'=>'标题'])
                                 ->setTitle('配置管理')
                                 ->get();
-        return response()->json($data, 200);
     }
     public function status(Request $request){
         $input = $request->all();
@@ -95,7 +94,7 @@ class ConfigController extends Controller
     public function add(){
         $configGroupList = Helpers::getTabsConfigGroupList();
         $formItemType = BuilderData::getformItemType();
-        $data = BuilderData::addFormApiUrl('submit','/api/admin/system/config/store')               //添加Submit通信API
+        return $data = BuilderData::addFormApiUrl('submit','/api/admin/system/config/store')               //添加Submit通信API
                             ->setFormTitle('新增配置')                                           //添form表单页面标题
                             ->addFormItem(['name' => 'group',     'type' => 'select',   'label' => '配置分组',     'placeholder' => '配置所属的分组',                          'options'=>$configGroupList,    'value'=>0])
                             ->addFormItem(['name' => 'type',      'type' => 'select',   'label' => '配置类型',     'placeholder' => '配置类型的分组',                          'options'=>$formItemType,       'value'=>'text'])
@@ -106,7 +105,6 @@ class ConfigController extends Controller
                             ->addFormItem(['name' => 'tip',       'type' => 'textarea', 'label' => '配置说明',     'placeholder' => '配置说明',                                  'rows'=>4])
                             ->addFormItem(['name' => 'sort',      'type' => 'number',   'label' => '排序',         'placeholder' => '用于显示的顺序'                             ,'value'=>0])
                             ->get();
-        return response()->json($data, 200);
     }
     /**
      * [store 新增配置数据].
@@ -141,7 +139,7 @@ class ConfigController extends Controller
         $adminConfig = $this->adminConfigModel->find($request->id);
         $configGroupList = Helpers::getTabsConfigGroupList();
         $formItemType = BuilderData::getformItemType();
-        $data = BuilderData::addFormApiUrl('submit','/api/admin/system/config/update')               //添加Submit通信API
+        return $data = BuilderData::addFormApiUrl('submit','/api/admin/system/config/update')               //添加Submit通信API
                             ->setFormTitle('编辑配置')                                           //添form表单页面标题
                             ->addFormItem(['name' => 'id',        'type' => 'text',     'label' => '数据ID',       'placeholder' => 'ID','disabled'=>true])
                             ->addFormItem(['name' => 'group',     'type' => 'select',   'label' => '配置分组',     'placeholder' => '配置所属的分组','options'=>$configGroupList])
@@ -154,7 +152,6 @@ class ConfigController extends Controller
                             ->addFormItem(['name' => 'sort',      'type' => 'number',   'label' => '排序',         'placeholder' => '用于显示的顺序'])
                             ->setFormObject($adminConfig)
                             ->get();
-        return response()->json($data, 200);
     }
     public function update(Request $request)
     {

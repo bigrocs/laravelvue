@@ -158,6 +158,6 @@ class BuilderData
          return $this;
     }
     public function get(){
-        return $this->data;
+        return response()->json($this->data);
     }
 }
