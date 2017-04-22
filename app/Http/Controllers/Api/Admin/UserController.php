@@ -126,14 +126,14 @@ class UserController extends Controller
         $response = $user->userInfos()->create($input);//插入关联数据库userInfos
         if ($response->wasRecentlyCreated) {
             $data = [
-                        'title'     => '新增数据成功！',
-                        'message'   => '新增配置数据成功！!',
+                        'title'     => '新增用户成功！',
+                        'message'   => '新增用户数据成功！!',
                         'type'      => 'success',
                     ];
         }else{
             $data = [
-                        'title'     => '新增数据失败！',
-                        'message'   => '新增配置数据失败！!',
+                        'title'     => '新增用户失败！',
+                        'message'   => '新增用户数据失败！!',
                         'type'      => 'error',
                     ];
         }
