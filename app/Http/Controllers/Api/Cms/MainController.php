@@ -32,10 +32,9 @@ class MainController extends Controller
         //                     ->setMenu('systemTheme','主题管理','fa fa-adjust','systemApplication')
         //                     ->setConfig('homeRouterNmae',  'dashboard')
         //                     ->setConfig('loginRouterNmae', 'login')
-        $data =  BuilderMain::setApiUrl('logout',          '/logout')
+        return $data =  BuilderMain::setApiUrl('logout',          '/logout')
                             ->setApiUrl('login',           '/login')
                             ->setApiUrl('authCheck',       '/authCheck')
                             ->get();
-        return response()->json($data, 200);
     }
 }
