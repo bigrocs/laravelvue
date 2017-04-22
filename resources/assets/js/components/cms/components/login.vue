@@ -67,9 +67,6 @@ export default {
         }),
     },
     methods: {
-        demo(){
-          console.log('test');
-        },
         submitForm(formName) {
           this.$refs[formName].validate((valid) => {
             if (valid) {
@@ -87,7 +84,7 @@ export default {
                   if (dataState) {
                       _this.$store.dispatch('authCheckTrue')//改变登录状态
                       setTimeout(() =>  {
-                          _this.$store.dispatch('changeLoginDialogVisible') //开启变登录注册组件
+                          _this.$store.dispatch('changeLoginDialogVisible') //改变登录组件状态
                       }, 3000);
                   }
               }
