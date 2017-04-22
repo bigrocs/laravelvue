@@ -11,12 +11,8 @@ export default {
             type: Object,
             default: ''
         },
-        id: {
+        row: {
             type: '',
-            default: ''
-        },
-        status: {
-            type: String,
             default: ''
         },
         apiUrl: {
@@ -43,6 +39,8 @@ export default {
         		 marginLeft:'0px',
         		  marginRight:'10px',
             },
+            id:null,
+            status:null,
             buttons:{},
             buttonProperty:{
 	            'add':{
@@ -94,10 +92,18 @@ export default {
         this.compileData()
     },
     watch: {
-        status: 'compileData',
+        row: 'compileData',
     },
     methods: {
     	compileData(){
+        if (this.row) {
+          this.id = this.row.id;
+          if (this.row.status!==null) {
+              this.status = this.row.status;
+          }else{
+              this.status = 1;
+          }
+        }
     		switch(this.type) {
     			case 'topButton':
     				this.compileTopButton()
