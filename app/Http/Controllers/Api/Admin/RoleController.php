@@ -36,11 +36,11 @@ class RoleController extends Controller
                         ->get();
     
         return $data = BuilderData::addTableData($roles)
-                                ->addTableColumn(['prop' => 'id',         'label'=> 'ID',     'width'=> 55])
-                                ->addTableColumn(['prop' => 'name',       'label'=> '角色标识', 'minWidth'=> 120])
-                                ->addTableColumn(['prop' => 'display_name','label'=> '角色名称','minWidth'=> 180])
-                                ->addTableColumn(['prop' => 'description','label'=> '角色描述','minWidth'=> 280])
-                                ->addTableColumn(['prop' => 'rightButton','label'=> '操作',   'minWidth'=> 220,  'type' => 'btn'])
+                                ->addTableColumn(['prop' => 'id',         'label'=> 'ID',     'width'=> '55'])
+                                ->addTableColumn(['prop' => 'name',       'label'=> '角色标识', 'minWidth'=> '120'])
+                                ->addTableColumn(['prop' => 'display_name','label'=> '角色名称','minWidth'=> '180'])
+                                ->addTableColumn(['prop' => 'description','label'=> '角色描述','minWidth'=> '280'])
+                                ->addTableColumn(['prop' => 'rightButton','label'=> '操作',   'minWidth'=> '220',  'type' => 'btn'])
                                 ->addTableApiUrl('delete','/api/admin/system/role/delete')         //添加删除通信API
                                 ->addTableApiUrl('add','/api/admin/system/role/add')               //添加数据接口
                                 ->addTableApiUrl('edit','/api/admin/system/role/edit')             //添加数据接口

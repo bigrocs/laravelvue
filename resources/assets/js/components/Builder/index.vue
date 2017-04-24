@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="box box-danger">
-            <div class="box-body">
+            <div class="box-body" v-if="componentShow">
                 <el-card class="box-card" v-if="currentData.tabs == null">
                     <template v-for="data in currentData" >
                         <builder-form   v-if="data.type == 'form'"      :datas="data"></builder-form>
@@ -34,11 +34,19 @@ export default {
         builderTable,
         dialogForm
     },
+    data() {
+      return {
+            componentShow:true,
+      }
+    },
     created() {
         this.getData();//初始化页面数据
     },
     watch: {
         $route: 'getData',
+        'currentData': function () {
+            this.componentShow = true
+        },
     },
     computed: {
         ...mapState({
@@ -73,6 +81,7 @@ export default {
          * @return   {[type]}                 [description]
          */
         getData() {
+            this.componentShow = false
             this.$store.dispatch('initPostData')//初始化页面POST数据
             this.$store.dispatch('setCurrentApiUrl',this.$route.meta.apiUrl)//初始化当前路由URL
             this.$store.dispatch('getCurrentData')//初始化页面POST数据
