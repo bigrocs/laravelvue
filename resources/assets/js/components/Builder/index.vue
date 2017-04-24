@@ -1,8 +1,8 @@
 <template>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12"  v-if="componentShow">
         <div class="box box-danger">
-            <div class="box-body" v-if="componentShow">
+            <div class="box-body">
                 <el-card class="box-card" v-if="currentData.tabs == null">
                     <template v-for="data in currentData" >
                         <builder-form   v-if="data.type == 'form'"      :datas="data"></builder-form>
@@ -20,6 +20,7 @@
             </div>
         </div>
     </div>
+
     <dialog-form></dialog-form>
 </div>
 </template>
@@ -32,7 +33,7 @@ export default {
     components: {
         builderForm,
         builderTable,
-        dialogForm
+        dialogForm,
     },
     data() {
       return {
