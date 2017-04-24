@@ -45,7 +45,7 @@ export default {
     watch: {
         $route: 'getData',
         'currentData': function () {
-            this.componentShow = true
+            this.componentShow = true  //获取到新数据时重新打开页面组件
         },
     },
     computed: {
@@ -81,7 +81,7 @@ export default {
          * @return   {[type]}                 [description]
          */
         getData() {
-            this.componentShow = false
+            this.componentShow = false //关闭页面组件
             this.$store.dispatch('initPostData')//初始化页面POST数据
             this.$store.dispatch('setCurrentApiUrl',this.$route.meta.apiUrl)//初始化当前路由URL
             this.$store.dispatch('getCurrentData')//初始化页面POST数据
