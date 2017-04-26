@@ -117,15 +117,6 @@ class BuilderData
         $this->data['table']['column'][]   = $tableColumn;   //设置 tableColumn 表格柱
         return $this;
     }
-    /**
-     * [addTableApiUrl description]
-     * @param [type] $key    [通信类型]
-     * @param [type] $ApiUrl [通信网址]
-     */
-    public function addTableApiUrl($key,$ApiUrl){
-        $this->data['table']['apiUrl'][$key]   = $ApiUrl;   //设置 TableApiUrl API通信网址
-        return $this;
-    }
     public function addTableTopButton($topButton){
         $this->data['table']['topButton'][]   = $topButton;   //设置 table rightButton 表格右侧按钮
         return $this;
