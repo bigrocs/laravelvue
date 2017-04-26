@@ -165,11 +165,11 @@ export default {
                 if (valid) {
                     let _this = this;
                     this.disabled = true;
+                    setTimeout(() =>  {
+                        _this.disabled = false;
+                    }, 1000);
                     let postData = this.fromDatas
                     let thenFunction = (Response) => {
-                        setTimeout(() =>  {
-                            _this.disabled = false;
-                        }, 1000);
                         _this.$store.state.dialogFormVisible = false //关闭dialog页面
                         _this.handleReset()//重新加载页面POST数据
                     }
