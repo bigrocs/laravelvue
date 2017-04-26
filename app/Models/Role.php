@@ -6,6 +6,8 @@ use Zizaco\Entrust\EntrustRole;
 class Role extends EntrustRole
 {
 	use CommonModel;
+
+    protected $fillable = ['name', 'display_name', 'description'];
 	/**
      * [getRules 前端验证规则]
      * @author BigRocs
