@@ -49,6 +49,12 @@ export default {
 	                  'type':'primary',
 	                  'method':'add'
 	            },
+              'default':{
+                    'title':'无属性按钮',
+                    'icon':'fa fa-check',
+                    'type':'success',
+                    'method':'default'
+              },
 	            'edit':{
 	                  'title':'编辑',
 	                  'icon':'fa fa-edit',
@@ -124,19 +130,22 @@ export default {
       compileTopButton(){
             let buttonDatas = this.buttonDatas;
             let buttonProperty = this.buttonProperty;
-            switch(buttonDatas.type) {
+            switch(buttonDatas.buttonType) {
             	case 'add':  // 新增按钮
-            		this.buttons = Object.assign(buttonProperty.add,buttonDatas.property);
+            		this.buttons = Object.assign(buttonProperty.add,buttonDatas);
                     break;
                 case 'resume':  // 启用按钮
-                	this.buttons = Object.assign(buttonProperty.resume,buttonDatas.property);
+                	this.buttons = Object.assign(buttonProperty.resume,buttonDatas);
                     break;
                 case 'forbid':  // 禁用按钮
-                	this.buttons = Object.assign(buttonProperty.forbid,buttonDatas.property);
+                	this.buttons = Object.assign(buttonProperty.forbid,buttonDatas);
                     break;
                 case 'delete':  // 删除按钮
-                	this.buttons = Object.assign(buttonProperty.delete,buttonDatas.property);
+                	this.buttons = Object.assign(buttonProperty.delete,buttonDatas);
                     break;
+                default:
+                  this.buttons = Object.assign(buttonProperty.default,buttonDatas);
+                  break;
             }
         },
         /**
@@ -148,26 +157,29 @@ export default {
         compileRightButton(){
           let buttonDatas = this.buttonDatas;
           let buttonProperty = this.buttonProperty;
-          switch(buttonDatas.type) {
+          switch(buttonDatas.buttonType) {
               case 'edit':  // 编辑按钮
-                  this.buttons = Object.assign(buttonProperty.edit,buttonDatas.property);
+                  this.buttons = Object.assign(buttonProperty.edit,buttonDatas);
                   break;
               case 'forbid':  //改变记录状态按钮，会更具数据当前的状态自动选择应该显示启用/禁用
                   if(this.status=='1'){
-                      this.buttons = Object.assign(buttonProperty.forbid,buttonDatas.property);
+                      this.buttons = Object.assign(buttonProperty.forbid,buttonDatas);
                   }else if(this.status=='0'){
-                      this.buttons = Object.assign(buttonProperty.resume,buttonDatas.property);
+                      this.buttons = Object.assign(buttonProperty.resume,buttonDatas);
                   }
                   break;
               case 'hide':  //改变记录状态按钮，会更具数据当前的状态自动选择应该显示 显示/因此
                   if(this.status=='1'){
-                      this.buttons = Object.assign(buttonProperty.hide,buttonDatas.property);
+                      this.buttons = Object.assign(buttonProperty.hide,buttonDatas);
                   }else if(this.status=='2'){
-                      this.buttons = Object.assign(buttonProperty.display,buttonDatas.property);
+                      this.buttons = Object.assign(buttonProperty.display,buttonDatas);
                   }
                   break;
               case 'delete':  // 禁用按钮
-                  this.buttons = Object.assign(buttonProperty.delete,buttonDatas.property);
+                  this.buttons = Object.assign(buttonProperty.delete,buttonDatas);
+                  break;
+              default:
+                  this.buttons = Object.assign(buttonProperty.default,buttonDatas);
                   break;
           }
         },

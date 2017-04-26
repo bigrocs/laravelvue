@@ -60,13 +60,13 @@ class UserController extends Controller
                                 ->addTableApiUrl('delete','/api/admin/system/user/delete')         //添加删除通信API
                                 ->addTableApiUrl('add','/api/admin/system/user/add')               //添加数据接口
                                 ->addTableApiUrl('edit','/api/admin/system/user/edit')             //添加数据接口
-                                ->addTableTopButton(['type'=>'add','property'=>['title'=>'新增用户','icon'=>'fa fa-plus','class'=>'success',]])                         // 添加新增按钮
-                                ->addTableTopButton(['type'=>'resume'])                         // 添加启用按钮
-                                ->addTableTopButton(['type'=>'forbid'])                         // 添加禁用按钮
-                                ->addTableTopButton(['type'=>'delete'])                         // 添加删除按钮
-                                ->addTableRightButton(['type'=>'edit'])                         // 添加编辑按钮
-                                ->addTableRightButton(['type'=>'forbid'])                       // 添加禁用/启用按钮
-                                ->addTableRightButton(['type'=>'delete'])                       // 添加删除按钮
+                                ->addTableTopButton(['buttonType'=>'add','title'=>'新增用户','icon'=>'fa fa-plus','class'=>'success'])                         // 添加新增按钮
+                                ->addTableTopButton(['buttonType'=>'resume'])                         // 添加启用按钮
+                                ->addTableTopButton(['buttonType'=>'forbid'])                         // 添加禁用按钮
+                                ->addTableTopButton(['buttonType'=>'delete'])                         // 添加删除按钮
+                                ->addTableRightButton(['buttonType'=>'edit'])                         // 添加编辑按钮
+                                ->addTableRightButton(['buttonType'=>'forbid'])                       // 添加禁用/启用按钮
+                                ->addTableRightButton(['buttonType'=>'delete'])                       // 添加删除按钮
                                 ->setTablePagination(['total'=>$total,'pageSize'=>$pageSize,'pageSizes'=>$pageSizes,'layout'=>'total, sizes, prev, pager, next, jumper'])//分页设置
                                 ->setSearchTitle('请输入搜索内容')
                                 ->setSearchSelect(['id'=>'ID','name'=>'用户名','email'=>'邮箱','mobile'=>'手机'])
