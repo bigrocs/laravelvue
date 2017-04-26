@@ -56,17 +56,13 @@ class UserController extends Controller
                                 ->addTableColumn(['prop' => 'mobile',     'label'=> '手机',   'minWidth'=> '180'])
                                 ->addTableColumn(['prop' => 'status',     'label'=> '状态',   'width'=> '90',      'type' => 'status'])
                                 ->addTableColumn(['prop' => 'rightButton','label'=> '操作',   'minWidth'=> '220',  'type' => 'btn'])
-                                ->addTableApiUrl('status','/api/admin/system/user/status')         //添加状态通信API
-                                ->addTableApiUrl('delete','/api/admin/system/user/delete')         //添加删除通信API
-                                ->addTableApiUrl('add','/api/admin/system/user/add')               //添加数据接口
-                                ->addTableApiUrl('edit','/api/admin/system/user/edit')             //添加数据接口
-                                ->addTableTopButton(['buttonType'=>'add','title'=>'新增用户','icon'=>'fa fa-plus','class'=>'success'])                         // 添加新增按钮
-                                ->addTableTopButton(['buttonType'=>'resume'])                         // 添加启用按钮
-                                ->addTableTopButton(['buttonType'=>'forbid'])                         // 添加禁用按钮
-                                ->addTableTopButton(['buttonType'=>'delete'])                         // 添加删除按钮
-                                ->addTableRightButton(['buttonType'=>'edit'])                         // 添加编辑按钮
-                                ->addTableRightButton(['buttonType'=>'forbid'])                       // 添加禁用/启用按钮
-                                ->addTableRightButton(['buttonType'=>'delete'])                       // 添加删除按钮
+                                ->addTableTopButton(['buttonType'=>'add',        'apiUrl'=> '/api/admin/system/user/add','title'=>'新增用户','icon'=>'fa fa-plus'])                         // 添加新增按钮
+                                ->addTableTopButton(['buttonType'=>'resume',     'apiUrl'=> '/api/admin/system/user/status'])                         // 添加启用按钮
+                                ->addTableTopButton(['buttonType'=>'forbid',     'apiUrl'=> '/api/admin/system/user/status'])                         // 添加禁用按钮
+                                ->addTableTopButton(['buttonType'=>'delete',     'apiUrl'=> '/api/admin/system/user/delete'])                         // 添加删除按钮
+                                ->addTableRightButton(['buttonType'=>'edit',     'apiUrl'=> '/api/admin/system/user/edit'])                         // 添加编辑按钮
+                                ->addTableRightButton(['buttonType'=>'forbid',   'apiUrl'=> '/api/admin/system/user/status'])                       // 添加禁用/启用按钮
+                                ->addTableRightButton(['buttonType'=>'delete',   'apiUrl'=> '/api/admin/system/user/delete'])                       // 添加删除按钮
                                 ->setTablePagination(['total'=>$total,'pageSize'=>$pageSize,'pageSizes'=>$pageSizes,'layout'=>'total, sizes, prev, pager, next, jumper'])//分页设置
                                 ->setSearchTitle('请输入搜索内容')
                                 ->setSearchSelect(['id'=>'ID','name'=>'用户名','email'=>'邮箱','mobile'=>'手机'])

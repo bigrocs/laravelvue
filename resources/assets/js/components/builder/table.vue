@@ -7,7 +7,6 @@
                   v-for="(topButton,key) in tableDatas.topButton"
                   :key="key"
                   :buttonDatas="topButton"
-                  :apiUrl="tableDatas.apiUrl"
                   :multipleSelection="multipleSelection"
                   type="topButton"
                 >
@@ -61,7 +60,6 @@
                           :key="key"
                           :buttonDatas="rightButton"
                           :row="scope.row" 
-                          :apiUrl="tableDatas.apiUrl"
                           :multipleSelection="multipleSelection"
                           size="mini"
                           type="rightButton"

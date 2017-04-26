@@ -41,18 +41,11 @@ class RoleController extends Controller
                                 ->addTableColumn(['prop' => 'display_name','label'=> '角色名称','minWidth'=> '180'])
                                 ->addTableColumn(['prop' => 'description','label'=> '角色描述','minWidth'=> '280'])
                                 ->addTableColumn(['prop' => 'rightButton','label'=> '操作',   'minWidth'=> '220',  'type' => 'btn'])
-                                ->addTableApiUrl('delete','/api/admin/system/role/delete')         //添加删除通信API
-                                ->addTableApiUrl('add','/api/admin/system/role/add')               //添加数据接口
-                                ->addTableApiUrl('edit','/api/admin/system/role/edit')             //添加数据接口
-                                ->addTableTopButton(['buttonType'=>'add','title'=>'新增角色','icon'=>'fa fa-plus','class'=>'success'])                         // 添加新增按钮
-                                ->addTableTopButton(['buttonType'=>'delete'])                         // 添加删除按钮
-                                ->addTableRightButton(['buttonType'=>'edit'])                         // 添加编辑按钮
-                                ->addTableRightButton(['title'=>'权限管理',
-                                                        'type'=>'warning', 
-                                                        'icon'=>'fa fa-unlock',
-                                                        'class'=>'success'
-                                                    ])                         // 添加权限管理按钮
-                                ->addTableRightButton(['buttonType'=>'delete'])                       // 添加删除按钮
+                                ->addTableTopButton(['buttonType'=>'add',   'apiUrl'=> '/api/admin/system/role/add',    'title'=>'新增角色'])                         // 添加新增按钮
+                                ->addTableTopButton(['buttonType'=>'delete','apiUrl'=> '/api/admin/system/role/delete'])                         // 添加删除按钮
+                                ->addTableRightButton(['buttonType'=>'edit','apiUrl'=> '/api/admin/system/role/edit'])                         // 添加编辑按钮
+                                ->addTableRightButton(['title'=>'权限管理', 'apiUrl'=> '/api/admin/system/role/edit','type'=>'warning', 'icon'=>'fa fa-unlock'])                         // 添加权限管理按钮
+                                ->addTableRightButton(['buttonType'=>'delete','apiUrl'=> '/api/admin/system/role/delete'])                       // 添加删除按钮
                                 ->setTablePagination(['total'=>$total,'pageSize'=>$pageSize,'pageSizes'=>$pageSizes,'layout'=>'total, sizes, prev, pager, next, jumper'])//分页设置
                                 ->setSearchTitle('请输入搜索内容')
                                 ->setSearchSelect(['id'=>'ID','name'=>'用户名','email'=>'邮箱','mobile'=>'手机'])
