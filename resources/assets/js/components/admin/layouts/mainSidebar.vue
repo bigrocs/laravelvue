@@ -36,7 +36,7 @@
                     </router-link>
                     <ul v-if="menu.subMenus" class="treeview-menu">
                         <li v-for="(subMenu, subKey, subIndex) in menu.subMenus">
-                            <router-link :to="subMenu.path" active-class=""><i :class="subMenu.icon"></i>{{ subMenu.title }}</router-link>
+                            <router-link :to="subMenu.path"><i :class="subMenu.icon"></i>{{ subMenu.title }}</router-link>
                         </li>
                     </ul>
                 </li>
