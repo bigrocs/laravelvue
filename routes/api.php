@@ -26,6 +26,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'api', 'namespace' => 'Api\Ad
 |--------------------------------------------------------------------------
 */
 Route::group(['prefix' => 'admin/system', 'as' => 'api.admin.system.', 'middleware' => ['admin','auth:api'], 'namespace' => 'Api\Admin'], function () {
+    Route::post('dashboard', [ 'as' => 'dashboard.index', 'uses' => 'DashboardController@index']);
 
     Route::post('system', [ 'as' => 'system.index', 'uses' => 'SystemController@index']);
     Route::post('system/update', ['as' => 'system.update', 'uses' => 'SystemController@update']);
