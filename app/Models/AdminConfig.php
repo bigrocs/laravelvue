@@ -17,7 +17,7 @@ class AdminConfig extends Model
     public $table = 'admin_configs';
 
     public $fillable = [
-        'title', 'name', 'value', 'group', 'type', 'icon', 'property', 'options', 'tip', 'sort', 'status'
+        'title', 'name', 'value', 'group', 'type', 'icon', 'property', 'options', 'placeholder', 'sort', 'status'
     ];
 
     /**
