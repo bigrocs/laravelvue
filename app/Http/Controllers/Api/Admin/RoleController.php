@@ -24,14 +24,12 @@ class RoleController extends Controller
         list($group,$pageSizes,$pageSize,$page,$selectSearch,$inputSearch) = Helpers::compileTableRequest($request);
         // [$total 获取数据总数]
         $total = $this->roleModel
-                        // ->where('status', '>=', 0)
                         ->where($selectSearch, 'like', $inputSearch)
                         ->count();
-        //[$userModel 获取数据对象]
+        //[$roleModel 获取数据对象]
         $roles = $this->roleModel
                         ->page($page, $pageSize)
                         ->orderBy('id', 'ASC')
-                        // ->where('status', '>=', 0)
                         ->where($selectSearch, 'like', $inputSearch)
                         ->get();
     
@@ -44,7 +42,7 @@ class RoleController extends Controller
                                 ->addTableTopButton(['buttonType'=>'add',   'apiUrl'=> '/api/admin/system/role/add',    'title'=>'新增角色'])                         // 添加新增按钮
                                 ->addTableTopButton(['buttonType'=>'delete','apiUrl'=> '/api/admin/system/role/delete'])                         // 添加删除按钮
                                 ->addTableRightButton(['buttonType'=>'edit','apiUrl'=> '/api/admin/system/role/edit'])                         // 添加编辑按钮
-                                ->addTableRightButton(['title'=>'权限管理', 'apiUrl'=> '/api/admin/system/role/edit','type'=>'warning', 'icon'=>'fa fa-unlock'])                         // 添加权限管理按钮
+                                ->addTableRightButton(['title'=>'权限管理', 'apiUrl'=> '/api/admin/system/role/permission','type'=>'warning', 'icon'=>'fa fa-unlock'])                         // 添加权限管理按钮
                                 ->addTableRightButton(['buttonType'=>'delete','apiUrl'=> '/api/admin/system/role/delete'])                       // 添加删除按钮
                                 ->setTablePagination(['total'=>$total,'pageSize'=>$pageSize,'pageSizes'=>$pageSizes,'layout'=>'total, sizes, prev, pager, next, jumper'])//分页设置
                                 ->setSearchTitle('请输入搜索内容')
@@ -103,6 +101,30 @@ class RoleController extends Controller
                             ->get();
     }
     public function update(Request $request)
+    {
+        $input = $request->all();
+        $role = $this->roleModel->find($request->id)->fill($input)->save();
+        $data = [
+                        'title'     => '用户编辑成功！',
+                        'message'   => '编辑用户数据成功！!',
+                        'type'      => 'success',
+                    ];
+        return response()->json($data, 200);
+    }
+    public function permission(Request $request){ 
+        $roles = $this->roleModel->find($request->id);
+        return $data = BuilderData::addFormApiUrl('submit','/api/admin/system/role/permission-update')               //添加Submit通信API
+                            ->setFormTitle('新增角色')                                                   //添form表单页面标题
+                            ->setFormConfig(['width'=>'90px'])
+                            ->addFormItem(['name' => 'id',        'type' => 'hidden',   'label' => 'ID'     ])
+                            ->addFormItem(['name' => 'name',      'type' => 'text',     'label' => '角色标识'     ])
+                            ->addFormItem(['name' => 'display_name','type' => 'text',     'label' => '角色名称'   ])
+                            ->addFormItem(['name' => 'description','type' => 'textarea','label' => '角色描述'   ])
+                            ->setFormObject($roles)
+                            ->setFormRules($this->roleModel->getRules())
+                            ->get();
+    }
+    public function permissionUpdate(Request $request)
     {
         $input = $request->all();
         $role = $this->roleModel->find($request->id)->fill($input)->save();
