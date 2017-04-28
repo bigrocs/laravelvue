@@ -13,7 +13,7 @@ class MainController extends Controller
 {
     public function index()
     {
-        return $data =  BuilderMain::setRoute('dashboard', '/admin/dashboard',            '/api/admin/system/dashboard')
+        return $data =  BuilderMain::setRoute('dashboard', '/admin/dashboard',            '/api/admin/dashboard/dashboard')
                             ->setRoute('systemSystem',     '/admin/system/system',        '/api/admin/system/system')
                             ->setRoute('systemConfig',     '/admin/system/config',        '/api/admin/system/config')
                             ->setRoute('systemUpload',     '/admin/system/upload',        '/api/admin/system/upload')
