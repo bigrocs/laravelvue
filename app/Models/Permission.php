@@ -1,9 +1,9 @@
 <?php
 namespace App\Models;
 
-use Zizaco\Entrust\EntrustRole;
+use Zizaco\Entrust\EntrustPermission;
 
-class Permission extends EntrustRole
+class Permission extends EntrustPermission
 {
-	
+	use CommonModel;
 }
