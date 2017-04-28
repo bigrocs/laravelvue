@@ -46,7 +46,7 @@ class RoleController extends Controller
                                 ->addTableRightButton(['buttonType'=>'delete','apiUrl'=> '/api/admin/system/role/delete'])                       // 添加删除按钮
                                 ->setTablePagination(['total'=>$total,'pageSize'=>$pageSize,'pageSizes'=>$pageSizes,'layout'=>'total, sizes, prev, pager, next, jumper'])//分页设置
                                 ->setSearchTitle('请输入搜索内容')
-                                ->setSearchSelect(['id'=>'ID','name'=>'用户名','email'=>'邮箱','mobile'=>'手机'])
+                                ->setSearchSelect(['id'=>'ID','name'=>'角色标识','display_name'=>'角色名称','description'=>'角色描述'])
                                 ->setTitle('配置管理')
                                 ->get();
     }
