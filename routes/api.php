@@ -25,11 +25,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'api', 'namespace' => 'Api\Ad
 | Admin授权路由设置 routes
 |--------------------------------------------------------------------------
 */
-Route::group(['prefix' => 'admin/system', 'as' => 'api.admin.system.', 'middleware' => ['admin','auth:api'], 'namespace' => 'Api\Admin'], function () {
+
+Route::group(['prefix' => 'admin/dashboard', 'as' => 'api.admin.dashboard.', 'middleware' => ['admin','auth:api'], 'namespace' => 'Api\Admin'], function () {
     /**
      *  后台首页
      */
-    Route::post('dashboard',                ['as' => 'dashboard.index',     'uses' => 'DashboardController@index']);
+    Route::post('dashboard',                ['as' => 'dashboard.index',     'uses' => 'DashboardController@index']);  
+});
+Route::group(['prefix' => 'admin/system', 'as' => 'api.admin.system.', 'middleware' => ['admin','auth:api'], 'namespace' => 'Api\Admin'], function () {
     /**
      *  系统设置
      */
