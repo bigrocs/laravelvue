@@ -48,4 +48,53 @@ class PermissionController extends Controller
                                 ->setTitle('配置管理')
                                 ->get();
     }
+    public function add(){
+        return $data = BuilderData::addFormApiUrl('submit','/api/admin/system/permission/store')               //添加Submit通信API
+                            ->setFormTitle('新增权限')                                                   //添form表单页面标题
+                            ->setFormConfig(['width'=>'90px'])
+                            ->addFormItem(['name' => 'name',      'type' => 'text',     'label' => '权限标识'     ])
+                            ->addFormItem(['name' => 'display_name','type' => 'text',     'label' => '权限名称'   ])
+                            ->addFormItem(['name' => 'description','type' => 'textarea','label' => '权限描述'   ])
+                            ->setFormRules($this->permissionModel->getRules())
+                            ->get();
+    }
+    public function store(Request $request)
+    {
+        $permissionModel = new Permission();
+        $permissionModel->name = $request->name;
+        $permissionModel->display_name = $request->display_name;
+        $permissionModel->description = $request->description;
+        $permissionModel->save();
+        $data = [
+                        'title'     => '新增角色成功！',
+                        'message'   => '新增角色数据成功！!',
+                        'type'      => 'success',
+                ];
+
+        return response()->json($data, 200);
+    }
+    public function edit(Request $request){ 
+        $permission = $this->permissionModel->find($request->id);
+        return $data = BuilderData::addFormApiUrl('submit','/api/admin/system/permission/update')               //添加Submit通信API
+                            ->setFormTitle('新增角色')                                                   //添form表单页面标题
+                            ->setFormConfig(['width'=>'90px'])
+                            ->addFormItem(['name' => 'id',        'type' => 'hidden',   'label' => 'ID'     ])
+                            ->addFormItem(['name' => 'name',      'type' => 'text',     'label' => '角色标识'     ])
+                            ->addFormItem(['name' => 'display_name','type' => 'text',     'label' => '角色名称'   ])
+                            ->addFormItem(['name' => 'description','type' => 'textarea','label' => '角色描述'   ])
+                            ->setFormObject($permission)
+                            ->setFormRules($this->permissionModel->getRules())
+                            ->get();
+    }
+    public function update(Request $request)
+    {
+        $input = $request->all();
+        $permission = $this->permissionModel->find($request->id)->fill($input)->save();
+        $data = [
+                        'title'     => '用户编辑成功！',
+                        'message'   => '编辑用户数据成功！!',
+                        'type'      => 'success',
+                    ];
+        return response()->json($data, 200);
+    }
 }
