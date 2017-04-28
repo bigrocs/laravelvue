@@ -43,7 +43,7 @@ export default {
 	                  'title':'新增',
 	                  'icon':'fa fa-plus',
 	                  'type':'primary',
-	                  'method':'add'
+	                  'method':'default'
 	            },
               'default':{
                     'title':'无属性按钮',
@@ -55,7 +55,7 @@ export default {
 	                  'title':'编辑',
 	                  'icon':'fa fa-edit',
 	                  'type':'info',
-	                  'method':'edit'
+	                  'method':'default'
 	            },
 	            'resume':{
 	                  'title':'启用',
@@ -192,13 +192,6 @@ export default {
             }
             switch (method) {
                 case 'default':
-                    var postData = {'id':this.id};        //发送数据ID
-                    this.$store.dispatch('openDialogForm',{url:this.buttons.apiUrl,postData})     //获取页面数据
-                    break;
-                case 'add':
-                    this.$store.dispatch('openDialogForm',{url:this.buttons.apiUrl})     //获取页面数据
-                    break;
-                case 'edit':
                     var postData = {'id':this.id};        //发送数据ID
                     this.$store.dispatch('openDialogForm',{url:this.buttons.apiUrl,postData})     //获取页面数据
                     break;
