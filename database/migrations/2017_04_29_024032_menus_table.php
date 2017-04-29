@@ -27,6 +27,17 @@ class MenusTable extends Migration
             $table->bigInteger('sort')           ->comment('排序')->unsigned()->default(0);
             $table->timestamps();
         });
+        Schema::create('permission_menu', function (Blueprint $table) {
+            $table->integer('permission_id')->unsigned();
+            $table->integer('menu_id')->unsigned();
+
+            $table->foreign('permission_id')->references('id')->on('permissions')
+                ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('menu_id')->references('id')->on('menus')
+                ->onUpdate('cascade')->onDelete('cascade');
+
+            $table->primary(['permission_id', 'menu_id']);
+        });
     }
 
     /**
@@ -37,5 +48,6 @@ class MenusTable extends Migration
     public function down()
     {
         Schema::dropIfExists('menus');
+        Schema::dropIfExists('permission_menu');
     }
 }

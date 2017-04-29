@@ -12,36 +12,43 @@ class PermissionTableSeeder extends Seeder
     public function run()
     {
         DB::table('permissions')->insert([
+            'id'                => 1,
             'name' 	            => 'admin.dashboard',
             'display_name' 	    => '后台首页',
             'description' 	    => '后台首页仪表盘'
         ]);
         DB::table('permissions')->insert([
+            'id'                => 2,
             'name'              => 'admin.system.system',
             'display_name'      => '系统设置',
             'description'       => '系统设置权限'
         ]);
         DB::table('permissions')->insert([
+            'id'                => 3,
             'name'              => 'admin.system.config',
             'display_name'      => '配置管理',
             'description'       => '配置管理权限。'
         ]);
         DB::table('permissions')->insert([
+            'id'                => 4,
             'name'              => 'admin.system.upload',
             'display_name'      => '上传管理',
             'description'       => '上传管理权限。'
         ]);
         DB::table('permissions')->insert([
+            'id'                => 5,
             'name'              => 'admin.system.user',
             'display_name'      => '用户管理',
             'description'       => '用户管理权限。'
         ]);
         DB::table('permissions')->insert([
+            'id'                => 6,
             'name'              => 'admin.system.role',
             'display_name'      => '角色管理',
             'description'       => '角色管理权限。'
         ]);
         DB::table('permissions')->insert([
+            'id'                => 7,
             'name'              => 'admin.system.permission',
             'display_name'      => '权限管理',
             'description'       => '权限管理权限。'
