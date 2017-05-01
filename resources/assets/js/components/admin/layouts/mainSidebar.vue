@@ -59,8 +59,8 @@ export default {
     },
     computed: {
         ...mapState({
-            route: state => state.mainData.route,
-            menu: state => state.mainData.menu,
+            route: state => state.mainData.routes,
+            menu: state => state.mainData.menus,
         }),
     },
     methods:{

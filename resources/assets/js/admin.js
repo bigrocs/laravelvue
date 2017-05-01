@@ -22,17 +22,17 @@ import notFound from './components/admin/notFound.vue'            //后台404页
 axios.post(window.Laravel.apiUrl).then((Response) => {
     let mainData = store.state.mainData = Response.data                 //初始化全局变量(服务端API数据)
     let adminChildren = []                                            //begin解析路由JSON
-    for (var key in mainData.route) {
+    for (var key in mainData.routes) {
         adminChildren.push({
-            name: mainData.route[key].name,
-            path: mainData.route[key].path,
+            name: mainData.routes[key].name,
+            path: mainData.routes[key].path,
             component: BuilderHtml,
-            meta: { apiUrl: mainData.route[key].apiUrl }
+            meta: { apiUrl: mainData.routes[key].apiUrl }
         })
     }
     adminChildren.push({ path: '*', name:'notFound', component: notFound }) //404页面
     let routes = [
-        { path: '/admin/login', name:mainData.config.loginRouterNmae, component: LoginPage },
+        { path: mainData.config.loginUrl, name:mainData.config.loginRouterNmae, component: LoginPage },
         { path: '/admin', name:'admin', component: IndexPage, children: adminChildren },
     ]
 
