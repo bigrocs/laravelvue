@@ -30,7 +30,7 @@ class BuilderMain
      */
     public function setRoutes($menus){
         foreach ($menus as $menu) {
-            $this->data['routes'][$menu->name] = ['name'=>$menu->name, 'path'=>$menu->value, 'apiUrl'=>$menu->api_url];
+            $this->data['routes'][$menu->id] = ['name'=>$menu->name, 'path'=>$menu->value, 'apiUrl'=>$menu->api_url];
         }
         return $this;
     }
@@ -42,10 +42,40 @@ class BuilderMain
      * @param    [type]                   $menus [description]
      */
     public function setMenus($menus){
-        foreach ($menus as $menu) {
-            $this->data['menus'][] = ['name'=>$menu->name, 'path'=>$menu->value, 'apiUrl'=>$menu->api_url];
-        }
+        $menus = $menus->map(function ($menu) {
+            $menu->path = $menu->value;
+            $menu->apiUrl = $menu->api_url;
+            return $menu;
+        })->filter(function ($menu, $key) use($menus) {
+            if ($menu->pid == 0) {
+                $menu = $this->getSubMenus($menu,$menus);
+            }
+            return $menu->pid == 0;
+        });
+        $this->data['menus'] = $menus;
         return $this;
+    }
+    /**
+     * [getSubMenus 设置子导航(可无限级设置)]
+     * @author BigRocs
+     * @email    bigrocs@qq.com
+     * @DateTime 2017-05-01T10:34:33+0800
+     * @param    [type]                   $menu  [description]
+     * @param    [type]                   $menus [description]
+     * @return   [type]                          [description]
+     */
+    public function getSubMenus($menu,$menus){
+        $id = $menu->id;
+        $subMenus = $menus->filter(function ($menu, $key) use($id,$menus) {
+            if ($menu->pid == $id) {
+                $menu = $this->getSubMenus($menu,$menus);
+            }
+            return $menu->pid == $id;
+        });
+        if (!$subMenus->isEmpty()) {
+            $menu->subMenus = $subMenus;
+        }
+        return $menu;
     }
     /**
      * [setMenu 设置导航菜单]
