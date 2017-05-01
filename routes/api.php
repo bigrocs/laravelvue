@@ -39,6 +39,16 @@ Route::group(['prefix' => 'admin/system', 'as' => 'api.admin.system.', 'middlewa
     Route::post('system',                   ['as' => 'system.index',        'uses' => 'SystemController@index']);
     Route::post('system/update',            ['as' => 'system.update',       'uses' => 'SystemController@update']);
     /**
+     * 菜单导航
+     */
+    Route::post('menu',                     ['as' => 'menu.index',          'uses' => 'MenuController@index']);
+    Route::post('menu/status',              ['as' => 'menu.status',         'uses' => 'MenuController@status']);
+    Route::post('menu/delete',              ['as' => 'menu.delete',         'uses' => 'MenuController@delete']);
+    Route::post('menu/add',                 ['as' => 'menu.add',            'uses' => 'MenuController@add']);
+    Route::post('menu/store',               ['as' => 'menu.store',          'uses' => 'MenuController@store']);
+    Route::post('menu/edit',                ['as' => 'menu.edit',           'uses' => 'MenuController@edit']);
+    Route::post('menu/update',              ['as' => 'menu.update',         'uses' => 'MenuController@update']);
+    /**
      *  配置管理
      */
     Route::post('config',                   ['as' => 'config.index',        'uses' => 'ConfigController@index']);
