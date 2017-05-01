@@ -33,7 +33,7 @@ axios.post(window.Laravel.apiUrl).then((Response) => {
     adminChildren.push({ path: '*', name:'notFound', component: notFound }) //404页面
     let routes = [
         { path: mainData.config.loginUrl, name:mainData.config.loginRouterNmae, component: LoginPage },
-        { path: '/admin', name:'admin', component: IndexPage, children: adminChildren },
+        { path: '/admin', component: IndexPage, children: adminChildren },
     ]
 
     startVue(routes,store) //启动VUE
