@@ -18,7 +18,33 @@ class BuilderMain
      * @param    [type]                   $apiUrl [当前路由的API通信地址]
      */
     public function setRoute($name,$path,$apiUrl=''){
-        $this->data['route'][$name] = ['name'=>$name, 'path'=>$path, 'apiUrl'=>$apiUrl];
+        $this->data['routes'][$name] = ['name'=>$name, 'path'=>$path, 'apiUrl'=>$apiUrl];
+        return $this;
+    }
+    /**
+     * [setRoute 批量设置路由线路]
+     * @author BigRocs
+     * @email    bigrocs@qq.com
+     * @DateTime 2017-03-04T11:57:17+0800
+     * @param    [type]                   $menus   [菜单数据信息]
+     */
+    public function setRoutes($menus){
+        foreach ($menus as $menu) {
+            $this->data['routes'][$menu->name] = ['name'=>$menu->name, 'path'=>$menu->value, 'apiUrl'=>$menu->api_url];
+        }
+        return $this;
+    }
+    /**
+     * [setMenus 批量设置导航菜单]
+     * @author BigRocs
+     * @email    bigrocs@qq.com
+     * @DateTime 2017-05-01T08:48:13+0800
+     * @param    [type]                   $menus [description]
+     */
+    public function setMenus($menus){
+        foreach ($menus as $menu) {
+            $this->data['menus'][] = ['name'=>$menu->name, 'path'=>$menu->value, 'apiUrl'=>$menu->api_url];
+        }
         return $this;
     }
     /**
@@ -33,7 +59,7 @@ class BuilderMain
      * @param    boolean                  $header [是否是header菜单]
      */
     public function setMenu($name,$title,$icon='',$parent='',$header=''){
-        $this->data['menu'][] = ['name'=>$name, 'title'=>$title, 'icon'=>$icon, 'parent'=>$parent, 'header'=>$header];
+        $this->data['menus'][] = ['name'=>$name, 'title'=>$title, 'icon'=>$icon, 'parent'=>$parent, 'header'=>$header];
         return $this;
     }
     /**
