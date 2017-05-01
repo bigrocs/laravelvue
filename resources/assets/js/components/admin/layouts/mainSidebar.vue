@@ -24,21 +24,17 @@
         </form> -->
         <ul class="sidebar-menu">
             <template v-for="(menu, key, index) in menus">
-                <li v-if="menu.header" class="header">
+                <li v-if="menu.type == 'header'" class="header">
                     {{ menu.title }}
                 </li>
-                <li v-else class="treeview">
+                <li v-else-if="menu.pid == 0" class="treeview">
                     <router-link :to="menu.path" active-class="active">
                         <i :class="menu.icon"></i><span>{{ menu.title }}</span>
                         <span v-if="menu.subMenus" class="pull-right-container">
                           <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </router-link>
-                    <ul v-if="menu.subMenus" class="treeview-menu">
-                        <li v-for="(subMenu, subKey, subIndex) in menu.subMenus">
-                            <router-link :to="subMenu.path"><i :class="subMenu.icon"></i>{{ subMenu.title }}</router-link>
-                        </li>
-                    </ul>
+                    <sub-menu v-if="menu.subMenus" :subMenus="menu.subMenus"></sub-menu>
                 </li>
             </template>
         </ul>
@@ -47,61 +43,17 @@
 </aside>
 </template>
 <script>
+import subMenu from './subMenu.vue'
 import { mapState } from 'vuex'
 export default {
-    created() {
-        this.getMenus()
-    },
-    data() {
-        return {
-            menus :[],
-        };
+    components: {
+        subMenu
     },
     computed: {
         ...mapState({
-            route: state => state.mainData.routes,
-            menu: state => state.mainData.menus,
+            menus: state => state.mainData.menus,
         }),
     },
-    methods:{
-        // 获取子菜单
-        subMenus(routeName){
-            var subMenus = {};
-            for (var key in this.menu) {
-                if( this.menu[key].parent ==   routeName){
-                    subMenus[key] = this.menu[key];
-                }
-            }
-            return subMenus;
-        },
-        // 获取属性结构menus this.menus
-        getMenus(){
-            for (var key in this.menu) {
-                let routeName = this.menu[key].name
-                if (this.route[routeName]) {
-                    this.menu[key].path =   this.route[routeName].path
-                }
-                if (this.isEmptyString(this.menu[key].icon)) {
-                    this.menu[key].icon = 'fa fa-circle-o';
-                }
-                if (this.isEmptyString(this.menu[key].path)) {
-                    this.menu[key].path = '';
-                }
-                if (this.isEmptyString(this.menu[key].parent)) {
-                    if (!this.isEmptyObject(this.subMenus(routeName))) {
-                        this.menu[key].subMenus = this.subMenus(routeName)
-                    }
-                    this.menus.push(this.menu[key])
-                }
-            }
-        },
-        isEmptyObject(value) {
-            return Object.keys(value).length === 0;
-        },
-        isEmptyString(value){
-            if (value === null || value === undefined || value === '') return true;
-        }
-    }
 };
 </script>
 <style>
