@@ -57,7 +57,7 @@ class MenuTableSeeder extends Seeder
             'title' 	=> '系统设置',
             'type' 		=> '',
             'value'     => '/admin/system/system',
-            'api_route'    => 'api.admin.system.',
+            'api_route'    => 'api.admin.system.system',
             'icon' 		=> 'fa fa-wrench',
             'target' 	=> '',
             'sort' 		=> 1,

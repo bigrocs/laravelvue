@@ -30,7 +30,9 @@ class BuilderMain
      */
     public function setRoutes($menus){
         foreach ($menus as $menu) {
-            $this->data['routes'][$menu->id] = ['name'=>$menu->name, 'path'=>$menu->value, 'apiUrl'=>$menu->api_url];
+            if ($menu->api_route) {
+                 $this->data['routes'][$menu->id] = ['name'=>$menu->name, 'path'=>$menu->value, 'apiUrl'=> route($menu->api_route)];
+            }
         }
         return $this;
     }
