@@ -53,6 +53,7 @@
                 <template scope="scope">
                     <table-status v-if="column.type=='status'" :datas="scope.row[column.prop]"></table-status>
                     <table-tags v-if="column.type=='tags'" :datas="scope.row[column.prop]" :column="column"></table-tags>
+                    <table-icon v-if="column.type=='icon'" :datas="scope.row[column.prop]"></table-icon>
                     <table-picture v-if="column.type=='picture'" :datas="scope.row[column.prop]" :column="column"></table-picture>
                     <template v-if="column.type=='btn'">
                         <table-button
@@ -87,6 +88,7 @@ import tableSearch from './packages/search.vue'
 import tableButton from './packages/table/button.vue'
 import tableScope from './packages/table/scope.vue'
 import tableTags from './packages/table/tags.vue'
+import tableIcon from './packages/table/icon.vue'
 import tableStatus from './packages/table/status.vue'
 import tablePicture from './packages/table/picture.vue'
 export default {
@@ -95,7 +97,7 @@ export default {
 
         tablePagination,tableSearch,
 
-        tableScope,tableButton, tableTags,tableStatus,tablePicture
+        tableScope,tableButton, tableTags,tableIcon,tableStatus,tablePicture
     },
     props: {
         tableDatas: {
