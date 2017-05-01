@@ -30,7 +30,7 @@ Route::group(['prefix' => 'admin/dashboard', 'as' => 'api.admin.dashboard.', 'mi
     /**
      *  后台首页
      */
-    Route::post('dashboard',                ['as' => 'dashboard.index',     'uses' => 'DashboardController@index']);  
+    Route::post('dashboard',                ['as' => 'index',     'uses' => 'DashboardController@index']);  
 });
 Route::group(['prefix' => 'admin/system', 'as' => 'api.admin.system.', 'middleware' => ['admin','auth:api'], 'namespace' => 'Api\Admin'], function () {
     /**
