@@ -81,6 +81,20 @@ class Helpers
     public function getTabsConfigGroupList(){
         return explode(',', $this->getAdminConfig('CONFIG_GROUP_LIST'));
     }
+    /**
+     * [getTabsMenuGroupList 获取菜单导航数据并转换为TABs]
+     * @author BigRocs
+     * @email    bigrocs@qq.com
+     * @DateTime 2017-05-02T16:06:09+0800
+     * @return   [type]                   [description]
+     */
+    public function getTabsMenuGroupList(){
+        $menuGroupList = collect(explode(',', $this->getAdminConfig('MENU_GROUP_LIST')));
+        return $tabsMenuGroupList = $menuGroupList->mapWithKeys(function ($menu) {
+            $menu = explode(':',$menu);
+            return [$menu[0] => $menu[1]];
+        });
+    }
     public function compileTableRequest($request){
         $group      = $request->tabIndex;
         $data[]     = empty($group) ? 0 : $group;
