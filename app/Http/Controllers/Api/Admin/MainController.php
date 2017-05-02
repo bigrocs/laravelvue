@@ -32,10 +32,10 @@ class MainController extends Controller
                             ->setMenus($menus)
                             ->setConfig('homeRouterNmae',  'api.admin.dashboard.index')
                             ->setConfig('loginRouterNmae', 'login')
-                            ->setConfig('loginUrl', '/admin/login')
-                            ->setApiUrl('logout',          '/admin/logout')
-                            ->setApiUrl('login',           '/admin/login')
-                            ->setApiUrl('authCheck',       '/admin/authCheck')
+                            ->setConfig('loginUrl',        '/admin/login')
+                            ->setApiUrl('logout',          route('admin.auth.logout'))
+                            ->setApiUrl('login',           route('admin.auth.login'))
+                            ->setApiUrl('authCheck',       route('admin.auth.check'))
                             ->get();
     }
 }
