@@ -10,8 +10,8 @@
                     </template>
                 </el-card>
                 <el-tabs type="card" v-model="tabIndex" @tab-click="handleTabsClick" v-else>
-                    <el-tab-pane v-for="(tabs,key) in currentData.tabs" :key="key" :label="tabs">
-                        <template v-if="tabIndex == key" v-for="data in currentData" >
+                    <el-tab-pane v-for="(tabs,key) in currentData.tabs" :key="key" :name="key.toString()" :label="tabs">
+                        <template v-if="postData.tabIndex == key" v-for="data in currentData" >
                             <builder-form   v-if="data.type == 'form'"      :datas="data"></builder-form>
                             <builder-table  v-if="data.type == 'table'"     :tableDatas="data"></builder-table>
                         </template>
@@ -54,7 +54,7 @@ export default {
             dialogFormVisible: 'dialogFormVisible',
             currentData: 'currentData',
             postData: 'postData',
-            tabIndex: state => state.postData.tabIndex,
+            tabIndex: state => Object.keys(state.currentData.tabs)[0].toString(),      //默认tabIndex  tabs索引名
         }),
     },
     methods: {
@@ -68,9 +68,9 @@ export default {
          * @return   {[type]}                       [description]
          */
         handleTabsClick(tab, event){
-            this.$store.dispatch('initPostData')//初始化POST数据
-            this.$store.dispatch('setPostData',{tabIndex:tab.index})//设置post数据
-            this.$store.dispatch('getCurrentData',this.postData)//重新获取页面数据
+            this.$store.dispatch('initPostData')                            //初始化POST数据
+            this.$store.dispatch('setPostData',{tabIndex:tab.name})        //设置post数据
+            this.$store.dispatch('getCurrentData',this.postData)            //重新获取页面数据
         },
 
 
