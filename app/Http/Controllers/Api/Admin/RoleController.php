@@ -39,11 +39,11 @@ class RoleController extends Controller
                                 ->addTableColumn(['prop' => 'display_name','label'=> '角色名称','minWidth'=> '180'])
                                 ->addTableColumn(['prop' => 'description','label'=> '角色描述','minWidth'=> '280'])
                                 ->addTableColumn(['prop' => 'rightButton','label'=> '操作',   'minWidth'=> '220',  'type' => 'btn'])
-                                ->addTableTopButton(['buttonType'=>'add',   'apiUrl'=> '/api/admin/system/role/add',    'title'=>'新增角色'])                         // 添加新增按钮
-                                ->addTableTopButton(['buttonType'=>'delete','apiUrl'=> '/api/admin/system/role/delete'])                         // 添加删除按钮
-                                ->addTableRightButton(['buttonType'=>'edit','apiUrl'=> '/api/admin/system/role/edit'])                         // 添加编辑按钮
-                                ->addTableRightButton(['title'=>'权限管理', 'apiUrl'=> '/api/admin/system/role/permission','type'=>'warning', 'icon'=>'fa fa-unlock'])                         // 添加权限管理按钮
-                                ->addTableRightButton(['buttonType'=>'delete','apiUrl'=> '/api/admin/system/role/delete'])                       // 添加删除按钮
+                                ->addTableTopButton(['buttonType'=>'add',       'apiUrl'=> route('api.admin.system.role.add'),    'title'=>'新增角色'])                         // 添加新增按钮
+                                ->addTableTopButton(['buttonType'=>'delete',    'apiUrl'=> route('api.admin.system.role.delete')])                         // 添加删除按钮
+                                ->addTableRightButton(['buttonType'=>'edit',    'apiUrl'=> route('api.admin.system.role.edit')])                         // 添加编辑按钮
+                                ->addTableRightButton(['title'=>'权限管理',     'apiUrl'=> route('api.admin.system.role.permission'),'type'=>'warning', 'icon'=>'fa fa-unlock'])                         // 添加权限管理按钮
+                                ->addTableRightButton(['buttonType'=>'delete',  'apiUrl'=> route('api.admin.system.role.delete')])                       // 添加删除按钮
                                 ->setTablePagination(['total'=>$total,'pageSize'=>$pageSize,'pageSizes'=>$pageSizes,'layout'=>'total, sizes, prev, pager, next, jumper'])//分页设置
                                 ->setSearchTitle('请输入搜索内容')
                                 ->setSearchSelect(['id'=>'ID','name'=>'角色标识','display_name'=>'角色名称','description'=>'角色描述'])
@@ -63,7 +63,7 @@ class RoleController extends Controller
         return response()->json($data, 200);
     }
     public function add(){
-        return $data = BuilderData::addFormApiUrl('submit','/api/admin/system/role/store')               //添加Submit通信API
+        return $data = BuilderData::addFormApiUrl('submit',route('api.admin.system.role.store'))               //添加Submit通信API
                             ->setFormTitle('新增角色')                                                   //添form表单页面标题
                             ->setFormConfig(['width'=>'90px'])
                             ->addFormItem(['name' => 'name',      'type' => 'text',     'label' => '角色标识'     ])
@@ -89,7 +89,7 @@ class RoleController extends Controller
     }
     public function edit(Request $request){ 
         $roles = $this->roleModel->find($request->id);
-        return $data = BuilderData::addFormApiUrl('submit','/api/admin/system/role/update')               //添加Submit通信API
+        return $data = BuilderData::addFormApiUrl('submit',route('api.admin.system.role.update'))               //添加Submit通信API
                             ->setFormTitle('新增角色')                                                   //添form表单页面标题
                             ->setFormConfig(['width'=>'90px'])
                             ->addFormItem(['name' => 'id',        'type' => 'hidden',   'label' => 'ID'     ])
@@ -113,7 +113,7 @@ class RoleController extends Controller
     }
     public function permission(Request $request){ 
         $roles = $this->roleModel->find($request->id);
-        return $data = BuilderData::addFormApiUrl('submit','/api/admin/system/role/permission-update')               //添加Submit通信API
+        return $data = BuilderData::addFormApiUrl('submit',route('api.admin.system.role.permission-update'))               //添加Submit通信API
                             ->setFormTitle('新增角色')                                                   //添form表单页面标题
                             ->setFormConfig(['width'=>'90px'])
                             ->addFormItem(['name' => 'id',        'type' => 'hidden',   'label' => 'ID'     ])

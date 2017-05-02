@@ -32,7 +32,7 @@ class SystemController extends Controller
                             ->where('status', '=', 1)
                             ->get();
         return $data = BuilderData::addFormData($adminConfigs)
-                            ->addFormApiUrl('submit','/api/admin/system/system/update')              //添加Submit通信API
+                            ->addFormApiUrl('submit',route('api.admin.system.system.update'))              //添加Submit通信API
                             ->setTabs(Helpers::getTabsConfigGroupList())    //设置页面Tabs
                             ->setTitle('系统设置')
                             ->setFormConfig(['width'=>'100px'])

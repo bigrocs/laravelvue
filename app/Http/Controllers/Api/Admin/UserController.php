@@ -56,13 +56,13 @@ class UserController extends Controller
                                 ->addTableColumn(['prop' => 'mobile',     'label'=> '手机',   'minWidth'=> '180'])
                                 ->addTableColumn(['prop' => 'status',     'label'=> '状态',   'width'=> '90',      'type' => 'status'])
                                 ->addTableColumn(['prop' => 'rightButton','label'=> '操作',   'minWidth'=> '220',  'type' => 'btn'])
-                                ->addTableTopButton(['buttonType'=>'add',        'apiUrl'=> '/api/admin/system/user/add','title'=>'新增用户','icon'=>'fa fa-plus'])                         // 添加新增按钮
-                                ->addTableTopButton(['buttonType'=>'resume',     'apiUrl'=> '/api/admin/system/user/status'])                         // 添加启用按钮
-                                ->addTableTopButton(['buttonType'=>'forbid',     'apiUrl'=> '/api/admin/system/user/status'])                         // 添加禁用按钮
-                                ->addTableTopButton(['buttonType'=>'delete',     'apiUrl'=> '/api/admin/system/user/delete'])                         // 添加删除按钮
-                                ->addTableRightButton(['buttonType'=>'edit',     'apiUrl'=> '/api/admin/system/user/edit'])                         // 添加编辑按钮
-                                ->addTableRightButton(['buttonType'=>'forbid',   'apiUrl'=> '/api/admin/system/user/status'])                       // 添加禁用/启用按钮
-                                ->addTableRightButton(['buttonType'=>'delete',   'apiUrl'=> '/api/admin/system/user/delete'])                       // 添加删除按钮
+                                ->addTableTopButton(['buttonType'=>'add',        'apiUrl'=> route('api.admin.system.user.add'),'title'=>'新增用户','icon'=>'fa fa-plus'])                         // 添加新增按钮
+                                ->addTableTopButton(['buttonType'=>'resume',     'apiUrl'=> route('api.admin.system.user.status')])                         // 添加启用按钮
+                                ->addTableTopButton(['buttonType'=>'forbid',     'apiUrl'=> route('api.admin.system.user.status')])                         // 添加禁用按钮
+                                ->addTableTopButton(['buttonType'=>'delete',     'apiUrl'=> route('api.admin.system.user.delete')])                         // 添加删除按钮
+                                ->addTableRightButton(['buttonType'=>'edit',     'apiUrl'=> route('api.admin.system.user.edit')])                         // 添加编辑按钮
+                                ->addTableRightButton(['buttonType'=>'forbid',   'apiUrl'=> route('api.admin.system.user.status')])                       // 添加禁用/启用按钮
+                                ->addTableRightButton(['buttonType'=>'delete',   'apiUrl'=> route('api.admin.system.user.delete')])                       // 添加删除按钮
                                 ->setTablePagination(['total'=>$total,'pageSize'=>$pageSize,'pageSizes'=>$pageSizes,'layout'=>'total, sizes, prev, pager, next, jumper'])//分页设置
                                 ->setSearchTitle('请输入搜索内容')
                                 ->setSearchSelect(['id'=>'ID','name'=>'用户名','email'=>'邮箱','mobile'=>'手机'])
@@ -99,7 +99,7 @@ class UserController extends Controller
             $item['name'] = $item['display_name'];
             return $item;
         });
-        return $data = BuilderData::addFormApiUrl('submit','/api/admin/system/user/store')               //添加Submit通信API
+        return $data = BuilderData::addFormApiUrl('submit',route('api.admin.system.user.store'))               //添加Submit通信API
                             ->setFormTitle('新增用户')                                           //添form表单页面标题
                             ->setFormConfig(['width'=>'90px'])
                             ->addFormItem(['name' => 'name',      'type' => 'text',     'label' => '用户名'     ])
@@ -147,7 +147,7 @@ class UserController extends Controller
             $item['name'] = $item['display_name'];
             return $item;
         });
-        return $data = BuilderData::addFormApiUrl('submit','/api/admin/system/user/update')               //添加Submit通信API
+        return $data = BuilderData::addFormApiUrl('submit',route('api.admin.system.user.update'))               //添加Submit通信API
                             ->setFormTitle('编辑用户')                                           //添form表单页面标题
                             ->setFormConfig(['width'=>'90px'])
                             ->addFormItem(['name' => 'id',        'type' => 'hidden',   'label' => 'ID'     ])
