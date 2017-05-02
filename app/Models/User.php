@@ -57,6 +57,11 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = bcrypt($value);
     }
+    public function getUserAllPermission($userId){
+        // $admin = $this->hasRole('admin');
+        dd($userId);
+        return;
+    }
     /**
      * [getRules 前端验证规则]
      * @author BigRocs
