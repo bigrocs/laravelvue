@@ -22,7 +22,6 @@ class CreateAdminConfigsTable extends Migration
             $table->tinyInteger('group')    ->comment('配置分组')->unsigned();
             $table->string('type')          ->comment('配置类型');
             $table->string('icon')          ->comment('配置字体图标')->nullable();
-            $table->string('property')      ->comment('配置属性')->nullable();
             $table->string('options')       ->comment('配置额外值')->nullable();
             $table->string('placeholder')           ->comment('配置说明')->nullable();
             $table->tinyInteger('status')   ->comment('状态')->default(1);
