@@ -30,8 +30,8 @@ class MainController extends Controller
         // dd($menus);
         return $data =  BuilderMain::setRoutes($menus)
                             ->setMenus($menus)
-                            ->setConfig('home.routerNmae',  'dashboard')
-                            ->setConfig('login.routerNmae', 'login')
+                            ->setConfig('homeRouterNmae',  'api.admin.dashboard.index')
+                            ->setConfig('loginRouterNmae', 'login')
                             ->setConfig('loginUrl', '/admin/login')
                             ->setApiUrl('logout',          '/admin/logout')
                             ->setApiUrl('login',           '/admin/login')
