@@ -49,13 +49,13 @@ class ConfigController extends Controller
                                 ->addTableColumn(['prop' => 'sort',       'label'=> '排序',   'width'=> '70'])
                                 ->addTableColumn(['prop' => 'status',     'label'=> '状态',   'minWidth'=> '90','type' => 'status'])
                                 ->addTableColumn(['prop' => 'rightButton','label'=> '操作',   'minWidth'=> '220','type' => 'btn'])
-                                ->addTableTopButton(['buttonType'=>'add',       'apiUrl'=> '/api/admin/system/config/add','title'=>'添加配置'])                         // 添加新增按钮
-                                ->addTableTopButton(['buttonType'=>'resume',    'apiUrl'=> '/api/admin/system/config/status'])                         // 添加启用按钮
-                                ->addTableTopButton(['buttonType'=>'forbid',    'apiUrl'=> '/api/admin/system/config/status'])                         // 添加禁用按钮
-                                ->addTableTopButton(['buttonType'=>'delete',    'apiUrl'=> '/api/admin/system/config/delete'])                         // 添加删除按钮
-                                ->addTableRightButton(['buttonType'=>'edit',    'apiUrl'=> '/api/admin/system/config/edit'])                         // 添加编辑按钮
-                                ->addTableRightButton(['buttonType'=>'forbid',  'apiUrl'=> '/api/admin/system/config/status'])                       // 添加禁用/启用按钮
-                                ->addTableRightButton(['buttonType'=>'delete',  'apiUrl'=> '/api/admin/system/config/delete'])                       // 添加删除按钮
+                                ->addTableTopButton(['buttonType'=>'add',       'apiUrl'=> route('api.admin.system.config.add'),'title'=>'添加配置'])                         // 添加新增按钮
+                                ->addTableTopButton(['buttonType'=>'resume',    'apiUrl'=> route('api.admin.system.config.status')])                         // 添加启用按钮
+                                ->addTableTopButton(['buttonType'=>'forbid',    'apiUrl'=> route('api.admin.system.config.status')])                         // 添加禁用按钮
+                                ->addTableTopButton(['buttonType'=>'delete',    'apiUrl'=> route('api.admin.system.config.delete')])                         // 添加删除按钮
+                                ->addTableRightButton(['buttonType'=>'edit',    'apiUrl'=> route('api.admin.system.config.edit')])                         // 添加编辑按钮
+                                ->addTableRightButton(['buttonType'=>'forbid',  'apiUrl'=> route('api.admin.system.config.status')])                       // 添加禁用/启用按钮
+                                ->addTableRightButton(['buttonType'=>'delete',  'apiUrl'=> route('api.admin.system.config.delete')])                       // 添加删除按钮
                                 ->setTabs(Helpers::getTabsConfigGroupList())                                                //设置页面Tabs
                                 ->setTablePagination(['total'=>$total,'pageSize'=>$pageSize,'pageSizes'=>$pageSizes,'layout'=>'total, sizes, prev, pager, next, jumper'])//分页设置
                                 ->setSearchTitle('请输入搜索内容')
@@ -90,7 +90,7 @@ class ConfigController extends Controller
     public function add(){
         $configGroupList = Helpers::getTabsConfigGroupList();
         $formItemType = BuilderData::getformItemType();
-        return $data = BuilderData::addFormApiUrl('submit','/api/admin/system/config/store')               //添加Submit通信API
+        return $data = BuilderData::addFormApiUrl('submit',route('api.admin.system.config.store'))               //添加Submit通信API
                             ->setFormTitle('新增配置')                                           //添form表单页面标题
                             ->addFormItem(['name' => 'group',     'type' => 'select',   'label' => '配置分组',     'placeholder' => '配置所属的分组',                          'options'=>$configGroupList,    'value'=>0])
                             ->addFormItem(['name' => 'type',      'type' => 'select',   'label' => '配置类型',     'placeholder' => '配置类型的分组',                          'options'=>$formItemType,       'value'=>'text'])
@@ -135,7 +135,7 @@ class ConfigController extends Controller
         $adminConfig = $this->adminConfigModel->find($request->id);
         $configGroupList = Helpers::getTabsConfigGroupList();
         $formItemType = BuilderData::getformItemType();
-        return $data = BuilderData::addFormApiUrl('submit','/api/admin/system/config/update')               //添加Submit通信API
+        return $data = BuilderData::addFormApiUrl('submit',route('api.admin.system.config.update'))              //添加Submit通信API
                             ->setFormTitle('编辑配置')                                           //添form表单页面标题
                             ->addFormItem(['name' => 'id',        'type' => 'text',     'label' => '数据ID',       'placeholder' => 'ID','disabled'=>true])
                             ->addFormItem(['name' => 'group',     'type' => 'select',   'label' => '配置分组',     'placeholder' => '配置所属的分组','options'=>$configGroupList])
