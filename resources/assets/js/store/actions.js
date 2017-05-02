@@ -110,7 +110,7 @@ export const openDialogForm = ({ commit,state },{url,postData}) => {
  * @return   {[type]}                                [description]
  */
 export const getCurrentData = ({ commit,state },postData=state.postData) => {
-    axios.post(state.currentApiUrl,postData).then((Response) => {
+    axios.post(state.currentApiUrl,postData,{withCredentials:true}).then((Response) => {
     	commit(types.SET_CURRENT_DATA,Response.data) 
         if(state.currentData.title){
             document.title = state.currentData.title//设置页面标题
@@ -155,7 +155,7 @@ export const getCurrentData = ({ commit,state },postData=state.postData) => {
  * @return   {[type]}                                      [description]
  */
 export const getHttpNotify = ({ commit,state },{url = state.currentApiUrl, postData = '',thenFunction = '',notification = true}) => {
-    axios.post(url,postData)
+    axios.post(url,postData,{withCredentials:true})
         .then((Response) => {
             if (thenFunction) {
               thenFunction(Response)
