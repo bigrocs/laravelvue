@@ -111,7 +111,15 @@ export const openDialogForm = ({ commit,state },{url,postData}) => {
  */
 export const getCurrentData = ({ commit,state },postData=state.postData) => {
     axios.post(state.currentApiUrl,postData,{withCredentials:true}).then((Response) => {
+        //设置CurrentData 
     	commit(types.SET_CURRENT_DATA,Response.data) 
+        //初始化tabIndex
+        if (state.postData.tabIndex==0 && Response.data.tabs) {
+            let tabIndex =  Object.keys(Response.data.tabs)[0].toString()
+            commit(types.SET_POST_DATA,{
+                tabIndex:tabIndex,
+            })
+        }
         if(state.currentData.title){
             document.title = state.currentData.title//设置页面标题
         }
