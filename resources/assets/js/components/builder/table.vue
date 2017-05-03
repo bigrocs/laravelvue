@@ -80,7 +80,6 @@
 
 <script>
 import { mapState } from 'vuex'
-import builderForm from './form.vue'
 
 import tablePagination from './packages/pagination.vue'
 import tableSearch from './packages/search.vue'
@@ -93,8 +92,6 @@ import tableStatus from './packages/table/status.vue'
 import tablePicture from './packages/table/picture.vue'
 export default {
     components: {
-        builderForm,
-
         tablePagination,tableSearch,
 
         tableScope,tableButton, tableTags,tableIcon,tableStatus,tablePicture
