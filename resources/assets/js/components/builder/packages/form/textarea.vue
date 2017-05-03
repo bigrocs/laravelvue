@@ -41,6 +41,7 @@ export default{
         Initialization(){
             let name = this.config.name
             if (this.datas[name]==null) {this.datas[name] = ''}
+            this.datas[name] = this.datas[name].toString()
         }
     }
 }
