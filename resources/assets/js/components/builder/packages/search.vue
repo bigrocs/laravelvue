@@ -21,12 +21,6 @@ export default {
             default: ''
         },
     },
-    data() {
-      return {
-          selectSearch: '',
-          inputSearch: '',
-      }
-    },
     computed: {
         ...mapState({
             postData: 'postData',
