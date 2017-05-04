@@ -13,8 +13,7 @@ Vue.use(ElementUI)
 
 window.VueRouter = VueRouter                          //路由变量注册全局
 //CSS样式加载
-import './../css/fontsgoogleapis.css'				 //加载谷歌字体
-import 'element-ui/lib/theme-default/index.css'      //饿了吗框架样式
+
 
 
 window.axios.defaults.headers.common = {
